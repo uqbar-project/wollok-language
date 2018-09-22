@@ -1,3 +1,5 @@
+import singletons.*
+
 describe "Singletons"{
 	
 	test "compare identity of three literal objects"{
@@ -20,7 +22,7 @@ describe "Singletons"{
 		assert.that(o1 == o3)
 	}
 	
-		test "compare identity of three strings"{
+	test "compare identity of three strings"{
 		const o1 = "hola"
 		const o2 = "hola"
 		const o3 = o1
@@ -29,9 +31,8 @@ describe "Singletons"{
 		assert.that(o1 !== o2)
 		assert.that(o1 === o3)
 	}
-	
-	
-		test "compare equality of three strings"{
+		
+	test "compare equality of three strings"{
 		const o1 = "hola"
 		const o2 = "hola"
 		const o3 = o1
@@ -54,5 +55,8 @@ describe "Singletons"{
 		
 		assert.equals(4, myObject.m(2))
 	}
-	
+
+	test "objects that inherits from a class"{
+		assert.that(o.m()==5)
+	}	
 }
