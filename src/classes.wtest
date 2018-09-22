@@ -1,0 +1,10 @@
+import classes.*
+
+describe "clases"{
+	
+	test "override method" {
+
+	assert.that(new Class2().m() == 2)
+
+}
+}

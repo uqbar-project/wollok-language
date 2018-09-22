@@ -1,0 +1,17 @@
+import Constructors.*
+describe "constructors" {
+	
+	test "constructor with explicit builder" {
+
+	assert.that(new Point(1,2).getX()==1)
+
+	}
+	
+	test "constructor delegations to another constructor in the same class"{
+		assert.that(new Point(new Point(3,4)).getY()==4)
+	}
+	
+	test "constructor delegations to a superclass"{
+		assert.that(new Circle (4,5,6).getY() == 5)
+	}
+}

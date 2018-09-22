@@ -3,43 +3,43 @@ import singletons.*
 describe "Singletons"{
 	
 	test "compare identity of three literal objects"{
-		const o1 = object {}
-		const o2 = object {}
-		const o3 = o1
+		const ob1 = object {}
+		const ob2 = object {}
+		const ob3 = ob1
 		
-		assert.that(o1 === o1)
-		assert.that(o1 !== o2)
-		assert.that(o1 === o3)
+		assert.that(ob1 === ob1)
+		assert.that(ob1 !== ob2)
+		assert.that(ob1 === ob3)
 	}
 	
 	test "compare equality of three literal objects"{
-		const o1 = object {}
-		const o2 = object {}
-		const o3 = o1
+		const ob1 = object {}
+		const ob2 = object {}
+		const ob3 = ob1
 		
-		assert.that(o1 == o1)
-		assert.that(o1 != o2)
-		assert.that(o1 == o3)
+		assert.that(ob1 == ob1)
+		assert.that(ob1 != ob2)
+		assert.that(ob1 == ob3)
 	}
 	
 	test "compare identity of three strings"{
-		const o1 = "hola"
-		const o2 = "hola"
-		const o3 = o1
+		const ob1 = "hola"
+		const ob2 = "hola"
+		const ob3 = ob1
 		
-		assert.that(o1 === o1)
-		assert.that(o1 !== o2)
-		assert.that(o1 === o3)
+		assert.that(ob1 === ob1)
+		assert.that(ob1 !== ob2)
+		assert.that(ob1 === ob3)
 	}
 		
 	test "compare equality of three strings"{
-		const o1 = "hola"
-		const o2 = "hola"
-		const o3 = o1
+		const ob1 = "hola"
+		const ob2 = "hola"
+		const ob3 = ob1
 		
-		assert.that(o1 == o1)
-		assert.that(o1 == o2)
-		assert.that(o1 == o3)
+		assert.that(ob1 == ob1)
+		assert.that(ob1 == ob2)
+		assert.that(ob1 == ob3)
 	}
 	
 	test "literal object with instance variables and a simple return method"{
@@ -58,5 +58,27 @@ describe "Singletons"{
 
 	test "objects that inherits from a class"{
 		assert.that(o.m()==5)
+	}
+	
+	test "object that inherit from a class with explicit builders"{
+		assert.that(o2.m()==6)
 	}	
+	
+	test "object that inherit from a class and have a mixin"{
+		assert.that(o3.m()==6)
+		assert.that(o3.z()==10)
+	}	
+	
+	test "object thats have multiple mixins"{
+		assert.that(o4.z2()==11)
+		assert.that(o4.z()==10)
+	}	
+	
+	test "object that inherit from a class and have multiple mixins"{
+		assert.that(o5.m()==6)
+		assert.that(o5.z2()==11)
+		assert.that(o5.z()==10)
+	}	
+	
+	
 }
