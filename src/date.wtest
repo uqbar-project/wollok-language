@@ -1,0 +1,77 @@
+test "today" {
+
+	assert.equals(new Date(), new Date())
+
+}
+
+test "yesterday" {
+
+	assert.equals(new Date().minusDays(1), new Date().minusDays(1))
+
+}
+
+test "yesterday < today" {
+
+	assert.that(new Date().minusDays(1) < new Date())
+
+}
+
+test "last month" {
+
+	assert.equals(new Date().minusMonths(1), new Date().minusMonths(1))
+
+}
+
+test "yesterday is between last month and today" {
+
+	assert.that(new Date().minusMonths(1).between(new Date().minusMonths(1), new Date()))
+
+}
+
+test "today plus 2 years" {
+
+	assert.equals(new Date().plusYears(2), new Date().plusYears(2))
+
+}
+
+test "today plus 2 months" {
+
+	assert.equals(new Date().plusMonths(2), new Date().plusMonths(2))
+
+}
+
+test "today plus 2 days" {
+
+	assert.equals(new Date().plusDays(2), new Date().plusDays(2))
+
+}
+
+test "day of week" {
+
+	assert.equals(new Date().dayOfWeek(), new Date().dayOfWeek())
+
+}
+
+test "month" {
+
+	assert.equals(new Date().month(), new Date().month())
+
+}
+
+test "years" {
+
+	assert.equals(new Date().year(), new Date().year())
+
+}
+
+test "is leap year" {
+	const dayofLeapYear = new Date(1,2,2016)
+	assert.that(dayofLeapYear.isLeapYear())
+
+}
+
+test "is not leap year" {
+	const dayofNotLeapYear = new Date(1,2,2018)
+	assert.notThat(dayofNotLeapYear.isLeapYear())
+
+}

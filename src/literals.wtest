@@ -1,0 +1,82 @@
+describe "Literals"{
+	
+// ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// BOOLEANS
+// ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+	test "True"{
+		assert.that(true)
+	}
+	
+	test "False"{
+		assert.notThat(false)
+	}
+	
+	test "Null"{
+		assert.equals(null, null)
+	}
+
+// ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// NUMBERS
+// ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+	test "Positive number"{
+		assert.equals(10, 1+9)
+	}
+	
+	test "Negative number"{
+		assert.equals(-10, -11+1)
+	}
+	
+	test "Positive fractional number"{
+		assert.equals(1.5, 1.5)
+	}
+	
+	test "Negative fractional number"{
+		assert.equals(-1.5, -1.5)
+	}
+
+// ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// STRINGS
+// ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+	test "String" {
+		assert.equals("foo", "foo")
+	}
+	
+	test "Empty strings" {
+		assert.equals("","")
+	}
+	
+	test "Strings with escape sequences" {
+		assert.equals("foo\\nbar","foo\\nbar")
+	}
+	
+	test "Strings with the escaped escape character without escaping the whole sequence" {
+		assert.equals("foo\\\\nbar","foo\\\\nbar")
+	}
+	
+// ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+// COLLECTIONS
+// ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+	
+	test "Empty list"{
+		assert.equals([],[])
+	}
+	
+	test "Non-empty list"{
+		assert.equals([1,2,3], [1,2,3])
+	}
+	
+	test "Empty set"{
+		assert.equals(#{}, #{})
+	}
+	
+	test "Non-empty set"{
+		assert.equals(#{1,2,3}, #{1,2,3})
+	}
+	
+}
+
+
+

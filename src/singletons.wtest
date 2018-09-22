@@ -1,0 +1,58 @@
+describe "Singletons"{
+	
+	test "compare identity of three literal objects"{
+		const o1 = object {}
+		const o2 = object {}
+		const o3 = o1
+		
+		assert.that(o1 === o1)
+		assert.that(o1 !== o2)
+		assert.that(o1 === o3)
+	}
+	
+	test "compare equality of three literal objects"{
+		const o1 = object {}
+		const o2 = object {}
+		const o3 = o1
+		
+		assert.that(o1 == o1)
+		assert.that(o1 != o2)
+		assert.that(o1 == o3)
+	}
+	
+		test "compare identity of three strings"{
+		const o1 = "hola"
+		const o2 = "hola"
+		const o3 = o1
+		
+		assert.that(o1 === o1)
+		assert.that(o1 !== o2)
+		assert.that(o1 === o3)
+	}
+	
+	
+		test "compare equality of three strings"{
+		const o1 = "hola"
+		const o2 = "hola"
+		const o3 = o1
+		
+		assert.that(o1 == o1)
+		assert.that(o1 == o2)
+		assert.that(o1 == o3)
+	}
+	
+	test "literal object with instance variables and a simple return method"{
+		
+		const myObject = object {
+			var a
+			method a(_a){
+				a = _a
+			}
+		    method m(b) = a * b
+		}
+		myObject.a(2)
+		
+		assert.equals(4, myObject.m(2))
+	}
+	
+}

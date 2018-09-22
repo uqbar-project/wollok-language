@@ -1,0 +1,16 @@
+describe "Returns"{
+	
+	test "Return" {
+
+		const myObject = object {
+			
+			method m(){
+				return 5
+			}
+		  
+		}
+
+	assert.that(myObject.m() == 5)
+
+	}
+}

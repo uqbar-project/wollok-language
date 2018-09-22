@@ -1,0 +1,17 @@
+describe "closures"{
+
+	test "Apply a closure without parameters" {
+	
+		assert.that ({2 + 5}.apply() === 7)
+	
+	}
+	
+	test "Apply a closure with vararg parameters" {
+	
+		assert.that ({a,b... => a}.apply(1,2) === 1)
+	
+	}
+	
+	
+	
+}

@@ -1,0 +1,107 @@
+describe "Assignments and fields"{
+	
+	test "Simple assignment" {
+
+		const myObject = object {
+			var a 
+			method assignA(b){
+				a = b
+			}
+			
+			method getA() = a
+		  
+		}
+
+	myObject.assignA(5)
+	assert.that(myObject.getA() == 5)
+
+	}
+	
+	test "+= operation" {
+
+		const myObject = object {
+			var a = 2
+			method assignA(b){
+				a += b
+			}
+			
+			method getA() = a
+		  
+		}
+
+	myObject.assignA(5)
+	assert.that(myObject.getA() == 7)
+
+	}
+	
+	test "-= operation" {
+
+		const myObject = object {
+			var a = 2
+			method assignA(b){
+				a -= b
+			}
+			
+			method getA() = a
+		  
+		}
+
+	myObject.assignA(5)
+	assert.that(myObject.getA() == -3)
+
+	}
+	
+	test "*= operation" {
+
+		const myObject = object {
+			var a = 2
+			method assignA(b){
+				a *= b
+			}
+			
+			method getA() = a
+		  
+		}
+
+	myObject.assignA(5)
+	assert.that(myObject.getA() == 10)
+
+	}
+	
+	test "/= operation" {
+
+		const myObject = object {
+			var a = 10
+			method assignA(b){
+				a /= b
+			}
+			
+			method getA() = a
+		  
+		}
+
+	myObject.assignA(2)
+	assert.that(myObject.getA() == 5)
+
+	}
+	
+	test "%= operation" {
+
+		const myObject = object {
+			const c = 19
+			var a = c
+			method assignA(b){
+				a %= b
+			}
+			
+			method getA() = a
+		  
+		}
+
+	myObject.assignA(5)
+	assert.that(myObject.getA() == 4)
+
+	}
+	
+	
+}
