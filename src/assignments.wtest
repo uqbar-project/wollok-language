@@ -29,8 +29,8 @@ describe "Assignments and fields"{
 		  
 		}
 
-	myObject.assignA(5)
-	assert.that(myObject.getA() == 7)
+		myObject.assignA(5)
+		assert.that(myObject.getA() == 7)
 
 	}
 	
