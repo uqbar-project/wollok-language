@@ -12,8 +12,8 @@ describe "Assignments and fields"{
 		  
 		}
 
-	myObject.assignA(5)
-	assert.that(myObject.getA() == 5)
+		myObject.assignA(5)
+		assert.that(myObject.getA() == 5)
 
 	}
 	
@@ -46,8 +46,8 @@ describe "Assignments and fields"{
 		  
 		}
 
-	myObject.assignA(5)
-	assert.that(myObject.getA() == -3)
+		myObject.assignA(5)
+		assert.that(myObject.getA() == -3)
 
 	}
 	
@@ -62,9 +62,9 @@ describe "Assignments and fields"{
 			method getA() = a
 		  
 		}
-
-	myObject.assignA(5)
-	assert.that(myObject.getA() == 10)
+	
+		myObject.assignA(5)
+		assert.that(myObject.getA() == 10)
 
 	}
 	
@@ -80,8 +80,8 @@ describe "Assignments and fields"{
 		  
 		}
 
-	myObject.assignA(2)
-	assert.that(myObject.getA() == 5)
+		myObject.assignA(2)
+		assert.that(myObject.getA() == 5)
 
 	}
 	
@@ -98,8 +98,8 @@ describe "Assignments and fields"{
 		  
 		}
 
-	myObject.assignA(5)
-	assert.that(myObject.getA() == 4)
+		myObject.assignA(5)
+		assert.that(myObject.getA() == 4)
 
 	}
 	
