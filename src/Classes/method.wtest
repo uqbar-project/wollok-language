@@ -1,0 +1,14 @@
+class Golondrina {
+			var energia = 100
+		
+			method energia() = energia
+			method capacidadDeVuelo() = 10
+		}
+		
+test "short syntax for methods returning a value" {
+
+	const pepona = new Golondrina()
+	assert.equals(pepona.energia(), 100)
+	assert.equals(pepona.capacidadDeVuelo(), 10)
+
+}
