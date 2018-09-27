@@ -2,12 +2,23 @@ describe "If expressions"{
 	
 	test "if without '{}'" {
 		const o = object {
+			var t
+			
+			method editT() {
+				t = 1
+			}
+			
+			method getT() = t
+			
 			method m(a){
 				if(a)
-				return 1
+				self.editT()
 			}
 		}
-		assert.that(o.m(true) == 1)
+		
+		o.m(true)
+		
+		assert.equals(1,  o.getT())
 	}
 	
 	test "if without '{}' with else" {
