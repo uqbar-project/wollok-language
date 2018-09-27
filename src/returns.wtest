@@ -10,7 +10,7 @@ describe "Returns"{
 		  
 		}
 
-	assert.that(myObject.m() == 5)
+	assert.equals(5, myObject.m())
 
 	}
 }
