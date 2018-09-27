@@ -8,7 +8,7 @@ describe "closures"{
 	
 	test "Apply a closure with vararg parameters" {
 	
-		assert.that ({a,b... => a}.apply(1,2) === 1)
+		assert.that ({a,b... => a + b.sum()}.apply(1, [2,3,4]) === 10)
 	
 	}
 	
