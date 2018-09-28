@@ -29,46 +29,62 @@ class Subject{
 				
 	method getY() = y
 }
+
+describe "Method Test"{
+	
+	test "Short syntax for methods returning a value" {
+
+		const pepona = new Golondrina()
+		assert.equals(pepona.energia(), 100)
+		assert.equals(pepona.capacidadDeVuelo(), 10)
+
+	}
+
+	test "varArgsInMethod: var args method must automatically box params as a list"{
 		
-test "Short syntax for methods returning a value" {
-
-	const pepona = new Golondrina()
-	assert.equals(pepona.energia(), 100)
-	assert.equals(pepona.capacidadDeVuelo(), 10)
-
-}
-
-test "varArgsInMethod: var args method must automatically box params as a list"{
-	const p = new Sample()
-	assert.equals("#1, #2, #3, #4", p.preffix("#", 1, 2, 3, 4).join(", "))
-}
-
-test "varArgsInMethod: Var args in method with just 1" {
-	const p = new Sample()
-	assert.equals("#1", p.preffix("#", 1).join(", "))
+		const p = new Sample()
+		assert.equals("#1, #2, #3, #4", p.preffix("#", 1, 2, 3, 4).join(", "))
+		
+	}
+	
+	test "varArgsInMethod: Var args in method with just 1" {
+		
+		const p = new Sample()
+		assert.equals("#1", p.preffix("#", 1).join(", "))
+		
+	}
+			
+	test "varArgsInMethod: Var args in method without elements" {
+		
+		const p = new Sample()
+		assert.equals("", p.preffix("#").join(", "))
+		
+	}
+	
+	test "varArgsInConstructor: Var arg in constructor with 4 elements" {
+		
+		const p = new Sample2("#", 1, 2, 3, 4)
+		assert.equals("#1, #2, #3, #4", p.getResult().join(", "))
+		
+	}
+			
+	test "varArgsInConstructor: Var arg in constructor with just 1 element" {
+		
+		const p = new Sample2("#", 1)
+		assert.equals("#1", p.getResult().join(", "))
+	}
+	
+	test "varArgsInConstructor: Var args in method without elements" {
+		
+		const p = new Sample2("#")
+		assert.equals("", p.getResult().join(", "))
+	}
+	
+	test "Init of variables" {
+		
+		var obj = new Subject()
+		assert.equals(8, obj.getY())
+		
+	}
 }
 		
-test "varArgsInMethod: Var args in method without elements" {
-	const p = new Sample()
-	assert.equals("", p.preffix("#").join(", "))
-}
-
-test "varArgsInConstructor: Var arg in constructor with 4 elements" {
-	const p = new Sample2("#", 1, 2, 3, 4)
-	assert.equals("#1, #2, #3, #4", p.getResult().join(", "))
-}
-		
-test "varArgsInConstructor: Var arg in constructor with just 1 element" {
-	const p = new Sample2("#", 1)
-	assert.equals("#1", p.getResult().join(", "))
-}
-
-test "varArgsInConstructor: Var args in method without elements" {
-	const p = new Sample2("#")
-	assert.equals("", p.getResult().join(", "))
-}
-
-test "Init of variables" {
-	var obj = new Subject()
-	assert.equals(8, obj.getY())
-}
