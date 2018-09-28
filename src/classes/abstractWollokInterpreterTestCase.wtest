@@ -1,0 +1,9 @@
+class MyClass {
+}
+		
+test "Simple method inherited from object" {
+
+	const myObject = new MyClass()
+	assert.that(myObject.identity() != null)
+	
+}
