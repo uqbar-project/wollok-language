@@ -1,0 +1,13 @@
+class MyClass {
+	method myMethod() = "1234"
+}
+
+object myObject inherits MyClass {
+	method something() = "abc"
+}
+			
+test "object inherit from custom class"{
+		assert.equals("abc", myObject.something())
+		assert.equals("1234", myObject.myMethod())
+	}
+	

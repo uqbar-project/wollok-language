@@ -1,0 +1,21 @@
+class MyClass {
+	var inheritedVariable = "1234"
+}
+
+object myObject inherits MyClass {
+	method something() {
+		return inheritedVariable
+	}
+
+	method setInheritedVariable(aValue){
+		inheritedVariable = aValue
+	}
+}
+			
+test "object inherit from custom class with instance variable" {
+
+	assert.equals("1234", myObject.something())
+	myObject.setInheritedVariable("abc")
+	assert.equals("abc", myObject.something())
+
+}

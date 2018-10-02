@@ -1,0 +1,15 @@
+class Auto {
+	var property kms
+	var property owner
+}
+
+object bordini inherits Auto(owner = "dodain", kms = 2000) {
+	method color() = "celeste"
+}
+
+test "object inheriting from a class named parameters" {
+
+	assert.equals(2000, bordini.kms())
+	assert.equals("dodain", bordini.owner())
+
+}
