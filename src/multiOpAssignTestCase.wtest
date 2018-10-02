@@ -1,0 +1,28 @@
+describe "Multi op assign test case"{
+	
+	 
+	test "Plus equals" {
+		
+		var n = 1
+		n += 1
+		assert.that(n == 2) 
+		 
+	}
+	
+	test "Multiply equals" {
+		
+		var n = 2
+		n *= 3
+		assert.that(n == 6)
+		 
+	}
+	
+	test "Substract equals" {
+		
+		var n = 2
+		n -= 1	
+		assert.that(n == 1)
+		 
+	}
+	
+}
