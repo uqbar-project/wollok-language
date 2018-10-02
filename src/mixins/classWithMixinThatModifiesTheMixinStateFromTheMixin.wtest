@@ -1,0 +1,17 @@
+mixin Walks {
+	var walkedDistance = 0
+	method walk(distance) {
+		walkedDistance += distance
+	}
+	method walkedDistance() = walkedDistance
+}
+
+class WalkingBird mixed with Walks {}
+		
+test "class with mixin that modifies the mixin state from the mixin" {
+
+	const b = new WalkingBird()
+	b.walk(10)
+	assert.equals(10, b.walkedDistance())
+
+}
