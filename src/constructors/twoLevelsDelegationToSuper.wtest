@@ -1,0 +1,21 @@
+class A {
+	var x
+	constructor(a) { x = a }
+				
+	method getX() { return x }
+}
+
+class B inherits A { 
+	constructor(n) = super(n + 1) {}
+}
+			
+class C inherits B {
+	constructor(l) = super(l * 2) {}
+}
+			
+test "twoLevelsDelegationToSuper" {
+
+	const o = new C(20)
+	assert.equals(41, o.getX())
+
+}
