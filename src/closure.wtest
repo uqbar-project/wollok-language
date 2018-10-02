@@ -1,16 +1,107 @@
 describe "closures"{
 
-	test "Apply a closure without parameters" {
+	test "apply a closure without parameters" {
 	
 		assert.that ({2 + 5}.apply() === 7)
 	
 	}
 	
-	test "Apply a closure with vararg parameters" {
+	test "apply a closure with vararg parameters" {
 	
 		assert.that ({a,b... => a + b.sum()}.apply(1, [2,3,4]) === 10)
 	
 	}
 	
 	
+	test "apply closure with one argument"{
+		
+		const helloWorld = {to => "hello " + to }
+		const response = helloWorld.apply("world")		
+		assert.equals("hello world", response)
+		
+	}
+	
+	test "closure access local variable in program"{
+		
+		var to = "world"
+		const helloWorld = {=>"hello " + to }
+			
+		assert.equals("hello world", helloWorld.apply())
+			
+		to = "someone else"
+		assert.equals("hello someone else", helloWorld.apply())
+		
+	}
+	
+	test "closure as parameter to closure"{
+		
+		const twice = { block => block.apply() + block.apply() }
+			
+		assert.equals(4, twice.apply {=> 2 })
+		
+	}
+	
+	test "nested closure"{
+		
+		const sum =  {a, b => a + b}
+			
+		const curried = { a =>
+			{ b => sum.apply(a, b) } 
+		}
+			
+		const curriedSum = curried.apply(2)
+			
+		assert.equals(5, curriedSum.apply(3))
+	}
+	
+	test "folding closures"{
+		
+		const sum2 = { a => a + 2};
+		const by3 = { b => b * 3};
+		const pow = { c => c ** 2};
+			
+		const op = [sum2, by3, pow]
+			
+		const result = op.fold(0, {acc, o =>  o.apply(acc) })
+			
+		assert.equals(36, result)
+		
+	}
+	
+	test "closures wrong arguments"{
+		
+		assert.throwsExceptionWithMessage(
+		"Cantidad incorrecta de parámetros para el mensaje: se requiere 1 pero se enviaron 2",
+			{ { a => a + 2 }.apply(1, 2) }
+		)
+		
+	}
+	
+	test "closures wrong arguments 2"{
+		
+		assert.throwsExceptionWithMessage(
+		"Cantidad incorrecta de parámetros para el mensaje: se requiere 1 pero se enviaron 0",
+		{ { a => a + 2 }.apply() }
+		)
+		
+	}
+	
+	test "number closure"{
+		
+		assert.equals(2, { a => a }.apply(2))
+		
+	}
+	
+	test "null closure"{
+		
+		assert.equals(null, { null }.apply())
+		
+	}
+	
+	test "to string closure"{
+	
+		assert.equals("{ a => a + 1 }", { a => a + 1 }.toString())
+		
+	}
 }
+
