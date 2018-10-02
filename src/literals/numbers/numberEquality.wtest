@@ -1,0 +1,25 @@
+test "numberEquality" {
+
+	assert.that(1 == 1)
+	assert.that(1 == 1.0)
+	assert.that(1.0 == 1)
+	assert.that(1.0 == 1.0)
+			
+	assert.notThat(1 == 2)
+	assert.notThat(1.0 == 2)
+	assert.notThat(1 == 2.0)
+	assert.notThat(1.0 == 2.0)
+			
+	assert.that(1 != 2)
+	assert.that(1 != 2.0)
+	assert.that(1.0 != 2)
+	assert.that(1.0 != 2.0)
+			
+	assert.notThat(1 != 1)
+	assert.notThat(1.0 != 1)
+	assert.notThat(1 != 1.0)
+	assert.notThat(1.0 != 1.0)
+		
+	assert.notThat(1 == "aString")
+
+}

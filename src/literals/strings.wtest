@@ -1,0 +1,19 @@
+describe "Strings"{
+	
+	test "String" {
+		assert.equals("foo", "foo")
+	}
+	
+	test "Empty strings" {
+		assert.equals("","")
+	}
+	
+	test "Strings with escape sequences" {
+		assert.equals("foo\\nbar","foo\\nbar")
+	}
+	
+	test "Strings with the escaped escape character without escaping the whole sequence" {
+		assert.equals("foo\\\\nbar","foo\\\\nbar")
+	}
+	
+}

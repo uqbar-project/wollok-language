@@ -1,0 +1,15 @@
+describe "booleans"{
+	
+	test "True"{
+		assert.that(true)
+	}
+	
+	test "False"{
+		assert.notThat(false)
+	}
+	
+	test "Null"{
+		assert.equals(null, null)
+	}
+
+}
