@@ -1,0 +1,51 @@
+object obj2 {
+	var y 
+	method setY(anObject){
+		y = anObject
+	}
+}
+			
+object obj1 {
+	var x = []
+	method addX(anObject){
+		x.add(anObject)
+	}
+}
+
+class Prb {
+				
+}
+
+class Cuenta {
+	const property duenios = []
+}
+		
+class Duenio {
+	const property cuentas = []
+}
+
+describe "Recursive to string test case"{
+	
+	test "test lists" {
+
+		obj1.addX(obj2)
+		obj2.setY(obj1)
+		obj1.addX(new Prb())
+				
+		assert.equals('obj2[y=obj1[x=[obj2, un/a  Prb[]]]]', obj2.toString())
+	}
+
+	
+	test " test message error in bidirectional relationship" {
+		
+		try {
+			const cuenta = new Cuenta()
+			const duenio = new Duenio(cuentas = [ cuenta ])
+			cuenta.duenios().add(duenio)
+			cuenta.metodoInexistente()
+		} catch e {
+			assert.equals("a Cuenta[duenios=[a Duenio[cuentas=[a Cuenta]]]] does not understand metodoInexistente()", e.getMessage())
+		}
+		
+	}
+}
