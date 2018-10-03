@@ -36,7 +36,7 @@ describe "Recursive to string test case"{
 	}
 
 	
-	test " test message error in bidirectional relationship" {
+	test "test message error in bidirectional relationship" {
 		
 		try {
 			const cuenta = new Cuenta()
