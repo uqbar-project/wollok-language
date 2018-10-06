@@ -1,0 +1,15 @@
+mixin Energy {
+	var energy = 100
+	method energy() = energy
+}
+
+class Warrior {
+		
+}
+
+test "Single mixin at instantiation time" {
+
+	const w = new Warrior() with Energy
+	assert.equals(100, w.energy())
+
+}
