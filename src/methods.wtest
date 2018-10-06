@@ -7,7 +7,7 @@ class A {
 	method method4(asd) = return 4
 }
 			
-test "method test case" {
+test "In line ok" {
 
 		const x = new A()
 				
