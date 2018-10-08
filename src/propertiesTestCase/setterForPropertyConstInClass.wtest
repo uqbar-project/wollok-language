@@ -1,0 +1,13 @@
+class Ave {
+	const property energia = 0
+}
+
+test "Setter for property const in class"{
+	
+	const pepita = new Ave()
+	try {
+		pepita.energia(10)
+	} catch e : Exception {
+		assert.equals("No se puede modificar la propiedad constante energia", e.getMessage())
+	}
+}

@@ -1,0 +1,21 @@
+class Ave {
+	var property energia = 100
+			
+	method volar() {
+	energia -= 10
+	}
+}
+
+describe "Getter and setter for property var in class"{
+	test "energia inicial de pepita" {
+		const pepita = new Ave()
+		assert.equals(100, pepita.energia())
+	}
+			
+	test "energia seteada de pepita" {
+		const pepita = new Ave()
+		pepita.energia(40)
+		pepita.volar()
+		assert.equals(30, pepita.energia())
+	}
+}
