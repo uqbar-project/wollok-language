@@ -1,0 +1,60 @@
+class Ejemplo {
+	var fecha
+		
+	constructor(_fecha) {
+		fecha = _fecha
+	}
+		
+	method hoy() {
+		fecha.day()
+	}
+		
+}
+
+object comparar {
+		
+	var date = new Date()
+	var fecha = new Ejemplo(date)
+		
+	method diaMayorA(otroDia) {
+		return otroDia > fecha.hoy()
+	}
+		
+}
+
+describe "Void test case"{
+	
+	test "Void in assert" {
+	
+		var dia = new Date()
+		var fecha = new Ejemplo(dia)
+		assert.throwsExceptionWithMessage(
+			"El mensaje \"fecha.hoy()\" no retorna ningún valor (quizás te falte un return en el método)", 
+			{ assert.equals("27", fecha.hoy()) }
+		)
+		
+	}
+	
+	test "Void in binary operation" {
+	
+		var dia = new Date()
+		var fecha = new Ejemplo(dia)
+		assert.throwsExceptionWithMessage(
+			"El mensaje \"fecha.hoy()\" no retorna ningún valor (quizás te falte un return en el método)", 
+			{ assert.that(comparar.diaMayorA(15)) }
+		)
+	}
+	
+	test "Void in unary operation" {
+
+		var dia = new Date()
+		var fecha = new Ejemplo(dia)
+		assert.throwsExceptionWithMessage(
+			"El mensaje \"fecha.hoy()\" no retorna ningún valor (quizás te falte un return en el método)", 
+			{ assert.that(fecha.hoy().abs()) }
+		)
+		
+	}
+	
+	
+}
