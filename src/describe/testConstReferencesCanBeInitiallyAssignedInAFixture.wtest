@@ -1,0 +1,13 @@
+describe "conjunto de tests re locos" {
+		
+	const uno
+			
+	fixture {
+		uno = 1
+	}
+			
+	test "uno es uno" {
+		assert.equals(1, uno)
+	}
+			
+}
