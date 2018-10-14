@@ -1,0 +1,703 @@
+class Cuenta {
+	var property monto = 0
+	method depositar_monto(un_monto) {
+		monto += un_monto
+	}
+	method consultar_saldo() {
+		return monto
+	}
+}
+
+describe "Number Test Case"{
+	
+	test "Integers as result value of native" {
+	
+		assert.equals(4, "hola".length())
+		
+	}	
+	
+	test "Add" {
+	
+		assert.equals(4, 3 + 1)
+		assert.equals(4.0, 3.0 + 1)
+		assert.equals(4.0, 3.0 + 1.0)
+		assert.equals(4.0, 3 + 1.0)
+		assert.equals(4, 4 + 0.0)
+		assert.equals(4, 4.0 + 0.0)
+		assert.equals(4, 4.0 + 0)
+		assert.equals(4, 4 + 0)
+		
+	}
+
+	test "Add with failing parameters" {
+	
+		assert.throwsExceptionWithMessage("La operación no admite el parámetro a Date[day = 18, month = 12, year = 2017]", { 3 + new Date(18, 12, 2017) })
+		assert.throwsExceptionWithMessage("La operación no admite el parámetro pepe", { 3 + "pepe" })
+		
+	}
+
+	test "Add 1 to null" {
+	
+		assert.throwsExceptionWithMessage("La operación + no admite parámetros nulos", { 1 + null })
+		
+	}
+	
+	test "Max"{
+	
+		assert.equals(7, 4.max(7))
+		
+	}
+	
+	test "Max failing parameter" {
+	
+		assert.throwsExceptionWithMessage("La operación no admite el parámetro a Date[day = 21, month = 12, year = 2017]", { 4.min(new Date(21, 12, 2017)) })
+		
+	}
+
+	test "Max using null" {
+	
+		assert.throwsExceptionWithMessage("La operación max no admite parámetros nulos", { 4.max(null) })
+		
+	}
+	
+	test "Min" {
+	
+		assert.equals(4, 4.min(7))
+		
+	}
+	
+	test "Min failing parameter" {
+	
+		assert.throwsExceptionWithMessage("La operación no admite el parámetro a Date[day = 21, month = 12, year = 2017]", { 4.min(new Date(21, 12, 2017)) })
+		
+	}
+	
+	test "Min using null" {
+	
+		assert.throwsExceptionWithMessage("La operación min no admite parámetros nulos", { 4.min(null) })
+		
+	}
+	
+	test "Subtract using null" {
+	
+		assert.throwsExceptionWithMessage("La operación - no admite parámetros nulos", { 1 - null })
+		
+	}
+	
+	test "Subtract fail" {
+	
+		assert.throwsExceptionWithMessage("La operación no admite el parámetro a", { 4 - "a" })
+		
+	}
+	
+	test "Multiply using null" {
+	
+		assert.throwsExceptionWithMessage("La operación * no admite parámetros nulos", { 1 * null })
+		
+	}
+	
+	test "Multiply fail" {
+	
+		assert.throwsExceptionWithMessage("La operación no admite el parámetro a", { 4 * "a" })
+		
+	}
+	
+	test "Multiply" {
+	
+		assert.equals(8, 4 * 2)
+		assert.equals(8.0, 4 * 2.0)
+		assert.equals(8.0, 4.0 * 2.0)
+		assert.equals(8.0, 4.0 * 2)
+		
+	}
+
+	test "Add several decimals" {
+	
+		assert.equals(4.00001, 3.000004 + 1.000006)
+		assert.equals(4.00001, 3.000002 + 1.000006)
+		assert.equals(4, 3.000002 + 1.000002)
+		
+	}
+	
+	test "Subtract several decimals" {
+	
+		assert.equals(-0.00001, 4.000004 - 4.000006)
+		assert.equals(0, 4.000007 - 4.000006)
+		assert.equals(2, 3.000002 - 1.000001)
+		assert.equals(1.99999, 3.000002 - 1.000006)
+		assert.equals(1.99978, 3.000002 - 1.000222)
+		
+	}
+	
+	test "Multiply several decimals" {
+	
+		assert.equals(8, 4.00000000001 * 2.000000000003)
+		assert.equals(0, 4.00222222222222000000001 * 0)
+		assert.equals(4.00270, 4.00222222222222000000001 * 1.00012)
+		assert.equals(4.00415, 4.00222522222222000000001 * 1.00048)
+		
+	}
+	
+	test "Multiply by zero" {
+	
+		assert.equals(6.2500000 * 0.5 * 0, 0)
+		assert.equals(6.2500000 * 0, 0)
+		assert.equals(0.0 * 0, 0)
+		assert.equals(0.0 * 0.0, 0)
+		assert.equals(0 * 0.0, 0)
+		
+	}
+	
+	test "Divide" {
+	
+		assert.equals(0.3, 3 / 10)
+		assert.equals(2.5, 5 / 2)
+		assert.equals(2, 4 / 2)
+		assert.equals(2, 4 / 2.0)
+		
+	}
+	
+	test "Divide zero" {
+	
+		assert.equals(0, 0 / 10)
+		assert.equals(0, 0 / 10.0)
+		assert.equals(0, 0.0 / 10.0)
+		assert.equals(0, 0 / 10.0)
+		assert.equals(0, 0 / 100.0)
+		assert.equals(0, 1 / 100000000000.0)
+		
+	}
+	
+	test "Divide several decimals" {
+	
+		assert.equals(0.51235, 5.123456 / 10.00000011)
+		assert.equals(0.51235, 5.123456 / 10)
+		assert.equals(0.51235, 5123456 / 10000000)		
+		
+	}
+	
+	test "Division by zero" {
+	
+		assert.throwsExceptionWithMessage("/ by zero", { 1 / 0 })
+		assert.throwsExceptionWithMessage("/ by zero", { 1.0 / 0 })
+		assert.throwsExceptionWithMessage("/ by zero", { 1.0 / 0.0 })
+		assert.throwsExceptionWithMessage("/ by zero", { 1 / 0.0 })
+		
+	}
+	
+	test "Divide periodic decimals" {
+	
+		assert.equals(0.72727, 40 / 55)
+		assert.equals(0.72727, 40 / 55.0)
+		assert.equals(0.72727, 40.0 / 55.0)
+		assert.equals(0.72727, 40.0 / 55)
+		assert.equals(0.33333, 1 / 3)
+		assert.equals(0.66667, 2 / 3)
+		
+	}
+	
+	test "Divide decimals" {
+	
+		assert.equals(0.3, 3 / 10.0)
+		assert.equals(0.3, 3.0 / 10.0)
+		assert.equals(2.5, 5 / 2.0)
+		assert.equals(2, 4.0 / 2.0)
+		
+	}
+	
+	test "Division using null" {
+	
+		assert.throwsExceptionWithMessage("La operación / no admite parámetros nulos",  { 3 / null })
+		
+	}
+	
+	test "Division fail" {
+	
+		assert.throwsExceptionWithMessage("La operación no admite el parámetro a",  { 3 / "a" })
+		
+	}
+		
+	test "Times" {
+	
+		var x = 0
+		6.times { i => x += 1 }
+		assert.equals(6, x)
+		
+	}
+	// We need a more intention revealing message - perhaps when type system gets activated
+	
+	test "Times fail" {
+	
+		assert.throwsExceptionWithMessage("La operación forEach no admite parámetros nulos", { 4.times("a") } )
+		
+	}
+	
+	test "Times using null" {
+	
+		assert.throwsExceptionWithMessage("La operación times no admite parámetros nulos", { 4.times(null) } )
+		
+	}
+	
+	test "Integers from native objects" {
+	
+		assert.equals(3, "hola".length() - 1)
+		
+	}
+	
+	test "Integers between true" {
+	
+		assert.that(3.between(1, 5))
+		
+	}
+	
+	test "Integers between false" {
+	
+		assert.notThat(3.between(5, 9))
+		
+	}
+	
+	test "Between using null" {
+	
+		assert.throwsExceptionWithMessage("La operación < no admite parámetros nulos", { 2.between(1, null) } )
+		
+	}
+	
+	test "Between fail"{
+	
+		assert.throwsExceptionWithMessage("El valor \"a\" no puede convertirse al tipo wollok.lang.Number", { 2.between("a", 2) } )
+		
+	}
+	
+	test "Absolute value of a positive integer"{
+	
+		assert.equals(3, 3.abs())
+		assert.equals(0, 0.abs())
+		assert.equals(0, 0.0.abs())
+		assert.equals(60, (-60.0).abs())
+		assert.equals(60.664, (-60.664).abs())
+		assert.equals(60.664, (60.664).abs())
+		
+	}
+
+	test "Absolute value of a negative integer" {
+	
+		assert.equals(3, (-3).abs())
+		
+	}
+	
+	test "Square root" {
+	
+		assert.equals(3, 9.squareRoot())
+		
+	}
+	
+	test "Square" {
+	
+		assert.equals(9, 3.square())
+		
+	}
+	
+	test "Less than" {
+	
+		assert.that(3 < 7)
+		assert.notThat(13 < 7)
+		
+	}
+	
+	test "Remainder" {
+	
+		const remainder = 17.rem(7)
+		const remainder2 = 12.rem(6)
+		assert.equals(3, remainder)
+		assert.equals(0, remainder2)
+		assert.equals(0.11521, 1.1152112.rem(1.0000002))
+		
+	}
+
+	test "Remainder using null" {
+	
+		assert.throwsExceptionWithMessage("La operación % no admite parámetros nulos", { 2.rem(null) } )
+		
+	}
+	
+	test "Remainder fail" {
+	
+		assert.throwsExceptionWithMessage("La operación no admite el parámetro a", { 2.rem("a") } )
+		
+	}
+	
+	test "Even" {
+	
+		assert.notThat(3.even())
+		assert.that(260.even())
+		
+	}
+	
+	test "Odd" {
+	
+		assert.that(3.odd())
+		assert.notThat(260.odd())
+		
+	}
+	
+	test "Gcd" {
+	
+		const gcd1 = 5.gcd(25)
+		const gcd2 = 25.gcd(20)
+		const gcd3 = 2.gcd(3)
+		assert.equals(5, gcd1)
+		assert.equals(5, gcd2)
+		assert.equals(1, gcd3)
+		
+	}
+
+	test "Gcd using null" {
+	
+		assert.throwsExceptionWithMessage("La operación gcd no admite parámetros nulos", { 4.gcd(null) })
+		
+	}
+	
+	test "Gcd for invalid arguments" {
+	
+		assert.throwsExceptionWithMessage("La operación no admite el parámetro a Date[day = 1, month = 1, year = 2018]", { 4.gcd(new Date(1, 1, 2018)) })
+		
+	}
+	
+	/* 
+	test " gcdForDecimalsIsInvalid" {
+		try {
+		
+			program a {
+				(5.5).gcd(12)
+			}
+			 
+			fail("decimals should not understand gcd message")
+		} catch (WollokProgramExceptionWrapper e) {
+			assertTrue(e.wollokMessage.startsWith("5.5 does not understand gcd(param1)"))
+		}
+	}
+
+	
+	test " gcdForDecimalsIsInvalid2" {
+		try {
+		
+			program a {
+				console.println((5).gcd(12.3))
+			}
+			
+			fail("gcd works also for decimal argument!!")
+		} catch (WollokProgramExceptionWrapper e) {
+			assertTrue(e.wollokMessage.startsWith("gcd expects an integer as first argument"))
+		}
+	} */
+
+	
+	test "Lcm" {
+	
+		const lcm1 = 5.lcm(25)
+		const lcm2 = 7.lcm(8)
+		const lcm3 = 10.lcm(15)
+		assert.equals(25, lcm1)
+		assert.equals(56, lcm2)
+		assert.equals(30, lcm3)
+		
+	}
+
+	
+	test "Lcm using null" {
+	
+		assert.throwsExceptionWithMessage("La operación lcm no admite parámetros nulos", { 4.lcm(null) })
+		
+	}
+	
+	
+	test "Lcm for invalid arguments"{
+	
+		assert.throwsExceptionWithMessage("La operación no admite el parámetro a Date[day = 1, month = 1, year = 2018]", { 4.lcm(new Date(1, 1, 2018)) })
+		
+	}
+	
+	
+	test "Real digits" {
+	
+		assert.equals(4, 1024.digits())
+		assert.equals(3, (-220).digits())
+		
+	}	
+
+	
+	test "Decimal digits" {
+	
+		assert.equals(4, 10.24.digits())
+		assert.equals(4, (-10.24).digits())
+		
+	}	
+
+	
+	test "isPrime" {
+	
+		assert.that(3.isPrime())
+		assert.notThat(4.isPrime())
+		assert.that(5.isPrime())
+		assert.notThat(88.isPrime())
+		assert.that(17.isPrime())
+		
+	}	
+
+	
+	test "Random for integers" {
+	
+		const random1 = 3.randomUpTo(8)
+		assert.that(random1.between(3, 8))
+		assert.notThat(random1.between(9, 10))
+		
+	}	
+	
+	test "randomUpToFail"{
+	
+		assert.throwsExceptionWithMessage("El valor \"a\" no puede convertirse al tipo wollok.lang.Number", { 4.randomUpTo("a") } )
+		
+	}
+
+	
+	test "randomUpUsingNull" {
+	
+		assert.throwsExceptionWithMessage("La operación randomUpTo no admite parámetros nulos", { 4.randomUpTo(null) } )
+		
+	}
+	
+	test "randomForReals" {
+	
+		const random1 = (3.2).randomUpTo(8.9)
+		assert.that(random1.between(3.2, 8.9))
+		assert.notThat(random1.between(9.0, 10.11))
+		
+	}	
+	
+	test "integerDivision" {
+	
+		assert.equals(4, 16.div(4))
+		assert.equals(4, 18.div(4))
+		assert.equals(5, 21.div(4))
+		assert.equals(5, (21.2).div(4.1))
+		assert.throwsExceptionWithMessage("La operación div no admite parámetros nulos", { 4.div(null) })
+		
+	}	
+
+	
+	test "integerDivisionByZero " {
+	
+		assert.throwsExceptionWithMessage("/ by zero", { 16.div(0) })
+		assert.throwsExceptionWithMessage("/ by zero", { (21.2).div(0.0) })
+		
+	}
+
+	
+	test "integerDivisionFail" {
+	
+		assert.throwsExceptionWithMessage("El valor \"a\" no puede convertirse al tipo wollok.lang.Number", { 8.div("a") })
+		
+	}
+	
+	
+	test "integerDivisionUsingNull" {
+	
+		assert.throwsExceptionWithMessage("La operación div no admite parámetros nulos", { 8.div(null) })
+		
+	}
+	
+	
+	test "printString" {
+	
+		assert.equals("4", 4.printString())
+		assert.equals("4.1", (4.1).printString())
+		
+	}	
+	
+	test "negativeExponentiation" {
+	
+		assert.equals(0.2, 5 ** (-1))
+		assert.equals(0.2, 5 ** (-1.0))
+		assert.equals(0.2, 5.0 ** (-1.0))
+		assert.equals(0.2, 5.0 ** (-1))
+		assert.equals(1, 5.0 ** 0)
+		assert.equals(1, 5.0 ** 0.0)
+		assert.equals(1, 5 ** 0)
+		assert.equals(1, 5 ** 0.0)
+		
+	}
+	
+	
+	test "integerExponentiation" {
+	
+		assert.equals(25, 5 ** 2)
+		assert.equals(25, 5 ** 2.0)
+		assert.equals(25.0, 5.0 ** 2)
+		assert.equals(25.0, 5.0 ** 2.0)
+		
+	}
+	
+	test "exponentiationUsingNull" {
+	
+		assert.throwsExceptionWithMessage("La operación ** no admite parámetros nulos", { 4 ** null } )
+		
+	}
+	
+	
+	test "exponentiationFail" {
+	
+		assert.throwsExceptionWithMessage("La operación no admite el parámetro a", { 4 ** "a" } )
+		
+	}
+	
+	test "exponentiationPrecedence" {
+	
+		assert.equals(24, 3 * 2 ** 3)
+		assert.equals(36, 4.0 * 3 ** 2)
+		assert.equals(5, 1 + 2 ** 2)
+		
+	}
+	
+	test "integerRoundUp" {
+	
+		assert.equals(5, (10/2).roundUp(2))
+		
+	}
+	
+	test "roundUpUsingNull" {
+	
+		assert.throwsExceptionWithMessage("La operación roundUp no admite parámetros nulos", { (10/2).roundUp(null) })
+		
+	}
+	
+	test "roundUpFail" {
+	
+		assert.throwsExceptionWithMessage("El valor \"a\" no puede convertirse al tipo wollok.lang.Number", { (10/2).roundUp("a") })
+		
+	}
+	
+	test "integerTruncate" {
+	
+		assert.equals(5, (10/2).truncate(2))
+		
+	}
+
+	
+	test "truncateUsingNull" {
+	
+		assert.throwsExceptionWithMessage("La operación truncate no admite parámetros nulos", { (10/2).truncate(null) })
+		
+	}
+	
+	test "truncateFail" {
+	
+		assert.throwsExceptionWithMessage("El valor \"a\" no puede convertirse al tipo wollok.lang.Number", { (10/2).truncate("a") })
+		
+	}
+		
+	
+	test "doubleRoundUp" {
+	
+		assert.equals(1.3, (5/4).roundUp(1))
+		
+	}
+	
+	test "doubleTruncate" {
+	
+		assert.equals(1.2, (5/4).truncate(1))
+		
+	}
+	
+	test "modulus" {
+	
+		assert.equals(1, 5 % 4)
+		assert.equals(1.5, 5.5 % 4)
+		assert.equals(0, 4 % 4)
+		assert.equals(0, 4.0 % 4)
+		assert.equals(0, 4.0 % 1)
+		
+	}
+	
+	test "modulusUsingNull" {
+	
+		assert.throwsExceptionWithMessage("La operación % no admite parámetros nulos", { 2 % null } )
+		
+	}
+	
+	test "modulusFail" {
+	
+		assert.throwsExceptionWithMessage("La operación no admite el parámetro a", { 2 % "a" } )
+		
+	}
+	
+	test "numberComparison" {
+	
+		assert.that((1.1 / 1) > (1.000002))
+		assert.that(1 < 1.0001)
+		assert.notThat(1 < 1)
+		assert.notThat(1 > 1)
+		assert.that(1 <= 1)
+		assert.that(1 >= 1)
+		
+	}
+	
+	
+	test "greaterThanFail" {
+	
+		assert.throwsExceptionWithMessage("El valor [1, 2] no puede convertirse al tipo wollok.lang.Number", { 3 > [1, 2] })
+		
+	}
+	
+	test "greaterThanUsingNull" {
+	
+		assert.throwsExceptionWithMessage("La operación > no admite parámetros nulos", { 3 > null })
+		
+	}
+	
+	test "lesserThanFail" {
+	
+		assert.throwsExceptionWithMessage("El valor [1, 2] no puede convertirse al tipo wollok.lang.Number", { 3 < [1, 2] })
+		
+	}
+	
+	test "lesserThanUsingNull" {
+	
+		assert.throwsExceptionWithMessage("La operación < no admite parámetros nulos", { 3 < null })
+		
+	}
+	
+	test "veryBigIntegerAdd" {
+	
+		var a = 100000000000000000
+		assert.equals(100000000000000001, a + 1)
+		
+	}
+	
+	test "veryBigIntegerMultiply" {
+	
+		var a = 100000000000000000
+		assert.equals(100000000000000000, a * 1)
+		
+	}
+	
+	test "veryBigIntegerDivide" {
+	
+		var a = 100000000000000000
+		assert.equals(100000, a / 1000000000000)
+		
+	}
+	
+	test "plusOne"{
+		
+		assert.equals(1, +1)
+
+	}
+	
+	test "addingBigNumbersIssue1398" {
+
+		const patricio = new Cuenta()
+		patricio.depositar_monto(100000000000)
+		assert.equals("100000000000", patricio.monto().toString())
+
+	}
+}
