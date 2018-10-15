@@ -1,0 +1,22 @@
+class A { 
+	method m1(a) { return a + 1 }
+}
+			
+test "Test message not understood however 1" {
+
+	const a = new A()
+				
+	try {
+		a.m1()
+		assert.fail("Should have thrown message not understood")
+	}	
+	
+	catch e : MessageNotUnderstoodException {
+		// ok !
+		assert.equals("un/a  A[] no entiende el mensaje m1(). Pero existen otros métodos con diferente cantidad de argumentos: m1(a) ", e.getMessage())
+	}
+			
+		// TODO: we need to add tests for the stacktrace generation. I'm not able to match the expected
+		// actual stack trace string e.getStackTraceAsString()
+
+}

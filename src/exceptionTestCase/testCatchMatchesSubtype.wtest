@@ -1,0 +1,21 @@
+class MyException inherits wollok.lang.Exception {}
+class MySubclassException inherits MyException {}
+class A { method m1() { throw new MySubclassException() } }
+
+test "Test catch matches subtype" {
+				
+	const a = new A()
+	var result = 0
+				
+	try {
+		a.m1()
+	}
+				
+	catch e : MyException
+		result = 3
+					
+	assert.that(3 == result)
+		
+
+}
+

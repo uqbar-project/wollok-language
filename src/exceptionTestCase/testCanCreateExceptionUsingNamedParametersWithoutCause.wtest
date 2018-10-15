@@ -1,0 +1,11 @@
+object unObjeto {
+	method prueba() {
+	throw new Exception(message = "Saraza")
+	}
+}
+
+/*test "Test can create exception using named parameters without cause" {
+
+	//Rompe
+
+}*/
