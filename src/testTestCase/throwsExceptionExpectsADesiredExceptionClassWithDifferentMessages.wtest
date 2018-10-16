@@ -1,0 +1,7 @@
+class BusinessException inherits wollok.lang.Exception {
+	constructor(_message) {message = _message}
+}
+		
+test "Use throwsExceptionWithType" {
+	assert.throwsExceptionWithType(new BusinessException("lala"), { => throw new BusinessException("hola!") })
+}

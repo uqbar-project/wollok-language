@@ -1,0 +1,21 @@
+object pepita {
+	var energia = 0
+	method come(cantidad){
+		energia = energia + cantidad * 10
+	}
+	method energia(){
+		return energia
+	}
+}
+
+test "Test with Assert Equals with errors" {
+
+	try {
+		assert.equals(7, pepita.energia())
+		assert.fail("should have failed")
+	}
+	
+	catch e {
+		assert.equals("Expected [7] but found [0]", e.getMessage())
+	} 	
+}

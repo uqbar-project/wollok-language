@@ -1,0 +1,16 @@
+class BusinessException inherits wollok.lang.Exception {
+	constructor(_message) {message = _message}
+}
+class OtherException inherits wollok.lang.Exception {
+	constructor(_message) {message = _message}
+}
+
+
+test "Use throwsExceptionWithType" {
+	try {
+		assert.throwsExceptionWithType(new BusinessException("hola!"), { => throw new OtherException("hola!") })
+	}
+	catch ex {
+		assert.equals("The exception expected was excepciones.BusinessException but got excepciones.OtherException", ex.getMessage())
+	}
+}

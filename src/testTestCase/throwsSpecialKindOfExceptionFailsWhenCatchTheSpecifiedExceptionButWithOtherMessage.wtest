@@ -1,0 +1,13 @@
+class BusinessException inherits wollok.lang.Exception {
+	constructor(_message) {message = _message}
+}
+
+test "Use throwsExceptionLike" {
+
+	try {
+		assert.throwsExceptionLike(new BusinessException("chau"), { => throw new BusinessException("hola") })
+	}
+	catch ex {
+		assert.equals(ex.getMessage(), "The Exception expected was un/a  BusinessException[message=chau, cause=null] but got un/a  BusinessException[message=hola, cause=null]")
+	}
+}
