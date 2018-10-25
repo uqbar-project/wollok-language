@@ -131,15 +131,19 @@ describe "List tests"{
 
 	}	
 	
-	test "sortedBy" {
-		 
-		const numbers = [22, 2, 10]
-		numbers.sortedBy({ a, b => a > b})
-		assert.equals([22,10,2], numbers)
-		numbers.sortedBy({ a , b => a < b})
-		assert.equals([2,10,22], numbers)
+	test "sortBy" {
+		const numbers = [ 22, 2, 10 ]
+		numbers.sortBy({ a , b => a > b})
+		assert.equals([ 22, 10, 2 ], numbers)
+		numbers.sortBy({ a , b => a < b})
+		assert.equals([ 2, 10, 22 ], numbers)
+	}
 
-	}		
+	test "sortedBy" {
+		const numbers = [ 22, 2, 10 ]
+		assert.equals([ 22, 10, 2 ], numbers.sortedBy({ a , b => a > b}))
+		assert.equals([ 2, 10, 22 ], numbers.sortedBy({ a , b => a < b}))
+	}
 
 	test "get happy path"{
 		 
