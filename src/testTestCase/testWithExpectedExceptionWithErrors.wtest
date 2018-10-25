@@ -1,5 +1,0 @@
-
-test "testWithExpectedExceptionWithErrors" {
-
-	assert.throwsException { 4 }
-}
