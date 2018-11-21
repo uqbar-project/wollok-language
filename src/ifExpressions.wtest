@@ -1,0 +1,94 @@
+describe "If expressions"{
+	
+	test "if without '{}'" {
+		const o = object {
+			var t
+			
+			method editT() {
+				t = 1
+			}
+			
+			method getT() = t
+			
+			method m(a){
+				if(a)
+				self.editT()
+			}
+		}
+		
+		o.m(true)
+		
+		assert.equals(1,  o.getT())
+	}
+	
+	test "if without '{}' with else" {
+		const o = object {
+			method m(a){
+				if(a)
+				return 1
+				else
+				return 0
+			}
+		}
+		assert.that(o.m(true) == 1)
+		assert.that(o.m(false) == 0)
+
+	}
+	
+	test "if with '{}' with else" {
+		const o = object {
+			method m(a){
+				if(a){
+				return 1
+				}
+				else {			
+				return 0
+				}
+			}
+		}
+		assert.that(o.m(true) == 1)
+		assert.that(o.m(false) == 0)
+
+	}
+	
+	test "if with 'then' with a multi-sentence curly-braced body" {
+		const o = object {
+			var p
+			method m(a){
+				if(a){
+				p = 1;	
+				return 1
+				}
+				else {			
+				return 0
+				}
+			}
+			
+			method getP()=p
+		}
+		assert.that(o.m(true) == 1 && o.getP()==1)
+		assert.that(o.m(false) == 0)
+
+	}
+	
+	test "'if' inside other 'if' that have an else" {
+		const o = object {
+			method m(a,c){
+				if(a){
+					if(c)
+						return 1
+					else
+						return 3
+				}
+				else {			
+				return 0
+				}
+			}
+		}
+		assert.that(o.m(true, true) == 1)
+		assert.that(o.m(true, false) == 3)
+		assert.that(o.m(false, true) == 0)
+
+	}
+	
+}

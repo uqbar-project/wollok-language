@@ -1,0 +1,14 @@
+class BusinessException inherits wollok.lang.Exception {
+	constructor() {}
+}
+
+test "throwsSpecialKindOfExceptionFailsWhenBlockDontThrownAnException" {
+
+	try {
+		assert.throwsExceptionLike(new BusinessException(), { => console.println("Works great!")})
+	}
+	
+	catch ex {
+		assert.equals("Should have thrown an exception", ex.getMessage())
+	}
+}

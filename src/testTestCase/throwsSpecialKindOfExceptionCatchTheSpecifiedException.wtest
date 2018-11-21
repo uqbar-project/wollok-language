@@ -1,0 +1,9 @@
+class BusinessException inherits wollok.lang.Exception {
+	constructor() {}
+}
+
+test "Use throwsExceptionLike" {
+
+	assert.throwsExceptionLike(new BusinessException(), { => throw new BusinessException() })
+	
+}

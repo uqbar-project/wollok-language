@@ -1,0 +1,24 @@
+mixin M1 {
+	method doFoo(chain) { super(chain + " > M1") }
+}
+		
+mixin M2 {
+	method doFoo(chain) { super(chain + "> M2") }
+}
+		
+class C1 {
+	var foo = ""
+	method doFoo(chain) { foo = chain + " > C1" }
+	method foo() = foo
+}
+		
+class C2 inherits C1 mixed with M1, M2 {
+}
+		
+test "stackable mixins pattern" {
+
+	const c = new C2()
+	c.doFoo("Test ")
+	assert.equals("Test > M2 > M1 > C1", c.foo())
+	
+}

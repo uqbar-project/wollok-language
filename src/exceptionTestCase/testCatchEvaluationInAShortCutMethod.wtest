@@ -1,0 +1,16 @@
+object cuenta {
+	method sacar(c) = try { 
+		if (c > 0) 
+		throw new Exception("saldo insuficiente") 
+		else 19
+	} catch e {
+		20
+	}
+	
+	}
+test "Test catch evaluation in a shortcut method" {
+
+	assert.equals(20, cuenta.sacar(10))
+	assert.equals(19, cuenta.sacar(0))
+
+}

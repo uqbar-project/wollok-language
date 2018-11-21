@@ -1,0 +1,19 @@
+object pepita {
+	var energia = 0
+	method come(cantidad){
+		energia = energia + cantidad * 10
+	}
+	method energia(){
+		return energia
+	}
+}
+
+test "Test with asserts ok" {
+
+	assert.that(pepita.energia() == 0)	
+	assert.equals(0, pepita.energia())	
+			
+	pepita.come(10)
+	assert.equals(100, pepita.energia())	
+
+}

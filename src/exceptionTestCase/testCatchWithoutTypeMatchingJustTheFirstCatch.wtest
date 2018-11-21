@@ -1,0 +1,29 @@
+class AException inherits wollok.lang.Exception {  constructor(m) = super(m) }
+class BException inherits wollok.lang.Exception {  constructor(m) = super(m) }
+			
+class A { 
+	method m1() { throw new AException("hello you see") }
+}
+			
+test "Test catch without type matching just the first catch" {
+	
+	const a = new A()
+				
+	try {
+		a.m1()
+		assert.fail("Should have thrown exception")
+	}	
+				
+	catch e : AException {
+		// OK !
+	}
+
+	catch e : BException {
+		assert.fail("incorrenct catch !")
+	}
+	
+	catch e {
+		assert.fail("incorrenct catch !")
+	}
+
+}

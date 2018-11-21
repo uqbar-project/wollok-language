@@ -1,0 +1,19 @@
+describe "numbers"{
+	
+	test "Positive number"{
+		assert.equals(10, 1+9)
+	}
+	
+	test "Negative number"{
+		assert.equals(-10, -11+1)
+	}
+	
+	test "Positive fractional number"{
+		assert.equals(1.5, 1.5)
+	}
+	
+	test "Negative fractional number"{
+		assert.equals(-1.5, -1.5)
+	}
+	
+}

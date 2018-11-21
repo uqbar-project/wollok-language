@@ -1,0 +1,16 @@
+object cuenta {
+	method sacar() {
+		try {
+			throw new Exception("saldo insuficiente")
+		} 
+		
+		catch e {
+			return 20
+		}
+	}
+	
+}
+test "Test catch with a return statement" {
+	
+	assert.equals(20, cuenta.sacar())
+}

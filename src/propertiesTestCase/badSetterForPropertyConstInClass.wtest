@@ -1,0 +1,14 @@
+class Ave {
+	const property energia = 0
+}
+
+test "Bad setter for property const in class"{
+	
+	const pepita = new Ave()
+	try {
+		pepita.energia(10, [21, 1])
+	} catch e {
+		assert.equals("un/a  Ave[energia=0] no entiende el mensaje energia(param1, param2) ", e.getMessage())
+	}
+	
+}

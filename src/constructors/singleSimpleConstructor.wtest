@@ -1,0 +1,25 @@
+class C {
+	var a = 10
+	const b
+	var c
+			
+	constructor(anA, aB, aC) {
+		a = anA
+		b = aB
+		c = aC
+	}
+	
+	method getA() { return a }
+	method getB() { return b }
+	method getC() { return c }
+	
+}
+
+test "single simple constructor" {
+
+	const c = new C (1,2,3)
+	assert.equals(1, c.getA())
+	assert.equals(2, c.getB())
+	assert.equals(3, c.getC())
+
+}

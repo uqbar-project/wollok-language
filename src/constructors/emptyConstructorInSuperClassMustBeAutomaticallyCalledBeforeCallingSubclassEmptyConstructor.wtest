@@ -1,0 +1,32 @@
+class SuperClass {
+	var superX
+	var otherX
+	
+	constructor() { 
+		superX = 20
+		otherX = 30
+	}
+				
+	method getSuperX() { return superX }
+	method getOtherX() { return otherX }
+	method setSuperX(a) { superX = a }
+}
+			
+class SubClass inherits SuperClass {
+	var subX
+	constructor() {
+		subX = 10
+		self.setSuperX(self.getSuperX() + 20) // 20 + 20
+	}
+	
+	method getSubX() { return subX }
+}
+
+test "empty constructor in superclass must be automatically called before calling subclass empty constructor" {
+
+	const o = new SubClass()
+	assert.equals(10, o.getSubX())
+	assert.equals(40, o.getSuperX())
+	assert.equals(30, o.getOtherX())
+
+}

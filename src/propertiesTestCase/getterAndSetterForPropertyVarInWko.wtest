@@ -1,0 +1,20 @@
+object pepita {
+	var property energia = 100
+			
+	method volar() {
+		energia -= 10
+	}
+}
+
+describe "Getter and Setter for property var in Wko"{
+		
+	test "energia inicial de pepita" {
+		assert.equals(100, pepita.energia())
+	}
+		
+	test "energia seteada de pepita" {
+		pepita.energia(40)
+		pepita.volar()
+		assert.equals(30, pepita.energia())
+	}
+}

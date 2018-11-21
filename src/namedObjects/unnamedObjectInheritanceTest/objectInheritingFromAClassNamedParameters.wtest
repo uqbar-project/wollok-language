@@ -1,0 +1,17 @@
+class Auto {
+	var property kms
+	var property owner
+}
+		
+test "Object inheriting from a class named parameters" {
+
+	var n = 33
+	
+	const o = object inherits Auto(owner = 'dodain', kms = 2000) {
+		method getN() {
+			return n
+		}
+	}
+	
+	assert.equals(2000, o.kms())
+}

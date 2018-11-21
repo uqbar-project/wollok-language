@@ -1,0 +1,460 @@
+object myObject {
+	override method internalToSmartString(alreadyShown) = "My Object"
+}
+		
+object a {}
+object b {}
+object c {}
+object d {}
+
+describe "Collection test case"{
+	
+	test "min" {
+	
+		const strings = ['hello', 'hola', 'bonjour', 'ciao', 'hi']		
+		assert.equals('hi', strings.min{e=> e.length() })
+		
+	}
+	
+	test "minNoArgs" {
+	
+		const numbers = [22, 2, 10]		
+		assert.equals(2, numbers.min() )
+		assert.equals(1, [1].min())
+		assert.throwsException({[].min()})
+		
+	}
+	
+	test "minIfEmpty" {
+	
+		const strings = ['hello', 'hola', 'bonjour', 'ciao', 'hi']
+		assert.equals('hi', strings.minIfEmpty({ e => e.length() }, { 'lista vacia' }))
+		assert.equals('lista vacia', [].minIfEmpty({ e => e.length() }, { 'lista vacia' }))
+		
+	}
+	
+	test "minIfEmptyNoArgs" {
+	
+		assert.equals(1, [3,1,2].minIfEmpty({ 99 }))
+		assert.equals(99, [].minIfEmpty({ 99 }))
+		
+	}
+	
+	test "max" {
+		
+		const strings = ['hello', 'hola', 'bonjour', 'ciao', 'hi']
+		assert.equals('bonjour', strings.max{e=> e.length() })
+		
+	}
+	
+	
+	test "maxNoArgs" {
+	
+		const numbers = [22, 2, 10]		
+		assert.equals(22, numbers.max() )
+		assert.equals(1, [1].max())
+		assert.throwsException({[].max()})
+		
+	}
+	
+	
+	test "maxIfEmpty" {
+	
+		const strings = ['hello', 'hola', 'bonjour', 'ciao', 'hi']
+		assert.equals('bonjour', strings.maxIfEmpty({ e => e.length() }, { 'lista vacia' }))
+		assert.equals('lista vacia', [].maxIfEmpty({ e => e.length() }, { 'lista vacia' }))
+		
+	}
+	
+	
+	test "maxIfEmptyNoArgs" {
+	
+		assert.equals(3, [1,3,2].maxIfEmpty({ 99 }))
+		assert.equals(99, [].maxIfEmpty({ 99 }))
+		
+	}
+	
+	
+	test "size" {
+	
+		const numbers = [22, 2, 10]		
+		assert.equals(3, numbers.size())
+		
+	}
+	
+	
+	test "contains" {
+	
+		const numbers = [22, 2, 10]
+		assert.that(numbers.contains(22))
+		assert.that(numbers.contains(2))
+		assert.that(numbers.contains(10))
+		
+	}
+	
+	
+	test "containsForAListOfWKOs" {
+		
+			const l = [a, b, c]
+			assert.that(l.contains(a))
+			assert.that(l.contains(b))
+			assert.that(l.contains(c))
+			assert.notThat(l.contains(d))
+			assert.notThat(l.contains("hello world"))
+			assert.notThat(l.contains(4))
+		
+	}
+	
+	
+	test "any" {
+	
+		const numbers = [22, 2, 10]
+		assert.that(numbers.any{e=> e > 20})
+		assert.that(numbers.any{e=> e > 0})
+		assert.notThat(numbers.any{e=> e < 0})
+		
+	}
+	
+	
+	test "remove" {
+	
+		const numbers = [22, 2, 10]
+		numbers.remove(22)
+		assert.that(2 == numbers.size())
+		
+	}
+	
+	
+	test "clear" {
+	
+		const numbers = [22, 2, 10]
+		numbers.clear()
+		assert.that(0 == numbers.size())
+		
+	}
+	
+	
+	test "isEmpty" {
+	
+		const numbers = [22, 2, 10]
+		assert.notThat(numbers.isEmpty())
+		
+	}
+	
+	
+	test "forEach" {
+	
+		const numbers = [22, 2, 10]
+		
+		var sum = 0
+		numbers.forEach({n => sum += n})
+		
+		assert.equals(34, sum)
+		
+	}
+	
+	
+	test "all" {
+	
+		const numbers = [22, 2, 10]
+		assert.that(numbers.all({n => n > 0}))
+		assert.notThat(numbers.all({n => n > 5}))
+		
+	}
+	
+	
+	test "filter" {
+	
+		const numbers = [22, 2, 10]
+		var greaterThanFiveElements = numbers.filter({n => n > 5})
+		assert.that(greaterThanFiveElements.size() == 2)
+		
+	}
+	
+	
+	test "map" {
+	
+		const numbers = [22, 2, 10]
+		var halfs = numbers.map({n => n / 2})
+		assert.equals(3, halfs.size())
+		assert.that(halfs.contains(11))
+		assert.that(halfs.contains(5))
+		assert.that(halfs.contains(1))
+		
+	}
+	
+	
+	test "mapReturnsList" {
+	
+		const evens = #{1,2,3}.map({n => n.even()})
+		assert.equals(3, evens.size())
+		assert.equals(1, evens.occurrencesOf(true))
+		assert.equals(2, evens.occurrencesOf(false))
+		
+	}
+		
+	
+	test "shortCutAvoidingParenthesis" {
+	
+		const numbers = [22, 2, 10]
+		var greaterThanFiveElements = numbers.filter{n => n > 5}
+		assert.that(greaterThanFiveElements.size() == 2)
+		
+	}
+	
+	
+	test "anyOne" {
+	
+		const numbers = [22, 2, 10]
+		const anyOne = numbers.anyOne()
+		assert.that(numbers.contains(anyOne))
+		
+	}
+	
+	
+	test "equalsWithMethodName" {
+	
+		const a = [23, 2, 1]
+		const b = [23, 2, 1]
+		assert.that(a.equals(b))
+		
+	}
+	
+	
+	test "equalsWithEqualsEquals" {
+	
+		const a = [23, 2, 1]
+		const b = [23, 2, 1]
+		assert.that(a == b)
+		
+	}
+	
+	
+	test "testToString" {
+	
+		const numbers = [22, 2, 10]
+		assert.equals("[22, 2, 10]", numbers.toString())
+		
+	}
+	
+	
+	test "testToStringWithObjectRedefiningToStringInWollok" {
+	
+		const a = [23, 2, 1, myObject]
+		assert.equals("[23, 2, 1, My Object]", a.toString())
+		
+	}
+	
+	
+	test "findWhenElementExists" {
+	
+		const numbers = [22, 2, 10]
+		assert.equals(22, numbers.find{e=> e > 20})
+		
+	}
+	
+	
+	test "findOrElse" {
+	
+		const numbers = [22, 2, 10]
+		assert.equals(50, numbers.findOrElse({e=> e > 1000}, { 50 }))
+		
+	}
+
+	
+	test "findWhenElementDoesNotExist" {
+	
+		const numbers = [22, 2, 10]
+		assert.throwsException { numbers.find{e => e > 1000} }
+		
+	}
+	
+	
+	test "findOrDefaultWhenElementDoesNotExist" {
+	
+		const numbers = [22, 2, 10]
+		assert.equals(50, numbers.findOrDefault({e=> e > 1000}, 50))
+		
+	}
+
+	
+	test "findOrDefaultWhenElementExists" {
+	
+		const numbers = [22, 2, 10]
+		assert.equals(22, numbers.findOrDefault({e=> e > 20}, 50))
+		
+	}
+	
+	
+	test "count" {
+	
+		const numbers = [22, 2, 10]
+		assert.equals(1, numbers.count{e=> e > 20})
+		assert.equals(3, numbers.count{e=> e > 0})
+		assert.equals(0, numbers.count{e=> e < 0})
+		
+	}
+	
+	
+	test "sum" {
+	
+		const numbers = [22, 2, 10]
+		
+		assert.equals(34, numbers.sum {n => n})
+		
+	}
+
+	
+	test "concatenation" {
+	
+		const lista1 = [1, 4]
+		const lista2 = [2, 7]
+		const lista3 = lista1 + lista2
+		assert.equals([1, 4], lista1)
+		assert.equals([1, 4, 2, 7], lista3)
+		
+	}
+	
+	
+	test "sumNoArgsWithManyElements" {
+	
+		const numbers = [22, 2, 10]
+		assert.equals(34, numbers.sum())
+		
+	}
+
+	
+	test "sumNoArgsWithNoElementsSucceeds" {
+	
+		assert.equals(0, [].sum())
+		
+	}
+
+			
+	
+	test "sumNoArgsWithSingleElement" {
+	
+		assert.equals(5, [5].sum())
+		
+	}					
+	
+	
+	test "occurrencesOfInEmptyCollectionIsZero" {
+	
+		assert.equals(0, [].occurrencesOf(4))
+		
+	}
+	
+	
+	test "occurrencesOfInSingleElementCollection" {
+	
+		assert.equals(1, [4].occurrencesOf(4))
+		assert.equals(0, [4].occurrencesOf('Hola'))
+		
+	}
+	
+	
+	test "occurrencesOfInMultiElementCollection" {
+	
+		assert.equals(3, [1, 2, 3, 4, 4, 1, 2, 4, 0].occurrencesOf(4))
+		assert.equals(1, [1, 'Hola', 'mundo'].occurrencesOf('Hola'))
+		assert.equals(1, #{'Hola', 'mundo', 4, 4}.occurrencesOf(4))
+		
+	}
+	
+	
+	test "occurrencesOfInSetsNotGreaterThanOne" {
+	
+		assert.equals(1, #{'Hola', 3.0, 4, 4}.occurrencesOf(4))
+		
+	}
+
+	
+	test "lastWithNoElementsFails" {
+	
+		assert.throwsException({ [].last() })
+		
+	}
+
+	
+	test "lastWithSingleElementSucceeds" {
+	
+		assert.equals('Hola', ['Hola'].last())
+		
+	}
+
+	
+	test "lastWithManyElementsSucceeds" {
+	
+		assert.equals(4, [1, 2, 3, 4].last())
+		
+	}
+	
+	
+	test "removeAll" {
+	
+		const numbers = [22, 2, 10]
+		numbers.removeAll(numbers.drop(1))
+		assert.equals([numbers.head()], numbers)
+		
+	}
+	
+	
+	test "removeAllSuchThat" {
+	
+		const numbers = [22, 2, 10]
+		const collectionWithA2 = [2]
+		const emptyCollection = []
+		numbers.removeAllSuchThat({it => it >= 10})
+		assert.equals(collectionWithA2, numbers)
+		numbers.removeAllSuchThat({it => it.odd()})
+		assert.equals(collectionWithA2, numbers)
+		numbers.removeAllSuchThat({it => it.even()})
+		assert.equals(emptyCollection, numbers)
+		numbers.removeAllSuchThat({it => it.even()})
+		assert.equals(emptyCollection, numbers)
+		
+	}
+
+	
+	test "removeOnIteration" {
+	
+		const numbers = [22, 2, 10]
+		
+		numbers.forEach({n => numbers.remove(n)})
+		assert.that(numbers.isEmpty())
+		
+	}
+		
+	
+	test "addOnIteration" {
+	
+		const numbers = [22, 2, 10]
+		
+		numbers.forEach({n => numbers.add(n * 2)})
+		assert.that(numbers.contains(2))
+		assert.that(numbers.contains(22))
+		assert.that(numbers.contains(10))
+		assert.that(numbers.contains(44))
+		assert.that(numbers.contains(4))		
+		assert.that(numbers.contains(20))
+		
+	}
+	
+	
+	test "sortedBy" {
+	
+		const numbers = [22, 2, 10]
+		var numbersSet = numbers.asSet()
+		assert.equals([22,10,2], numbers.sortedBy({a,b=>a>b}))
+		assert.equals([22,10,2], numbersSet.sortedBy({a,b=>a>b}))
+		assert.equals([2,10,22], numbers.sortedBy({a,b=>a<b}))
+		assert.equals([2,10,22], numbersSet.sortedBy({a,b=>a<b}))
+		assert.equals([5], [5].sortedBy({a,b=>a>b}))
+		assert.equals([5], #{5}.sortedBy({a,b=>a>b}))
+		assert.equals([], [].sortedBy({a,b=>a>b}))
+		
+		
+	}	
+	
+}

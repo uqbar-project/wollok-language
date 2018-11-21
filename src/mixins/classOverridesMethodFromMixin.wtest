@@ -1,0 +1,19 @@
+mixin Energy {
+	var energy = 100
+	method reduceEnergy(amount) { energy -= amount }
+	method energy() = energy
+}
+		
+class Bird mixed with Energy {
+	override method reduceEnergy(amount) { 
+	// does nothing
+}
+}
+		
+test "class overrides method from mixin" {
+
+	const b = new Bird()
+	b.reduceEnergy(100)
+	assert.equals(100, b.energy())
+
+}

@@ -1,0 +1,9 @@
+import packageExample
+import packageExample.aves.*
+
+test "use a package" {
+	
+	assert.that(pepita.m()==1)
+
+}
+

@@ -1,0 +1,22 @@
+mixin Flies {
+	var times = 0
+	method fly() {
+		times += 1
+	}
+	method times() = times
+}
+		
+class Bird mixed with Flies {
+	method doubleFly() {
+		self.fly()
+		self.fly()
+	}
+}
+		
+test "class mixed calls inherited method from mixin with self" {
+
+	const pepita = new Bird()
+	pepita.doubleFly()
+	assert.equals(2, pepita.times())
+
+}

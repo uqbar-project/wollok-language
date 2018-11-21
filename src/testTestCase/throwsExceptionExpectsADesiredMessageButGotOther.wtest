@@ -1,0 +1,12 @@
+class BusinessException inherits wollok.lang.Exception {
+	constructor(_message) {message = _message}
+}
+
+test "Use throwsExceptionWithMessage" {
+	try {
+		assert.throwsExceptionWithMessage("hola!", { => throw new BusinessException("Jamaica") })
+	}
+	catch ex {
+		assert.equals("The error message expected was hola! but got Jamaica", ex.getMessage())
+	}
+}

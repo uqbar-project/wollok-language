@@ -1,0 +1,23 @@
+mixin Flies {
+	var times = 0
+	method fly() {
+		times = 1
+	}
+	method times() = times
+}
+		
+test "mixin on object literals" {
+
+	const pepita = object mixed with Flies {}
+	pepita.fly()
+	assert.equals(1, pepita.times())
+
+}
+
+test "mixin on object literal overriding a method"{
+	const pepita = object mixed with Flies {
+		override method fly() {}
+	}
+	pepita.fly()
+	assert.equals(0, pepita.times())
+}

@@ -1,0 +1,18 @@
+class A { 
+	method m1() { throw new Exception("hello you see") }
+}
+			
+test "Test message not understood with params" {
+	const a = new A()	
+
+	try {
+		a.m2(2, 4)
+		assert.fail("Should have thrown message not understood")
+	}	
+				
+	catch e : MessageNotUnderstoodException {
+		// ok !
+		assert.equals("un/a  A[] no entiende el mensaje m2(param1, param2) ", e.getMessage())
+	}
+
+}

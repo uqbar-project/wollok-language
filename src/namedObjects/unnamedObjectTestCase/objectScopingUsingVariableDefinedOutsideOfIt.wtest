@@ -1,0 +1,18 @@
+
+test "Object scoping using variable defined outside of it" {
+	var n = 33
+			
+	const o = object {
+		method getN() {
+			return n
+		}
+	} 
+			
+	assert.that(33 == o.getN())
+			
+	// change N
+	n = 34
+			
+	assert.that(34 == o.getN())
+
+}

@@ -1,0 +1,19 @@
+object pp {
+	var ps = [pepita]
+	method unMethod(){
+		var x = pepita
+		return x
+	}
+		
+	method getPs() {
+		return ps
+	}
+}
+		
+object pepita {	}
+		
+test "multiple references to same object creates just one instance" {
+
+	pp.unMethod()
+	assert.equals(pepita, pp.getPs().get(0))
+}

@@ -1,0 +1,7 @@
+describe "Simple test" {
+
+	test "1 + 1 es 2" {
+		assert.equals(2, 1 + 1)
+	}
+
+}
