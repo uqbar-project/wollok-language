@@ -1,7 +1,9 @@
-class BusinessException inherits wollok.lang.Exception {
+import wollok.lang.Exception
+
+class BusinessException inherits Exception {
 	constructor(_message) {message = _message}
 }
-class OtherException inherits wollok.lang.Exception {
+class OtherException inherits Exception {
 	constructor(_message) {message = _message}
 }
 

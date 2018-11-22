@@ -8,7 +8,7 @@ mixin Mojo {
 	method mojo() = mojo
 }
 		
-class Bird mixed with Energy, Mojo {
+class Bird mixed with Energy and Mojo {
 	method fly(meters) {
 		energy -= meters
 		mojo += 1

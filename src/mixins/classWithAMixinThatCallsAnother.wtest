@@ -17,11 +17,11 @@ mixin Flying {
 	method reduceEnergy(meters)
 }
 		
-class BirdWithEnergyThatFlies mixed with Energy, Flying {}
+class BirdWithEnergyThatFlies mixed with Energy and Flying {}
 		
 		// order doesn't matter
 		
-class BirdWithThatFliesWithEnergy mixed with Flying, Energy {}
+class BirdWithThatFliesWithEnergy mixed with Flying and Energy {}
 		
 test "class with a mixin that calls another" {
 

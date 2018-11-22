@@ -1,4 +1,6 @@
-class UserException inherits wollok.lang.Exception {
+import wollok.lang.Exception
+
+class UserException inherits Exception {
    var valorInvalido = 0
 			    
 	constructor(mensaje, value) = super(mensaje) { 	

@@ -40,27 +40,19 @@ describe "booleans"{
 	
 	test "And with literals"{
 		assert.that({{true}.apply()}.apply() && {{true}.apply()}.apply())
-		assert.that({{true}.apply()}.apply() and {{true}.apply()}.apply())
 			
 		assert.notThat({{true}.apply()}.apply() && {{false}.apply()}.apply())
-		assert.notThat({{true}.apply()}.apply() and {{false}.apply()}.apply())
 		assert.notThat({{false}.apply()}.apply() && {{true}.apply()}.apply())
-		assert.notThat({{false}.apply()}.apply() and {{true}.apply()}.apply())
 		assert.notThat({{false}.apply()}.apply() && {{false}.apply()}.apply())
-		assert.notThat({{false}.apply()}.apply() and {{false}.apply()}.apply())
 	}
 
 test "Or with literals" {
 		 
 		assert.that({true}.apply() || {true}.apply())
-		assert.that({true}.apply() or {true}.apply())
 			
 		assert.that({true}.apply() || {false}.apply())
-		assert.that({true}.apply() or {false}.apply())
 		assert.that({false}.apply() || {true}.apply())
-		assert.that({false}.apply() or {true}.apply())
 		assert.notThat({false}.apply() || {false}.apply())
-		assert.notThat({false}.apply() or {false}.apply())
 
 	}
 	
