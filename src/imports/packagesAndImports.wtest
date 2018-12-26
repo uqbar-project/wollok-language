@@ -1,4 +1,3 @@
-import packageExample
 import packageExample.aves.*
 
 test "use a package" {
