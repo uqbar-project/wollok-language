@@ -9,9 +9,7 @@ class UserException inherits Exception {
 }
 			
 object monedero {
-    var plata = 500
-	
-	method plata() = return plata
+	var plata = 500
 			
 	method poner(cantidad) {
 		if (cantidad < 0) {
