@@ -17,7 +17,7 @@ object liberarAFiona {
 	method solicitante(_solicitante) { solicitante = _solicitante }
 	method cantidadTrolls(cant) { cantidadTrolls = cant }
 	method esDificil() {
-		const result = (cantidadTrolls > 3) and (cantidadTrolls < 6)
+		const result = (cantidadTrolls > 3) && (cantidadTrolls < 6)
 		console.println(result)
 		return result
 	}
