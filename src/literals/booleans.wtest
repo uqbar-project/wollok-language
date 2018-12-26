@@ -13,7 +13,7 @@ object liberarAFiona {
 	var cantidadTrolls = 0
 	var solicitante = ""
 			
-	method solicitante() = return solicitante
+	method solicitante() = solicitante
 	method solicitante(_solicitante) { solicitante = _solicitante }
 	method cantidadTrolls(cant) { cantidadTrolls = cant }
 	method esDificil() {
@@ -21,7 +21,7 @@ object liberarAFiona {
 		console.println(result)
 		return result
 	}
-	method puntosRecompensa() = return cantidadTrolls * 2
+	method puntosRecompensa() = cantidadTrolls * 2
 }
 			
 describe "booleans"{
