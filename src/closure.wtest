@@ -8,7 +8,7 @@ describe "closures"{
 	
 	test "apply a closure with vararg parameters" {
 	
-		assert.that ({a,b... => a + b.sum()}.apply(1, [2,3,4]) === 10)
+		assert.that ({a,b... => a + b.sum()}.apply(1, 2, 3, 4) === 10)
 	
 	}
 	
@@ -70,8 +70,8 @@ describe "closures"{
 	
 	test "closures wrong arguments"{
 		
-		assert.throwsExceptionWithMessage(
-		"Cantidad incorrecta de parámetros para el mensaje: se requiere 1 pero se enviaron 2",
+		assert.throwsExceptionWithType(
+		new MessageNotUnderstoodException(""),
 			{ { a => a + 2 }.apply(1, 2) }
 		)
 		
@@ -79,8 +79,8 @@ describe "closures"{
 	
 	test "closures wrong arguments 2"{
 		
-		assert.throwsExceptionWithMessage(
-		"Cantidad incorrecta de parámetros para el mensaje: se requiere 1 pero se enviaron 0",
+		assert.throwsExceptionWithType(
+		new MessageNotUnderstoodException(""),
 		{ { a => a + 2 }.apply() }
 		)
 		
@@ -95,12 +95,6 @@ describe "closures"{
 	test "null closure"{
 		
 		assert.equals(null, { null }.apply())
-		
-	}
-	
-	test "to string closure"{
-	
-		assert.equals("{ a => a + 1 }", { a => a + 1 }.toString())
 		
 	}
 }

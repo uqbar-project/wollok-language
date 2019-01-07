@@ -7,18 +7,13 @@ class Golondrina {
 		
 		
 class Sample {
-	method preffix(preffix, numbers...) {
-		if (numbers.size() > 0)
-			return numbers.map{n=> preffix + n}
-		else
-			return []
-	}
+	method preffix(preffix, numbers...) = numbers.map{n=> preffix + n}
 }
 
 class Sample2 {
 	var result
 	constructor(preffix, numbers...) {
-		result = if (numbers.size() > 0) numbers.map{n=> preffix + n} else []
+		result = numbers.map{n=> preffix + n}
 	}
 	method getResult() = result
 }
@@ -43,7 +38,7 @@ describe "Method Test"{
 	test "varArgsInMethod: var args method must automatically box params as a list"{
 		
 		const p = new Sample()
-		assert.equals("#1, #2, #3, #4", p.preffix("#", 1, 2, 3, 4).join(", "))
+		assert.equals("$1, $2, $3, $4", p.preffix("$", 1, 2, 3, 4).join(", "))
 		
 	}
 	

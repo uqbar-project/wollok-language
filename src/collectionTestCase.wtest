@@ -443,7 +443,6 @@ describe "Collection test case"{
 	
 	
 	test "sortedBy" {
-	
 		const numbers = [22, 2, 10]
 		var numbersSet = numbers.asSet()
 		assert.equals([22,10,2], numbers.sortedBy({a,b=>a>b}))
@@ -453,8 +452,16 @@ describe "Collection test case"{
 		assert.equals([5], [5].sortedBy({a,b=>a>b}))
 		assert.equals([5], #{5}.sortedBy({a,b=>a>b}))
 		assert.equals([], [].sortedBy({a,b=>a>b}))
-		
-		
 	}	
 	
+
+  test "subList" {
+    const numbers = [22, 2, 10]
+    assert.equals([22, 2, 10], numbers.subList(0,2) )
+    assert.equals([2, 10], numbers.subList(1,2) )
+    assert.equals([22, 2], numbers.subList(0,1) )
+    assert.equals([22, 2, 10], numbers.subList(0,6) )
+    assert.equals([], numbers.subList(5,6) )
+  }
+ 
 }
