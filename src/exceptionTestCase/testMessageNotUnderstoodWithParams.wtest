@@ -12,7 +12,6 @@ test "Test message not understood with params" {
 				
 	catch e : MessageNotUnderstoodException {
 		// ok !
-		assert.equals("un/a  A[] no entiende el mensaje m2(param1, param2) ", e.getMessage())
 	}
 
 }

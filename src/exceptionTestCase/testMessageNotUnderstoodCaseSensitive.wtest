@@ -12,11 +12,6 @@ test "Test message not understood case sensitive" {
 	}	
 	catch e : MessageNotUnderstoodException {
 		// ok !
-	assert.equals("un/a  A[] no entiende el mensaje M1(param1). Pero existen otros métodos similares: m1(a)", e.getMessage())
-//	assert.equals("Wrong case-sensitive message M1(param1) sent to a A[]. Use m1(a)", e.getMessage())
 	}
-
-		// TODO: we need to add tests for the stacktrace generation. I'm not able to match the expected
-		// actual stack trace string e.getStackTraceAsString()
 
 }

@@ -13,9 +13,5 @@ test "Test message not understood however 2" {
 				
 	catch e : MessageNotUnderstoodException {
 		// ok !
-		assert.equals("un/a  A[] no entiende el mensaje m1(param1, param2). Pero existen otros métodos con diferente cantidad de argumentos: m1(a) ", e.getMessage())
 	}
-	
-	// TODO: we need to add tests for the stacktrace generation. I'm not able to match the expected
-	// actual stack trace string e.getStackTraceAsString()
 }

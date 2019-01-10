@@ -13,9 +13,5 @@ test "Test message not understood" {
 	
 	catch e : MessageNotUnderstoodException {
 		// ok !
-		assert.equals("un/a  A[] no entiende el mensaje m2() ", e.getMessage())
 	}
-
-		// TODO: we need to add tests for the stacktrace generation. I'm not able to match the expected
-		// actual stack trace string e.getStackTraceAsString()
 }

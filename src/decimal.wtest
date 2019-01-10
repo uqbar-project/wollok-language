@@ -30,16 +30,18 @@ describe "Decimal tests"{
 	}
 	
 	test "roundUp negative decimals throws error"{
-		
-		assert.throwsExceptionWithMessage("La escala a definir debe ser un valor positivo y entero", { 1.223445.truncate(-3) })
-		assert.throwsExceptionWithMessage("La escala a definir debe ser un valor positivo y entero", { 1.223445.roundUp(-3) })
-	
+		assert.throwsExceptionWithType(new BadParameterException(-3), { 1.223445.roundUp(-3) })
 	}
 	
 	test "roundUp alphabetic decimals throws error"{
-		
-		assert.throwsExceptionWithMessage("El valor \"A\" no puede convertirse al tipo wollok.lang.Number", { 1.223445.truncate("A") })
-		assert.throwsExceptionWithMessage("El valor \"B\" no puede convertirse al tipo wollok.lang.Number", { 1.223445.roundUp("B") })
-		
+		assert.throwsExceptionWithType(new BadParameterException("B"), { 1.223445.roundUp("B") })
+	}
+	
+	test "truncate negative decimals throws error"{
+		assert.throwsExceptionWithType(new BadParameterException(-3), { 1.223445.truncate(-3) })
+	}
+
+	test "truncate alphabetic decimals throws error"{
+		assert.throwsExceptionWithType(new BadParameterException("A"), { 1.223445.truncate("A") })
 	}
 }

@@ -28,10 +28,8 @@ describe "List tests"{
 	test "subList unhappy path" {
 		 
 		const numbers = [22, 2, 10]
-		assert.equals([2,22], numbers.subList(1,0))
+		assert.equals([], numbers.subList(1,0))
 		assert.equals([22,2,10], numbers.subList(0,25))
-		assert.equals([2,10], numbers.subList(1,2))
-		assert.equals([2], numbers.subList(1,1))
 
 	}
 	
@@ -72,7 +70,6 @@ describe "List tests"{
 	 
 	test "drop unhappy path" {
 		 
-		const numbers = [22, 2, 10]
 		assert.equals([], [].drop(-1))
 		assert.equals([], [].drop(0))
 		assert.equals([], [].drop(1))
@@ -81,12 +78,9 @@ describe "List tests"{
 	}	
 	
 	test "reverse" {
-		 
-		const numbers = [22, 2, 10]
-		assert.equals([10,2,22], numbers.reverse())
+		assert.equals([10,2,22], [22, 2, 10].reverse())
 		assert.equals([], [].reverse())
 		assert.equals([2], [2].reverse())			
-
 	}
 	 
 	test "printing duplicated elements"{

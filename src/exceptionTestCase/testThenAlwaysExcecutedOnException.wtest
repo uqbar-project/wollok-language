@@ -6,18 +6,20 @@ class A { method m1() { throw new MyException() } }
 test "Test then always excecuted on exception" {
 
 	const a = new A()
-	var counter = 0
+	var counter = 1
 	
 	try {
 		a.m1()
 	}
 
-	catch e : MyException
-		console.println("Exception raised!") // OK!
+	catch e : MyException {
+  	counter = counter + 1
+  }
 	
-	then always
-			counter = counter + 1
+	then always {
+		counter = counter * 3
+  }
 
-	assert.equals(1, counter)
+	assert.equals(6, counter)
 
 }

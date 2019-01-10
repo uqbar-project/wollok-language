@@ -9,6 +9,7 @@ object p {
 	method setModified(n) { modified = n }
 }
 
+// TODO: Replace this kind of examples with smaller inlined ones
 object liberarAFiona {
 	var cantidadTrolls = 0
 	var solicitante = ""
@@ -18,7 +19,6 @@ object liberarAFiona {
 	method cantidadTrolls(cant) { cantidadTrolls = cant }
 	method esDificil() {
 		const result = (cantidadTrolls > 3) && (cantidadTrolls < 6)
-		console.println(result)
 		return result
 	}
 	method puntosRecompensa() = cantidadTrolls * 2

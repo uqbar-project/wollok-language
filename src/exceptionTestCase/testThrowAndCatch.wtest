@@ -6,18 +6,17 @@ class A {
 test "Test throw and catch"{
 	
 	const a = new A()
-	var counter = 0
+	var counter = 1
 				
 	try {
 		a.m1()
-		counter = counter + 1
+		counter = 0
 	}
 	
 	catch e : MyException {
-		console.println("Exception raised!") // OK!
-		e.printStackTrace()
+    counter = counter + 1
 	}
 
-	assert.equals(0, counter)
+	assert.equals(2, counter)
 	
 }

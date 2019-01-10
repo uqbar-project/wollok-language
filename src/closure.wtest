@@ -69,33 +69,19 @@ describe "closures"{
 	}
 	
 	test "closures wrong arguments"{
-		
-		assert.throwsExceptionWithType(
-		new MessageNotUnderstoodException(""),
-			{ { a => a + 2 }.apply(1, 2) }
-		)
-		
+		assert.throwsExceptionWithType(new MessageNotUnderstoodException(""), { { a => a + 2 }.apply(1, 2) })
 	}
 	
 	test "closures wrong arguments 2"{
-		
-		assert.throwsExceptionWithType(
-		new MessageNotUnderstoodException(""),
-		{ { a => a + 2 }.apply() }
-		)
-		
+		assert.throwsExceptionWithType(new MessageNotUnderstoodException(""),{ { a => a + 2 }.apply() })
 	}
 	
 	test "number closure"{
-		
 		assert.equals(2, { a => a }.apply(2))
-		
 	}
 	
 	test "null closure"{
-		
 		assert.equals(null, { null }.apply())
-		
 	}
 }
 

@@ -7,9 +7,5 @@ test "Test message not understood with literals however" {
 	
 	catch e : MessageNotUnderstoodException {
 		// ok !
-		assert.equals("4 no entiende el mensaje truncate(). Pero existen otros métodos con diferente cantidad de argumentos: truncate(_decimals) ", e.getMessage())
 	}
-	
-	// TODO: we need to add tests for the stacktrace generation. I'm not able to match the expected
-	// actual stack trace string e.getStackTraceAsString()
 }
