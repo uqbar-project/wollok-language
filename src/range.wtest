@@ -98,19 +98,7 @@ describe "Range Test Case"{
 		assert.equals(5, evenCount)
 		  	
 	}
-	
-	test "anyOneProbability"{
-		const range = 0 .. 10
-		range.step(2)
-		const counter = new Dictionary()
-		range.forEach({n => counter.put(n,0)})
-		5000.times({ i =>
-			var n = range.anyOne()
-			var c = counter.get(n) + 1
-			counter.put(n,c)
-		})
-		range.forEach({n => assert.that(counter.get(n) > 500)})
-	}
+
 	
 	test "anyOne" {
 		 
@@ -185,7 +173,7 @@ describe "Range Test Case"{
 	test "sorted by" {
 		 
 		const range = 1 .. 9
-		const sortedRange = range.sortedBy({ a, b => a.even() && b.even().negate() })
+		const sortedRange = range.sortedBy({ a, b => a.even() && b.odd() || !(a.odd() && b.even()) && a < b })
 		assert.equals([2, 4, 6, 8, 1, 3, 5, 7, 9], sortedRange)
 		  	
 	}
