@@ -1,5 +1,5 @@
 object myObject {
-	override method internalToSmartString(alreadyShown) = "My Object"
+	override method toString() = "My Object"
 }
 		
 object a {}
