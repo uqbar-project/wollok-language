@@ -11,10 +11,6 @@ object a {
 	override method printString() = "es un a"
 }
 		
-class B {
-	override method printString() = "cierto que era un b!"
-}
-		
 
 describe "Set test"{
 	
@@ -143,16 +139,8 @@ describe "Set test"{
 	test "anyOne on set throwsException when empty"{
 		
 		assert.equals(1, #{1}.anyOne())
-		assert.throwsExceptionWithMessage(
-			"Operación {0} no permitida en colecciones vacías", //¿No debería especificar que la operación es anyOne? 
-			{ #{}.anyOne() })
+		assert.throwsException({ #{}.anyOne() })
 			
 	}
 	
-	test "elements to string"{
-		assert.throwsExceptionWithMessage(
-			"Expected [#{a[]}] but found [#{un/a  B[]}]", 
-			{ assert.equals(#{a}, #{new B()}) }
-		)
-	}
 }
