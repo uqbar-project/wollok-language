@@ -3,9 +3,7 @@ class Cuenta {
 	method depositar_monto(un_monto) {
 		monto += un_monto
 	}
-	method consultar_saldo() {
-		return monto
-	}
+  method monto() = monto
 }
 
 describe "Number Test Case"{
@@ -31,14 +29,14 @@ describe "Number Test Case"{
 
 	test "Add with failing parameters" {
 	
-		assert.throwsExceptionWithMessage("La operación no admite el parámetro a Date[day = 18, month = 12, year = 2017]", { 3 + new Date(18, 12, 2017) })
-		assert.throwsExceptionWithMessage("La operación no admite el parámetro pepe", { 3 + "pepe" })
+		assert.throwsException( { 3 + new Cuenta() })
+		assert.throwsException( { 3 + "pepe" })
 		
 	}
 
 	test "Add 1 to null" {
 	
-		assert.throwsExceptionWithMessage("La operación + no admite parámetros nulos", { 1 + null })
+		assert.throwsException({ 1 + null })
 		
 	}
 	
@@ -50,13 +48,13 @@ describe "Number Test Case"{
 	
 	test "Max failing parameter" {
 	
-		assert.throwsExceptionWithMessage("La operación no admite el parámetro a Date[day = 21, month = 12, year = 2017]", { 4.min(new Date(21, 12, 2017)) })
+		assert.throwsException({ 4.min(new Date(21, 12, 2017)) })
 		
 	}
 
 	test "Max using null" {
 	
-		assert.throwsExceptionWithMessage("La operación max no admite parámetros nulos", { 4.max(null) })
+		assert.throwsException({ 4.max(null) })
 		
 	}
 	
@@ -68,37 +66,37 @@ describe "Number Test Case"{
 	
 	test "Min failing parameter" {
 	
-		assert.throwsExceptionWithMessage("La operación no admite el parámetro a Date[day = 21, month = 12, year = 2017]", { 4.min(new Date(21, 12, 2017)) })
+		assert.throwsException({ 4.min(new Date(21, 12, 2017)) })
 		
 	}
 	
 	test "Min using null" {
 	
-		assert.throwsExceptionWithMessage("La operación min no admite parámetros nulos", { 4.min(null) })
+		assert.throwsException({ 4.min(null) })
 		
 	}
 	
 	test "Subtract using null" {
 	
-		assert.throwsExceptionWithMessage("La operación - no admite parámetros nulos", { 1 - null })
+		assert.throwsException({ 1 - null })
 		
 	}
 	
 	test "Subtract fail" {
 	
-		assert.throwsExceptionWithMessage("La operación no admite el parámetro a", { 4 - "a" })
+		assert.throwsException({ 4 - "a" })
 		
 	}
 	
 	test "Multiply using null" {
 	
-		assert.throwsExceptionWithMessage("La operación * no admite parámetros nulos", { 1 * null })
+		assert.throwsException({ 1 * null })
 		
 	}
 	
 	test "Multiply fail" {
 	
-		assert.throwsExceptionWithMessage("La operación no admite el parámetro a", { 4 * "a" })
+		assert.throwsException({ 4 * "a" })
 		
 	}
 	
@@ -133,7 +131,7 @@ describe "Number Test Case"{
 	
 		assert.equals(8, 4.00000000001 * 2.000000000003)
 		assert.equals(0, 4.00222222222222000000001 * 0)
-		assert.equals(4.00270, 4.00222222222222000000001 * 1.00012)
+		assert.equals(4.00260, 4.00222222222222000000001 * 1.00012)
 		assert.equals(4.00415, 4.00222522222222000000001 * 1.00048)
 		
 	}
@@ -178,10 +176,10 @@ describe "Number Test Case"{
 	
 	test "Division by zero" {
 	
-		assert.throwsExceptionWithMessage("/ by zero", { 1 / 0 })
-		assert.throwsExceptionWithMessage("/ by zero", { 1.0 / 0 })
-		assert.throwsExceptionWithMessage("/ by zero", { 1.0 / 0.0 })
-		assert.throwsExceptionWithMessage("/ by zero", { 1 / 0.0 })
+		assert.throwsException({ 1 / 0 })
+		assert.throwsException({ 1.0 / 0 })
+		assert.throwsException({ 1.0 / 0.0 })
+		assert.throwsException({ 1 / 0.0 })
 		
 	}
 	
@@ -207,13 +205,13 @@ describe "Number Test Case"{
 	
 	test "Division using null" {
 	
-		assert.throwsExceptionWithMessage("La operación / no admite parámetros nulos",  { 3 / null })
+		assert.throwsException( { 3 / null })
 		
 	}
 	
 	test "Division fail" {
 	
-		assert.throwsExceptionWithMessage("La operación no admite el parámetro a",  { 3 / "a" })
+		assert.throwsException( { 3 / "a" })
 		
 	}
 		
@@ -228,13 +226,13 @@ describe "Number Test Case"{
 	
 	test "Times fail" {
 	
-		assert.throwsExceptionWithMessage("La operación forEach no admite parámetros nulos", { 4.times("a") } )
+		assert.throwsException({ 4.times("a") } )
 		
 	}
 	
 	test "Times using null" {
 	
-		assert.throwsExceptionWithMessage("La operación times no admite parámetros nulos", { 4.times(null) } )
+		assert.throwsException({ 4.times(null) } )
 		
 	}
 	
@@ -258,13 +256,13 @@ describe "Number Test Case"{
 	
 	test "Between using null" {
 	
-		assert.throwsExceptionWithMessage("La operación < no admite parámetros nulos", { 2.between(1, null) } )
+		assert.throwsException({ 2.between(1, null) } )
 		
 	}
 	
 	test "Between fail"{
 	
-		assert.throwsExceptionWithMessage("El valor \"a\" no puede convertirse al tipo wollok.lang.Number", { 2.between("a", 2) } )
+		assert.throwsException({ 2.between("a", 2)}) 
 		
 	}
 	
@@ -316,13 +314,13 @@ describe "Number Test Case"{
 
 	test "Remainder using null" {
 	
-		assert.throwsExceptionWithMessage("La operación % no admite parámetros nulos", { 2.rem(null) } )
+		assert.throwsException({ 2.rem(null) } )
 		
 	}
 	
 	test "Remainder fail" {
 	
-		assert.throwsExceptionWithMessage("La operación no admite el parámetro a", { 2.rem("a") } )
+		assert.throwsException({ 2.rem("a") } )
 		
 	}
 	
@@ -341,25 +339,20 @@ describe "Number Test Case"{
 	}
 	
 	test "Gcd" {
-	
-		const gcd1 = 5.gcd(25)
-		const gcd2 = 25.gcd(20)
-		const gcd3 = 2.gcd(3)
-		assert.equals(5, gcd1)
-		assert.equals(5, gcd2)
-		assert.equals(1, gcd3)
-		
+		assert.equals(5.gcd(25), 5)
+		assert.equals(25.gcd(20), 5)
+		assert.equals(2.gcd(3), 1)
 	}
 
 	test "Gcd using null" {
 	
-		assert.throwsExceptionWithMessage("La operación gcd no admite parámetros nulos", { 4.gcd(null) })
+		assert.throwsException({ 4.gcd(null) })
 		
 	}
 	
 	test "Gcd for invalid arguments" {
 	
-		assert.throwsExceptionWithMessage("La operación no admite el parámetro a Date[day = 1, month = 1, year = 2018]", { 4.gcd(new Date(1, 1, 2018)) })
+		assert.throwsException({ 4.gcd(new Date(1, 1, 2018)) })
 		
 	}
 	
@@ -406,14 +399,14 @@ describe "Number Test Case"{
 	
 	test "Lcm using null" {
 	
-		assert.throwsExceptionWithMessage("La operación lcm no admite parámetros nulos", { 4.lcm(null) })
+		assert.throwsException({ 4.lcm(null) })
 		
 	}
 	
 	
 	test "Lcm for invalid arguments"{
 	
-		assert.throwsExceptionWithMessage("La operación no admite el parámetro a Date[day = 1, month = 1, year = 2018]", { 4.lcm(new Date(1, 1, 2018)) })
+		assert.throwsException({ 4.lcm(new Date(1, 1, 2018)) })
 		
 	}
 	
@@ -455,14 +448,14 @@ describe "Number Test Case"{
 	
 	test "randomUpToFail"{
 	
-		assert.throwsExceptionWithMessage("El valor \"a\" no puede convertirse al tipo wollok.lang.Number", { 4.randomUpTo("a") } )
+		assert.throwsException({ 4.randomUpTo("a") } )
 		
 	}
 
 	
 	test "randomUpUsingNull" {
 	
-		assert.throwsExceptionWithMessage("La operación randomUpTo no admite parámetros nulos", { 4.randomUpTo(null) } )
+		assert.throwsException({ 4.randomUpTo(null) } )
 		
 	}
 	
@@ -475,34 +468,32 @@ describe "Number Test Case"{
 	}	
 	
 	test "integerDivision" {
-	
 		assert.equals(4, 16.div(4))
 		assert.equals(4, 18.div(4))
 		assert.equals(5, 21.div(4))
 		assert.equals(5, (21.2).div(4.1))
-		assert.throwsExceptionWithMessage("La operación div no admite parámetros nulos", { 4.div(null) })
-		
+		assert.throwsException({ 4.div(null) })
 	}	
 
 	
 	test "integerDivisionByZero " {
 	
-		assert.throwsExceptionWithMessage("/ by zero", { 16.div(0) })
-		assert.throwsExceptionWithMessage("/ by zero", { (21.2).div(0.0) })
+		assert.throwsException({ 16.div(0) })
+		assert.throwsException({ (21.2).div(0.0) })
 		
 	}
 
 	
 	test "integerDivisionFail" {
 	
-		assert.throwsExceptionWithMessage("El valor \"a\" no puede convertirse al tipo wollok.lang.Number", { 8.div("a") })
+		assert.throwsException({ 8.div("a") })
 		
 	}
 	
 	
 	test "integerDivisionUsingNull" {
 	
-		assert.throwsExceptionWithMessage("La operación div no admite parámetros nulos", { 8.div(null) })
+		assert.throwsException({ 8.div(null) })
 		
 	}
 	
@@ -539,18 +530,18 @@ describe "Number Test Case"{
 	
 	test "exponentiationUsingNull" {
 	
-		assert.throwsExceptionWithMessage("La operación ** no admite parámetros nulos", { 4 ** null } )
+		assert.throwsException({ 4 ** null } )
 		
 	}
 	
 	
 	test "exponentiationFail" {
 	
-		assert.throwsExceptionWithMessage("La operación no admite el parámetro a", { 4 ** "a" } )
+		assert.throwsException({ 4 ** "a" } )
 		
 	}
-	
-	test "exponentiationPrecedence" {
+
+	test "exponentiation precedence" {
 	
 		assert.equals(24, 3 * 2 ** 3)
 		assert.equals(36, 4.0 * 3 ** 2)
@@ -566,13 +557,13 @@ describe "Number Test Case"{
 	
 	test "roundUpUsingNull" {
 	
-		assert.throwsExceptionWithMessage("La operación roundUp no admite parámetros nulos", { (10/2).roundUp(null) })
+		assert.throwsException({ (10/2).roundUp(null) })
 		
 	}
 	
 	test "roundUpFail" {
 	
-		assert.throwsExceptionWithMessage("El valor \"a\" no puede convertirse al tipo wollok.lang.Number", { (10/2).roundUp("a") })
+		assert.throwsException({ (10/2).roundUp("a") })
 		
 	}
 	
@@ -585,13 +576,13 @@ describe "Number Test Case"{
 	
 	test "truncateUsingNull" {
 	
-		assert.throwsExceptionWithMessage("La operación truncate no admite parámetros nulos", { (10/2).truncate(null) })
+		assert.throwsException({ (10/2).truncate(null) })
 		
 	}
 	
 	test "truncateFail" {
 	
-		assert.throwsExceptionWithMessage("El valor \"a\" no puede convertirse al tipo wollok.lang.Number", { (10/2).truncate("a") })
+		assert.throwsException({ (10/2).truncate("a") })
 		
 	}
 		
@@ -620,13 +611,13 @@ describe "Number Test Case"{
 	
 	test "modulusUsingNull" {
 	
-		assert.throwsExceptionWithMessage("La operación % no admite parámetros nulos", { 2 % null } )
+		assert.throwsException({ 2 % null } )
 		
 	}
 	
 	test "modulusFail" {
 	
-		assert.throwsExceptionWithMessage("La operación no admite el parámetro a", { 2 % "a" } )
+		assert.throwsException({ 2 % "a" } )
 		
 	}
 	
@@ -644,25 +635,25 @@ describe "Number Test Case"{
 	
 	test "greaterThanFail" {
 	
-		assert.throwsExceptionWithMessage("El valor [1, 2] no puede convertirse al tipo wollok.lang.Number", { 3 > [1, 2] })
+		assert.throwsException({ 3 > [1, 2] })
 		
 	}
 	
 	test "greaterThanUsingNull" {
 	
-		assert.throwsExceptionWithMessage("La operación > no admite parámetros nulos", { 3 > null })
+		assert.throwsException({ 3 > null })
 		
 	}
 	
 	test "lesserThanFail" {
 	
-		assert.throwsExceptionWithMessage("El valor [1, 2] no puede convertirse al tipo wollok.lang.Number", { 3 < [1, 2] })
+		assert.throwsException({ 3 < [1, 2] })
 		
 	}
 	
 	test "lesserThanUsingNull" {
 	
-		assert.throwsExceptionWithMessage("La operación < no admite parámetros nulos", { 3 < null })
+		assert.throwsException({ 3 < null })
 		
 	}
 	
