@@ -1,5 +1,5 @@
 class Cuenta {
-	var property monto = 0
+	var monto = 0
 	method depositar_monto(un_monto) {
 		monto += un_monto
 	}
