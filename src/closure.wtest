@@ -24,7 +24,7 @@ describe "closures"{
 	test "closure access local variable in program"{
 		
 		var to = "world"
-		const helloWorld = {=>"hello " + to }
+		const helloWorld = { "hello " + to }
 			
 		assert.equals("hello world", helloWorld.apply())
 			

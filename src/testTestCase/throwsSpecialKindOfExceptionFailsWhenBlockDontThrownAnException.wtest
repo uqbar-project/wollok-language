@@ -7,10 +7,8 @@ class BusinessException inherits Exception {
 test "throwsSpecialKindOfExceptionFailsWhenBlockDontThrownAnException" {
 
 	try {
-		assert.throwsExceptionLike(new BusinessException(), { => console.println("Works great!")})
-	}
-	
-	catch ex {
-		assert.equals("Should have thrown an exception", ex.getMessage())
+		assert.throwsExceptionLike(new BusinessException(), { => 5 })
+	} catch ex {
+		/* OK */
 	}
 }

@@ -6,6 +6,10 @@ class BusinessException inherits Exception {
 
 test "Use throwsExceptionLike" {
 
-	assert.throwsExceptionLike(new BusinessException(), { => throw new BusinessException() })
+  try {
+	  assert.throwsExceptionLike(new BusinessException(), { => throw new BusinessException() })
+  } catch e {
+    assert.fail()
+  }
 	
 }
