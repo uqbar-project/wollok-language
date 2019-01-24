@@ -5,7 +5,7 @@ test "Test exception from native method gets wrapped into a WollokException" {
 		2 / 0
     assert.fail()
 	}
-	catch e : BadParameterException {
+	catch e : EvaluationError {
   }
 			
 }
