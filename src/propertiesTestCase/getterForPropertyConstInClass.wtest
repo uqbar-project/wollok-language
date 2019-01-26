@@ -7,7 +7,7 @@ class Ave {
 	}
 			
 	method volar() {
-		vecesQueVolo++
+		vecesQueVolo += 1
 	}
 }
 

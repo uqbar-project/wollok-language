@@ -4,7 +4,7 @@ object pepita {
 	var property vecesQueVolo = self.energia() - 100
 			
 	method volar() {
-		vecesQueVolo++
+		vecesQueVolo += 1
 	}
 }
 
