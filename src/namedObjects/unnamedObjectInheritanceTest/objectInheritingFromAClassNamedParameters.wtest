@@ -3,7 +3,7 @@ class Auto {
 	var property owner
 }
 		
-test "Object inheriting from a class named parameters" {
+test "literal object inheriting from a class named parameters" {
 
 	var n = 33
 	
