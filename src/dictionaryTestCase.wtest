@@ -142,12 +142,13 @@ describe "Dictionary test case"{
 	test "To string" {
 		
 		const mapaTelefonos = new Dictionary()
-		assert.equals(mapaTelefonos.toString(), "a Dictionary []")
+		assert.equals("a Dictionary []", mapaTelefonos.toString())
 		mapaTelefonos.put("choli", "2142-5980")
-		assert.equals(mapaTelefonos.toString(), "a Dictionary [\"choli\" -> \"2142-5980\"]")
+		assert.equals("a Dictionary [\"choli\" -> \"2142-5980\"]", mapaTelefonos.toString())
 		mapaTelefonos.put(2, 33)
-		assert.equals(mapaTelefonos.toString(), "a Dictionary [\"choli\" -> \"2142-5980\", 2 -> 33]")
-		 
+		assert.that(mapaTelefonos.toString().contains("\"choli\" -> \"2142-5980\""))
+		assert.that(mapaTelefonos.toString().contains(", "))
+		assert.that(mapaTelefonos.toString().contains("2 -> 33"))
 	}
 	
 	test "Put null key should throw an exception" {

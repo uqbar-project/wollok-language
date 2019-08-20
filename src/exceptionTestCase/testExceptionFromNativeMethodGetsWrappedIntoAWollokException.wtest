@@ -1,11 +1,4 @@
 
 test "Test exception from native method gets wrapped into a WollokException" {
-
-	try {
-		2 / 0
-    assert.fail()
-	}
-	catch e : EvaluationError {
-  }
-			
+	assert.throwsException { 2 / 0 }	
 }

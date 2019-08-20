@@ -16,6 +16,6 @@ test "Test with Assert Equals with errors" {
 	}
 	
 	catch e {
-		assert.equals("Expected [7] but found [0]", e.getMessage())
+		assert.equals("Expected [7] but found [0]", e.message())
 	} 	
 }

@@ -13,6 +13,6 @@ test "Test error method on wollok object" {
 	
 	catch e {
 		// OK !
-		assert.equals("Gently failling!", e.getMessage())
+		assert.equals("Gently failling!", e.message())
 	}
 }

@@ -30,18 +30,18 @@ describe "Decimal tests"{
 	}
 	
 	test "roundUp negative decimals throws error"{
-		assert.throwsExceptionWithType(new EvaluationError(-3), { 1.223445.roundUp(-3) })
+		assert.throwsException { 1.223445.roundUp(-3) }
 	}
 	
 	test "roundUp alphabetic decimals throws error"{
-		assert.throwsExceptionWithType(new EvaluationError("B"), { 1.223445.roundUp("B") })
+		assert.throwsException { 1.223445.roundUp("B") }
 	}
 	
 	test "truncate negative decimals throws error"{
-		assert.throwsExceptionWithType(new EvaluationError(-3), { 1.223445.truncate(-3) })
+		assert.throwsException { 1.223445.truncate(-3) }
 	}
 
 	test "truncate alphabetic decimals throws error"{
-		assert.throwsExceptionWithType(new EvaluationError("A"), { 1.223445.truncate("A") })
+		assert.throwsException { 1.223445.truncate("A") }
 	}
 }
