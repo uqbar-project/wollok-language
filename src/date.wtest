@@ -299,5 +299,23 @@ describe "Date tests"{
 		 
 		assert.throwsException( { new Date(28, 2, 2017).minusYears("a") })
 		 
-	}	
+	}
+
+
+	test "all operations returning dates are correct wollok dates" {
+		 
+		assert.that(new Date().minusDays(1).day() !== null)
+		assert.that(new Date().minusDays(1).month() !== null)
+		assert.that(new Date().minusDays(1).year() !== null)
+		assert.that(new Date().plusDays(1).day() !== null)
+		assert.that(new Date().plusDays(1).month() !== null)
+		assert.that(new Date().plusDays(1).year() !== null)
+		assert.that(new Date().minusYears(1).day() !== null)
+		assert.that(new Date().minusYears(1).month() !== null)
+		assert.that(new Date().minusYears(1).year() !== null)
+		assert.that(new Date().plusYears(1).day() !== null)
+		assert.that(new Date().plusYears(1).month() !== null)
+		assert.that(new Date().plusYears(1).year() !== null)
+		 
+	}
 }
