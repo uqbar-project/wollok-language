@@ -83,5 +83,9 @@ describe "closures"{
 	test "null closure"{
 		assert.equals(null, { null }.apply())
 	}
+
+	test "closure toString should be its source code" {
+		assert.equals("{x => 5 + x}", {x => 5 + x}.toString())
+	}
 }
 
