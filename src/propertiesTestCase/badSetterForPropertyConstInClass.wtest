@@ -5,10 +5,5 @@ class Ave {
 test "Bad setter for property const in class"{
 	
 	const pepita = new Ave()
-	try {
-		pepita.energia(10, [21, 1])
-	} catch e {
-		/* OK */
-	}
-	
+	assert.throwsException { pepita.energia(10, [21, 1]) }
 }
