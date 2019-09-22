@@ -48,7 +48,7 @@ describe "Number Test Case"{
 	
 	test "Max failing parameter" {
 	
-		assert.throwsException({ 4.min(new Date(21, 12, 2017)) })
+		assert.throwsException({ 4.min(new Date(day=21, month=12, year=2017)) })
 		
 	}
 
@@ -66,7 +66,7 @@ describe "Number Test Case"{
 	
 	test "Min failing parameter" {
 	
-		assert.throwsException({ 4.min(new Date(21, 12, 2017)) })
+		assert.throwsException({ 4.min(new Date(day=21, month=12, year=2017)) })
 		
 	}
 	
@@ -352,7 +352,7 @@ describe "Number Test Case"{
 	
 	test "Gcd for invalid arguments" {
 	
-		assert.throwsException({ 4.gcd(new Date(1, 1, 2018)) })
+		assert.throwsException({ 4.gcd(new Date(day=1, month=1, year=2018)) })
 		
 	}
 	
@@ -406,7 +406,7 @@ describe "Number Test Case"{
 	
 	test "Lcm for invalid arguments"{
 	
-		assert.throwsException({ 4.lcm(new Date(1, 1, 2018)) })
+		assert.throwsException({ 4.lcm(new Date(day=1, month=1, year=2018)) })
 		
 	}
 	

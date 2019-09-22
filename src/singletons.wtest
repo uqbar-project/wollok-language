@@ -59,17 +59,7 @@ describe "Singletons"{
 		assert.that(ob1 != ob2)
 		assert.that(ob1 == ob3)
 	}
-	
-	test "compare identity of three strings"{
-		const ob1 = "hola"
-		const ob2 = "hola"
-		const ob3 = ob1
-		
-		assert.that(ob1 === ob1)
-		assert.that(ob1 === ob2)
-		assert.that(ob1 === ob3)
-	}
-		
+			
 	test "compare equality of three strings"{
 		const ob1 = "hola"
 		const ob2 = "hola"

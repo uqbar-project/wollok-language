@@ -2,7 +2,8 @@ test "Assert throws exception failing" {
 	
 	var a = 0
 	assert.throwsExceptionLike(
-		new AssertionException("Block should have failed"),
+		// TODO NicoS: es posible hacer que wollok-ts nos dé el código acá?
+		new AssertionException(message = "Block { a + 1 } should have failed"),
 		{ assert.throwsException({ a + 1 }) }
 	)
 

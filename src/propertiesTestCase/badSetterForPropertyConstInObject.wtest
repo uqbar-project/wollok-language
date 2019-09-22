@@ -3,12 +3,6 @@ object pepita {
 		}
 		
 test "Bad setter for property const in object" {
-	
-	try {
-		pepita.energia(10, "hola")
-	} catch e : Exception {
-		/* OK */
-	}
-	
+	// Warning: this will fail before even executing tests unless it is run with `-dontValidate` option
+	assert.throwsException { pepita.energia(10, "hola") }
 }
-		

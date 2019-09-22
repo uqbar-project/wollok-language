@@ -4,9 +4,5 @@ object pepita {
 
 
 test "setter for property const in object"{
-	try {
-		pepita.energia(10)
-	} catch e {
-		/* OK */
-	}
+	assert.throwsException { pepita.energia(10) }
 }

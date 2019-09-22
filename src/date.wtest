@@ -21,7 +21,7 @@ describe "Date tests"{
 	 
 	test "year 2000 was leap" {
 		 
-		const year2000 = new Date(4, 5, 2000)
+		const year2000 = new Date(day=4, month=5, year=2000)
 		assert.that(year2000.isLeapYear())
 		 
 	}
@@ -29,14 +29,14 @@ describe "Date tests"{
 	 
 	test "year 2000 was leap with decimals" {
 		 
-		const year2000 = new Date(4.8, 5.1, 2000.7)
+		const year2000 = new Date(day=4, month=5.1, year=2000.7)
 		assert.that(year2000.isLeapYear())
 		 
 	}
 	 
 	test "year 2001 was not leap" {
 		 
-		const year2001 = new Date(4, 5, 2001)
+		const year2001 = new Date(day=4, month=5, year=2001)
 		assert.notThat(year2001.isLeapYear())
 		 
 	}
@@ -44,7 +44,7 @@ describe "Date tests"{
 	 
 	test "year 2004 was leap" {
 		 
-		const year2004 = new Date(4, 5, 2004)
+		const year2004 = new Date(day=4, month=5, year=2004)
 		assert.that(year2004.isLeapYear())
 		 
 	}
@@ -52,7 +52,7 @@ describe "Date tests"{
 	 
 	test "year 2100 was not leap" {
 		 
-		const year2100 = new Date(4, 5, 2100)
+		const year2100 = new Date(day=4, month=5, year=2100)
 		assert.notThat(year2100.isLeapYear())
 		 
 	}
@@ -70,7 +70,7 @@ describe "Date tests"{
 	 
 	test "a 2001 date is less than today" {
 		 
-		const elyesterday = new Date(10, 6, 2001)
+		const elyesterday = new Date(day=10, month=6, year=2001)
 		const today = new Date()
 		assert.that(elyesterday < today) 
 		 
@@ -95,16 +95,16 @@ describe "Date tests"{
 	 
 	test "tuesday is second day of week" {
 		 
-		const aDay = new Date(7, 6, 2016)
-		assert.equals(aDay.dayOfWeek(), 2) 
+		const aDay = new Date(day=7, month=6, year=2016)
+		assert.equals(aDay.dayOfWeek(), tuesday) 
 		 
 	}
 
 	 
 	test "difference between dates positive" {
 		 
-		const day1 = new Date(7, 6, 2016)
-		const day2 = new Date(9, 7, 2016)
+		const day1 = new Date(day=7, month=6, year=2016)
+		const day2 = new Date(day=9, month=7, year=2016)
 		assert.equals(day2 - day1, 32) 
 		 
 	}
@@ -112,8 +112,8 @@ describe "Date tests"{
 	 
 	test "difference between dates negative" {
 		 
-		const day1 = new Date(7, 6, 2016)
-		const day2 = new Date(9, 7, 2016)
+		const day1 = new Date(day=7, month=6, year=2016)
+		const day2 = new Date(day=9, month=7, year=2016)
 		assert.equals(day1 - day2, -32) 
 		 
 	}
@@ -130,8 +130,8 @@ describe "Date tests"{
 	 
 	test "add two months" {
 		 
-		const originalDay = new Date(31, 12, 2015)
-		const finalDay = new Date(29, 2, 2016)
+		const originalDay = new Date(day=31, month=12, year=2015)
+		const finalDay = new Date(day=29, month=2, year=2016)
 		const result = originalDay.plusMonths(2)
 		assert.that(result.equals(finalDay))
 		 
@@ -140,8 +140,8 @@ describe "Date tests"{
 	 
 	test "subtract two months" {
 		 
-		const originalDay = new Date(29, 2, 2016)
-		const finalDay = new Date(29, 12, 2015)
+		const originalDay = new Date(day=29, month=2, year=2016)
+		const finalDay = new Date(day=29, month=12, year=2015)
 		const result = originalDay.minusMonths(2)
 		assert.that(result.equals(finalDay))
 		 
@@ -150,8 +150,8 @@ describe "Date tests"{
 	 
 	test "subtract two months passing decimals" {
 		 
-		const originalDay = new Date(29, 2, 2016)
-		const finalDay = new Date(29, 12, 2015)
+		const originalDay = new Date(day=29, month=2, year=2016)
+		const finalDay = new Date(day=29, month=12, year=2015)
 		const result = originalDay.minusMonths(2.4)
 		assert.that(result.equals(finalDay))
 		 
@@ -160,8 +160,8 @@ describe "Date tests"{
 	 
 	test "add one year" {
 		 
-		const originalDay = new Date(29, 2, 2016)
-		const finalDay = new Date(28, 2, 2017)
+		const originalDay = new Date(day=29, month=2, year=2016)
+		const finalDay = new Date(day=28, month=2, year=2017)
 		const result = originalDay.plusYears(1)
 		assert.that(result.equals(finalDay))
 		 
@@ -170,8 +170,8 @@ describe "Date tests"{
 	 
 	test "subtract one year"{
 		 
-		const originalDay = new Date(28, 2, 2017)
-		const finalDay = new Date(28, 2, 2016)
+		const originalDay = new Date(day=28, month=2, year=2017)
+		const finalDay = new Date(day=28, month=2, year=2016)
 		const result = originalDay.minusYears(1)
 		assert.that(result.equals(finalDay))
 		 
@@ -180,124 +180,124 @@ describe "Date tests"{
 	 
 	test "to string default test" {
 		 
-		const aDay = new Date(28, 12, 2016)
-		assert.equals("a Date[day = 28, month = 12, year = 2016]", aDay.toString())
+		const aDay = new Date(day=28, month=12, year=2016)
+		assert.equals("12/28/2016", aDay.toString())
 		 
 	}
 	
 	 
 	test "to string with a 1 digit month Test" {
 		 
-		const aDay = new Date(28, 2, 2016)
-		assert.equals("a Date[day = 28, month = 2, year = 2016]", aDay.toString())
+		const aDay = new Date(day=28, month=2, year=2016)
+		assert.equals("2/28/2016", aDay.toString())
 		 
 	}
 
 	 
 	test "plus days using null" {
 		 
-		assert.throwsException({ new Date(28, 2, 2017).plusDays(null) })
+		assert.throwsException({ new Date(day=28, month=2, year=2017).plusDays(null) })
 		 
 	}
 	
 	 
 	test "plus months using null" {
 		 
-		assert.throwsException({ new Date(28, 2, 2017).plusMonths(null) })
+		assert.throwsException({ new Date(day=28, month=2, year=2017).plusMonths(null) })
 		 
 	}
 	
 	 
 	test "plus years using null" {
 		 
-		assert.throwsException({ new Date(28, 2, 2017).plusYears(null) })
+		assert.throwsException({ new Date(day=28, month=2, year=2017).plusYears(null) })
 		 
 	}
 	
 	 
 	test "difference fail" {
 		 
-		assert.throwsException({ new Date(28, 2, 2017) - "2" })
+		assert.throwsException({ new Date(day=28, month=2, year=2017) - "2" })
 		 
 	}
 	 
 	test "minus days using null" {
 		 
-		assert.throwsException({ new Date(28, 2, 2017).minusDays(null) })
+		assert.throwsException({ new Date(day=28, month=2, year=2017).minusDays(null) })
 		 
 	}
 	
 	 
 	test "minus months using null" {
 		 
-		assert.throwsException({ new Date(28, 2, 2017).minusMonths(null) })
+		assert.throwsException({ new Date(day=28, month=2, year=2017).minusMonths(null) })
 		 
 	}
 	
 	 
 	test "minus years using null" {
 		 
-		assert.throwsException({ new Date(28, 2, 2017).minusYears(null) })
+		assert.throwsException({ new Date(day=28, month=2, year=2017).minusYears(null) })
 		 
 	}
 	
 	 
 	test "between fail" {
 		 
-		assert.throwsException({ new Date(28, 2, 2017).between(2, 9) })
+		assert.throwsException({ new Date(day=28, month=2, year=2017).between(2, 9) })
 		 
 	}
 	 
 	test "between null" {
 		 
-		assert.throwsException({ new Date(28, 2, 2017).between(null, null) })
+		assert.throwsException({ new Date(day=28, month=2, year=2017).between(null, null) })
 		 
 	}
 	 
 	test "greater than fail" {
 		 
-		assert.throwsException({ new Date(28, 2, 2017) > 2 })
+		assert.throwsException({ new Date(day=28, month=2, year=2017) > 2 })
 		 
 	}
 	 
 	test "plus days Fail" {
 		 
-		assert.throwsException( { new Date(28, 2, 2017).plusDays("a") })
+		assert.throwsException( { new Date(day=2, month=2, year=2017).plusDays("a") })
 		 
 	}
 	
 	 
 	test "plus months Fail" {
 		 
-		assert.throwsException( { new Date(28, 2, 2017).plusMonths("a") })
+		assert.throwsException( { new Date(day=2, month=2, year=2017).plusMonths("a") })
 		 
 	}
 	
 	 
 	test "plus years fail" {
 		 
-		assert.throwsException( { new Date(28, 2, 2017).plusYears("a") })
+		assert.throwsException( { new Date(day=2, month=2, year=2017).plusYears("a") })
 		 
 	}
 	
 	 
 	test "minus days fail" {
 		 
-		assert.throwsException( { new Date(28, 2, 2017).minusDays("a") })
+		assert.throwsException( { new Date(day=2, month=2, year=2017).minusDays("a") })
 		 
 	}
 	
 	 
 	test "minus months fail" {
 		 
-		assert.throwsException( { new Date(28, 2, 2017).minusMonths("a") })
+		assert.throwsException( { new Date(day=2, month=2, year=2017).minusMonths("a") })
 		 
 	}
 	
 	 
 	test "minus years fail" {
 		 
-		assert.throwsException( { new Date(28, 2, 2017).minusYears("a") })
+		assert.throwsException( { new Date(day=2, month=2, year=2017).minusYears("a") })
 		 
 	}
 

@@ -1,11 +1,11 @@
 class A { 
-	method m1() { throw new Exception("hello you see") }
+	method m1() { throw new Exception(message="hello you see") }
 }
 
 test "Test catch without type" {
 
 	const a = new A()
-				
+
 	try {
 		a.m1()
 		assert.fail("Should have thrown exception")
@@ -13,7 +13,7 @@ test "Test catch without type" {
 				
 	catch e {
 		// ok !
-		assert.equals("hello you see", e.getMessage())
+		assert.equals("hello you see", e.message())
 	}
 			
 }

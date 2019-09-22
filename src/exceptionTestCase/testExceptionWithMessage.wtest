@@ -2,10 +2,6 @@ import wollok.lang.Exception
 
 class UserException inherits Exception {
    var valorInvalido = 0
-			    
-	constructor(mensaje, value) = super(mensaje) { 	
-		valorInvalido = value
-	  }
 }
 			
 object monedero {
@@ -13,7 +9,7 @@ object monedero {
 			
 	method poner(cantidad) {
 		if (cantidad < 0) {
-			throw new UserException("La cantidad debe ser positiva", cantidad)
+			throw new UserException(message="La cantidad debe ser positiva", valorInvalido=cantidad)
 		} 
 		plata += cantidad
 	}
@@ -27,7 +23,7 @@ test "Test exception with message" {
 		monedero.poner(-2)
 		assert.fail('No should get here')
 	} catch e {
-		assert.equals("La cantidad debe ser positiva", e.getMessage())
+		assert.equals("La cantidad debe ser positiva", e.message())
 	}
 
 }
