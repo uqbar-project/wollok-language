@@ -469,11 +469,11 @@ describe "Collection test case" {
   }
 
   test "uniqueElement with empty collection should fail" {
-    assert.throwsExceptionWithMessage("Illegal operation 'uniqueElement' on empty collection", { => [].uniqueElement() })
+    assert.throwsException({ => [].uniqueElement() })
   }
 
   test "uniqueElement in a list with several elements should fail" {
-    assert.throwsExceptionWithMessage("Illegal operation 'uniqueElement' on collection with 2 elements", { => [1, 2].uniqueElement() })    
+    assert.throwsException({ => [1, 2].uniqueElement() })    
   }
 
 }

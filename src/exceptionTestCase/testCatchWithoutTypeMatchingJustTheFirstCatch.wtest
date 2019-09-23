@@ -1,10 +1,10 @@
 import wollok.lang.Exception
 
-class AException inherits Exception {  constructor(m) = super(m) }
-class BException inherits Exception {  constructor(m) = super(m) }
+class AException inherits Exception { }
+class BException inherits Exception { }
 			
 class A { 
-	method m1() { throw new AException("hello you see") }
+	method m1() { throw new AException(message = "hello you see") }
 }
 			
 test "Test catch without type matching just the first catch" {

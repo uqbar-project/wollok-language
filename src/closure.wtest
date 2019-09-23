@@ -1,4 +1,4 @@
-describe "closures"{
+describe "closures" {
 
 	test "apply a closure without parameters" {
 	
@@ -68,13 +68,13 @@ describe "closures"{
 		
 	}
 	
-	test "closures wrong arguments"{
-		// TODO Tira Exception
+	test "closures wrong arguments" {
+		// TODO: Tira Exception en xtend
 //		assert.throwsExceptionWithType(new MessageNotUnderstoodException(), { { a => a + 2 }.apply(1, 2) })
 	}
 	
-	test "closures wrong arguments 2"{
-		// TODO Tira Exception
+	test "closures wrong arguments 2" {
+		// TODO: Tira Exception en xtend
 //		assert.throwsExceptionWithType(new MessageNotUnderstoodException(),{ { a => a + 2 }.apply() })
 	}
 	
