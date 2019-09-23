@@ -5,8 +5,10 @@ Currently, the Wollok language does not adhere to [Semantic Versioning](https://
 Hopefully, we will be able to do that in the near future.
 
 ## [To be released in v1.8.6]
+
 ### Added
 - New method `uniqueElement` in collections as defined by https://github.com/uqbar-project/wollok/issues/1779.
+- A Wollok test file `.wtest` can handle multiple `describe` blocks
 
 ### Fixed
 - Removed "NLS unused message" warning when running tests cases (https://github.com/uqbar-project/wollok/issues/1762).
