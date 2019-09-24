@@ -6,7 +6,7 @@ This is the repository for the **Wollok Language definition**, and also the main
 
 ## What is Wollok?
 
-Wollok is a language designed to satisfy our main goals for teaching OO concepts. You can see [Wollok site](www.wollok.org) for further information.
+Wollok is a language designed to satisfy our main goals for teaching OO concepts. You can see [Wollok site](https://www.wollok.org) for further information.
 
 ## About this repository
 
