@@ -10,7 +10,7 @@ Wollok is a language designed to satisfy our main goals for teaching OO concepts
 
 ## About this repository
 
-Currently called `wollok-sanity-tests`, we'll rename it to Wollok Language since it'll be a Wollok Project containing
+Still a work in progress, it'll be a Wollok Project containing
 
 - Wollok core libraries: strings, numbers, dates, booleans, etc. in `src` folder
 - Wollok language specification, in form of unit tests: in `test` folder you'll see our **sanity tests** where you can check how should you use Wollok objects from core libraries, and syntax definitions.
