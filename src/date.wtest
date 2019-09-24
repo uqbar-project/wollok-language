@@ -68,12 +68,10 @@ describe "Date tests"{
 	}
 
 	 
-	test "a 2001 date is less than today" {
-		 
-		const elyesterday = new Date(day=10, month=6, year=2001)
+	test "a previous date is less than today" {
+		const previous = new Date(day=10, month=6, year=2001)
 		const today = new Date()
-		assert.that(elyesterday < today) 
-		 
+		assert.that(previous < today) 
 	}
 
 	 
@@ -94,10 +92,8 @@ describe "Date tests"{
 	
 	 
 	test "tuesday is second day of week" {
-		 
 		const aDay = new Date(day=7, month=6, year=2016)
 		assert.equals(aDay.dayOfWeek(), tuesday) 
-		 
 	}
 
 	 
@@ -169,35 +165,27 @@ describe "Date tests"{
 
 	 
 	test "subtract one year"{
-		 
 		const originalDay = new Date(day=28, month=2, year=2017)
 		const finalDay = new Date(day=28, month=2, year=2016)
 		const result = originalDay.minusYears(1)
 		assert.that(result.equals(finalDay))
-		 
 	}
 		
 	 
 	test "to string default test" {
-		 
 		const aDay = new Date(day=28, month=12, year=2016)
 		assert.equals("12/28/2016", aDay.toString())
-		 
 	}
 	
 	 
 	test "to string with a 1 digit month Test" {
-		 
 		const aDay = new Date(day=28, month=2, year=2016)
 		assert.equals("2/28/2016", aDay.toString())
-		 
 	}
 
 	 
 	test "plus days using null" {
-		 
 		assert.throwsException({ new Date(day=28, month=2, year=2017).plusDays(null) })
-		 
 	}
 	
 	 
@@ -302,8 +290,8 @@ describe "Date tests"{
 	}
 
 
+	// TODO: this test desn't look good What exactly are we testing here?
 	test "all operations returning dates are correct wollok dates" {
-		 
 		assert.that(new Date().minusDays(1).day() !== null)
 		assert.that(new Date().minusDays(1).month() !== null)
 		assert.that(new Date().minusDays(1).year() !== null)
@@ -316,6 +304,5 @@ describe "Date tests"{
 		assert.that(new Date().plusYears(1).day() !== null)
 		assert.that(new Date().plusYears(1).month() !== null)
 		assert.that(new Date().plusYears(1).year() !== null)
-		 
 	}
 }
