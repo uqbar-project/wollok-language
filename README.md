@@ -1,3 +1,5 @@
+![image](https://user-images.githubusercontent.com/4549002/65472817-bf01f200-de4b-11e9-94c6-433d9c037dca.png)
+
 # Wollok Language
 
 This is the repository for the **Wollok Language definition**, and also the main access point for all resources.
