@@ -8,7 +8,7 @@ Hopefully, we will be able to do that in the near future.
 
 ### Added
 - New method `uniqueElement` in collections as defined by https://github.com/uqbar-project/wollok/issues/1779.
-- A Wollok test file `.wtest` can handle multiple `describe` blocks as defined by https://github.com/uqbar-project/wollok/pull/1765
+- A Wollok test file `.wtest` can handle multiple `describe` blocks as defined by https://github.com/uqbar-project/wollok/issues/1734
 
 ### Fixed
 - Removed "NLS unused message" warning when running tests cases (https://github.com/uqbar-project/wollok/issues/1762).
