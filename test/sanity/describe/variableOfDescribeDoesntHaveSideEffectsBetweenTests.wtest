@@ -1,18 +1,18 @@
 describe "pruebas generales" {
 	var one = 1
 			
-	method sumarOne() {
+	method incrementOne() {
 		one = one + 1
 	}
 			
-	method uno() = 1
+	method one() = 1
 			
 	test "Dos es one + 1" {
-		self.sumarOne()
-		assert.equals(one, self.uno() + 1)
+		self.incrementOne()
+		assert.equals(one, self.one() + 1)
 	}
 			
 	test "Uno es one" {
-		assert.equals(one, self.uno())
+		assert.equals(one, self.one())
 	}
 }

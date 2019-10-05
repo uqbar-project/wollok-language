@@ -1,9 +1,9 @@
 describe "pruebas generales" {
-	const one = 1
-			
+
 	method uno() = 1
 			
 	test "Uno es one" {
-	assert.equals(one, self.uno())
+		assert.equals(1, self.uno())
 	}
+
 }
