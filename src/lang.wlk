@@ -1239,7 +1239,11 @@ class List inherits Collection {
    *    [1, 5, 3, 2, 7, 9].subList(4) => Answers [7, 9]
    *    [].subList(1)                 => Answers [] 
    */
-  method subList(start) = if (self.isEmpty()) [] else self.subList(start, self.size() - 1)
+  method subList(start) {
+    if (self.isEmpty()) return []
+    if (start > self.size()) return []
+    return self.subList(start, self.size() - 1)
+  }
 
   /** 
    * Answers a view of the portion of this list between the specified fromIndex 
