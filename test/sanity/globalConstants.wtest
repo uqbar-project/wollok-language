@@ -64,3 +64,38 @@ test "global constants can has other constants interface available on intializat
   assert.equals("Bill", bill.friend().name())
   assert.equals("Ted", ted.friend().name())
 }
+
+
+object hoistedObject {
+  const property a = b
+  const property b = 1 + 1
+  const property c = b
+}
+test "object constants should be hoisted to make definitions available among each other" {
+  assert.equals(2, hoistedObject.a())
+  assert.equals(2, hoistedObject.b())
+  assert.equals(2, hoistedObject.c())
+}
+
+class HoistedClass {
+  const property a = b
+  const property b = 1 + 1
+  const property c = b
+}
+test "class constants should be hoisted to make definitions available among each other" {
+  assert.equals(2, new HoistedClass().a())
+  assert.equals(2, new HoistedClass().b())
+  assert.equals(2, new HoistedClass().c())
+}
+
+test "class constant hoisting should not interfere with instantiation with parameters" {
+  assert.equals(1, new HoistedClass(a = 1).a())
+  assert.equals(2, new HoistedClass(a = 1).c())
+
+  assert.equals(1, new HoistedClass(b = 1).a())
+  assert.equals(1, new HoistedClass(b = 1).b())
+  assert.equals(1, new HoistedClass(b = 1).c())
+  
+  assert.equals(1, new HoistedClass(c = 1).c())
+  assert.equals(2, new HoistedClass(c = 1).a())
+}
