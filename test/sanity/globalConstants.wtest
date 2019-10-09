@@ -15,6 +15,7 @@ test "global constants referencing other constants defined before/after are prop
 
 const o = p
 object p {
+  const property e = self.f()
   const property f = o
   const property g = q
   const property h = o.itself()
@@ -31,6 +32,7 @@ const q = p
 test "global constants referencing singletons defined before/after are properly initialized" {
   assert.equals(p, o)
   assert.equals(p, q)
+  assert.equals(p, p.e())
   assert.equals(p, p.f())
   assert.equals(p, p.g())
   assert.equals(p, p.h())
