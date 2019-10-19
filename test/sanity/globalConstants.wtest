@@ -1,0 +1,106 @@
+const x = 1 + 1
+test "global constants are referenceable" {
+  assert.equals(2, x)
+}
+
+
+const a = b
+const b = 1 + 1
+const c = b
+test "global constants referencing other constants defined before/after are properly initialized" {
+  assert.equals(2, a)
+  assert.equals(2, b)
+  assert.equals(2, c)
+}
+
+
+// TODO: The following tests cover async initialization and are not yet supported.
+//
+// const o = p
+// object p {
+//   const property e = self.f()
+//   const property f = o
+//   const property g = q
+//   const property h = o.itself()
+//   const property i = q.itself()
+//   const property j = o.itselfThroughConst()
+//   const property k = q.itselfThroughConst()
+//   const property l = o.itselfThroughOtherConst()
+//   const property m = q.itselfThroughOtherConst()
+//   method itself() = self
+//   method itselfThroughConst() = o
+//   method itselfThroughOtherConst() = q
+// }
+// const q = p
+// test "global constants referencing singletons defined before/after are properly initialized" {
+//   assert.equals(p, o)
+//   assert.equals(p, q)
+//   assert.equals(p, p.e())
+//   assert.equals(p, p.f())
+//   assert.equals(p, p.g())
+//   assert.equals(p, p.h())
+//   assert.equals(p, p.i())
+//   assert.equals(p, p.j())
+//   assert.equals(p, p.k())
+//   assert.equals(p, p.l())
+//   assert.equals(p, p.m())
+// }
+
+
+// class Person {
+//   const property friend
+//   const property name
+//   method itself() = self
+// }
+// const jack = new Person(name = "Jack", friend = jill)
+// const jill = new Person(name = "Jill", friend = jack)
+// test "global constants can be used to create cross referencing objects" {
+//   assert.equals(jack, jill.friend())
+//   assert.equals(jill, jack.friend())
+//   assert.equals("Jack", jill.friend().name())
+//   assert.equals("Jill", jack.friend().name())
+// }
+
+// const bill = new Person(name = "Bill", friend = ted.friend())
+// const ted = new Person(name = "Ted", friend = bill.friend())
+// test "global constants can has other constants interface available on intialization" {
+//   assert.equals(bill, bill.friend())
+//   assert.equals(ted, ted.friend())
+//   assert.equals("Bill", bill.friend().name())
+//   assert.equals("Ted", ted.friend().name())
+// }
+
+
+// object hoistedObject {
+//   const property a = b
+//   const property b = 1 + 1
+//   const property c = b
+// }
+// test "object constants should be hoisted to make definitions available among each other" {
+//   assert.equals(2, hoistedObject.a())
+//   assert.equals(2, hoistedObject.b())
+//   assert.equals(2, hoistedObject.c())
+// }
+
+// class HoistedClass {
+//   const property a = b
+//   const property b = 1 + 1
+//   const property c = b
+// }
+// test "class constants should be hoisted to make definitions available among each other" {
+//   assert.equals(2, new HoistedClass().a())
+//   assert.equals(2, new HoistedClass().b())
+//   assert.equals(2, new HoistedClass().c())
+// }
+
+// test "class constant hoisting should not interfere with instantiation with parameters" {
+//   assert.equals(1, new HoistedClass(a = 1).a())
+//   assert.equals(2, new HoistedClass(a = 1).c())
+
+//   assert.equals(1, new HoistedClass(b = 1).a())
+//   assert.equals(1, new HoistedClass(b = 1).b())
+//   assert.equals(1, new HoistedClass(b = 1).c())
+  
+//   assert.equals(1, new HoistedClass(c = 1).c())
+//   assert.equals(2, new HoistedClass(c = 1).a())
+// }
