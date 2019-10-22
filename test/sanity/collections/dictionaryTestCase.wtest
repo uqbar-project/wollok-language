@@ -84,19 +84,17 @@ describe "Dictionary test case" {
 		const mapa = new Dictionary()
 		mapa.put(4, "2142-5980")
 		mapa.put(9, "5302-6617")
-		assert.that(mapa.keys().contains(4))
-		assert.that(mapa.keys().contains(9))
+		assert.equals(mapa.keys(), [4, 9])
 	}
 
 	test "Values" {
 		const mapa = new Dictionary()
 		mapa.put("2142-5980", 4)
 		mapa.put("5302-6617", 9)
-		assert.that(mapa.values().contains(4))
-		assert.that(mapa.values().contains(9))
+		assert.equals(mapa.values(), [4, 9])
 	}
 
-	test "ContainsForEach" {
+	test "For Each" {
 		const mapaTelefonos = new Dictionary()
 		mapaTelefonos.put("choli", "2142-5980")
 		mapaTelefonos.put("mario", "5302-6617")
@@ -105,7 +103,7 @@ describe "Dictionary test case" {
 		assert.equals(28, result)
 	}
 
-	test "ClearEmptiesADictionary" {
+	test "Clear empties a dictionary" {
 		const mapaTelefonos = new Dictionary()
 		mapaTelefonos.put("choli", "2142-5980")
 		mapaTelefonos.clear()
@@ -131,15 +129,14 @@ describe "Dictionary test case" {
 		assert.throwsException({ new Dictionary().put(2145, null)})
 	}
 
-	test "adding several swallows in a map" {
+	test "Adding several swallows in a map" {
 		var pepa = new Golondrina()
 		var s = new Dictionary()
 		s.put(pepa, 0)
-		(1 .. 100).forEach({ i => s.put(new Golondrina(), i)}) // all objects are not == to pepa
+		(1 .. 50).forEach({ i => s.put(new Golondrina(), i)}) // all objects are not == to pepa
 		assert.notEquals(pepa, new Golondrina())
-		assert.equals(101, s.size())
+		assert.equals(51, s.size())
 		assert.equals(0, s.get(pepa))
 	}
 
 }
-

@@ -27,23 +27,17 @@ class A2 {
 }
 
 test "Number initialization" {
-
 	const a = new A()
 	assert.equals(10, a.getI())
 	assert.equals(0.10, a.getJ())
-
 }
 
 test "Cross reference initialization" {
-
 	assert.equals(40, abc.getY())
-
 }
 
-test "assignment To WKO Declared"{
-
+test "assignment To WKO Declared" {
 	const a = new A2()
 	assert.equals(before, a.getB())
 	assert.equals(after, a.getA())
-
 }

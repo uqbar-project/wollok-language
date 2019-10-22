@@ -1,18 +1,32 @@
-class Class {
-
+class BaseClass {
 	method m() = 1
+	method inherited() = "inherited"
+}
+
+class ChildClass inherits BaseClass {
+	override method m() = 2
+}
+
+class MyClass {
+}
+
+describe "inheritance from object class" {
+
+	test "Simple method inherited from object" {
+		const myObject = new MyClass()
+		assert.that(myObject.identity() != null)
+	}
 
 }
 
-class Class2 inherits Class {
-	override method m() =2
-}
-
-describe "clases"{
+describe "basic inheritance" {
 
 	test "override method" {
+		assert.that(new ChildClass().m() == 2)
+	}
 
-	assert.that(new Class2().m() == 2)
+	test "inherited method" {
+		assert.equals("inherited", new ChildClass().inherited())
+	}
 
-}
 }

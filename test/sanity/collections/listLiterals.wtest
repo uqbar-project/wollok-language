@@ -1,10 +1,10 @@
 describe "list literals" {
 
-	test "Empty list"{
-		assert.equals([],[])
+	test "Empty list" {
+		assert.equals([], [])
 	}
 
-	test "Non-empty list"{
+	test "Non-empty list" {
 		assert.equals([1,2,3], [1,2,3])
 	}
 
