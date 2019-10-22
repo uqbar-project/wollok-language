@@ -50,7 +50,7 @@ describe "Date tests"{
 	}
 
 	 
-	test "year 2100 was not leap" {
+	test "year 2100 is not leap" {
 		 
 		const year2100 = new Date(day=4, month=5, year=2100)
 		assert.notThat(year2100.isLeapYear())

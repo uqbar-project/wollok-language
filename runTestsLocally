@@ -1,0 +1,1 @@
+rm -rf .history/ && WOLLOK_DEV_ROOT=../wollok wollok test -dontValidate

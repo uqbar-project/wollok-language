@@ -1,28 +1,25 @@
+/**
+ * Tests for Wollok closures.
+ *
+ * A closure represents an executable piece of code, with (optional) parameters
+ */
 describe "closures" {
 
 	test "apply a closure without parameters" {
-	
-		assert.that ({2 + 5}.apply() === 7)
-	
+		assert.equals(7, {2 + 5}.apply())
 	}
-	
-	test "apply a closure with vararg parameters" {
 
-		assert.that ({ a, b... => a + b.sum() }.apply(1, 2, 3, 4) === 10)
-
-	}
-	
-	
-	test "apply closure with one argument"{
-		
+	test "apply closure with one argument" {
 		const helloWorld = {to => "hello " + to }
 		const response = helloWorld.apply("world")		
 		assert.equals("hello world", response)
-		
+	}
+
+	test "apply a closure with vararg parameters" {
+		assert.that ({ a, b... => a + b.sum() }.apply(1, 2, 3, 4) === 10)
 	}
 	
-	test "closure access local variable in program"{
-		
+	test "closure access local variable in program" {
 		var to = "world"
 		const helloWorld = { "hello " + to }
 			
@@ -30,19 +27,14 @@ describe "closures" {
 			
 		to = "someone else"
 		assert.equals("hello someone else", helloWorld.apply())
-		
 	}
 	
-	test "closure as parameter to closure"{
-		
+	test "closure as parameter to closure" {
 		const twice = { block => block.apply() + block.apply() }
-			
 		assert.equals(4, twice.apply {=> 2 })
-		
 	}
 	
 	test "nested closure"{
-		
 		const sum =  {a, b => a + b}
 			
 		const curried = { a =>
@@ -55,34 +47,30 @@ describe "closures" {
 	}
 	
 	test "folding closures"{
-		
-		const sum2 = { a => a + 2};
-		const by3 = { b => b * 3};
-		const pow = { c => c ** 2};
+		const sum2 = { a => a + 2}
+		const by3 = { b => b * 3}
+		const pow = { c => c ** 2}
 			
 		const op = [sum2, by3, pow]
 			
-		const result = op.fold(0, {acc, o =>  o.apply(acc) })
+		const result = op.fold(0, {acc, operation =>  operation.apply(acc) })
 			
 		assert.equals(36, result)
-		
 	}
 	
-	test "closures wrong arguments" {
-		// TODO: Tira Exception en xtend
-//		assert.throwsExceptionWithType(new MessageNotUnderstoodException(), { { a => a + 2 }.apply(1, 2) })
+	test "a closure with arguments should throw an exception if more arguments are passed" {
+		assert.throwsException { { a => a + 2 }.apply(1, 2) }
 	}
 	
-	test "closures wrong arguments 2" {
-		// TODO: Tira Exception en xtend
-//		assert.throwsExceptionWithType(new MessageNotUnderstoodException(),{ { a => a + 2 }.apply() })
+	test "a closure with arguments should throw an exception if less arguments are passed" {
+		assert.throwsException { { a => a + 2 }.apply() }
 	}
 	
-	test "number closure"{
+	test "number closure" {
 		assert.equals(2, { a => a }.apply(2))
 	}
 	
-	test "null closure"{
+	test "null closure" {
 		assert.equals(null, { null }.apply())
 	}
 
@@ -90,4 +78,3 @@ describe "closures" {
 		assert.equals("{x => 5 + x}", {x => 5 + x}.toString())
 	}
 }
-
