@@ -1,17 +1,17 @@
 describe "pruebas generales" {
-	
+
 	test "Max between 5 and 8" {
 		const a = 8
 		const b = 5
 		const result = 5.max(8)
 		assert.equals(8, result)
 	}
-			
+
 	test "Min between 5 and 8" {
 		const a = 8
 		const b = 5
 		const result = 5.min(8)
 		assert.equals(5, result)
 	}
-	
+
 }

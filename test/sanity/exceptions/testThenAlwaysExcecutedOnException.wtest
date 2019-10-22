@@ -7,7 +7,7 @@ test "Test then always excecuted on exception" {
 
 	const a = new A()
 	var counter = 1
-	
+
 	try {
 		a.m1()
 	}
@@ -15,7 +15,7 @@ test "Test then always excecuted on exception" {
 	catch e : MyException {
   	counter = counter + 1
   }
-	
+
 	then always {
 		counter = counter * 3
   }

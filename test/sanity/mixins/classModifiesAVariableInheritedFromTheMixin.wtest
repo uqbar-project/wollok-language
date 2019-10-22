@@ -1,14 +1,14 @@
 mixin Energy {
 	var energy = 100
 }
-		
+
 class Bird mixed with Energy {
 	method fly(meters) {
 		energy -= meters
 	}
 	method energy() = energy
 }
-		
+
 test "class modifies a variable inherited from the mixin" {
 
 	const b = new Bird()

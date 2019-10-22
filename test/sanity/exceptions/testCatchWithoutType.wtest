@@ -9,11 +9,11 @@ test "Test catch without type" {
 	try {
 		a.m1()
 		assert.fail("Should have thrown exception")
-	}	
-				
+	}
+
 	catch e {
 		// ok !
 		assert.equals("hello you see", e.message())
 	}
-			
+
 }

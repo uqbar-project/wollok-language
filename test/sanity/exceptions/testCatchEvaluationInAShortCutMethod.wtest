@@ -6,7 +6,7 @@ object cuenta {
 	} catch e {
 		20
 	}
-	
+
 	}
 test "Test catch evaluation in a shortcut method" {
 

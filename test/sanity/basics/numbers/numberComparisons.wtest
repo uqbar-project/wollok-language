@@ -1,7 +1,9 @@
-describe "number comparisons"{
-	
-	test "number comparisons" {
+/**
+ * Tests for Wollok numbers => ordering and comparison using equality
+ */
+describe "number comparisons" {
 
+	test "number comparisons" {
 		assert.that(2 > 1)
 		assert.notThat(1 > 1)
 		assert.notThat(1 > 2)
@@ -14,7 +16,7 @@ describe "number comparisons"{
 		assert.notThat(2 <= 1)
 		assert.that(1 <= 1)
 		assert.that(1 <= 2)
-			
+
 		assert.that(2 > 1.0)
 		assert.notThat(1 > 1.0)
 		assert.notThat(1 > 2.0)
@@ -27,7 +29,7 @@ describe "number comparisons"{
 		assert.notThat(2 <= 1.0)
 		assert.that(1 <= 1.0)
 		assert.that(1 <= 2.0)
-			
+
 		assert.that(2.0 > 1)
 		assert.notThat(1.0 > 1)
 		assert.notThat(1.0 > 2)
@@ -40,7 +42,7 @@ describe "number comparisons"{
 		assert.notThat(2.0 <= 1)
 		assert.that(1.0 <= 1)
 		assert.that(1.0 <= 2)
-			
+
 		assert.that(2.0 > 1.0)
 		assert.notThat(1.0 > 1.0)
 		assert.notThat(1.0 > 2.0)
@@ -54,5 +56,68 @@ describe "number comparisons"{
 		assert.that(1.0 <= 1.0)
 		assert.that(1.0 <= 2.0)
 
+		assert.that((1.1 / 1) > (1.000002))
+		assert.that(1 < 1.0001)
 	}
+
+	test "greaterThanFail" {
+		assert.throwsException({ 3 > [1, 2] })
+	}
+
+	test "greaterThanUsingNull" {
+		assert.throwsException({ 3 > null })
+	}
+
+	test "lesserThanFail" {
+		assert.throwsException({ 3 < [1, 2] })
+	}
+
+	test "lesserThanUsingNull" {
+		assert.throwsException({ 3 < null })
+	}
+
+}
+
+test "numberEquality" {
+	assert.that(1 == 1)
+	assert.that(1 == 1.0)
+	assert.that(1.0 == 1)
+	assert.that(1.0 == 1.0)
+
+	assert.notThat(1 == 2)
+	assert.notThat(1.0 == 2)
+	assert.notThat(1 == 2.0)
+	assert.notThat(1.0 == 2.0)
+
+	assert.that(1 != 2)
+	assert.that(1 != 2.0)
+	assert.that(1.0 != 2)
+	assert.that(1.0 != 2.0)
+
+	assert.notThat(1 != 1)
+	assert.notThat(1.0 != 1)
+	assert.notThat(1 != 1.0)
+	assert.notThat(1.0 != 1.0)
+
+	assert.notThat(1 == "aString")
+}
+
+describe "positive and negative numbers comparisons" {
+
+	test "Positive number" {
+		assert.equals(10, 1+9)
+	}
+
+	test "Negative number" {
+		assert.equals(-10, -11+1)
+	}
+
+	test "Positive fractional number" {
+		assert.equals(1.5, 1.5)
+	}
+
+	test "Negative fractional number" {
+		assert.equals(-1.5, -1.5)
+	}
+
 }

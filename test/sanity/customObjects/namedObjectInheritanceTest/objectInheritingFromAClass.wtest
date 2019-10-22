@@ -1,6 +1,6 @@
 class Auto {
 	var property kms
-			
+
 	constructor(_kms) {
 		kms = _kms
 	}
@@ -9,7 +9,7 @@ class Auto {
 object bordini inherits Auto(2000) {
 	method color() = "celeste"
 }
-		
+
 test "object inheriting from a class" {
 
 	assert.equals(2000, bordini.kms())

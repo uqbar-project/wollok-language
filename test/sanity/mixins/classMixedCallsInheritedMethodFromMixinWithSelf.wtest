@@ -5,14 +5,14 @@ mixin Flies {
 	}
 	method times() = times
 }
-		
+
 class Bird mixed with Flies {
 	method doubleFly() {
 		self.fly()
 		self.fly()
 	}
 }
-		
+
 test "class mixed calls inherited method from mixin with self" {
 
 	const pepita = new Bird()

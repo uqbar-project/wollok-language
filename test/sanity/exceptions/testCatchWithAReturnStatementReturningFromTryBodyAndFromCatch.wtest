@@ -10,7 +10,7 @@ object cuenta {
 			return 20
 		}
 	}
-	
+
 }
 
 test "Test catch with a return statement returning from try body and from catch" {

@@ -3,7 +3,7 @@ class Ave {
 }
 
 test "Setter for property const in class"{
-	
+
 	const pepita = new Ave()
 	try {
 		pepita.energia(10)

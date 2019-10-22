@@ -1,102 +1,138 @@
-describe "Strings"{
-	
+/**
+ * Tests for Wollok strings.
+ */
+describe "Strings" {
+
 	test "String" {
-		
 		assert.equals("foo", "foo")
-		
 	}
-	
+
 	test "Empty strings" {
-		
 		assert.equals("","")
-		
 	}
-	
+
 	test "Strings with escape sequences" {
-		
 		assert.equals("foo\\nbar","foo\\nbar")
-		
 	}
-	
+
 	test "Strings with the escaped escape character without escaping the whole sequence" {
 		assert.equals("foo\\\\nbar","foo\\\\nbar")
 	}
-	
+
 	test "Substring" {
-		
-		const x = "Hola, wollok!".substring(0, 3)
-		assert.equals("Hol", x)
-		
+		const helloWollok = "Hola, wollok!".substring(0, 3)
+		assert.equals("Hol", helloWollok)
 	}
-	
-	test "Less than"{
-		
+
+	test "substring in first parameter using null should fail" {
+		assert.throwsException( { "hola".substring(null) })
+	}
+
+	test "substring in first parameter fail" {
+		assert.throwsException({ "hola".substring("a") })
+	}
+
+	test "substring in second parameter using null should fail" {
+		assert.throwsException( { "hola".substring(null, null) })
+	}
+
+	test "substring in second parameter fail" {
+		assert.throwsException({ "hola".substring("a", "e") })
+	}
+
+	test "Greater than using null should fail" {
+		assert.throwsException { "hola" > null }
+	}
+
+	test "Less than" {
 		assert.that("miau" < "ufa")
-		
 	}
-	
-	test "Less than false condition"{
-		
+
+	test "Less than false condition" {
 		assert.notThat("zapallo" <= "ufa")
 	}
-	
-	test "Greater or equal than"{
-		
+
+	test "Less than using null should fail" {
+		assert.throwsException { "hola" < null }
+	}
+
+	test "Greater or equal than" {
 		assert.that("zapallo" >= "ufa")
 		assert.that("zapallo" >= "zapallo")
 		assert.notThat("aguacero" >= "guarecer")
-		
 	}
-	
-	test "Less or equal than for less"{
-		
+
+	test "Less or equal than for less" {
 		assert.that("miau" <= "ufa")
-		
 	}
-	
-	test "Less or equal than for equal"{
+
+	test "Less or equal than for equal" {
 		assert.that("miau" <= "miau")
 	}
-	
-	test "Contains"{
-		
+
+	test "Contains" {
 		assert.that("aguacate".contains("cat"))
 		assert.that("aguacate".contains("agua"))
 		assert.notThat("aguacate".contains("managua"))
 		assert.notThat("aguacate".contains("AGUA"))
-		
 	}
-	
-	test "Index of"{
-		
+
+	test "contains using null" {
+		assert.throwsException( { "hola".contains(null) })
+	}
+
+	test "contains fail" {
+		assert.throwsException( { "hola".contains(7) })
+	}
+
+	test "Index of" {
 		assert.equals(0, "aguacate".indexOf("agua"))
 		assert.equals(4, "aguacate".indexOf("cat"))
 		assert.throwsException( {"aguacate".indexOf("trinitrotolueno")} )
-		
 	}
-	
-	test "Last Index Of"{
-		
+
+	test "indexOf fail" {
+		assert.throwsException( { "hola".indexOf(7) })
+	}
+
+	test "Last Index Of" {
 		assert.equals(6, "aguacate".lastIndexOf("te"))
 		assert.equals(5, "aguacate".lastIndexOf("a"))
 		assert.throwsException( {"aguacate".lastIndexOf("trinitrotolueno")} )
-		
 	}
-	
-	test "EqualEqual"{
-		
+
+	test "last indexOf using null" {
+		assert.throwsException( { "hola".lastIndexOf(null) })
+	}
+
+	test "last indexOf fail" {
+		assert.throwsException( { "hola".lastIndexOf(7) })
+	}
+
+	test "isEmpty" {
+		assert.that("".isEmpty())
+		assert.notThat("pepe".isEmpty())
+	}
+
+	test "EqualEqual" {
 		const unString = "perro"
 		const otroString = "per" + "ro"
 		assert.that(unString == otroString)
-		
 	}
-	
-	test "equalsIgnoreCase"{
+
+	test "equalsIgnoreCase" {
 		assert.that("mARejaDA".equalsIgnoreCase("MAREJADA"))
 	}
-	
-	test "Split"{
-		
+
+	test "equalsIgnoreCase using null should fail" {
+		assert.throwsException( { "hola".equalsIgnoreCase(null) })
+	}
+
+	test "equalsIgnoreCase fail" {
+		assert.throwsException( { "hola".equalsIgnoreCase(7) })
+	}
+
+	test "Split" {
 		const result = "Esto Es una prueba".split(" ")
 		const result2 = "Esto|Es|una|prueba".split("|")
 		const result3 = "Esto,Es,una,prueba".split(",")
@@ -104,197 +140,142 @@ describe "Strings"{
 		(0..3).forEach { i => assert.that(result.get(i) == comparison.get(i)) }
 		(0..3).forEach { i => assert.that(result2.get(i) == comparison.get(i)) }
 		(0..3).forEach { i => assert.that(result3.get(i) == comparison.get(i)) }
-		
 	}
-	
-	test "Replace"{
-		
+
+	test "Split using null should fail" {
+		assert.throwsException { "hola".split(null) }		
+	}
+
+	test "Replace" {
 		const mardel = "Mar del Plata"
 		const tuyu = mardel.replace("Plata", "Tuyu")
-		assert.that("Mar del Tuyu" == tuyu)
-		
+		assert.equals("Mar del Tuyu", tuyu)
 	}
-	
-	test "Random for strings are not allowed anymore"{
+
+	test "replace using null" {
+		assert.throwsException( { "hola".replace("1", null) })
+		assert.throwsException( { "hola".replace(null, "2") })
+	}
+
+	test "replace fail" {
+		assert.throwsException( { "hola".replace(7, "a") })
+	}
+
+	test "Random for strings are not allowed anymore" {
 		assert.throwsException({ => "fafafa".randomUpTo(8.9)})
 	}
-	
-	test "Take"{
-		
+
+	test "Take" {
 		assert.equals("cl", "clearly".take(2))
 		assert.equals("clearly", "clearly".take(8))
 		assert.equals("", "clearly".take(0))
-		
 	}
-	
+
+	test "Take using null should fail" {
+		assert.throwsException { "hola".take(null) }
+	}
+
 	test "Drop" {
-		
 		assert.equals("early", "clearly".drop(2))
 		assert.equals("", "clearly".drop(8))
 		assert.equals("clearly", "clearly".drop(0))
-		
 	}
-	
-	test "Words"{
-		
+
+	test "Drop using null should fail" {
+		assert.throwsException { "hola".drop(null) }
+	}
+
+	test "Words" {
 		const words = "in wollok everything is an object".words()
 		assert.equals("in", words.get(0))
 		assert.equals("object", words.get(5))
-		
 	}
-	
-	test "Capitalize"{
-		
+
+	test "Capitalize" {
 		assert.equals("alfa romeo".capitalize(), "Alfa Romeo")
 		assert.equals("AUDI".capitalize(), "Audi")
 		assert.equals("bmw".capitalize(), "Bmw")
 		assert.equals("ONETWO THREE FOUR".capitalize(), "Onetwo Three Four")
-		
 	}
-	
-	test "Print string"{
-		
-		assert.equals("hola".printString(), "\"hola\"")
-		assert.equals("3".printString(), "\"3\"")
-		
-	}
-	
-	test "Char at using null"{
-		
-		assert.throwsException( { "hola".charAt(null) })
-	
-	}
-	
-	test "Char at fail"{
-		
-		assert.throwsException({ "hola".charAt("a") })
 
+	test "toString" {
+		assert.equals("hola".toString(), "hola")
+		assert.equals("3".toString(), "3")
 	}
-	
-	test "Char at"{
-		
+
+	test "Char at" {
 		assert.equals("l", "hola".charAt(2))
-		
 	}
-	
-	test "Starts with using null"{
-		
-		assert.throwsException( { "hola".startsWith(null) })
-		
+
+	test "Char at using null" {
+		assert.throwsException( { "hola".charAt(null) })
 	}
-	
-	test "startsWith fail"{
-		
-		assert.throwsException( { "hola".startsWith(7) })
-		
+
+	test "Char at fail" {
+		assert.throwsException({ "hola".charAt("a") })
 	}
-	
-	test "startsWith"{
-		
+
+	test "Concat" {
+		assert.equals("hey".concat("jude"), "heyjude")
+	}
+
+	test "Concat with numbers" {
+		assert.equals("u".concat(2), "u2")		
+	}
+
+	test "Reverse" {
+		assert.equals("aloh", "hola".reverse())
+		assert.equals("", "".reverse())		
+	}
+
+	test "Take left" {
+		assert.equals("hol", "hola".takeLeft(3))
+		assert.equals("", "".takeLeft(3))
+		assert.equals("", "hola".takeLeft(0))
+		assert.equals("h", "hola".takeLeft(1.5))		
+	}
+
+	test "Take left should fail if a negative number is passed" {
+		assert.throwsException { "hola".takeLeft(-1) }
+	}
+
+	test "Take right" {
+		assert.equals("ola", "hola".takeRight(3))
+		assert.equals("", "".takeRight(3))
+		assert.equals("", "hola".takeRight(0))
+		assert.equals("a", "hola".takeRight(1.5))		
+	}
+
+	test "Take right should fail if a negative number is passed" {
+		assert.throwsException { "hola".takeRight(-1) }
+	}
+
+	test "startsWith" {
 		assert.that("hola".startsWith("ho"))
-		
 	}
-	
-	test "endsWith using null"{
-		
-		assert.throwsException( { "hola".endsWith(null) })
-		
+
+	test "Starts with using null" {
+		assert.throwsException( { "hola".startsWith(null) })
 	}
-	
-	test "endsWith fail"{
-		
-		assert.throwsException({ "hola".endsWith(7) })
-		
+
+	test "startsWith fail" {
+		assert.throwsException( { "hola".startsWith(7) })
 	}
-	
-	test "endsWith"{
-		
+
+	test "endsWith" {
 		assert.that("hola".endsWith("la"))
-		
 	}
-	
-	test "indexOf using null"{
-		
+
+	test "endsWith using null" {
+		assert.throwsException( { "hola".endsWith(null) })
+	}
+
+	test "endsWith fail" {
+		assert.throwsException({ "hola".endsWith(7) })
+	}
+
+	test "indexOf using null" {
 		assert.throwsException( { "hola".indexOf(null) })
-		
 	}
-	
-	test "indexOf fail"{
-		
-		assert.throwsException( { "hola".indexOf(7) })
-	
-	}
-	
-	test "last indexOf using null"{
-		assert.throwsException( { "hola".lastIndexOf(null) })
-		
-	}
-	
-	test "last indexOf fail"{
-		assert.throwsException( { "hola".lastIndexOf(7) })
-		
-	}
-	
-	test "contains using null"{
-		
-		assert.throwsException( { "hola".contains(null) })
-		
-	}
-	
-	test "contains fail"{
-		
-		assert.throwsException( { "hola".contains(7) })
-		
-	}
-	
-	test "substring 2 using null"{
-		
-		assert.throwsException( { "hola".substring(null, null) })
-		
-	}
-	
-	test "substring 2 fail"{
-		
-		assert.throwsException({ "hola".substring("a", "e") })
-	
-	}
-	
-	test "substring 1 using null"{
-		
-		assert.throwsException( { "hola".substring(null) })
-		
-	}
-	
-	test "substring 1 fail"{
-		
-		assert.throwsException({ "hola".substring("a") })
-		
-	}
-	
-	test "equalsIgnorCase null"{
-		
-		assert.throwsException( { "hola".equalsIgnoreCase(null) })
-		
-	}
-	
-	test "equalsIgnoreCase fail"{
-		
-		assert.throwsException( { "hola".equalsIgnoreCase(7) })
-		
-	}
-	
-	test "replace using null"{
-		
-		assert.throwsException( { "hola".replace("1", null) })
-		assert.throwsException( { "hola".replace(null, "2") })
-	
-	}
-	
-	test "replace fail"{
-		
-		assert.throwsException( { "hola".replace(7, "a") })
-		
-	}
-	
-	
+
 }

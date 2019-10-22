@@ -10,7 +10,7 @@ test "Test error method on wollok object" {
 		const f = new C()
 		f.foo()
 	}
-	
+
 	catch e {
 		// OK !
 		assert.equals("Gently failling!", e.message())

@@ -4,14 +4,14 @@ object pp {
 		var x = pepita
 		return x
 	}
-		
+
 	method getPs() {
 		return ps
 	}
 }
-		
+
 object pepita {	}
-		
+
 test "multiple references to same object creates just one instance" {
 
 	pp.unMethod()

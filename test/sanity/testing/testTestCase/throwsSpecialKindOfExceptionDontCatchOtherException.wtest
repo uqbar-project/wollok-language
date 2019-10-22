@@ -6,7 +6,7 @@ class BusinessException inherits Exception {
 
 class OtherBusinessException inherits Exception {
 	constructor() {}
-}	
+}
 
 test "throwsSpecialKindOfExceptionDontCatchOtherException" {
 

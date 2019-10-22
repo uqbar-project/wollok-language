@@ -1,24 +1,24 @@
 class SuperClass {
 	var superX
 	var otherX
-	
+
 	constructor() { 
 		superX = 20
 		otherX = 30
 	}
-				
+
 	method getSuperX() { return superX }
 	method getOtherX() { return otherX }
 	method setSuperX(a) { superX = a }
 }
-			
+
 class SubClass inherits SuperClass {
 	var subX
 	constructor() {
 		subX = 10
 		self.setSuperX(self.getSuperX() + 20) // 20 + 20
 	}
-	
+
 	method getSubX() { return subX }
 }
 

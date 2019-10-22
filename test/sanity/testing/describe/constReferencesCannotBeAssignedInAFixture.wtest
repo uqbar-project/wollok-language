@@ -1,11 +1,11 @@
 describe "conjunto de tests que prueban que se puede inicializar adicionalmente en el fixture" {
-		
+
 	const uno = 1
-			
+
 	fixture {
 		uno = 1
 	}
-			
+
 	test "uno es uno" {
 		assert.equals(1, uno)
 	}

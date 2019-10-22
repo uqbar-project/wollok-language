@@ -1,13 +1,13 @@
 class A {
 	var x
 	constructor() { x = 20 }
-				
+
 	method getX() { return x }
 }
-			
+
 class B inherits A {
 }
-			
+
 class C inherits B {
 	var c1
 	constructor() {
@@ -15,7 +15,7 @@ class C inherits B {
 	}
 	method getC1() { return c1 }
 }
-			
+
 class D inherits C {}
 
 test "empty constructor auto called mixing implicit constructor in hierarchy" {
@@ -23,5 +23,5 @@ test "empty constructor auto called mixing implicit constructor in hierarchy" {
 	const o = new D()
 	assert.equals(20, o.getX())
 	assert.equals(10, o.getC1())
-	
+
 }

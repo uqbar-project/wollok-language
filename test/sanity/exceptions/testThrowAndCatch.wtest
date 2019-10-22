@@ -4,19 +4,19 @@ class A {
 }
 
 test "Test throw and catch"{
-	
+
 	const a = new A()
 	var counter = 1
-				
+
 	try {
 		a.m1()
 		counter = 0
 	}
-	
+
 	catch e : MyException {
     counter = counter + 1
 	}
 
 	assert.equals(2, counter)
-	
+
 }

@@ -1,5 +1,5 @@
 class Auto {
-	var property kms	
+	var property kms
 
 	constructor(_kms) {
 				kms = _kms
@@ -10,13 +10,13 @@ class Auto {
 test "Object inheriting from a class" {
 
 	var n = 33
-			
+
 	const o = object inherits Auto(2000) {
 		method getN() {
 			return n
 		}
 	} 
-			
+
 	assert.equals(2000, o.kms())
 
 }

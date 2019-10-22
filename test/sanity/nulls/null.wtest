@@ -3,7 +3,7 @@ class Golondrina { var energia = 0 }
 object pepita {
 	var energia
 	method energia() { return energia }
-		
+
 	method volar(metros) { energia -= metros * 10 }
 	method comer(comida) { 
 		energia += comida.energia()
@@ -11,47 +11,47 @@ object pepita {
 }
 
 object alpiste {
-	method energia() = 2	
+	method energia() = 2
 }
-		
+
 describe "Null Test Case"{
-	
+
 	/* 
 	test "Define assert with message" {
 		assert.equals(msg, message)
 	}*/
-			
+
 
 	test "messageSentToNull" {
 		var a = null
 		assert.throwsException({ a.sayHi() })
 	}
 
-	
+
 	test "numberOperatorsSentToNull" {
-	
+
 		assert.throwsException({ null + 3 })
 		assert.throwsException({ null - 3 })
 		assert.throwsException({ null * 3 })
 		assert.throwsException({ null / 3 })
-	
+
 	}
-	
+
 	/* 
 	test "booleanOperatorsSentToNull" {
 		assert.throwsException({ null || null })
 		assert.throwsException({ null && null })
-		
+
 	}*/
-	
-	
+
+
 	test "equalEqualOperatorSentToNull" {
-		
+
 		var valorNulo
 		//Just to check if the null can be tested against a WKO
 		//Cannot be performed directly because you should not use comparison over WKO
 		var x = assert
-			
+
 		assert.notThat(null == 8)
 		assert.notThat(null == "pepe")
 		assert.notThat(null == 3.0)
@@ -62,13 +62,13 @@ describe "Null Test Case"{
 		assert.notThat(valorNulo == 8)
 		assert.that(valorNulo == null)
 		assert.notThat(valorNulo != null)
-		
+
 		}
-		
-	
-	
+
+
+
 	test "equalEqualOperatorWithANullArgument" {
-	
+
 			assert.notThat(8 == null)
 			assert.notThat("pepe" == null)
 			//assert.notThat(false == null)
@@ -77,10 +77,10 @@ describe "Null Test Case"{
 			assert.notThat([1,2,3] == null)
 			assert.notThat(assert == null)
 			assert.notThat(new Golondrina() == null)
-		
+
 	}
-	
-	
+
+
 	test "ifInANullExpression" {
 		var expresionNula
 		try {
@@ -91,31 +91,31 @@ describe "Null Test Case"{
 			/*Ok*/
 		}
 	}
-	
+
 	test "nullInAOpMultiAndPostFix" {
 		assert.throwsException({ pepita.comer(alpiste)})
 	}
-	
+
 	test "nullInAOpMultiAndPostFix2" {
 
 		assert.throwsException({ pepita.volar(10)})
-			
+
 	}
-	
+
 	test "checkNullByIdentity"{
-		
+
 		var a = null
 		assert.that(a == null)
 		assert.notThat(a != null)
 		assert.that(a === null)
-		assert.notThat(a !== null)			
+		assert.notThat(a !== null)
 		assert.notThat(1 === null)
-		assert.that(1 !== null)			
-		
+		assert.that(1 !== null)
+
 		assert.notThat(1 === 2)
-		assert.that(1 !== 2)						
-		
+		assert.that(1 !== 2)	
+
 	}
 }
-	
+
 	

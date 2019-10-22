@@ -10,10 +10,10 @@ object pepita {
 
 test "Test with asserts ok" {
 
-	assert.that(pepita.energia() == 0)	
-	assert.equals(0, pepita.energia())	
-			
+	assert.that(pepita.energia() == 0)
+	assert.equals(0, pepita.energia())
+
 	pepita.come(10)
-	assert.equals(100, pepita.energia())	
+	assert.equals(100, pepita.energia())
 
 }

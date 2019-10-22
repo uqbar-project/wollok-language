@@ -2,17 +2,17 @@ class C {
 	var a = 10
 	const b
 	var c
-			
+
 	constructor(anA, aB, aC) {
 		a = anA
 		b = aB
 		c = aC
 	}
-	
+
 	method getA() { return a }
 	method getB() { return b }
 	method getC() { return c }
-	
+
 }
 
 test "single simple constructor" {

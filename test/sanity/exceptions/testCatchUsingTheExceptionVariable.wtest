@@ -9,17 +9,17 @@ class MyException inherits Exception {
 class A { method m1() { throw new MyException() } }
 
 test "Test catch using the exception variable" {
-	
+
 	const a = new A()
 	var result = null
-				
+
 	try {
 		a.m1()
 	}
-	
+
 	catch e : MyException
 		result = e.customMessage()
-	
+
 	assert.equals("Something went wrong", result)
-	
+
 }

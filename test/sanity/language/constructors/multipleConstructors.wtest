@@ -1,15 +1,15 @@
 class Point {
-	
+
 	var x
 	var y
-			
+
 	constructor () { x = 20 ; y = 20 }
-			
+
 	constructor(ax, ay) {
 		x = ax
 		y = ay
 	}
-	
+
 	method getX() { return x }
 	method getY() { return y }
 }
@@ -19,9 +19,9 @@ test "multiple constructors" {
 	const p1 = new Point(1,2)
 	assert.equals(1, p1.getX())
 	assert.equals(2, p1.getY())
-	
+
 	const p2 = new Point()
 	assert.equals(20, p2.getX())
 	assert.equals(20, p2.getY())
-	
+
 }

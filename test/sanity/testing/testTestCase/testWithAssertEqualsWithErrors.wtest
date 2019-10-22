@@ -14,8 +14,8 @@ test "Test with Assert Equals with errors" {
 		assert.equals(7, pepita.energia())
 		assert.fail("should have failed")
 	}
-	
+
 	catch e {
 		assert.equals("Expected [7] but found [0]", e.message())
-	} 	
+	} 
 }

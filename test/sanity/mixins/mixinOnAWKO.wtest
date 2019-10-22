@@ -5,9 +5,9 @@ mixin Flies {
 	}
 	method times() = times
 }
-		
+
 object pepita mixed with Flies {}
-		
+
 test "mixin on a WKO" {
 
 	pepita.fly()

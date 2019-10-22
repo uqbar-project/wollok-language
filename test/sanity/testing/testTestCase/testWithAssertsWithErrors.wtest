@@ -8,7 +8,7 @@ object pepita {
 	}
 }
 test "Test with asserts with errors" {
-	
+
 	assert.throwsException(7 == pepita.energia())
-	
+
 }

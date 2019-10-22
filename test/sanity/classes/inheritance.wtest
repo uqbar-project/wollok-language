@@ -1,7 +1,7 @@
 class Class {
-	
+
 	method m() = 1
-	
+
 }
 
 class Class2 inherits Class {
@@ -9,7 +9,7 @@ class Class2 inherits Class {
 }
 
 describe "clases"{
-	
+
 	test "override method" {
 
 	assert.that(new Class2().m() == 2)

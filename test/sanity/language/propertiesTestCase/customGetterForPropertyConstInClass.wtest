@@ -4,9 +4,9 @@ class Ave {
 }
 
 test "Custom getter for property const in class"{
-	
+
 	const pepita = new Ave()
 	pepita.energia(10)
 	assert.equals(5, pepita.energia())
-		
+
 }

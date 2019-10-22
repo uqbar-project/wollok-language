@@ -3,13 +3,13 @@ mixin Energy {
 	method reduceEnergy(amount) { energy -= amount }
 	method energy() = energy
 }
-		
+
 class Bird mixed with Energy {
 	override method reduceEnergy(amount) { 
 	  super(1)
 	}
 }
-		
+
 test "class overrides method from mixin and call super" {
 
 	const b = new Bird()

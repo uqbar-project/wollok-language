@@ -3,28 +3,28 @@ import wollok.lang.Exception
 class AException inherits Exception {}
 class BException inherits AException {}
 class CException inherits Exception {}
-			
+
 class A { 
 	method m1() { throw new BException(message="hello you see") }
 }
-			
+
 test "testMultipleMatchingCatchesWillOnlyExecuteTheFirstOne" {
-	
+
 	const a = new A()
-			
+
 	try {
 		a.m1()
 		assert.fail("Should have thrown exception")
-	}	
-				
+	}
+
 	catch e : BException {
 		// OK !
 	}
-			
+
 	catch e : AException {
 		assert.fail("incorrenct catch !")
 	}
-				
+
 	catch e {
 		assert.fail("incorrenct catch !")
 	}

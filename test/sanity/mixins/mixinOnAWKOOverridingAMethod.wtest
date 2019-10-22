@@ -5,7 +5,7 @@ mixin Flies {
 	}
 	method times() = times
 }
-		
+
 object pepita mixed with Flies {
 	override method fly() {}
 }

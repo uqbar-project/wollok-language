@@ -11,5 +11,5 @@ test "object inherit from custom class and overrides method" {
 
 	assert.equals("abc", myObject.something())
 	assert.equals("5678", myObject.myMethod())
-	
+
 }

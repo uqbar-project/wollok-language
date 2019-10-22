@@ -7,7 +7,7 @@ mixin Walks {
 }
 
 class WalkingBird mixed with Walks {}
-		
+
 test "class with mixin that modifies the mixin state from the mixin" {
 
 	const b = new WalkingBird()

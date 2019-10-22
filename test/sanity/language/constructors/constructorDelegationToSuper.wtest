@@ -1,7 +1,7 @@
 class SuperClass {
 	var superX
 	constructor(a) { superX = a }
-				
+
 	method getSuperX() { return superX }
 }
 
@@ -10,14 +10,14 @@ class SubClass inherits SuperClass {
 }
 
 describe "constructor delegation to super"{
-	
+
 	test "constructor delegation to super" {
 
 	const o = new SubClass(20)
 	assert.equals(21, o.getSuperX())
 
 	}
-	
+
 	test "constructor delegation to super named parameters1"{
 		const o = new SubClass(20)
 		assert.equals(21, o.getSuperX())

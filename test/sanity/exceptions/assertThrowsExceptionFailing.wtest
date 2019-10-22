@@ -1,5 +1,5 @@
 test "Assert throws exception failing" {
-	
+
 	var a = 0
 	assert.throwsExceptionLike(
 		// TODO NicoS: es posible hacer que wollok-ts nos dé el código acá?

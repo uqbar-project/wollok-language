@@ -1,37 +1,34 @@
-describe "Number Identity"{
-	
+/**
+ * Tests for Wollok numbers => Identity
+ */
+describe "Number Identity" {
+
 	test "test two literals" {
-
 		assert.that(33.identity() == 33.identity())
+	}
 
-	}
-	
-	test "test two variables in same program"{
-		
-		var a = 33
-		var b = 33
+	test "test two variables in same program" {
+		const a = 33
+		const b = 33
 		assert.that(a.identity() == b.identity())
-		
 	}
-	
-	test "test variables in different scopes"{
-		
+
+	test "test variables in different scopes" {
 		var a = 33
-			
+
 		var o = object {
 			var b = 33
-			method getB() { return b }
+			method b() { return b }
 		}
-			
-		assert.that(a.identity() == o.getB().identity())
-		
+
+		assert.that(a.identity() == o.b().identity())
 	}
-	
-	test "test two double literals"{
+
+	test "test two double literals" {
 		assert.that((33.0).identity() == (33.0).identity())
 	}
-	
-	test "test non identical two double literals"{
+
+	test "test non identical two double literals" {
 			const thirtyThree = 33
 			const anotherThirtyThree = 33
 			assert.notThat(33.0 !== 33)

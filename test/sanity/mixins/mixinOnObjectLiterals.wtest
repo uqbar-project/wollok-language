@@ -5,7 +5,7 @@ mixin Flies {
 	}
 	method times() = times
 }
-		
+
 test "mixin on object literals" {
 
 	const pepita = object mixed with Flies {}

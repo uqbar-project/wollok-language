@@ -6,10 +6,10 @@ class A {
 	}
 }
 test "Test Then Always excecuted even without an exception raised" {
-	
+
 	const a = new A()
 	var counter = 0
-				
+
 	try {
 		a.m1()
 		counter = counter + 1
@@ -18,7 +18,7 @@ test "Test Then Always excecuted even without an exception raised" {
 		console.println("Exception raised!") // OK!
 	then always
 		counter = counter + 1 
-		
+
 	assert.equals(2, counter)
 
 }

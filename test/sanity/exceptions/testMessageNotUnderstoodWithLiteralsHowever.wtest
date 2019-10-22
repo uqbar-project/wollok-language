@@ -3,8 +3,8 @@ test "Test message not understood with literals however" {
 	try {
 		4.truncate()
 		assert.fail("Should have thrown message not understood")
-	}	
-	
+	}
+
 	catch e : MessageNotUnderstoodException {
 		// ok !
 	}

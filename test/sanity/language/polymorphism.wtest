@@ -1,6 +1,6 @@
 
 test "polymorphism" {
-	
+
 	const pepona = object {
 		var energia = 100
 		method comer(comida) {
@@ -10,15 +10,15 @@ test "polymorphism" {
 			return energia
 		}
 	}
-	
+
 	const alpiste = object {
 		method energia() { 
 			return 5
 		}
 	}
-	
+
 	pepona.comer(alpiste)
-			
+
 	assert.that(105 == pepona.energia())
 
 }

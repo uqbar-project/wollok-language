@@ -3,7 +3,7 @@ mixin Energy {
 	method energy() = energy
 	method energy(e) { energy = e }
 }
-		
+
 mixin GetsHurt {
 	method receiveDamage(amount) {
 	self.energy(self.energy() - amount)
@@ -11,7 +11,7 @@ mixin GetsHurt {
 	method energy()
 	method energy(newEnergy)
 }
-		
+
 mixin Attacks {
 	var power = 10
 	method attack(other) {
@@ -20,26 +20,26 @@ mixin Attacks {
 	}
 	method power() = power
 	method power(p) { power = p }
-			
+
 	method energy()
 	method energy(newEnergy)
 }
 
 class Warrior {
-			
+
 		}
-		
-		
+
+
 test "Multiple mixin at instantiation time" {
-	
+
 	const warrior1 = new Warrior() with Attacks with Energy with GetsHurt
 	assert.equals(100, warrior1.energy())
-			
+
 	const warrior2 = new Warrior() with Attacks with Energy with GetsHurt
 	assert.equals(100, warrior2.energy())
-			
+
 	warrior1.attack(warrior2)
-			
+
 	assert.equals(90, warrior2.energy())
 	assert.equals(99, warrior1.energy())
 }

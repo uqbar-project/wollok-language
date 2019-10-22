@@ -3,7 +3,7 @@
  */
 object p {
 	var modified = {false}.apply()
-				
+
 	method getModifying() {
 		modified = {true}.apply()
 		return {true}.apply()
@@ -16,7 +16,7 @@ object p {
 object liberarAFiona {
 	var cantidadTrolls = 0
 	var solicitante = ""
-			
+
 	method solicitante() = solicitante
 	method solicitante(_solicitante) { solicitante = _solicitante }
 	method cantidadTrolls(cant) { cantidadTrolls = cant }
@@ -26,9 +26,9 @@ object liberarAFiona {
 	}
 	method puntosRecompensa() = cantidadTrolls * 2
 }
-			
+
 describe "booleans" {
-	
+
 	test "True literal used in an assert" {
 		assert.that(true)
 	}
@@ -40,19 +40,19 @@ describe "booleans" {
 	test "Obtaining true from a closure" {
 		assert.that({{true}.apply()}.apply())
 	}
-	
+
 	test "False"{
 		assert.notThat({{false}.apply()}.apply())
 	}
-	
+
 	test "Null"{
 		assert.equals(null, null)
 	}
-	
+
 	test "And operator used with literals true and false" {
 		assert.that(true && true)
 		assert.that(true and true)
-		
+
 		assert.notThat(true && false)
 		assert.notThat(true and false)
 
@@ -61,7 +61,7 @@ describe "booleans" {
 
 		assert.notThat(false && false)
 		assert.notThat(false and false)
-	}	
+	}
 
 	test "Or operator used with literals true and false" {
 		assert.that(true || true)
@@ -79,7 +79,7 @@ describe "booleans" {
 
 	test "Using and operator with closures" {
 		assert.that({{true}.apply()}.apply() && {{true}.apply()}.apply())
-			
+
 		assert.notThat({{true}.apply()}.apply() && {{false}.apply()}.apply())
 		assert.notThat({{false}.apply()}.apply() && {{true}.apply()}.apply())
 		assert.notThat({{false}.apply()}.apply() && {{false}.apply()}.apply())
@@ -91,7 +91,7 @@ describe "booleans" {
 		assert.that({false}.apply() || {true}.apply())
 		assert.notThat({false}.apply() || {false}.apply())
 	}
-	
+
 	test "And short cirtuit must evaluate" {
 		assert.that({true}.apply() && p.getModifying())
 		assert.that(p.getModified())
@@ -101,20 +101,20 @@ describe "booleans" {
 		assert.notThat({false}.apply() && p.getModifying())
 		assert.notThat(p.getModified())
 	}
-	
+
 	test "Lazy part of the And short circuit accessing the context" {
 		liberarAFiona.cantidadTrolls(5)
 		assert.that(liberarAFiona.esDificil())
 	}
-	
+
 	test "Or short cirtuit must evaluate second part when first condition is not satisfied" {
 		assert.that({false}.apply() || p.getModifying())
 		assert.that(p.getModified())
 	}
-	
+
 	test "Or short circuit must NOT evaluate second part when first condition is satisfied" {
 		assert.that({true}.apply() || p.getModifying())
 		assert.notThat(p.getModified())
 	}
-	
+
 }

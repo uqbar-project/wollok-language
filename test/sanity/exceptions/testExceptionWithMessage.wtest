@@ -3,20 +3,20 @@ import wollok.lang.Exception
 class UserException inherits Exception {
    var valorInvalido = 0
 }
-			
+
 object monedero {
 	var plata = 500
-			
+
 	method poner(cantidad) {
 		if (cantidad < 0) {
 			throw new UserException(message="La cantidad debe ser positiva", valorInvalido=cantidad)
 		} 
 		plata += cantidad
 	}
-			
+
 	method sacar(cantidad) { plata -= cantidad }
 	}
-			
+
 test "Test exception with message" {
 
 	try{

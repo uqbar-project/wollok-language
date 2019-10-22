@@ -6,5 +6,5 @@ test "no explicit parent means object superclass" {
 
 	assert.equals("abc", myObject.something())
 	assert.equals(myObject, (myObject->"42").x())
-	
+
 }

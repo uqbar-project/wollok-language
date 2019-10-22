@@ -4,7 +4,7 @@ class SuperClass {
 	method getSuperX() { return superX }
 	method setSuperX(value) { superX = value }
 }
-		
+
 class SubClass inherits SuperClass { 
 	var anotherVariable
 	constructor(n) = super() {
@@ -12,7 +12,7 @@ class SubClass inherits SuperClass {
 	}
 	method getAnotherVariable() = anotherVariable
 }
-			
+
 test "empty constructor delegation to super" {
 
 	const o = new SubClass(20)

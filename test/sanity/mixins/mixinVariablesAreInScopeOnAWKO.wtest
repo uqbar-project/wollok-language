@@ -5,13 +5,13 @@ mixin Flies {
 	}
 	method times() = times
 }
-	
+
 object pepita mixed with Flies {
 	method rest() {
 		times = 0
 	}
 }
-		
+
 test " mixin variables are in scope on a WKO" {
 
 	pepita.fly()

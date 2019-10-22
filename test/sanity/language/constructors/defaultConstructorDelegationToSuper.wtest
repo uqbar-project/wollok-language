@@ -1,6 +1,6 @@
 class SuperClass {
 	var superX
-				
+
 	method getSuperX() { return superX }
 	method setSuperX(value) { superX = value }
 }
@@ -12,8 +12,8 @@ class SubClass inherits SuperClass {
 	}
 	method getAnotherVariable() = anotherVariable
 }
-			
-			
+
+
 test "default constructor delegation to super" {
 
 	const o = new SubClass(20)
