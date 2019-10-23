@@ -1,31 +1,66 @@
+import wollok.game.Position
+
 object a {
 	override method printString() = "es un a"
+}
+
+const numbers = [22, 2, 10]
+
+object o1 {}
+object o2 {}
+
+class Animal {
+	override method ==(otroAnimal) = self.nombre() == otroAnimal.nombre()
+	method nombre()
+}
+		
+class Perro inherits Animal {
+	override method nombre() = "Firulais"
+}
+		
+class Gato inherits Animal {
+	override method nombre() = "Garfield"
+}
+
+class Animal2 {
+	override method equals(otroAnimal) = self.nombre() == otroAnimal.nombre()
+	method nombre()
+}
+		
+class Perro2 inherits Animal2 {
+	override method nombre() = "Firulais"
+}
+		
+class Gato2 inherits Animal2 {
+	override method nombre() = "Garfield"
 }
 
 describe "List tests"{
 
   test "subList" {
-    const numbers = [22, 2, 10]
-    assert.equals([22, 2, 10], numbers.subList(0,2) )
-    assert.equals([2, 10], numbers.subList(1,2) )
-    assert.equals([22, 2], numbers.subList(0,1) )
-    assert.equals([22, 2, 10], numbers.subList(0,6) )
-    // fixed in lang.wlk but need to override lang.wlk definition
-    // assert.equals([], numbers.subList(5,6) )
+    assert.equals([22,2], numbers.subList(0,1))
+		assert.equals([22,2,10], numbers.subList(0,2))
+		assert.equals([2,10], numbers.subList(1,2))
+		assert.equals([2], numbers.subList(1,1))
+		assert.equals([], numbers.subList(5))
+		assert.equals([], numbers.subList(3))
+		assert.equals([], numbers.subList(5,6))
+		assert.equals([], [].subList(1, 2))
   }
 
 	test "subList unhappy path" {
-		 
-		const numbers = [22, 2, 10]
-		assert.equals([], [].subList(0,1))
-		assert.equals([], [].subList(1,0))
+		assert.equals([2,22], numbers.subList(1,0))
 		assert.equals([22,2,10], numbers.subList(0,25))
+		assert.equals([2,10], numbers.subList(1,2))
+		assert.equals([2], numbers.subList(1,1))
+	}
 
+	test "subList using null parameters should fail" {
+		assert.throwsException { [1, 2].subList(null, 1) }
+		assert.throwsException { [1, 2].subList(1, null) }
 	}
 
 	test "take" {
-		 
-		const numbers = [22, 2, 10]
 		assert.equals([], numbers.take(-1))
 		assert.equals([], numbers.take(0))
 		assert.equals([22], numbers.take(1))
@@ -33,21 +68,20 @@ describe "List tests"{
 		assert.equals([22,2,10], numbers.take(3))
 		assert.equals([22,2,10], numbers.take(4))
 		assert.equals([22,2,10], numbers)
-
 	}
 	 
 	test "take unhappy path" {
-		 
 		assert.equals([], [].take(-1))
 		assert.equals([], [].take(0))
 		assert.equals([], [].take(1))
 		assert.equals([], [].take(2))
-
 	}
-	 
+
+	test "take using null should fail" {
+		assert.throwsException { => [1, 2].take(null) }
+	}
+
 	test "drop" {
-		 
-		const numbers = [22, 2, 10]
 		assert.equals([22,2,10], numbers.drop(-1))
 		assert.equals([22,2,10], numbers.drop(0))
 		assert.equals([2,10], numbers.drop(1))
@@ -55,46 +89,38 @@ describe "List tests"{
 		assert.equals([], numbers.drop(3))
 		assert.equals([], numbers.drop(4))
 		assert.equals([22,2,10], numbers)
-
 	}
 	 
 	test "drop unhappy path" {
-		 
 		assert.equals([], [].drop(-1))
 		assert.equals([], [].drop(0))
 		assert.equals([], [].drop(1))
 		assert.equals([], [].drop(2))
-
 	}
 
 	test "reverse" {
-		assert.equals([10,2,22], [22, 2, 10].reverse())
+		assert.equals([10, 2, 22], [22, 2, 10].reverse())
 		assert.equals([], [].reverse())
 		assert.equals([2], [2].reverse())
 	}
 	 
 	test "printing duplicated elements"{
-		 
 		const l1 = [[3,5,2], [4,2,6]].flatten()
 		assert.equals("[3, 5, 2, 4, 2, 6]", l1.toString())
 		const l2 = [1,2,3].flatMap({x => [x, x * 2, x * 3]})
 		assert.equals("[1, 2, 3, 2, 4, 6, 3, 6, 9]", l2.toString())
 		const l3 = [1,1,1]
 		assert.equals("[1, 1, 1]", l3.toString())
-
 	}
  
 	test "equality case true" {
-		 
 		assert.equals(['Hello'], ['Hello'])
 		assert.equals([4, 5, 9], [4, 5, 9])
 		assert.equals([true], [true])
 		assert.equals([], [])
-
 	}
 
 	test "equality case false" {
-		 
 		assert.notEquals(['Hello'], ['Hellou'])
 		assert.notEquals([4, 5, 9], [5, 4, 9])
 		assert.notEquals([4, 5, 9], [5, 4])
@@ -105,20 +131,98 @@ describe "List tests"{
 		assert.notThat([5, 4].equals([5, 4, 9]))
 		assert.notThat([5, 4].equals([]))
 		assert.notThat([].equals([5, 4]))
-
 	}
 
-	test "without duplicates" {
+	test "unequality with another objects" {
+		assert.notEquals(2, [])
+		assert.notEquals(2, [2])
+		assert.notEquals(2, [2,3,4])
+		assert.notEquals(console, [])
+	}
+
+	test "without duplicates - numbers" {
 		assert.equals([1, 3, 1, 5, 1, 3, 2, 5].withoutDuplicates(), [1, 3, 5, 2])
 		assert.equals([1, 3, 5, 2].withoutDuplicates(), [1, 3, 5, 2])
 	}
 
+	test "without duplicates - strings" {
+		assert.equals(["amigo", "carpeta", "beca"], ["amigo", "carpeta", "beca", "amigo", "carpeta"].withoutDuplicates())
+		assert.equals([new Date(day=22, month=9, year=2020), new Date(day=1, month=4, year=2018)], [new Date(day=22, month=9, year=2020), new Date(day=1, month=4, year=2018), new Date(day=22, month=9, year=2020)].withoutDuplicates())
+	}
+
+	test "without duplicates - dates" {
+		assert.equals([new Date(day=22, month=9, year=2020), new Date(day=1, month=4, year=2018)], [new Date(day=22, month=9, year=2020), new Date(day=1, month=4, year=2018), new Date(day=22, month=9, year=2020)].withoutDuplicates())
+	}
+
+	test "without duplicates - booleans" {
+		assert([true, false], [true, false, !false].withoutDuplicates())
+	}
+
+	test "without duplicates - lists of lists" {
+		assert.equals([[6,7,8,9,22,12], [1,2,3], [1,2,3,4,5]], [[6,7,8,9,22,12], [1,2,3], [1,2,3,4,5], [1,2,3], [6,7,8,9,22,12]].withoutDuplicates())
+	}
+
+	test "without duplicates - lists of empty lists" {
+		assert.equals([[]], [[],[]].withoutDuplicates())
+	}
+
+	test "without duplicates - list of sets" {
+		assert.equals([#{1,44,55,33,27,12}, #{1,2,3,4,5,6}, #{1, 2, 3}], [#{1,44,55,33,27,12}, #{1,2,3,4,5,6}, #{1,2,3}, #{1,2,3,4,5,6}, #{1,44,55,33,27,12}].withoutDuplicates())
+	}
+
+	test "without duplicates - lists of empty sets" {
+		assert.equals([#{}], [#{}, #{}].withoutDuplicates())
+	}
+
+	test "without duplicates - list of dictionaries" {
+		const dictionary = new Dictionary()
+		dictionary.put(1, "hola")
+		const anotherDictionary = new Dictionary()
+		const result = [dictionary, anotherDictionary]
+		assert.equals(result, [dictionary, anotherDictionary, dictionary, new Dictionary()].withoutDuplicates())
+	}
+
+	test "without duplicates - list of pairs" {
+		const result = [new Pair(1,2), new Pair(5,6)]
+		const withoutDuplicates = [new Pair(1,2), new Pair(5,6), new Pair(1,2), new Pair(5,6)].withoutDuplicates()
+		assert.equals(2, withoutDuplicates.size())
+		(0..result.size()-1).forEach{ i => assert.that(withoutDuplicates.get(i).equals(result.get(i))) }
+	}
+
+	test "without duplicates - list of positions" {
+		var position = new Position()
+		position = position.up(2)
+		const result = [position, new Position()]
+		const withoutDuplicates = [position, new Position(), position, new Position()].withoutDuplicates()
+		assert.equals(2, withoutDuplicates.size())
+		(0..result.size()-1).forEach{ i => assert.that(withoutDuplicates.get(i).equals(result.get(i))) }
+	}
+
+	test "without duplicates - list of user defined classes overriding ==" {
+			const list = [new Perro(), new Gato(), new Perro(), new Gato()]
+			const result = [new Perro(), new Gato()]
+			const withoutDuplicates = list.withoutDuplicates()
+			assert.equals(2, withoutDuplicates.size())
+			(0..result.size()-1).forEach{ i => assert.that(withoutDuplicates.get(i).equals(result.get(i))) }
+	}
+
+	test "without duplicates - list of user defined classes overriding equals" {
+			const list = [new Perro2(), new Gato2(), new Perro2(), new Gato2()]
+			const result = [new Perro2(), new Gato2()]
+			const withoutDuplicates = list.withoutDuplicates()
+			assert.equals(2, withoutDuplicates.size())
+			(0..result.size()-1).forEach{ i => assert.that(withoutDuplicates.get(i).equals(result.get(i))) }
+	}
+
 	test "sortBy" {
-		const numbers = [ 22, 2, 10 ]
 		numbers.sortBy({ a , b => a > b})
 		assert.equals([ 22, 10, 2 ], numbers)
 		numbers.sortBy({ a , b => a < b})
 		assert.equals([ 2, 10, 22 ], numbers)
+	}
+
+	test "sortBy using null should fail" {
+		assert.throwsException { [1, 2].sortBy(null) }
 	}
 
 	test "sortedBy" {
@@ -128,17 +232,123 @@ describe "List tests"{
 	}
 
 	test "get happy path"{
-		 
-		const numbers = [22, 2, 10]
 		assert.equals(22, numbers.get(0))
-
 	}
 
 	test "get unhappy path" {
-		 
-		const numbers = [22, 2, 10]
 		assert.throwsException({ numbers.get(-1) })
+	}
 
+	test "get using null should fail" {
+		assert.throwsException { [1, 2].get(null) }
+	}
+
+	// toString pending new definition
+
+	test "toString for long lists" {
+		const unList = []
+		(1..70).forEach { i => unList.add(i) }
+		assert.equals("[...70 elements]", unList.toString())		
+	}
+
+	test "toString on empty list" {
+		const empty = new List()
+		assert.equals("[]", empty.toString())
+	}
+
+	test "identity on map" {
+		const strings = numbers.map {e=> e.toString() }
+		assert.notEquals(numbers.identity(), strings.identity())
+		assert.that(strings.contains("22"))
+		assert.that(strings.contains("2"))
+	}
+
+	test "contains with named objects" {
+		const list = [o1, o2]
+		assert.that(list.contains(o1))
+		assert.that(list.contains(o2))
+	}
+
+	test "asList conversion" {
+		const list = [1,2,3]
+		assert.equals([1,2,3], list.asList())
+	}
+
+	test "asSet conversion" {
+		assert.equals(#{1, 2, 3}, [1, 2, 3].asSet())
+	}
+
+	test "list of numbers converted as set filters duplicates" {
+		assert.equals(3, [1, 2/2, 3, 4, 6/2].asSet().size())
+	}
+
+	test "list of strings converted as set filters duplicates" {
+		assert.equals(3, ["hola", "chau", "ho" + "la", "c" + "hau", "bye"].asSet().size())		
+	}
+
+	test "list of booleans converted as set filters duplicates" {
+		assert.equals(2, [true, 1==2, 2==2, 3==4 ].asSet().size())
+	}
+
+	test "list of dates converted as set filters duplicates" {
+		assert.equals(2, [new Date(day=1, month=4, year=2018), new Date(day=12, month=7, year=2020), 
+		new Date(day=1, month=4, year=2018)].asSet().size())
+	}
+
+	test "list of lists converted as set filters duplicates" {
+		const list = [[1,2,3],[5,6],[7,8],[1,2,3],[5,6]]
+		assert.equals(3, list.asSet().size())
+	}
+
+	test "list of empty lists converted as set filters duplicates" {
+		assert.equals(1, [[], []].asSet().size())
+	}
+
+	test "list of sets converted as set filters duplicates" {
+		const list = [#{1,2,3},#{5,6},#{7,8},#{1,2,3},#{5,6}]
+		assert.equals(3, list.asSet().size())		
+	}
+
+	test "list of empty sets converted as set filters duplicates" {
+		assert.equals(1, [#{}, #{}].asSet().size())		
+	}
+
+	test "list of empty dictionaries converted as set filters duplicates" {
+		assert.equals(1, [new Dictionary(), new Dictionary()].asSet().size())		
+	}
+
+	test "list of non-empty dictionaries converted as set filters duplicates" {
+		const firstDictionary = new Dictionary()
+		firstDictionary.put(1, "hola")
+		firstDictionary.put(2, "chau")
+		const secondDictionary = new Dictionary()
+		secondDictionary.put(1, "hola")
+		secondDictionary.put(2, "chau")
+		assert.equals(1, [firstDictionary, secondDictionary].asSet().size())
+	}
+
+	test "list of pairs converted as set filters duplicates" {
+		assert.equals(2, [new Pair(1,2), new Pair(4,5), new Pair(1,2)].asSet().size())
+	}
+
+	test "list of positions converted as set filters duplicates" {
+		assert.equals(1, [new Position(), new Position()].asSet().size())
+	}
+
+	test "list of user defined classes redefining ==" {
+		assert.equals(2, [new Perro(), new Gato(), new Perro(), new Gato()].asSet().size())
+	}
+
+	test "list of user defined classes redefining equals" {
+		assert.equals(2, [new Perro2(), new Gato2(), new Perro2(), new Gato2()].asSet().size())
+	}
+
+	test "first" {
+		assert.equals(1, [1, 2, 3].first())
+	}
+
+	test "head" {
+		assert.equals(1, [1, 2, 3].head())
 	}
 
 }

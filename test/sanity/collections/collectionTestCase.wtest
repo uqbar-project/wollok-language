@@ -74,7 +74,7 @@ describe "Collection test case" {
     assert.equals(1, [1].max())
   }
 
-  test "max with no args should fail" {
+  test "max with no args for an empty list should fail" {
     assert.throwsException({[].max()})
   }
 

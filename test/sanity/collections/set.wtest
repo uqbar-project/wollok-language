@@ -11,82 +11,136 @@ object a {
 	override method printString() = "es un a"
 }
 
+const aSet = #{1, 2, 3}
 
-describe "Set test"{
+class C {
+	override method ==(other) = true
+}
 
-	test "union with empty set"{
+class D {
+	override method equals(other) = true
+}
 
-		const aSet = #{1, 2, 3}
+class Animal {
+	override method equals(other) = true
+}
 
-		assert.equals(aSet, aSet.union(#{}))
-		assert.equals(aSet, #{}.union(aSet))
+class Perro inherits Animal {}
 
+class Gato inherits Animal {}
+
+class Animal2 {
+	override method equals(other) = true
+}
+
+class Perro2 inherits Animal2 {}
+
+class Gato2 inherits Animal2 {}
+
+class AveLoca {
+	var property energia = 0
+	var property nombre = "pepita"
+	
+	method volar() {
+		energia -= 50
+	}
+	
+	method comer(gramos) {
+		energia += gramos * 2
 	}
 
-	test "union with non empty sets"{
+	override method ==(otraAve) {
+		return energia == otraAve.energia()
+	}
+}
 
-		const aSet = #{1, 2, 3}
-		const anotherSet = #{3, 4, 5}
+class AveLoca2 {
+	var property energia = 0
+	var property nombre = "pepita"
+	
+	method volar() {
+		energia -= 50
+	}
+	
+	method comer(gramos) {
+		energia += gramos * 2
+	}
+}
+
+describe "Issues with Sets" {
+
+	test "issue 1771 - (==)" {
+			const aSet = #{new C(), new C()}
+			assert.equals(1, aSet.size())
+	}
+
+	test "issue 1771 - equals" {
+		const aSet = #{new D(), new D()}
+		assert.equals(1, aSet.size())
+	}
+
+	test "issue 1771 - a set with objects in same hierarchy will not be added if equals returns always true" {
+		const aSet = #{new Perro(), new Perro(), new Gato() }
+		assert.equals(1, aSet.size())
+	}
+
+	test "issue 1771 - a set with objects in same hierarchy will not be added if == returns always true" {
+		const aSet = #{new Perro2(), new Perro2(), new Gato2() }
+		assert.equals(1, aSet.size())
+	}
+
+}
+
+describe "Set tests" {
+
+	const aSet = #{1, 2, 3}
+	const anotherSet = #{3, 4, 5}
+
+	test "union with empty set" {
+		assert.equals(aSet, aSet.union(#{}))
+		assert.equals(aSet, #{}.union(aSet))
+	}
+
+	test "union with non empty sets" {
 		const unionSet = #{1, 2, 3, 4, 5}
 
 		assert.equals(aSet, aSet.union(aSet))
 		assert.equals(unionSet, aSet.union(anotherSet))
 		assert.equals(unionSet, anotherSet.union(aSet))
-
 	}
 
-	test "intersection with empty set"{
-
-		const aSet = #{1, 2, 3}
-
+	test "intersection with empty set" {
 		assert.equals(#{}, aSet.intersection(#{}))
 		assert.equals(#{}, #{}.intersection(aSet))
-
 	}
 
-	test "intersection with non empty sets"{
-
-		const aSet = #{1, 2, 3}
-		const anotherSet = #{3, 4, 5}
+	test "intersection with non empty sets" {
 		const intersectionSet = #{3}
 
 		assert.equals(aSet, aSet.intersection(aSet))
 		assert.equals(intersectionSet, aSet.intersection(anotherSet))
 		assert.equals(intersectionSet, anotherSet.intersection(aSet))
-
 	}
 
-	test "difference with empty set"{
-
-		const aSet = #{1, 2, 3}
-
+	test "difference with empty set" {
 		assert.equals(aSet, aSet.difference(#{}))
 		assert.equals(#{}, #{}.difference(aSet))
-
 	}
 
-	test "difference with non empty sets"{
-
-		const aSet = #{1, 2, 3}
-		const anotherSet = #{3, 4, 5}
-
+	test "difference with non empty sets" {
 		assert.equals(#{}, aSet.difference(aSet))
 		assert.equals(#{1, 2}, aSet.difference(anotherSet))
 		assert.equals(#{4, 5}, anotherSet.difference(aSet))
-
 	}
 
-	test "equality case true"{
-
+	test "equality case true" {
 		assert.equals(#{'Hello'}, #{'Hello'})
 		assert.equals(#{5, 4, 9}, #{4, 5, 9})
 		assert.equals(#{true}, #{true})
 		assert.equals(#{}, #{})
-
 	}
 
-	test "equality special cases"{
-
+	test "equality special cases" {
 		assert.notEquals(#{3, 4}, #{3})
 		assert.notThat(#{3, 4}.equals(#{3}))
 		assert.notThat(#{3, 4}.equals(#{3, 8}))
@@ -99,48 +153,58 @@ describe "Set test"{
 		assert.notThat(#{}.equals(#{3}))
 		assert.notThat(#{5}.equals(#{3}))
 		assert.notThat(#{5}.equals(#{}))
-
 	}
 
-	test "equality case false"{
-
+	test "equality case false" {
 		assert.notEquals(#{'Hello'}, #{'Hellou'})
 		assert.notEquals(#{5, 4, 9}, #{4, 5, 3})
 		assert.notEquals(#{4, 5, 9}, [4, 5, 9])
-
 	}
 
-	test "elements are unique"{
-
+	test "elements are unique" {
 		assert.equals(2, #{"melon", "tomate", "melon"}.size())
 		assert.equals(2, #{5, 7, 7, 5, 5, 5, 7, 7, 5, 5, 7}.size())
-
 	}
 
-	test "elements are unique with common representations"{
-
+	test "elements are unique with common representations" {
 		assert.equals(4, #{"4", 4.01, 4, "Cuatro"}.size())
-
 	}
 
-	test "elements are unique for classes"{
-
+	test "elements are unique for classes" {
 		assert.equals(3, #{new Alumno("juan"), new Alumno("manuel"), new Alumno("juan")}.size())
-
 	}
 
-	test "elements are unique for classes and objects"{
-
-		var juancete = new Alumno("juan")
+	test "elements are unique for classes and objects" {
+		const juancete = new Alumno("juan")
 		assert.equals(2, #{juancete, manuel, juancete, manuel, manuel}.size())
-
 	}
 
-	test "anyOne on set throwsException when empty"{
-
+	test "anyOne for a list with one element returns that element" {
 		assert.equals(1, #{1}.anyOne())
-		assert.throwsException({ #{}.anyOne() })
+	}
 
+	test "anyOne on set throwsException when empty" {
+		assert.throwsException({ #{}.anyOne() })
+	}
+
+	test "toString for a long set" {
+		const unSet = #{}
+		(1..70).forEach { i => unSet.add(i) }
+		assert.equals("#{...70 elements}", unSet.toString())
+	}
+
+	test "equals for object overriding equals" {
+		const pepita = new AveLoca()
+		const unSet = #{ pepita }
+		const otroSet = #{ new AveLoca() }
+		assert.equals(unSet, otroSet)
+	}
+
+	test "equals for object not overriding equals" {
+		const pepita = new AveLoca2()
+		const unSet = #{ pepita }
+		const otroSet = #{ new AveLoca() }
+		assert.notThat(unSet == otroSet)
 	}
 
 }
