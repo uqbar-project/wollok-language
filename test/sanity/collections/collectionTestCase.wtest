@@ -22,6 +22,41 @@ object x3 {
 	method value() { return 3 }
 }
 
+object pajarera{
+  const pajaros = []
+  var energiaMenor = 100 
+
+  method agregar(unPajaro){
+    pajaros.add(unPajaro)
+  }
+  method quitar(unPajaro){
+    pajaros.remove(unPajaro)
+  }
+  method cantidad(){
+    return pajaros.size()
+  }
+  method menorValor(){
+      pajaros.forEach { a => a.sosMenor(energiaMenor) }
+      return energiaMenor
+  }      
+  method setEnergiaMenor(valor) {
+      energiaMenor = valor
+  }
+}
+
+object pepe {
+  method sosMenor(energiaMenor){
+    pajarera.setEnergiaMenor(10)
+  }
+}
+
+object pepita {
+  method sosMenor(energiaMenor){
+    pajarera.setEnergiaMenor(25)
+  }
+}
+
+
 describe "Collection test case" {
   
   test "min using a closure" {
@@ -358,5 +393,22 @@ describe "Collection test case" {
     assert.equals([5], #{5}.sortedBy({a,b=>a>b}))
     assert.equals([], [].sortedBy({a,b=>a>b}))
   }  
-  
+
+}
+
+describe "using a collection in Wollok classes" {
+
+  test "collection as instance variable" {
+			pajarera.agregar(pepita)
+			pajarera.quitar(pepita)
+			assert.equals(0, pajarera.cantidad())
+  }
+
+  test "issue 40" {
+    pajarera.agregar(pepita)
+    pajarera.agregar(pepe)
+    const menor = pajarera.menorValor()
+    assert.equals(10, menor)
+  }
+
 }

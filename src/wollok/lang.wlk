@@ -2355,8 +2355,8 @@ class Range {
     * Both start and end must be integer values.
     */
   method initialize() {
-		start = start.truncate(0)
-		end = end.truncate(0)
+    start = start.truncate(0)
+    end = end.truncate(0)
     if (step == null) {
       if (start > end) { 
         step = -1 

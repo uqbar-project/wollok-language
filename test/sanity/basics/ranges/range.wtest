@@ -181,10 +181,10 @@ describe "Range Test Case" {
 		assert.equals([8,2], range.filter({ elem => elem.even() }))
 	}
 
- 	test "range for decimals if integers are allowed" {
+  test "range for decimals if integers are allowed" {
 		const range = new Range(start=2.0, end=5.0)
 		assert.equals(5, range.max())
- 	}
+  }
 
 	test "range ending with null should fail" {
 		assert.throwsException { => 1..null }

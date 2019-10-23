@@ -13,7 +13,7 @@ test "Test then always excecuted on exception" {
 	}
 
 	catch e : MyException {
-  	counter = counter + 1
+   counter = counter + 1
   }
 
 	then always {

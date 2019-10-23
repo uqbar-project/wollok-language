@@ -7,6 +7,8 @@ object manuel {
 	var nombre = "ElManu"
 }
 
+const numbers = #{22, 2, 10}
+
 object a {
 	override method printString() = "es un a"
 }
@@ -54,6 +56,32 @@ class AveLoca {
 	}
 }
 
+class Animal3 {
+	override method equals(otroAnimal) = self.nombre() == otroAnimal.nombre()
+	method nombre()
+}
+
+class Perro3 inherits Animal3 {
+	override method nombre() = "Firulais"
+}
+
+class Gato3 inherits Animal3 {
+	override method nombre() = "Garfield"
+}
+
+class Animal4 {
+	override method ==(otroAnimal) = self.nombre() == otroAnimal.nombre()
+	method nombre()
+}
+
+class Perro4 inherits Animal4 {
+	override method nombre() = "Firulais"
+}
+
+class Gato4 inherits Animal4 {
+	override method nombre() = "Garfield"
+}
+
 class AveLoca2 {
 	var property energia = 0
 	var property nombre = "pepita"
@@ -84,9 +112,35 @@ describe "Issues with Sets" {
 		assert.equals(1, aSet.size())
 	}
 
+	test "issue 1771 - a set with object in same hierarchy where equals is based on name will add animals with different name only" {
+		const set = new Set()
+		const perro = new Perro3()
+		const otroPerro = new Perro3()
+		const gato = new Gato3()
+		set.add(perro)
+		set.add(otroPerro)
+		set.add(gato)
+		assert.equals(2, set.size())
+		assert.equals(set, #{perro,gato})
+		assert.equals(#{perro,gato}, #{otroPerro,gato})
+	}
+
 	test "issue 1771 - a set with objects in same hierarchy will not be added if == returns always true" {
 		const aSet = #{new Perro2(), new Perro2(), new Gato2() }
 		assert.equals(1, aSet.size())
+	}
+
+	test "issue 1771 - a set with object in same hierarchy where == is based on name will add animals with different name only" {
+		const set = new Set()
+		const perro = new Perro4()
+		const otroPerro = new Perro4()
+		const gato = new Gato4()
+		set.add(perro)
+		set.add(otroPerro)
+		set.add(gato)
+		assert.equals(2, set.size())
+		assert.equals(set, #{perro,gato})
+		assert.equals(#{perro,gato}, #{otroPerro,gato})
 	}
 
 }
@@ -138,6 +192,7 @@ describe "Set tests" {
 		assert.equals(#{5, 4, 9}, #{4, 5, 9})
 		assert.equals(#{true}, #{true})
 		assert.equals(#{}, #{})
+		assert.equals(#{1,1,2,2}, #{1,2})		
 	}
 
 	test "equality special cases" {
@@ -193,6 +248,11 @@ describe "Set tests" {
 		assert.equals("#{...70 elements}", unSet.toString())
 	}
 
+	test "toString for a short set" {
+		const unSet = #{23, 2, 2}
+		assert.that("#{23, 2}" == unSet.toString() || "#{2, 23}" == unSet.toString())
+	}
+
 	test "equals for object overriding equals" {
 		const pepita = new AveLoca()
 		const unSet = #{ pepita }
@@ -205,6 +265,58 @@ describe "Set tests" {
 		const unSet = #{ pepita }
 		const otroSet = #{ new AveLoca() }
 		assert.notThat(unSet == otroSet)
+	}
+
+	test "asSet conversion" {
+		const set = #{}
+		set.add(1)
+		set.add(2)
+		set.add(3)
+		assert.equals(set, set.asSet())
+	}
+
+	test "asSet - list" {
+		const list = new List()
+		list.addAll([1,2,3])
+		assert.equals(1, #{list,[1,2,3]}.asSet().size())		
+	}
+
+	test "asSet - set" {
+		const set = new Set()
+		set.addAll([1,2,3])
+		assert.equals(1, #{set, #{1,2,3}}.asSet().size())		
+	}
+
+	test "size adding duplicates individually" {
+		const numbers = #{ 23, 2, 1, 1, 1 }
+		numbers.add(1)
+		numbers.add(1)		
+		assert.equals(3, numbers.size())
+	}
+
+	test "size adding duplicates with addAll" {
+		const numbers = #{ 23, 2, 1, 1, 1 }
+		numbers.addAll(#{1, 1, 1, 1, 4})
+		assert.equals(4, numbers.size())		
+	}
+
+	test "flatten" {
+		assert.equals(#{1,2,3,4}, #{#{1, 2}, #{1, 3, 4}}.flatten())
+		assert.equals(#{1,2, 3}, #{#{1, 2}, #{}, #{1, 2, 3}}.flatten())
+	}
+
+	test "flatten for empty sets" {
+		assert.equals(#{}, #{}.flatten())
+		assert.equals(#{}, #{#{}}.flatten())
+	}
+
+	test "set converted as list" {
+		assert.equals([1, 2, 3], #{1,2,3}.asList())
+	}
+
+	test "removeAll" {
+		numbers.removeAll(#{2, 10})
+		assert.equals(#{22}, numbers)		
 	}
 
 }
