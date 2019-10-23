@@ -2,13 +2,12 @@ class Auto {
 	var property kms
 
 	constructor(_kms) {
-				kms = _kms
+		kms = _kms
 	}
 }
 
 
 test "Object inheriting from a class" {
-
 	var n = 33
 
 	const o = object inherits Auto(2000) {
@@ -18,5 +17,4 @@ test "Object inheriting from a class" {
 	} 
 
 	assert.equals(2000, o.kms())
-
 }

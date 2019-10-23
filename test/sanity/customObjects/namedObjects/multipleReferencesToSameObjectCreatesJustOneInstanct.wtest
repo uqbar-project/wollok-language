@@ -13,7 +13,6 @@ object pp {
 object pepita {	}
 
 test "multiple references to same object creates just one instance" {
-
 	pp.unMethod()
 	assert.equals(pepita, pp.getPs().get(0))
 }

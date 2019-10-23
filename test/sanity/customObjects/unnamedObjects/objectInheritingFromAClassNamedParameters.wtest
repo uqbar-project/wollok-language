@@ -4,7 +4,6 @@ class Auto {
 }
 
 test "literal object inheriting from a class named parameters" {
-
 	var n = 33
 
 	const o = object inherits Auto(owner = 'dodain', kms = 2000) {
@@ -12,6 +11,5 @@ test "literal object inheriting from a class named parameters" {
 			return n
 		}
 	}
-
 	assert.equals(2000, o.kms())
 }

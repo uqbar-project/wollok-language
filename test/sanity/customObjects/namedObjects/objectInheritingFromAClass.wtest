@@ -11,7 +11,5 @@ object bordini inherits Auto(2000) {
 }
 
 test "object inheriting from a class" {
-
 	assert.equals(2000, bordini.kms())
-
 }

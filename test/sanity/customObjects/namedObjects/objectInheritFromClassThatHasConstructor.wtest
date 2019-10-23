@@ -6,11 +6,8 @@ class Dog {
 	method name() = name
 }
 
-object lassie inherits Dog("lassie") {
-}
+object lassie inherits Dog("lassie") {}
 
 test "object inherit from class that has constructor" {
-
 	assert.equals("lassie", lassie.name())
-
 }

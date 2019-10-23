@@ -14,5 +14,4 @@ test "Object scoping using variable defined outside of it" {
 	n = 34
 
 	assert.that(34 == o.getN())
-
 }

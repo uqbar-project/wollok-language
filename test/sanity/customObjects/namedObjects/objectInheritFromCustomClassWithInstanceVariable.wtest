@@ -13,9 +13,7 @@ object myObject inherits MyClass {
 }
 
 test "object inherit from custom class with instance variable" {
-
 	assert.equals("1234", myObject.something())
 	myObject.setInheritedVariable("abc")
 	assert.equals("abc", myObject.something())
-
 }

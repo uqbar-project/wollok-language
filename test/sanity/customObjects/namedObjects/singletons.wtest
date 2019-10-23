@@ -2,21 +2,15 @@ class A {
 	method m()=5
 }
 
-object o inherits A{
-
-}
+object o inherits A { }
 
 class B {
-
-	constructor (b){
+	constructor(b) {
 	}
-
-	method m()=6
+	method m() = 6
 }
 
-object o2 inherits B (5){
-
-}
+object o2 inherits B(5) { }
 
 mixin M {
 	method z() = 10
@@ -26,19 +20,13 @@ mixin M2 {
 	method z2() = 11
 }
 
-object o3 inherits B (6) mixed with M {
+object o3 inherits B (6) mixed with M { }
 
-}
+object o4 mixed with M and M2 { }
 
-object o4 mixed with M and M2 {
+object o5 inherits B (5) mixed with M and M2 { }
 
-}
-
-object o5 inherits B (5) mixed with M and M2 {
-
-}
-
-describe "Singletons"{
+describe "Singletons" {
 
 	test "compare identity of three literal objects"{
 		const ob1 = object {}
@@ -55,9 +43,9 @@ describe "Singletons"{
 		const ob2 = object {}
 		const ob3 = ob1
 
-		assert.that(ob1 == ob1)
-		assert.that(ob1 != ob2)
-		assert.that(ob1 == ob3)
+		assert.equals(ob1, ob1)
+		assert.notEquals(ob1, ob2)
+		assert.equals(ob1, ob3)
 	}
 
 	test "compare equality of three strings"{
@@ -65,13 +53,12 @@ describe "Singletons"{
 		const ob2 = "hola"
 		const ob3 = ob1
 
-		assert.that(ob1 == ob1)
-		assert.that(ob1 == ob2)
-		assert.that(ob1 == ob3)
+		assert.equals(ob1, ob1)
+		assert.equals(ob1, ob2)
+		assert.equals(ob1, ob3)
 	}
 
 	test "literal object with instance variables and a simple return method"{
-
 		const myObject = object {
 			var a
 			method a(_a){
@@ -85,28 +72,27 @@ describe "Singletons"{
 	}
 
 	test "objects that inherits from a class"{
-		assert.that(o.m()==5)
+		assert.equals(5, o.m())
 	}
 
 	test "object that inherit from a class with explicit builders"{
-		assert.that(o2.m()==6)
+		assert.equals(6, o2.m())
 	}
 
 	test "object that inherit from a class and have a mixin"{
-		assert.that(o3.m()==6)
-		assert.that(o3.z()==10)
+		assert.equals(6, o3.m())
+		assert.equals(10, o3.z())
 	}
 
 	test "object thats have multiple mixins"{
-		assert.that(o4.z2()==11)
-		assert.that(o4.z()==10)
+		assert.equals(11, o4.z2())
+		assert.equals(10, o4.z())
 	}
 
 	test "object that inherit from a class and have multiple mixins"{
-		assert.that(o5.m()==6)
-		assert.that(o5.z2()==11)
-		assert.that(o5.z()==10)
+		assert.equals(6, o5.m())
+		assert.equals(11, o5.z2())
+		assert.equals(10, o5.z())
 	}
-
 
 }
