@@ -1,16 +1,13 @@
-describe "Returns"{
+describe "returns tests" {
 
-	test "Return" {
-
+	test "return in a method" {
 		const myObject = object {
-
-			method m(){
+			method m() {
 				return 5
 			}
-		  
 		}
-
-	assert.equals(5, myObject.m())
-
+		assert.equals(5, myObject.m())
 	}
+
 }
+
