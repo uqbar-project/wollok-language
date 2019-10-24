@@ -1,0 +1,11 @@
+object wollok {
+  method numero() = numeroLoco
+}
+
+const numeroLoco = 87
+
+describe "global constants in describe" {
+  test "Numero loco es 87" {
+    assert.equals(87, numeroLoco)
+  }
+}

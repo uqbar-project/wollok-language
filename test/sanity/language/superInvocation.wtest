@@ -22,5 +22,5 @@ class SeCansaMucho inherits Golondrina {
 test "super invocation" {
 	const pepona = new SeCansaMucho()
 	pepona.volar(50)
-	assert.that(pepona.energia() == 0) // Gastó el doble de energia
+	assert.equals(0, pepona.energia()) // Gastó el doble de energia
 }

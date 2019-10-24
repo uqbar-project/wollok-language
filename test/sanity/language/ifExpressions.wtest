@@ -1,3 +1,12 @@
+object numeroLoco {
+	method calculoLoco(n) {
+		if (n) {
+			return 0
+		}
+		return n
+	}
+}
+
 describe "If expressions"{
 
 	test "if without '{}'" {
@@ -17,8 +26,7 @@ describe "If expressions"{
 		}
 
 		o.m(true)
-
-		assert.equals(1,  o.getT())
+		assert.equals(1, o.getT())
 	}
 
 	test "if without '{}' with else" {
@@ -30,9 +38,8 @@ describe "If expressions"{
 				return 0
 			}
 		}
-		assert.that(o.m(true) == 1)
-		assert.that(o.m(false) == 0)
-
+		assert.equals(1, o.m(true))
+		assert.equals(0, o.m(false))
 	}
 
 	test "if with '{}' with else" {
@@ -46,9 +53,8 @@ describe "If expressions"{
 				}
 			}
 		}
-		assert.that(o.m(true) == 1)
-		assert.that(o.m(false) == 0)
-
+		assert.equals(1, o.m(true))
+		assert.equals(0, o.m(false))
 	}
 
 	test "if with 'then' with a multi-sentence curly-braced body" {
@@ -67,8 +73,7 @@ describe "If expressions"{
 			method getP()=p
 		}
 		assert.that(o.m(true) == 1 && o.getP()==1)
-		assert.that(o.m(false) == 0)
-
+		assert.equals(0, o.m(false))
 	}
 
 	test "'if' inside other 'if' that have an else" {
@@ -85,10 +90,13 @@ describe "If expressions"{
 				}
 			}
 		}
-		assert.that(o.m(true, true) == 1)
-		assert.that(o.m(true, false) == 3)
-		assert.that(o.m(false, true) == 0)
+		assert.equals(1, o.m(true, true))
+		assert.equals(3, o.m(true, false))
+		assert.equals(0, o.m(false, true))
+	}
 
+	test "if condition as a number should fail" {
+		assert.throwsException { => numeroLoco.calculoLoco(3) }
 	}
 
 }

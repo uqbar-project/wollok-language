@@ -1,27 +1,23 @@
 describe "Assignments and fields"{
 
 	test "Simple assignment" {
-
 		const myObject = object {
 			var a 
-			method assignA(b){
+			method assignA(b) {
 				a = b
 			}
 
 			method getA() = a
-		  
 		}
 
 		myObject.assignA(5)
-		assert.that(myObject.getA() == 5)
-
+		assert.equals(5, myObject.getA())
 	}
 
 	test "+= operation" {
-
 		const myObject = object {
 			var a = 2
-			method assignA(b){
+			method assignA(b) {
 				a += b
 			}
 
@@ -30,49 +26,40 @@ describe "Assignments and fields"{
 		}
 
 		myObject.assignA(5)
-		assert.that(myObject.getA() == 7)
-
+		assert.equals(7, myObject.getA())
 	}
 
 	test "-= operation" {
-
 		const myObject = object {
 			var a = 2
-			method assignA(b){
+			method assignA(b) {
 				a -= b
 			}
 
 			method getA() = a
-		  
 		}
 
 		myObject.assignA(5)
-		assert.that(myObject.getA() == -3)
-
+		assert.equals(-3, myObject.getA())
 	}
 
 	test "*= operation" {
-
 		const myObject = object {
 			var a = 2
-			method assignA(b){
+			method assignA(b) {
 				a *= b
 			}
-
 			method getA() = a
-		  
 		}
 
 		myObject.assignA(5)
-		assert.that(myObject.getA() == 10)
-
+		assert.equals(10, myObject.getA())
 	}
 
 	test "/= operation" {
-
 		const myObject = object {
 			var a = 10
-			method assignA(b){
+			method assignA(b) {
 				a /= b
 			}
 
@@ -81,27 +68,21 @@ describe "Assignments and fields"{
 		}
 
 		myObject.assignA(2)
-		assert.that(myObject.getA() == 5)
-
+		assert.equals(5, myObject.getA())
 	}
 
 	test "%= operation" {
-
 		const myObject = object {
 			const c = 19
 			var a = c
-			method assignA(b){
+			method assignA(b) {
 				a %= b
 			}
-
 			method getA() = a
-		  
 		}
 
 		myObject.assignA(5)
-		assert.that(myObject.getA() == 4)
-
+		assert.equals(4, myObject.getA())
 	}
-
 
 }

@@ -19,6 +19,6 @@ test "polymorphism" {
 
 	pepona.comer(alpiste)
 
-	assert.that(105 == pepona.energia())
+	assert.equals(105, pepona.energia())
 
 }
