@@ -1,0 +1,122 @@
+class Ave {
+	var property energia = 100
+	const property fechaNacimiento = new Date()
+	var property vecesQueVolo = 0
+	var property velocidad = 0
+
+	method volar() {
+		energia -= 10
+		vecesQueVolo++
+	}
+
+	method velocidad() = velocidad / 2
+
+}
+
+class MaestroTierra {
+	var property base = 100
+}
+
+class MaestroMetal inherits MaestroTierra {
+	override method base() {
+		return super() * 2
+	}
+
+	override method base(_value) {
+		return super(_value * 2)
+	}
+}
+
+class MaestroTierra2 {
+	var property base = 100
+	
+	method base() = 150
+}
+
+class MaestroMetal2 inherits MaestroTierra2 {
+	override method base() {
+		return super() * 2
+	}
+}
+
+class MaestroTierra3 {
+	var property base = 0
+}
+
+class MaestroMetal3 inherits MaestroTierra3 {
+	override method base(_value) {
+		return super(_value * 2)
+	}
+}
+
+class MaestroTierra4 {
+	var property base = 0
+	
+	method base(_value) {
+		base = _value - 10
+	}
+}
+
+class MaestroMetal4 inherits MaestroTierra4 {
+	override method base(_value) {
+		super(_value * 2)
+	}
+}
+
+const pepita = new Ave()
+
+describe "Getter and setter for properties in class" {
+
+	test "property getter for a var reference - instance of a class" {
+		assert.equals(100, pepita.energia())
+	}
+
+	test "property setter for a var reference - instance of a class" {
+		pepita.energia(40)
+		pepita.volar()
+		assert.equals(30, pepita.energia())
+	}
+
+	test "property getter for an const reference - instance of a class" {
+		assert.equals(new Date(), pepita.fechaNacimiento())
+	}
+	
+	test "property reference change - instance of a class" {
+		pepita.volar()
+		assert.equals(1, pepita.vecesQueVolo())
+	}
+
+	test "trying to invoke a setter for a property const should fail" {
+		assert.throwsException { pepita.fechaNacimiento(new Date()) }
+	}
+
+	test "Custom getter for property const in class"{
+		pepita.velocidad(10)
+		assert.equals(5, pepita.velocidad())
+	}
+
+	test "Bad setter for property const in class"{
+		assert.throwsException { pepita.velocidad(10, [21, 1]) }
+	}	
+
+	test "property getter overridden by subclass should use property definition" {
+		assert.equals(200, new MaestroMetal().base())
+	}
+
+	test "property getter overridden by superclass & subclass should not take into account property definition" {
+		assert.equals(300, new MaestroMetal2().base())
+	}
+
+	test "setter overridden by subclass should use property definition" {
+		const acdc = new MaestroMetal3()
+		acdc.base(40)
+		assert.equals(80, acdc.base())
+	}
+
+	test "property setter overridden by superclass & subclass should not take into account property definition" {
+		const acdc = new MaestroMetal4()
+		acdc.base(40)
+		assert.equals(70, acdc.base())
+	}
+
+}

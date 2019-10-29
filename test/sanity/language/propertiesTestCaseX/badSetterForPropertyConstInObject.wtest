@@ -1,8 +1,0 @@
-object pepita {
-			const property energia = 0
-		}
-
-test "Bad setter for property const in object" {
-	// Warning: this will fail before even executing tests unless it is run with `-dontValidate` option
-	assert.throwsException { pepita.energia(10, "hola") }
-}

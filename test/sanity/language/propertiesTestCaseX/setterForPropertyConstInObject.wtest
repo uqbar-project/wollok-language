@@ -1,8 +1,0 @@
-object pepita {
-	const property energia = 0
-}
-
-
-test "setter for property const in object"{
-	assert.throwsException { pepita.energia(10) }
-}
