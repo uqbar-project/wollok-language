@@ -1,17 +1,83 @@
 class A { 
 	method m1() { throw new Exception("hello you see") }
+	method m5(a, b) { return a - b }
 }
 
-test "Test message not understood" {
+describe "message not understood" {
 
-	const a = new A()
-
-	try {
-		a.m2()
-		assert.fail("Should have thrown message not understood")
+	test "Test message not understood" {
+		const a = new A()
+		try {
+			a.m2()
+			assert.fail("Should have thrown message not understood")
+		}
+		catch e : MessageNotUnderstoodException {
+			// ok !
+		}
 	}
 
-	catch e : MessageNotUnderstoodException {
-		// ok !
+	test "Test message not understood - less parameters" {
+		const a = new A()
+		try {
+			a.m5()
+			assert.fail("Should have thrown message not understood")
+		}
+		catch e : MessageNotUnderstoodException {
+			// ok !
+		}
 	}
+
+	test "Test message not understood - more parameters" {
+		const a = new A()
+		try {
+			a.m1(2, new Date())
+			assert.fail("Should have thrown message not understood")
+		}
+		catch e : MessageNotUnderstoodException {
+			// ok !
+		}
+	}
+
+	test "Test message not understood - case sensitive" {
+		const a = new A()
+		try {
+			a.M1(3)
+			assert.fail("Should have thrown message not understood")
+		}
+		catch e : MessageNotUnderstoodException {
+			// ok !
+		}
+	}
+
+	test "Test message not understood with literals case sensitive" {
+		try {
+			4.truncATE(2)
+			assert.fail("Should have thrown message not understood")
+		}
+		catch e : MessageNotUnderstoodException {
+			// ok !
+		}
+	}
+
+	test "Test message not understood with literals - less parameters" {
+		try {
+			4.truncate()
+			assert.fail("Should have thrown message not understood")
+		}
+		catch e : MessageNotUnderstoodException {
+			// ok !
+		}
+	}
+
+	test "Test message not understood with params" {
+		const a = new A()
+		try {
+			a.m2(2, 4)
+			assert.fail("Should have thrown message not understood")
+		}
+		catch e : MessageNotUnderstoodException {
+			// ok !
+		}
+	}
+
 }

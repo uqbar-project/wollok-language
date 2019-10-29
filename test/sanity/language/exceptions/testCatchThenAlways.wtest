@@ -1,0 +1,61 @@
+class MyException inherits Exception {}
+class A {
+	method m1() { throw new MyException() }
+	method m2() {}
+	method m3() { throw new Exception(message = "hello you see") }
+}
+
+describe "throw, catch and then always flow" {
+
+	test "Test throw and catch" {
+		const a = new A()
+		var counter = 1
+		try {
+			a.m1()
+			counter = 0
+		} catch e : MyException {
+			counter = counter + 1
+		}
+		assert.equals(2, counter)
+	}
+
+	test "Test catch without type" {
+		const a = new A()
+		try {
+			a.m3()
+			assert.fail("Should have thrown exception")
+		}
+		catch e {
+			// ok !
+			assert.equals("hello you see", e.message())
+		}
+	}
+
+	test "Test then always executed on exception" {
+		const a = new A()
+		var counter = 1
+		try {
+			a.m1()
+		}	catch e : MyException {
+			counter = counter + 1
+		}	then always {
+			counter = counter * 3
+		}
+		assert.equals(6, counter)
+	}
+
+	test "Test then always executed even without an exception raised" {
+		const a = new A()
+		var counter = 0
+		try {
+			a.m2()
+			counter = counter + 1
+		}
+		catch e : MyException
+			assert.fail("This test should not have thrown exception")
+		then always
+			counter = counter + 1 
+		assert.equals(2, counter)
+	}
+
+}

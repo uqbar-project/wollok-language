@@ -1,25 +1,19 @@
 import wollok.lang.Exception
 
-class MyException inherits Exception {
+class MyExceptionWithCustomMessage inherits Exception {
 	method customMessage() { 
 		return "Something went wrong"
 	}
 }
 
-class A { method m1() { throw new MyException() } }
+class B { method m1() { throw new MyExceptionWithCustomMessage() } }
 
 test "Test catch using the exception variable" {
-
-	const a = new A()
+	const b = new B()
 	var result = null
-
 	try {
-		a.m1()
-	}
-
-	catch e : MyException
+		b.m1()
+	} catch e : MyExceptionWithCustomMessage
 		result = e.customMessage()
-
 	assert.equals("Something went wrong", result)
-
 }

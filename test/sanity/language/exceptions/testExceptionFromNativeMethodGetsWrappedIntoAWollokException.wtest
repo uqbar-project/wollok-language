@@ -1,4 +1,0 @@
-
-test "Test exception from native method gets wrapped into a WollokException" {
-	assert.throwsException { 2 / 0 }
-}
