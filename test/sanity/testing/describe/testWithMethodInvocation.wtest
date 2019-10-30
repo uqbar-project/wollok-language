@@ -1,9 +1,0 @@
-describe "pruebas generales" {
-
-	method uno() = 1
-
-	test "Uno es one" {
-		assert.equals(1, self.uno())
-	}
-
-}

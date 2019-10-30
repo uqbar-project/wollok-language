@@ -9,20 +9,46 @@ object alpiste {
 	method energia() = 5
 }
 
-describe "pepita cuando está gorda" {
+describe "testing fixture runs before every test" {
 	const pepita = new Golondrina()
 
 	fixture {
-		(1..100).forEach({ n => pepita.comer(alpiste) })
+		pepita.comer(alpiste)
+		pepita.comer(alpiste)
 	}
 
-	test "pepita quedo gorda, vuela un poco para bajar de peso" {
-		assert.equals(600, pepita.energia())
+	test "pepita initialized with energy in fixture, flies and looses energy" {
+		assert.equals(110, pepita.energia())
 		pepita.volar(25)
-		assert.equals(500, pepita.energia())
+		assert.equals(10, pepita.energia())
 	}
 
-	test "pepita sigue gorda en el proximo test" {
-		assert.equals(600, pepita.energia())
+	test "in a new test, pepita has same initial energy" {
+		assert.equals(110, pepita.energia())
+	}
+
+}
+
+describe "const references can be initially assigned in a fixture" {
+	const uno
+
+	fixture {
+		uno = 1
+	}
+
+	test "uno es uno" {
+		assert.equals(1, uno)
+	}
+}
+
+describe "const references can be additionally assigned in a fixture" {
+	const uno = 1
+
+	fixture {
+		uno = 1
+	}
+
+	test "uno es uno" {
+		assert.equals(1, uno)
 	}
 }

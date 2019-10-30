@@ -7,7 +7,7 @@ class Doctor {
 	method cura(alguien) { calidad = calidad + 1 }
 }
 
-describe "issue 1223" {
+describe "issue 1223 - NPE for const defined in fixtures" {
 	var unDoctorCualquiera
 	var enfermo
 
@@ -17,7 +17,7 @@ describe "issue 1223" {
 		unDoctorCualquiera.calidad(2)
 	}
 
-	test "si un doctor cura a un enfermo, la calidad del doctor aumenta" {
+	test "reference to unDoctorCualquiera should not be null" {
 		const calidadInicial = unDoctorCualquiera.calidad()
 		unDoctorCualquiera.cura(enfermo)
 		const calidadFinal = unDoctorCualquiera.calidad()
