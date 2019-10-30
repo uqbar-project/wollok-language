@@ -1,0 +1,35 @@
+object pepita {
+	var energia = 0
+	method come(cantidad){
+		energia = energia + cantidad * 10
+	}
+	method energia(){
+		return energia
+	}
+}
+
+describe "Simple tests" {
+
+	test "1 + 1 is equal to 2" {
+		assert.equals(2, 1 + 1)
+	}
+
+	test "testing assert.that" {
+		assert.that(pepita.energia() == 0)
+	}
+
+	test "testing assert.equals happy path" {
+		assert.equals(0, pepita.energia())
+		pepita.come(10)
+		assert.equals(100, pepita.energia())
+	}
+
+	test "assert that when not true should fail" {
+		assert.throwsException { assert.that(7 == pepita.energia())	}
+	}
+
+	test "assert equals when different values should fail" {
+		assert.throwsException { assert.equals(7, pepita.energia())	}
+	}
+
+}
