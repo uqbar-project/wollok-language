@@ -19,7 +19,6 @@ class Presentacion inherits EventoLocalizado {
 }
 
 test "named parameters with inheritance" {
-
 	const presentacion = new Presentacion(
 		lugar = lunaPark,
 		fecha = new Date(),
@@ -30,5 +29,4 @@ test "named parameters with inheritance" {
 	assert.equals(chayanne, presentacion.cantante())
 	assert.equals(350, presentacion.localidades().sum())
 	assert.equals(presentacion.lugar(), lunaPark)
-
 }

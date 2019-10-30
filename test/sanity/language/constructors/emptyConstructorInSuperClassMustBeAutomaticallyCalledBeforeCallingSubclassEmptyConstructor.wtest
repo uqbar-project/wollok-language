@@ -23,10 +23,8 @@ class SubClass inherits SuperClass {
 }
 
 test "empty constructor in superclass must be automatically called before calling subclass empty constructor" {
-
 	const o = new SubClass()
 	assert.equals(10, o.getSubX())
 	assert.equals(40, o.getSuperX())
 	assert.equals(30, o.getOtherX())
-
 }

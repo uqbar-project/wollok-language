@@ -19,9 +19,7 @@ class C inherits B {
 class D inherits C {}
 
 test "empty constructor auto called mixing implicit constructor in hierarchy" {
-
 	const o = new D()
 	assert.equals(20, o.getX())
 	assert.equals(10, o.getC1())
-
 }

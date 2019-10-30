@@ -1,3 +1,9 @@
+class Point {
+	var x
+	var y
+	method total() = x + y
+}
+
 object chayanne {
 	method nombre() = "Chayanne"
 }
@@ -8,9 +14,12 @@ class Presentacion {
 	var property localidades
 }
 
+test "named parameters with numbers" {
+	const point = new Point(x = 1, y = 2)
+	assert.equals(3, point.total())
+}
 
 test "named parameters with literals" {
-
 	const presentacion = new Presentacion(fecha = new Date(), cantante = chayanne, localidades = [100, 50, 200])
 	assert.equals(chayanne, presentacion.cantante())
 	assert.equals(350, presentacion.localidades().sum())

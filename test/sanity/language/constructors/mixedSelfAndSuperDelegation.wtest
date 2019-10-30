@@ -32,9 +32,7 @@ class Point {
 }
 
 test "mixed self and super delegation" {
-
 	const o = new C(10, 20)
 	assert.equals(20, o.getX())
 	assert.equals(30, o.getY())
-
 }

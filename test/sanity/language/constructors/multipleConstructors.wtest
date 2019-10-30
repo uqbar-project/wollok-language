@@ -1,5 +1,4 @@
 class Point {
-
 	var x
 	var y
 

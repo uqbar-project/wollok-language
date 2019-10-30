@@ -7,7 +7,7 @@ object numeroLoco {
 	}
 }
 
-describe "If expressions"{
+describe "If expressions" {
 
 	test "if without '{}'" {
 		const o = object {
@@ -20,8 +20,8 @@ describe "If expressions"{
 			method getT() = t
 
 			method m(a){
-				if(a)
-				self.editT()
+				if (a)
+					self.editT()
 			}
 		}
 
@@ -32,10 +32,10 @@ describe "If expressions"{
 	test "if without '{}' with else" {
 		const o = object {
 			method m(a){
-				if(a)
-				return 1
+				if (a)
+					return 1
 				else
-				return 0
+					return 0
 			}
 		}
 		assert.equals(1, o.m(true))
@@ -45,11 +45,10 @@ describe "If expressions"{
 	test "if with '{}' with else" {
 		const o = object {
 			method m(a){
-				if(a){
-				return 1
-				}
-				else {
-				return 0
+				if (a) {
+					return 1
+				}	else {
+					return 0
 				}
 			}
 		}
@@ -61,12 +60,11 @@ describe "If expressions"{
 		const o = object {
 			var p
 			method m(a){
-				if(a){
-				p = 1;
-				return 1
-				}
-				else {
-				return 0
+				if (a) {
+					p = 1
+					return 1
+				}	else {
+					return 0
 				}
 			}
 
@@ -76,17 +74,17 @@ describe "If expressions"{
 		assert.equals(0, o.m(false))
 	}
 
-	test "'if' inside other 'if' that have an else" {
+	test "'if' inside other 'if' that has an else" {
 		const o = object {
-			method m(a,c){
-				if(a){
-					if(c)
+			method m(a,c) {
+				if (a) {
+					if (c)
 						return 1
 					else
 						return 3
 				}
 				else {
-				return 0
+					return 0
 				}
 			}
 		}

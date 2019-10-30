@@ -14,8 +14,6 @@ class SubClass inherits SuperClass {
 }
 
 test "empty constructor delegation to super" {
-
 	const o = new SubClass(20)
 	assert.equals(20, o.getAnotherVariable())
-
 }

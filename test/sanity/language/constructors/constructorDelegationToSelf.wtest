@@ -11,19 +11,29 @@ class Point {
 
 }
 
-describe ""{
+class Point2 {
+	var x
+	var y
+	constructor(ax, ay) { x = ax ; y = ay }
+	
+	constructor() = self(10,15)
+	
+	method getX() { return x }
+	method getY() { return y }
+}
 
-	test "constructor delegation to self" {
+describe "constructor delegation to self" {
 
+	test "constructor delegation to self with body" {
 		const p = new Point()
 		assert.equals(10, p.getX())
 		assert.equals(15, p.getY())
-
 	}
 
 	test "constructor delegation to self without body"{
-		const p = new Point()
+		const p = new Point2()
 		assert.equals(10, p.getX())
 		assert.equals(15, p.getY())
 	}
+
 }

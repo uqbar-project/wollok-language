@@ -1,0 +1,172 @@
+class A {
+}
+
+class B inherits A {
+	var x
+	constructor(_x) { x = _x }
+		method x() = x
+}
+
+class C inherits B {
+}
+
+class A2 {
+	var a
+	constructor(_a) { a = _a }
+	method a() = a
+}
+class B2 inherits A2 {
+	var x
+	constructor(_y, _x) { x = _x ; a = _y }
+	method x() = x
+}
+class C2 inherits B2 {
+	constructor() { a = 2 ; x = 3 }
+}
+
+class Arma {
+	const mm
+	
+	constructor(_mm) {
+		mm = _mm
+	}
+}
+
+class Unidad {
+	var nombre = "Peloton"
+}
+
+class UnidadArmada inherits Unidad {
+	var arma
+	
+	constructor(unArma) {
+		arma = unArma
+	}
+}
+
+object armeria {
+	method arco() = new Arma(25)
+}
+
+class Arquero inherits UnidadArmada {
+	constructor() = super(armeria.arco())
+}
+
+class Musico {
+	var habilidadBase
+	var grupo = ''
+	const albumes = #{}
+	constructor() { }
+	constructor ( _habilidadBase) {
+		habilidadBase = _habilidadBase
+	}
+}
+
+class MusicoConRoles inherits Musico {
+	var rolInterpretador
+	var rolCobrador
+	constructor ( _habilidadBase, _rolInterpretador, _rolCobrador) = super ( _habilidadBase) {
+		rolInterpretador = _rolInterpretador
+		rolCobrador = _rolCobrador
+	}
+	method internalInterpretaBien(cancion) = rolInterpretador.interpretaBien(cancion)
+	method cobra(presentacion) = rolCobrador.cobra(presentacion)
+}
+
+class VocalistaPopular inherits MusicoConRoles {
+	method esSolista() = true
+	method habilidadExtra() = if (self.esSolista()) 0 else -20
+}
+
+class Musico2 {
+	var habilidadBase
+	var grupo = ''
+	const albumes = #{}
+	constructor() { }
+	constructor ( _habilidadBase) {
+		habilidadBase = _habilidadBase
+	}
+}
+
+class MusicoConRoles2 inherits Musico2 {
+	var rolInterpretador
+	var rolCobrador
+	method internalInterpretaBien(cancion) = rolInterpretador.interpretaBien(cancion)
+	method cobra(presentacion) = rolCobrador.cobra(presentacion)
+}
+
+class VocalistaPopular2 inherits MusicoConRoles2 {
+	method esSolista() = true
+	method habilidadExtra() = if (self.esSolista()) 0 else -20
+}
+
+describe "inherited constructors" {
+
+	test "constructor defined in subclass overrides default constructor" {
+		const b = new B(1)
+		assert.equals(1, b.x())
+	}
+
+	test "calling no args constructor to a class which overrides default constructor from subclass with one parameter should fail" {
+		assert.throwsException { const b = new B() }
+	}
+
+	test "calling no args constructor to subclass where superclass has only a one parameter constructor should fail" {
+		assert.throwsException { const c = new C() }
+	}
+
+	test "calling several args constructor to subclass where superclass has only a one parameter constructor should fail" {
+		assert.throwsException { const b = new C(1, 2) }
+	}
+
+	test "inherited one argument constructor inherited from superclass" {
+		const c = new C(1)
+		assert.equals(1, c.x())
+	}
+
+	test "inherited constructors - happy path" {
+			const a = new A2(1)
+			assert.equals(1, a.a())
+			const b = new B2(5, 6)
+			assert.equals(5, b.a())
+			assert.equals(6, b.x())
+			const c = new C2()
+			assert.equals(2, c.a())
+			assert.equals(3, c.x())
+	}
+
+	/** ****************************************************************** 
+	 * 
+	 * TESTS BASED ON REAL-WORLD EXAMPLES. THEY HAVE SEVERAL DEFINITIONS
+	 * OF ELEMENTS , SO THEY COMPLEMENT PREVIOUS TESTS.
+	 * 
+	 * ******************************************************************
+	 * */
+
+	test "issue 1288" {
+		new Arquero()
+		assert.that(true)
+	}
+
+	test "a subclass which inherits a superclass which defines its own constructor does not inherit any superclass constructor - no param" {
+		assert.throwsException { new VocalistaPopular()	}
+	}
+
+	test "a subclass which inherits a superclass which defines its own constructor does not inherit any superclass constructor - one param" {
+		assert.throwsException { new VocalistaPopular(2) }
+	}
+
+	test "a subclass which does not define any constructor inherits all constructor its superclass defines - zero params" {
+		new VocalistaPopular2()
+	}
+
+	test "a subclass does not define any constructor inherits all constructor its superclass defines - one param" {
+		new VocalistaPopular2(100)
+	}
+
+	test "a subclass does not define any constructor inherits all constructor its superclass defines - several params" {
+		new VocalistaPopular(30, null, null)
+		assert.that(true)
+	}
+
+}

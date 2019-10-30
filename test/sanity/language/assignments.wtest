@@ -1,4 +1,4 @@
-describe "Assignments and fields"{
+describe "Assignments and fields" {
 
 	test "Simple assignment" {
 		const myObject = object {

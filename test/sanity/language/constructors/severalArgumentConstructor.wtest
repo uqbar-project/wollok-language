@@ -15,11 +15,9 @@ class C {
 
 }
 
-test "single simple constructor" {
-
-	const c = new C (1,2,3)
+test "several arguments constructor" {
+	const c = new C(1,2,3)
 	assert.equals(1, c.getA())
 	assert.equals(2, c.getB())
 	assert.equals(3, c.getC())
-
 }

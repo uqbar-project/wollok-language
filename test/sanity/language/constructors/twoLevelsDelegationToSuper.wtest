@@ -10,12 +10,10 @@ class B inherits A {
 }
 
 class C inherits B {
-	constructor(l) = super(l * 2) {}
+	constructor(v) = super(v * 2) {}
 }
 
 test "twoLevelsDelegationToSuper" {
-
 	const o = new C(20)
 	assert.equals(41, o.getX())
-
 }
