@@ -4,7 +4,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Currently, the Wollok language does not adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). 
 Hopefully, we will be able to do that in the near future.
 
-## [To be released in v1.8.6]
+
+
+## [To be released in v1.9.1]
+
+### Added
+- New `Sound` class adds controls when playing audio files (https://github.com/uqbar-project/wollok/issues/1784).
+
+## [1.9.0] - 2019-10-06
 
 ### Added
 - New method `uniqueElement` in collections as defined by https://github.com/uqbar-project/wollok/issues/1779.
