@@ -1,0 +1,67 @@
+describe "assert tests" {
+
+  test "assert that when not true should fail" {
+    assert.throwsException { => assert.that(false) }
+  }
+
+  test "assert notThat when true should fail" {
+    assert.throwsException { => assert.notThat(true) }
+  }
+
+  test "assert with one parameter should fail" {
+    assert.throwsException { => assert.equals(4) }
+  }
+
+  test "assert equals when equals should work" {
+    assert.equals(4, 4)
+  }
+
+  test "assert equals when not equals should fail" {
+    assert.throwsException { => equals(4, 5) }
+  }
+
+  test "assert different when equals should fail" {
+    assert.throwsException { => assert.notEquals(4, 4) }
+  }
+
+  test "assert different when different should work" {
+    assert.notEquals(4, 5)
+  }
+
+  test "assert fail should throw an exception" {
+    assert.throwsException { => assert.fail("Kaboom") }
+  }
+
+  test "assert two different things should throw comparison failure" {
+    assert.throwsException { => assert.equals(1, "hola") }
+  }
+
+  test "that using null should fail" {
+    assert.throwsException { => assert.that(null) }
+  }
+
+  test "notThat using null should fail" {
+    assert.throwsException { => assert.notThat(null) }
+  }
+
+  test "throwsException using null should fail" {
+    assert.throwsException { => assert.throwsException(null) }
+  }
+
+  test "throwsExceptionLike using null should fail" {
+    assert.throwsException { => assert.throwsExceptionLike(null, null) }
+  }
+
+  test "throwsExceptionWithMessage using null should fail" {
+    assert.throwsException { => assert.throwsExceptionWithMessage(null, null) }
+  }
+
+  test "throwsExceptionWithType using null should fail" {
+    assert.throwsException { => assert.throwsExceptionWithType(null, null) }
+  }
+
+  test "throwsExceptionByComparing using null should fail" {
+    assert.throwsException { => assert.throwsExceptionByComparing(null, null) }
+  }
+
+}
