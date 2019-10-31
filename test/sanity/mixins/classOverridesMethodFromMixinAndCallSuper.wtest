@@ -11,9 +11,7 @@ class Bird mixed with Energy {
 }
 
 test "class overrides method from mixin and call super" {
-
 	const b = new Bird()
 	b.reduceEnergy(100)
 	assert.equals(99, b.energy())
-
 }

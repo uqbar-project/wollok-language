@@ -26,12 +26,10 @@ mixin Attacks {
 }
 
 class Warrior {
-
-		}
+}
 
 
 test "Multiple mixin at instantiation time" {
-
 	const warrior1 = new Warrior() with Attacks with Energy with GetsHurt
 	assert.equals(100, warrior1.energy())
 

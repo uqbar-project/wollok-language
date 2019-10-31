@@ -1,5 +1,4 @@
 mixin FlyingShortcuts {
-
 	method fly100Meters() {
 		self.fly(100)
 	}
@@ -13,9 +12,7 @@ class BirdWithFlyingShortCuts mixed with FlyingShortcuts {
 }
 
 test "mixin method calls A method on the class" {
-
 	const b = new BirdWithFlyingShortCuts()
 	b.fly100Meters()
 	assert.equals(100, b.energy())
-
 }

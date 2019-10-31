@@ -12,11 +12,9 @@ object pepita mixed with Flies {
 	}
 }
 
-test " mixin variables are in scope on a WKO" {
-
+test "mixin variables are in scope on a WKO" {
 	pepita.fly()
 	assert.equals(1, pepita.times())
 	pepita.rest()
 	assert.equals(0, pepita.times())
-
 }

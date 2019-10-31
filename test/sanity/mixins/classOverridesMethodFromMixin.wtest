@@ -6,14 +6,12 @@ mixin Energy {
 
 class Bird mixed with Energy {
 	override method reduceEnergy(amount) { 
-	// does nothing
-}
+		// does nothing
+	}
 }
 
 test "class overrides method from mixin" {
-
 	const b = new Bird()
 	b.reduceEnergy(100)
 	assert.equals(100, b.energy())
-
 }

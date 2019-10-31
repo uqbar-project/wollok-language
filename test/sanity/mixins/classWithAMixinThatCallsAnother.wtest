@@ -24,7 +24,6 @@ class BirdWithEnergyThatFlies mixed with Energy and Flying {}
 class BirdWithThatFliesWithEnergy mixed with Flying and Energy {}
 
 test "class with a mixin that calls another" {
-
 	const b = new BirdWithEnergyThatFlies()
 	b.fly(10)
 	assert.equals(90, b.energy())
@@ -34,5 +33,4 @@ test "class with a mixin that calls another" {
 	b2.fly(10)
 	assert.equals(90, b2.energy())
 	assert.equals(10, b2.fliedMeters())
-
 }

@@ -9,8 +9,6 @@ mixin Flies {
 object pepita mixed with Flies {}
 
 test "mixin on a WKO" {
-
 	pepita.fly()
 	assert.equals(1, pepita.times())
-
 }

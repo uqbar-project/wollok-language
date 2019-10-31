@@ -16,9 +16,7 @@ class C2 inherits C1 mixed with M1 and M2 {
 }
 
 test "stackable mixins pattern" {
-
 	const c = new C2()
 	c.doFoo("Test ")
 	assert.equals("Test > M2 > M1 > C1", c.foo())
-
 }

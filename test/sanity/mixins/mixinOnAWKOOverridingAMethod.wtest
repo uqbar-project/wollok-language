@@ -11,8 +11,6 @@ object pepita mixed with Flies {
 }
 
 test "mixin on a WKO overriding a method" {
-
 	pepita.fly()
 	assert.equals(0, pepita.times())
-
 }

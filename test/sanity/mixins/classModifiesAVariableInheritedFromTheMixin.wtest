@@ -10,9 +10,7 @@ class Bird mixed with Energy {
 }
 
 test "class modifies a variable inherited from the mixin" {
-
 	const b = new Bird()
 	b.fly(10)
 	assert.equals(90, b.energy())
-
 }

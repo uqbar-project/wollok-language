@@ -7,11 +7,9 @@ mixin Flies {
 }
 
 test "mixin on object literals" {
-
 	const pepita = object mixed with Flies {}
 	pepita.fly()
 	assert.equals(1, pepita.times())
-
 }
 
 test "mixin on object literal overriding a method"{

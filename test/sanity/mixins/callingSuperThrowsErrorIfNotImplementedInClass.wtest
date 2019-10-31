@@ -1,0 +1,11 @@
+mixin Organic {
+  method dehydratate() = super() + " an organic"
+}
+
+class Tomato mixed with Organic {}
+
+test "calling super in a mixin " {
+    assert.throwsException {
+      new Tomato().dehydratate()
+    }
+}

@@ -17,7 +17,6 @@ class Bird mixed with Energy and Mojo {
 }
 
 test "class with two isolated mixins" {
-
 	const b = new Bird()
 	b.fly(10)
 	assert.equals(90, b.energy())
@@ -26,5 +25,4 @@ test "class with two isolated mixins" {
 	b.fly(10)
 	assert.equals(80, b.energy())
 	assert.equals(2, b.mojo())
-
 }

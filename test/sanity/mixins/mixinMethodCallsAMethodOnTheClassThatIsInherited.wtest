@@ -15,9 +15,7 @@ class MockingBird inherits Bird mixed with FlyingShortcuts {
 }
 
 test "mixin method calls a method on the class that is inherited" {
-
 	const b = new MockingBird()
 	b.fly100Meters()
 	assert.equals(100, b.energy())
-
 }

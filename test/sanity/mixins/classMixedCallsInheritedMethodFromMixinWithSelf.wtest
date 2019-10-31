@@ -14,9 +14,7 @@ class Bird mixed with Flies {
 }
 
 test "class mixed calls inherited method from mixin with self" {
-
 	const pepita = new Bird()
 	pepita.doubleFly()
 	assert.equals(2, pepita.times())
-
 }
