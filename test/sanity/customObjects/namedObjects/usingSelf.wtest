@@ -1,0 +1,12 @@
+object pepita {
+  method uno(){
+    return self.otro()
+  }
+  method otro(){
+    return 5
+  }
+}
+
+test "calling self in a named object" {
+  assert.equals(5, pepita.uno())
+}
