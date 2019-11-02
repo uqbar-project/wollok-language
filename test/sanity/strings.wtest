@@ -95,16 +95,39 @@ describe "Strings"{
 		assert.that("mARejaDA".equalsIgnoreCase("MAREJADA"))
 	}
 	
-	test "Split"{
+	test "Split con espacio separa en palabras"{
 		
 		const result = "Esto Es una prueba".split(" ")
-		const result2 = "Esto|Es|una|prueba".split("|")
-		const result3 = "Esto,Es,una,prueba".split(",")
-		const comparison = ["Esto", "Es", "una", "prueba"]
-		(0..3).forEach { i => assert.that(result.get(i) == comparison.get(i)) }
-		(0..3).forEach { i => assert.that(result2.get(i) == comparison.get(i)) }
-		(0..3).forEach { i => assert.that(result3.get(i) == comparison.get(i)) }
+		const expected = ["Esto", "Es", "una", "prueba"]
+		assert.equals(expected, result)
+	}
+
+	test "Split con separador vacío separa en lista de un elemento por caracter"{
 		
+		const result = "Esto Es una".split("")
+		const expected = ["E","s","t","o"," ","E","s"," ","u","n","a"]
+		assert.equals(expected, result)
+	}
+
+	test "Split con separador que no está contenido devuelve todo el string como un elemento"{
+		
+		const result = "Esto Es una".split("|")
+		const expected = ["Esto Es una"]
+		assert.equals(expected, result)
+	}
+
+	test "Split a string vacío devuelve lista vacía"{
+		
+		const result = "".split("")
+		const expected = []
+		assert.equals(expected, result)
+	}
+
+	test "Split separador coincide completamente con el string, devuelve lista de dos strings vacíos"{
+		
+		const result = "texto de prueba".split("texto de prueba")
+		const expected = ["",""]
+		assert.equals(expected, result)
 	}
 	
 	test "Replace"{
@@ -295,6 +318,5 @@ describe "Strings"{
 		assert.throwsException( { "hola".replace(7, "a") })
 		
 	}
-	
 	
 }
