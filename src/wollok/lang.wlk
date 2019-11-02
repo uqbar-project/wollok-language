@@ -2193,19 +2193,29 @@ class String {
    *     "this,could,be,a,list".split(",")   
    *          ==> Answers ["this", "could", "be", "a", "list"]
    */
-  method split(expression) {
-    self.checkNotNull(expression, "split")
-    const result = []
-    var me = self.toString() + expression
-    var first = 0
-    (0..me.size() - 1).forEach { i =>
-      if (me.charAt(i) == expression) {
-        result.add(me.substring(first, i))
-        first = i + 1
-      }
-    }
-    return result
-  }
+ method split(expression) {
+  const text = self
+	text.checkNotNull(expression, "split")
+	const result = []
+        if (text.equals("") && expression.equals("")) return result
+	const size = text.size() - 1
+	const expressionSize = expression.size()
+	if (expression.equals("")) {
+		(0 .. size).forEach{ i =>
+			if (i != size) result.add(text.charAt(i)) else text = text.charAt(i)
+		}
+	} else {
+		(0 .. size).forEach{ i =>
+			if (text.contains(expression)) {
+				const indexOfExpression = text.indexOf(expression)
+				result.add(text.substring(0, indexOfExpression))
+				text = text.substring(indexOfExpression + expressionSize)
+			}
+		}
+	}
+	result.add(text)
+	return result
+}
 
   /** 
    * Answers a string resulting from replacing all occurrences of
