@@ -109,6 +109,8 @@ class StackTraceElement {
  */
 class Object {
 
+  method initialize() { }
+
   /** 
    * Answers object identity of a Wollok object, represented by
    * a unique number in Wollok environment 
@@ -2354,7 +2356,7 @@ class Range {
     * Instantiates a Range. 
     * Both start and end must be integer values.
     */
-  method initialize() {
+  override method initialize() {
 		start = start.truncate(0)
 		end = end.truncate(0)
     if (step == null) {
@@ -2533,8 +2535,6 @@ class Range {
  */
 class Closure {
 
-  method initialize() native
-
   /** Evaluates this closure passing its parameters
    *
    * Example: 
@@ -2572,7 +2572,7 @@ class Date {
   const property year
   
   /** @private */
-  method initialize() native
+  override method initialize() native
   
   /** String representation of a date */
   override method toString() = self.toSmartString(false) 
