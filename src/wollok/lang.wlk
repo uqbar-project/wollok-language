@@ -153,7 +153,7 @@ class Object {
    * Tells whether self object is "equal" to the given object
    * The default behavior compares them in terms of identity (===)
    */
-  method ==(other) = other != null && self === other 
+  method ==(other) = self === other 
   
   /** Tells whether self object is not equal to the given one */
   method !=(other) = ! (self == other)
