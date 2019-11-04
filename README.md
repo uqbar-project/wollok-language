@@ -17,6 +17,14 @@ Still a work in progress, it'll be a Wollok Project containing
 
 All files follow a [standard coding convention](https://github.com/uqbar-project/wollok-language/wiki/Coding-Standards-for-writing-this-repository), please read them before collaborating.
 
+## Changelog
+
+- [Changelog file](CHANGELOG.md) in case you need to migrate between versions
+
+## Current work
+
+- [Wollok Roadmap for 2020](https://docs.google.com/document/d/1M8suCfdetT12YIb62VzORnpesRW2DKrm8hS01dqIPlc/edit)
+
 ## Another useful repositories
 
 - [wollok-xtext](https://github.com/uqbar-project/wollok): our first & stable implementation, is Eclipse Xtext-based.
