@@ -34,7 +34,7 @@ describe "closures" {
 		assert.equals(4, twice.apply {=> 2 })
 	}
 
-	test "nested closure"{
+	test "nested closure" {
 		const sum =  {a, b => a + b}
 
 		const curried = { a =>
@@ -46,10 +46,10 @@ describe "closures" {
 		assert.equals(5, curriedSum.apply(3))
 	}
 
-	test "folding closures"{
-		const sum2 = { a => a + 2}
-		const by3 = { b => b * 3}
-		const pow = { c => c ** 2}
+	test "folding closures" {
+		const sum2 = { a => a + 2 }
+		const by3 = { b => b * 3 }
+		const pow = { c => c ** 2 }
 
 		const op = [sum2, by3, pow]
 
@@ -75,6 +75,6 @@ describe "closures" {
 	}
 
 	test "closure toString should be its source code" {
-		assert.equals("{x => 5 + x}", {x => 5 + x}.toString())
+		assert.equals(" {x => 5 + x}", {x => 5 + x}.toString())
 	}
 }
