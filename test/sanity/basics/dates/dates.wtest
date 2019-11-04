@@ -4,7 +4,7 @@
  * A Wollok date has no time information, just the day, month & year.
  * It is an immutable object.
  */
-describe "Date tests"{
+describe "Date tests" {
 
 	test "a new date has its attributes correctly initialized" {
 		const now = new Date()
@@ -139,7 +139,7 @@ describe "Date tests"{
 		assert.that(result.equals(finalDay))
 	}
 
-	test "subtract one year"{
+	test "subtract one year" {
 		const originalDay = new Date(day=28, month=2, year=2017)
 		const finalDay = new Date(day=28, month=2, year=2016)
 		const result = originalDay.minusYears(1)

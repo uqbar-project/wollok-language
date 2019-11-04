@@ -75,6 +75,6 @@ describe "closures" {
 	}
 
 	test "closure toString should be its source code" {
-		assert.equals(" {x => 5 + x}", {x => 5 + x}.toString())
+		assert.equals("{x => 5 + x}", {x => 5 + x}.toString())
 	}
 }
