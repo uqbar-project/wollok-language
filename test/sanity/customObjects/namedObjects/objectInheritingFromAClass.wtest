@@ -1,3 +1,6 @@
+/**
+  * Scenario: a wko inheriting from a superclass with a constructor
+	*/
 class Auto {
 	var property kms
 
@@ -10,6 +13,9 @@ object bordini inherits Auto(2000) {
 	method color() = "celeste"
 }
 
-test "object inheriting from a class" {
+/**
+  * Tests
+	*/
+test "object inheriting from a class can set a default value for a superclass attribute" {
 	assert.equals(2000, bordini.kms())
 }

@@ -1,3 +1,6 @@
+/**
+  * Scenario: a wko inheriting from a custom superclass
+  */
 class Dog {
   const owner
   constructor(param) {
@@ -13,6 +16,9 @@ object jorge {
   method name() = "Jorge"
 }
 
-test "object inherit from class that has constructor passing another wko message return value" {
+/**
+  * Tests
+  */
+test "wko - inheriting from class that has constructor passing another wko message return value" {
   assert.equals("Jorge", lassie.owner())
 }

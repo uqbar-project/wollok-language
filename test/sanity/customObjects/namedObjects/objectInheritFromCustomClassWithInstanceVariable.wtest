@@ -1,3 +1,6 @@
+/**
+  * Scenario: a wko inheriting from a custom superclass which also has an attribute
+  */
 class MyClass {
 	var inheritedVariable = "1234"
 }
@@ -12,8 +15,18 @@ object myObject inherits MyClass {
 	}
 }
 
-test "object inherit from custom class with instance variable" {
-	assert.equals("1234", myObject.something())
-	myObject.setInheritedVariable("abc")
-	assert.equals("abc", myObject.something())
+/**
+  * Tests
+	*/
+describe "wko - inheriting from custom class with attribute" {
+
+	test "originally has the default value assigned from the superclass" {
+		assert.equals("1234", myObject.something())
+	}
+
+	test "wko could set another value" {
+		myObject.setInheritedVariable("abc")
+		assert.equals("abc", myObject.something())
+	}
+
 }

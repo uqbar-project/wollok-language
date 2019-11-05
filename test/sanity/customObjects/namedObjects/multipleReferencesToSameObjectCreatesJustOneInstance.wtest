@@ -1,18 +1,30 @@
-object pp {
-	var ps = [pepita]
-	method unMethod(){
-		var x = pepita
-		return x
+/**
+  * Scenario: a wko having several references to another wko
+  */
+object pepa {
+	var friend = [pepita]
+	method bestFriend() {
+		const bff = pepita
+		return bff
 	}
-
-	method getPs() {
-		return ps
+	method friends() {
+		return friend
 	}
 }
 
 object pepita {	}
 
-test "multiple references to same object creates just one instance" {
-	pp.unMethod()
-	assert.equals(pepita, pp.getPs().get(0))
+/**
+  * Tests
+  */
+describe "wko - multiple references to same object should create one instance" {
+
+	test "single variable" {
+		assert(pepa.bestFriend(), pepita)
+	}
+
+	test "collection" {
+		assert.equals(pepita, pepa.friends().get(0))
+	}
+
 }

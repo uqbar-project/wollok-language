@@ -9,7 +9,7 @@ object pepita {
   }
 }
 
-test "effects on named objects" {
+test "wko - effects on named objects" {
   assert.equals(0, pepita.energyLevel())
   pepita.addEnergy(10)
   assert.equals(10, pepita.energyLevel())  

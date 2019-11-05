@@ -1,3 +1,6 @@
+/**
+  * Scenario: a wko inheriting from a custom superclass with a constructor
+  */
 class Dog {
 	const name
 	constructor(param) {
@@ -8,6 +11,9 @@ class Dog {
 
 object lassie inherits Dog("lassie") {}
 
+/**
+  * Tests
+  */
 test "object inherit from class that has constructor" {
 	assert.equals("lassie", lassie.name())
 }
