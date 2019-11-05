@@ -1,0 +1,25 @@
+/**
+  * Scenario: a class with a constructor and a property
+	*/
+class Auto {
+	var property kms
+
+	constructor(_kms) {
+		kms = _kms
+	}
+}
+
+/**
+  * Tests
+	*/
+test "object inheriting from a class - calling a property" {
+	var age = 33
+
+	const dodge = object inherits Auto(2000) {
+		method age() {
+			return age
+		}
+	}
+
+	assert.equals(2000, dodge.kms())
+}

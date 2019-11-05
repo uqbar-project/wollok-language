@@ -1,17 +1,19 @@
-
-test "Object scoping using variable defined outside of it" {
+/**
+  * Tests
+	*/
+test "object scoping using variable defined outside of it" {
 	var n = 33
 
-	const o = object {
-		method getN() {
+	const ozzy = object {
+		method luckyNumber() {
 			return n
 		}
-	} 
+	}
 
-	assert.that(33 == o.getN())
+	assert.equals(33, ozzy.luckyNumber())
 
 	// change N
 	n = 34
 
-	assert.that(34 == o.getN())
+	assert.equals(34, ozzy.luckyNumber())
 }
