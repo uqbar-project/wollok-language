@@ -1,25 +1,25 @@
 /**
  * Tests for Wollok strings.
  */
-describe "Strings" {
+describe "strings" {
 
-	test "String" {
+	test "string equality" {
 		assert.equals("foo", "foo")
 	}
 
-	test "Empty strings" {
+	test "empty strings" {
 		assert.equals("","")
 	}
 
-	test "Strings with escape sequences" {
+	test "strings with escape sequences" {
 		assert.equals("foo\\nbar","foo\\nbar")
 	}
 
-	test "Strings with the escaped escape character without escaping the whole sequence" {
+	test "strings with the escaped escape character without escaping the whole sequence" {
 		assert.equals("foo\\\\nbar","foo\\\\nbar")
 	}
 
-	test "Substring" {
+	test "substring" {
 		const helloWollok = "Hola, wollok!".substring(0, 3)
 		assert.equals("Hol", helloWollok)
 	}
@@ -40,37 +40,37 @@ describe "Strings" {
 		assert.throwsException({ "hola".substring("a", "e") })
 	}
 
-	test "Greater than using null should fail" {
+	test "greater than using null should fail" {
 		assert.throwsException { "hola" > null }
 	}
 
-	test "Less than" {
+	test "less than" {
 		assert.that("miau" < "ufa")
 	}
 
-	test "Less than false condition" {
+	test "less than false condition" {
 		assert.notThat("zapallo" <= "ufa")
 	}
 
-	test "Less than using null should fail" {
+	test "less than using null should fail" {
 		assert.throwsException { "hola" < null }
 	}
 
-	test "Greater or equal than" {
+	test "greater or equal than" {
 		assert.that("zapallo" >= "ufa")
 		assert.that("zapallo" >= "zapallo")
 		assert.notThat("aguacero" >= "guarecer")
 	}
 
-	test "Less or equal than for less" {
+	test "less or equal than for less" {
 		assert.that("miau" <= "ufa")
 	}
 
-	test "Less or equal than for equal" {
+	test "less or equal than for equal" {
 		assert.that("miau" <= "miau")
 	}
 
-	test "Contains" {
+	test "contains" {
 		assert.that("aguacate".contains("cat"))
 		assert.that("aguacate".contains("agua"))
 		assert.notThat("aguacate".contains("managua"))
@@ -85,7 +85,7 @@ describe "Strings" {
 		assert.throwsException( { "hola".contains(7) })
 	}
 
-	test "Index of" {
+	test "indexOf" {
 		assert.equals(0, "aguacate".indexOf("agua"))
 		assert.equals(4, "aguacate".indexOf("cat"))
 		assert.throwsException( {"aguacate".indexOf("trinitrotolueno")} )
@@ -95,17 +95,17 @@ describe "Strings" {
 		assert.throwsException( { "hola".indexOf(7) })
 	}
 
-	test "Last Index Of" {
+	test "lastIndexOf" {
 		assert.equals(6, "aguacate".lastIndexOf("te"))
 		assert.equals(5, "aguacate".lastIndexOf("a"))
 		assert.throwsException( {"aguacate".lastIndexOf("trinitrotolueno")} )
 	}
 
-	test "last indexOf using null" {
+	test "lastIndexOf using null should fail" {
 		assert.throwsException( { "hola".lastIndexOf(null) })
 	}
 
-	test "last indexOf fail" {
+	test "lastIndexOf fail" {
 		assert.throwsException( { "hola".lastIndexOf(7) })
 	}
 
@@ -114,7 +114,7 @@ describe "Strings" {
 		assert.notThat("pepe".isEmpty())
 	}
 
-	test "EqualEqual" {
+	test "==" {
 		const unString = "perro"
 		const otroString = "per" + "ro"
 		assert.that(unString == otroString)
@@ -132,7 +132,7 @@ describe "Strings" {
 		assert.throwsException( { "hola".equalsIgnoreCase(7) })
 	}
 
-	test "Split" {
+	test "split" {
 		const result = "Esto Es una prueba".split(" ")
 		const result2 = "Esto|Es|una|prueba".split("|")
 		const result3 = "Esto,Es,una,prueba".split(",")
@@ -142,11 +142,11 @@ describe "Strings" {
 		(0..3).forEach { i => assert.that(result3.get(i) == comparison.get(i)) }
 	}
 
-	test "Split using null should fail" {
+	test "split using null should fail" {
 		assert.throwsException { "hola".split(null) }		
 	}
 
-	test "Replace" {
+	test "replace" {
 		const mardel = "Mar del Plata"
 		const tuyu = mardel.replace("Plata", "Tuyu")
 		assert.equals("Mar del Tuyu", tuyu)
@@ -161,37 +161,37 @@ describe "Strings" {
 		assert.throwsException( { "hola".replace(7, "a") })
 	}
 
-	test "Random for strings are not allowed anymore" {
+	test "random for strings are not allowed anymore" {
 		assert.throwsException({ => "fafafa".randomUpTo(8.9)})
 	}
 
-	test "Take" {
+	test "take" {
 		assert.equals("cl", "clearly".take(2))
 		assert.equals("clearly", "clearly".take(8))
 		assert.equals("", "clearly".take(0))
 	}
 
-	test "Take using null should fail" {
+	test "take using null should fail" {
 		assert.throwsException { "hola".take(null) }
 	}
 
-	test "Drop" {
+	test "drop" {
 		assert.equals("early", "clearly".drop(2))
 		assert.equals("", "clearly".drop(8))
 		assert.equals("clearly", "clearly".drop(0))
 	}
 
-	test "Drop using null should fail" {
+	test "drop using null should fail" {
 		assert.throwsException { "hola".drop(null) }
 	}
 
-	test "Words" {
+	test "words" {
 		const words = "in wollok everything is an object".words()
 		assert.equals("in", words.get(0))
 		assert.equals("object", words.get(5))
 	}
 
-	test "Capitalize" {
+	test "capitalize" {
 		assert.equals("alfa romeo".capitalize(), "Alfa Romeo")
 		assert.equals("AUDI".capitalize(), "Audi")
 		assert.equals("bmw".capitalize(), "Bmw")
@@ -203,50 +203,50 @@ describe "Strings" {
 		assert.equals("3".toString(), "3")
 	}
 
-	test "Char at" {
+	test "charAt" {
 		assert.equals("l", "hola".charAt(2))
 	}
 
-	test "Char at using null" {
+	test "charAt using null" {
 		assert.throwsException( { "hola".charAt(null) })
 	}
 
-	test "Char at fail" {
+	test "charAt fail" {
 		assert.throwsException({ "hola".charAt("a") })
 	}
 
-	test "Concat" {
+	test "concat" {
 		assert.equals("hey".concat("jude"), "heyjude")
 	}
 
-	test "Concat with numbers" {
+	test "concat with numbers" {
 		assert.equals("u".concat(2), "u2")		
 	}
 
-	test "Reverse" {
+	test "reverse" {
 		assert.equals("aloh", "hola".reverse())
 		assert.equals("", "".reverse())		
 	}
 
-	test "Take left" {
+	test "takeLeft" {
 		assert.equals("hol", "hola".takeLeft(3))
 		assert.equals("", "".takeLeft(3))
 		assert.equals("", "hola".takeLeft(0))
 		assert.equals("h", "hola".takeLeft(1.5))		
 	}
 
-	test "Take left should fail if a negative number is passed" {
+	test "takeLeft should fail if a negative number is passed" {
 		assert.throwsException { "hola".takeLeft(-1) }
 	}
 
-	test "Take right" {
+	test "takeRight" {
 		assert.equals("ola", "hola".takeRight(3))
 		assert.equals("", "".takeRight(3))
 		assert.equals("", "hola".takeRight(0))
 		assert.equals("a", "hola".takeRight(1.5))		
 	}
 
-	test "Take right should fail if a negative number is passed" {
+	test "takeRight should fail if a negative number is passed" {
 		assert.throwsException { "hola".takeRight(-1) }
 	}
 
@@ -254,7 +254,7 @@ describe "Strings" {
 		assert.that("hola".startsWith("ho"))
 	}
 
-	test "Starts with using null" {
+	test "startsWith using null should fail" {
 		assert.throwsException( { "hola".startsWith(null) })
 	}
 
@@ -266,7 +266,7 @@ describe "Strings" {
 		assert.that("hola".endsWith("la"))
 	}
 
-	test "endsWith using null" {
+	test "endsWith using null should fail" {
 		assert.throwsException( { "hola".endsWith(null) })
 	}
 

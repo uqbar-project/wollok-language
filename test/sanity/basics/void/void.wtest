@@ -2,17 +2,17 @@ object example {
   method nothing() { }
 }
 
-describe "Void test case"{
+describe "void" {
 
-	test "Void in assert" {
+	test "void in assert should fail" {
 		assert.throwsException({ assert.equals("27", example.nothing()) })
 	}
 
-	test "Void in binary operation" {
+	test "void in binary operation should fail" {
 		assert.throwsException({ 7 + example.nothing() })
 	}
 
-	test "Void in unary operation" {
+	test "void in unary operation should fail" {
 		assert.throwsException({ !example.nothing() })
 	}
 

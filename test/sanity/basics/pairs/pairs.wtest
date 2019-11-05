@@ -1,4 +1,4 @@
-describe "pair tests" {
+describe "pairs" {
 
   const pair = 1->2
 
@@ -7,7 +7,7 @@ describe "pair tests" {
 		assert.equals(pair, pair)
   }
 
-  test "new Pair constructor" {
+  test "new pair constructor" {
  		const pair = new Pair(x = 1, y = 2)
 		assert.equals(1, pair.x())
 		assert.equals(2, pair.y())

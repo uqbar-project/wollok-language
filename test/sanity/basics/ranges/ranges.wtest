@@ -1,6 +1,6 @@
-describe "Range Test Case" {
+describe "ranges" {
 
-	test "For each" {
+	test "for each" {
 		const range = 0 .. 10
 		var sum = 0
 		assert.that(range != null)
@@ -84,7 +84,6 @@ describe "Range Test Case" {
 		assert.equals([0, 2, 4, 6, 8, 10], evenFiltered)
 	}
 
-
 	test "count" {
 		const range = 0 .. 9
 		const evenCount = range.count({ elem => elem.even() })
@@ -124,7 +123,6 @@ describe "Range Test Case" {
 		assert.equals(7, range2.max())
 	}
 
-
 	test "range for decimals not allowed" {
 		const range = new Range(start = 2.4, end = 5.7)
 		assert.equals(range.start(), 2)
@@ -132,7 +130,6 @@ describe "Range Test Case" {
 		assert.equals(range.step(), 1)
 		assert.equals([2, 3, 4, 5], range.asList())
 	}
-
 
 	test "range for strings not allowed" {
 		assert.throwsException({ => new Range(start="ABRACADBRA", end="PATA")})
