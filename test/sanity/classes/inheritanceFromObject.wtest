@@ -1,0 +1,16 @@
+/**
+  * Scenario: A Class extending from object class
+	*/
+class MyClass {}
+
+/**
+  * Tests
+	*/
+describe "classes - inheritance from object class" {
+
+	test "Simple method inherited from object" {
+		const myObject = new MyClass()
+		assert.that(myObject.identity() != null)
+	}
+
+}

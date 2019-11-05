@@ -1,0 +1,39 @@
+/**
+  * Scenario: A Class with cross-referenced attributes
+	*/
+object abc {
+	var x = 20
+	var y = x * 2
+
+	method getY() {
+		return y
+	}
+}
+
+object before { method get() = "before" }
+object after { method get() = "before" }
+
+class A2 {
+	const b = before
+	const a = after 
+
+	method getB() = b
+	method getA() = a
+}
+
+/**
+  * Tests
+	*/
+describe "classes - cross reference attribute initialization" {
+
+	test "cross reference initialization" {
+		assert.equals(40, abc.getY())
+	}
+
+	test "assignment To named object declared" {
+		const a = new A2()
+		assert.equals(before, a.getB())
+		assert.equals(after, a.getA())
+	}
+
+}
