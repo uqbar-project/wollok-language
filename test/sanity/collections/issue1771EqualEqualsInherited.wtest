@@ -1,0 +1,14 @@
+/**
+  * Scenario: a hierarchy in which (==) is inherited from object
+	*/
+class AveLoca {
+	var property energia = 0
+	var property nombre = "pepita"
+}
+
+test "equals for object not overriding equals" {
+  const pepita = new AveLoca()
+  const unSet = #{ pepita }
+  const otroSet = #{ new AveLoca() }
+  assert.notThat(unSet == otroSet)
+}

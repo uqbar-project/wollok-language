@@ -1,41 +1,14 @@
 import wollok.game.Position
 
-object a {
-  override method printString() = "es un a"
-}
-
 const numbers = [22, 2, 10]
 
+/**
+  * Scenario 1: A group of empty named objects
+  */
 object o1 {}
 object o2 {}
 
-class Animal {
-  override method ==(otroAnimal) = self.nombre() == otroAnimal.nombre()
-  method nombre()
-}
-    
-class Perro inherits Animal {
-  override method nombre() = "Firulais"
-}
-    
-class Gato inherits Animal {
-  override method nombre() = "Garfield"
-}
-
-class Animal2 {
-  override method equals(otroAnimal) = self.nombre() == otroAnimal.nombre()
-  method nombre()
-}
-    
-class Perro2 inherits Animal2 {
-  override method nombre() = "Firulais"
-}
-    
-class Gato2 inherits Animal2 {
-  override method nombre() = "Garfield"
-}
-
-describe "List tests"{
+describe "List tests" {
 
   test "subList" {
     assert.equals([22,2], numbers.subList(0,1))
@@ -198,22 +171,6 @@ describe "List tests"{
     (0..result.size()-1).forEach{ i => assert.that(withoutDuplicates.get(i).equals(result.get(i))) }
   }
 
-  test "without duplicates - list of user defined classes overriding ==" {
-      const list = [new Perro(), new Gato(), new Perro(), new Gato()]
-      const result = [new Perro(), new Gato()]
-      const withoutDuplicates = list.withoutDuplicates()
-      assert.equals(2, withoutDuplicates.size())
-      (0..result.size()-1).forEach{ i => assert.that(withoutDuplicates.get(i).equals(result.get(i))) }
-  }
-
-  test "without duplicates - list of user defined classes overriding equals" {
-      const list = [new Perro2(), new Gato2(), new Perro2(), new Gato2()]
-      const result = [new Perro2(), new Gato2()]
-      const withoutDuplicates = list.withoutDuplicates()
-      assert.equals(2, withoutDuplicates.size())
-      (0..result.size()-1).forEach{ i => assert.that(withoutDuplicates.get(i).equals(result.get(i))) }
-  }
-
   test "sortBy" {
     numbers.sortBy({ a , b => a > b})
     assert.equals([ 22, 10, 2 ], numbers)
@@ -335,14 +292,6 @@ describe "List tests"{
     assert.equals(1, [new Position(), new Position()].asSet().size())
   }
 
-  test "list of user defined classes redefining ==" {
-    assert.equals(2, [new Perro(), new Gato(), new Perro(), new Gato()].asSet().size())
-  }
-
-  test "list of user defined classes redefining equals" {
-    assert.equals(2, [new Perro2(), new Gato2(), new Perro2(), new Gato2()].asSet().size())
-  }
-
   test "first" {
     assert.equals(1, [1, 2, 3].first())
   }
@@ -398,7 +347,7 @@ describe "List tests"{
   }
 
   test "copyWith generates a new collection without that element - strings" {
-		const unList = ["hola","como"]
+		const unList = ["hola", "como"]
 		const newList = unList.copyWith("estas")
 		assert.equals(newList, ["hola","como","estas"])
   }

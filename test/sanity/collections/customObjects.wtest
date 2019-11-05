@@ -1,0 +1,47 @@
+/**
+  * Scenario 1: a group of custom named objects
+  */
+object x1 {
+	method value() { return 1 }
+}
+
+object x2 {
+	method value() { return 2 }
+}
+
+object x3 {
+	method value() { return 3 }
+}
+
+/**
+  * Scenario 2: second group of custom empty objects
+  */
+object a {}
+object b {}
+object c {}
+object d {}
+
+/**
+  * Tests
+  */
+describe "collections - using custom objects" {
+
+  test "min for custom objects" {
+    assert.equals(x1, [x1, x2, x3].min{ o => o.value() })
+  }
+  
+  test "max for custom objects" {
+    assert.equals(x3, [x1, x2, x3].max{ o => o.value()})
+  }
+
+  test "contains for a lists of named objects" {
+      const wkos = [a, b, c]
+      assert.that(wkos.contains(a))
+      assert.that(wkos.contains(b))
+      assert.that(wkos.contains(c))
+      assert.notThat(wkos.contains(d))
+      assert.notThat(wkos.contains("hello world"))
+      assert.notThat(wkos.contains(4))
+  }
+
+}  

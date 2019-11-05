@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class and a wko having common attributes
+	*/
 class Alumno { 
 	var nombre 
 	constructor(_nombre) { nombre = _nombre }
@@ -7,145 +10,12 @@ object manuel {
 	var nombre = "ElManu"
 }
 
+/**
+  * Scenario 2: list of numbers used mostly in tests
+	*/
 const numbers = #{22, 2, 10}
 
-object a {
-	override method printString() = "es un a"
-}
-
-const aSet = #{1, 2, 3}
-
-class C {
-	override method ==(other) = true
-}
-
-class D {
-	override method equals(other) = true
-}
-
-class Animal {
-	override method equals(other) = true
-}
-
-class Perro inherits Animal {}
-
-class Gato inherits Animal {}
-
-class Animal2 {
-	override method equals(other) = true
-}
-
-class Perro2 inherits Animal2 {}
-
-class Gato2 inherits Animal2 {}
-
-class AveLoca {
-	var property energia = 0
-	var property nombre = "pepita"
-	
-	method volar() {
-		energia -= 50
-	}
-	
-	method comer(gramos) {
-		energia += gramos * 2
-	}
-
-	override method ==(otraAve) {
-		return energia == otraAve.energia()
-	}
-}
-
-class Animal3 {
-	override method equals(otroAnimal) = self.nombre() == otroAnimal.nombre()
-	method nombre()
-}
-
-class Perro3 inherits Animal3 {
-	override method nombre() = "Firulais"
-}
-
-class Gato3 inherits Animal3 {
-	override method nombre() = "Garfield"
-}
-
-class Animal4 {
-	override method ==(otroAnimal) = self.nombre() == otroAnimal.nombre()
-	method nombre()
-}
-
-class Perro4 inherits Animal4 {
-	override method nombre() = "Firulais"
-}
-
-class Gato4 inherits Animal4 {
-	override method nombre() = "Garfield"
-}
-
-class AveLoca2 {
-	var property energia = 0
-	var property nombre = "pepita"
-	
-	method volar() {
-		energia -= 50
-	}
-	
-	method comer(gramos) {
-		energia += gramos * 2
-	}
-}
-
-describe "Issues with Sets" {
-
-	test "issue 1771 - (==)" {
-			const aSet = #{new C(), new C()}
-			assert.equals(1, aSet.size())
-	}
-
-	test "issue 1771 - equals" {
-		const aSet = #{new D(), new D()}
-		assert.equals(1, aSet.size())
-	}
-
-	test "issue 1771 - a set with objects in same hierarchy will not be added if equals returns always true" {
-		const aSet = #{new Perro(), new Perro(), new Gato() }
-		assert.equals(1, aSet.size())
-	}
-
-	test "issue 1771 - a set with object in same hierarchy where equals is based on name will add animals with different name only" {
-		const set = new Set()
-		const perro = new Perro3()
-		const otroPerro = new Perro3()
-		const gato = new Gato3()
-		set.add(perro)
-		set.add(otroPerro)
-		set.add(gato)
-		assert.equals(2, set.size())
-		assert.equals(set, #{perro,gato})
-		assert.equals(#{perro,gato}, #{otroPerro,gato})
-	}
-
-	test "issue 1771 - a set with objects in same hierarchy will not be added if == returns always true" {
-		const aSet = #{new Perro2(), new Perro2(), new Gato2() }
-		assert.equals(1, aSet.size())
-	}
-
-	test "issue 1771 - a set with object in same hierarchy where == is based on name will add animals with different name only" {
-		const set = new Set()
-		const perro = new Perro4()
-		const otroPerro = new Perro4()
-		const gato = new Gato4()
-		set.add(perro)
-		set.add(otroPerro)
-		set.add(gato)
-		assert.equals(2, set.size())
-		assert.equals(set, #{perro,gato})
-		assert.equals(#{perro,gato}, #{otroPerro,gato})
-	}
-
-}
-
-describe "Set tests" {
+describe "set tests" {
 
 	const aSet = #{1, 2, 3}
 	const anotherSet = #{3, 4, 5}
@@ -244,27 +114,13 @@ describe "Set tests" {
 
 	test "toString for a long set" {
 		const unSet = #{}
-		(1..70).forEach { i => unSet.add(i) }
-		assert.equals("#{...70 elements}", unSet.toString())
+		(1..51).forEach { i => unSet.add(i) }
+		assert.equals("#{...51 elements}", unSet.toString())
 	}
 
 	test "toString for a short set" {
 		const unSet = #{23, 2, 2}
 		assert.that("#{23, 2}" == unSet.toString() || "#{2, 23}" == unSet.toString())
-	}
-
-	test "equals for object overriding equals" {
-		const pepita = new AveLoca()
-		const unSet = #{ pepita }
-		const otroSet = #{ new AveLoca() }
-		assert.equals(unSet, otroSet)
-	}
-
-	test "equals for object not overriding equals" {
-		const pepita = new AveLoca2()
-		const unSet = #{ pepita }
-		const otroSet = #{ new AveLoca() }
-		assert.notThat(unSet == otroSet)
 	}
 
 	test "asSet conversion" {

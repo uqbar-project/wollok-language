@@ -1,0 +1,60 @@
+/**
+  * Scenario: a group of custom classes
+  */
+object pajarera {
+  const pajaros = []
+  var energiaMenor = 100 
+
+  method agregar(unPajaro){
+    pajaros.add(unPajaro)
+  }
+
+  method quitar(unPajaro){
+    pajaros.remove(unPajaro)
+  }
+  
+  method cantidad(){
+    return pajaros.size()
+  }
+  
+  method menorValor(){
+      pajaros.forEach { a => a.sosMenor(energiaMenor) }
+      return energiaMenor
+  }      
+  
+  method setEnergiaMenor(valor) {
+      energiaMenor = valor
+  }
+}
+
+object pepe {
+  method sosMenor(energiaMenor){
+    pajarera.setEnergiaMenor(10)
+  }
+}
+
+object pepita {
+  method sosMenor(energiaMenor){
+    pajarera.setEnergiaMenor(25)
+  }
+}
+
+/**
+  * Tests
+  */
+describe "collections - using custom classes" {
+
+  test "collection as instance variable" {
+			pajarera.agregar(pepita)
+			pajarera.quitar(pepita)
+			assert.equals(0, pajarera.cantidad())
+  }
+
+  test "issue 40" {
+    pajarera.agregar(pepita)
+    pajarera.agregar(pepe)
+    const menor = pajarera.menorValor()
+    assert.equals(10, menor)
+  }
+
+}

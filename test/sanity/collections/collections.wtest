@@ -1,61 +1,9 @@
-object myObject {
-  override method toString() = "My Object"
-}
-
-object a {}
-object b {}
-object c {}
-object d {}
+// object myObject {
+//   override method toString() = "My Object"
+// }
 
 const greetings = ['hello', 'hola', 'bonjour', 'ciao', 'hi']
 const numbers = [22, 2, 10]  
-
-object x1 {
-	method value() { return 1 }
-}
-
-object x2 {
-	method value() { return 2 }
-}
-
-object x3 {
-	method value() { return 3 }
-}
-
-object pajarera{
-  const pajaros = []
-  var energiaMenor = 100 
-
-  method agregar(unPajaro){
-    pajaros.add(unPajaro)
-  }
-  method quitar(unPajaro){
-    pajaros.remove(unPajaro)
-  }
-  method cantidad(){
-    return pajaros.size()
-  }
-  method menorValor(){
-      pajaros.forEach { a => a.sosMenor(energiaMenor) }
-      return energiaMenor
-  }      
-  method setEnergiaMenor(valor) {
-      energiaMenor = valor
-  }
-}
-
-object pepe {
-  method sosMenor(energiaMenor){
-    pajarera.setEnergiaMenor(10)
-  }
-}
-
-object pepita {
-  method sosMenor(energiaMenor){
-    pajarera.setEnergiaMenor(25)
-  }
-}
-
 
 describe "Collection test case" {
   
@@ -89,10 +37,6 @@ describe "Collection test case" {
     assert.equals(99, [].minIfEmpty({ 99 }))
   }
 
-	test "min for custom objects" {
-	  assert.equals(x1, [x1, x2, x3].min{ o => o.value() })
-	}
-
   test "max with closure" {
     assert.equals('bonjour', greetings.max { e => e.length() })
   }
@@ -112,10 +56,6 @@ describe "Collection test case" {
   test "max with no args for an empty list should fail" {
     assert.throwsException({[].max()})
   }
-
-	test "max for custom objects" {
-		assert.equals(x3, [x1, x2, x3].max{ o => o.value()})
-	}
 
   test "maxIfEmpty" {
     assert.equals('bonjour', greetings.maxIfEmpty({ e => e.length() }, { 'lista vacia' }))
@@ -138,16 +78,6 @@ describe "Collection test case" {
     assert.that(numbers.contains(22))
     assert.that(numbers.contains(2))
     assert.that(numbers.contains(10))
-  }
-  
-  test "containsForAListOfWKOs" {
-      const l = [a, b, c]
-      assert.that(l.contains(a))
-      assert.that(l.contains(b))
-      assert.that(l.contains(c))
-      assert.notThat(l.contains(d))
-      assert.notThat(l.contains("hello world"))
-      assert.notThat(l.contains(4))
   }
 
   test "uniqueElement in a list with one element should return that element" {
@@ -393,22 +323,5 @@ describe "Collection test case" {
     assert.equals([5], #{5}.sortedBy({a,b=>a>b}))
     assert.equals([], [].sortedBy({a,b=>a>b}))
   }  
-
-}
-
-describe "using a collection in Wollok classes" {
-
-  test "collection as instance variable" {
-			pajarera.agregar(pepita)
-			pajarera.quitar(pepita)
-			assert.equals(0, pajarera.cantidad())
-  }
-
-  test "issue 40" {
-    pajarera.agregar(pepita)
-    pajarera.agregar(pepe)
-    const menor = pajarera.menorValor()
-    assert.equals(10, menor)
-  }
 
 }

@@ -1,116 +1,106 @@
-class Golondrina {
+/**
+  * Scenario 1: a custom empty class
+  */
+class Golondrina {}
+
+object dictionaryFactory {
+
+	method mapaTelefonos() {
+		const mapaTelefonos = new Dictionary()
+		mapaTelefonos.put("choli", "2142-5980")
+		mapaTelefonos.put("mario", "5302-6617")
+		return mapaTelefonos
+	}
 
 }
 
-describe "Dictionary test case" {
+/**
+  * Tests
+  */
+describe "dictionary test case" {
 
-	test "Get value" {
-		const mapaTelefonos = new Dictionary()
-		mapaTelefonos.put("choli", "2142-5980")
-		mapaTelefonos.put("mario", "5302-6617")
-		assert.equals("2142-5980", mapaTelefonos.get("choli"))
+	test "get value" {
+		assert.equals("2142-5980", dictionaryFactory.mapaTelefonos().get("choli"))
 	}
 
-	test "Get value not found" {
-		const mapaTelefonos = new Dictionary()
-		mapaTelefonos.put("choli", "2142-5980")
-		mapaTelefonos.put("mario", "5302-6617")
-		assert.throwsException({ => mapaTelefonos.get("betty")})
+	test "get value not found" {
+		assert.throwsException({ => dictionaryFactory.mapaTelefonos().get("betty")})
 	}
 
-	test "Get or else for value not found" {
-		const mapaTelefonos = new Dictionary()
-		mapaTelefonos.put("choli", "2142-5980")
-		mapaTelefonos.put("mario", "5302-6617")
+	test "get or else for value not found" {
 		var notFound = false
-		mapaTelefonos.getOrElse("betty", { => notFound = true})
+		dictionaryFactory.mapaTelefonos().getOrElse("betty", { => notFound = true})
 		assert.that(notFound)
 	}
 
-	test "Size" {
-		const mapaTelefonos = new Dictionary()
-		mapaTelefonos.put("choli", "2142-5980")
-		mapaTelefonos.put("mario", "5302-6617")
+	test "size" {
+		const mapaTelefonos = dictionaryFactory.mapaTelefonos()
 		assert.equals(2, mapaTelefonos.size())
 		mapaTelefonos.put("rita", "3923-0029")
 		assert.equals(3, mapaTelefonos.size())
 	}
 
-	test "Empty dictionary is empty" {
+	test "empty dictionary is empty" {
 		assert.that((new Dictionary()).isEmpty())
 	}
 
-	test "Dictionary with elements is not empty" {
-		const mapaTelefonos = new Dictionary()
-		mapaTelefonos.put("choli", "2142-5980")
-		mapaTelefonos.put("mario", "5302-6617")
-		assert.notThat(mapaTelefonos.isEmpty())
+	test "dictionary with elements is not empty" {
+		assert.notThat(dictionaryFactory.mapaTelefonos().isEmpty())
 	}
 
 	test "containsKey" {
-		const mapaTelefonos = new Dictionary()
-		mapaTelefonos.put("choli", "2142-5980")
-		mapaTelefonos.put("mario", "5302-6617")
+		const mapaTelefonos = dictionaryFactory.mapaTelefonos()
 		assert.that(mapaTelefonos.containsKey("choli"))
 		assert.notThat(mapaTelefonos.containsKey("cuca"))
 	}
 
 	test "containsValues" {
-		const mapaTelefonos = new Dictionary()
-		mapaTelefonos.put("choli", "2142-5980")
-		mapaTelefonos.put("mario", "5302-6617")
+		const mapaTelefonos = dictionaryFactory.mapaTelefonos()
 		assert.that(mapaTelefonos.containsValue("2142-5980"))
 		assert.notThat(mapaTelefonos.containsValue("2142-5280"))
 	}
 
-	test "Remove" {
-		const mapaTelefonos = new Dictionary()
-		mapaTelefonos.put("choli", "2142-5980")
-		mapaTelefonos.put("mario", "5302-6617")
+	test "remove" {
+		const mapaTelefonos = dictionaryFactory.mapaTelefonos()
 		assert.that(mapaTelefonos.containsKey("choli"))
 		mapaTelefonos.remove("choli")
 		assert.notThat(mapaTelefonos.containsKey("choli"))
 	}
 
-	test "Remove non existent key" {
-		const mapaTelefonos = new Dictionary()
-		mapaTelefonos.put("choli", "2142-5980")
-		mapaTelefonos.put("mario", "5302-6617")
+	test "remove non existent key" {
+		const mapaTelefonos = dictionaryFactory.mapaTelefonos()
 		mapaTelefonos.remove("pepe")
 		assert.equals(2, mapaTelefonos.size())
 	}
 
-	test "Keys" {
+	test "keys" {
 		const mapa = new Dictionary()
 		mapa.put(4, "2142-5980")
 		mapa.put(9, "5302-6617")
 		assert.equals(mapa.keys(), [4, 9])
 	}
 
-	test "Values" {
+	test "values" {
 		const mapa = new Dictionary()
 		mapa.put("2142-5980", 4)
 		mapa.put("5302-6617", 9)
 		assert.equals(mapa.values(), [4, 9])
 	}
 
-	test "For Each" {
-		const mapaTelefonos = new Dictionary()
-		mapaTelefonos.put("choli", "2142-5980")
-		mapaTelefonos.put("mario", "5302-6617")
+	test "forEach" {
 		var result = 0
-		mapaTelefonos.forEach({ k , v => result += k.size() + v.size()})
+		dictionaryFactory.mapaTelefonos().forEach({ k , v => result += k.size() + v.size()})
 		assert.equals(28, result)
 	}
 
-	test "Clear empties a dictionary" {
+	test "clear empties a dictionary" {
 		const mapaTelefonos = new Dictionary()
 		mapaTelefonos.put("choli", "2142-5980")
 		mapaTelefonos.clear()
 		assert.that(mapaTelefonos.isEmpty())
 	}
 
-	test "To string" {
+	test "toString" {
 		const mapaTelefonos = new Dictionary()
 		assert.equals("a Dictionary []", mapaTelefonos.toString())
 		mapaTelefonos.put("choli", "2142-5980")
@@ -121,15 +111,15 @@ describe "Dictionary test case" {
 		assert.that(mapaTelefonos.toString().contains("2 -> 33"))
 	}
 
-	test "Put null key should throw an exception" {
+	test "put null key should throw an exception" {
 		assert.throwsException({ new Dictionary().put(null, 2184)})
 	}
 
-	test "Put null value should throw an exception" {
+	test "put null value should throw an exception" {
 		assert.throwsException({ new Dictionary().put(2145, null)})
 	}
 
-	test "Adding several swallows in a map" {
+	test "adding several swallows in a map" {
 		var pepa = new Golondrina()
 		var s = new Dictionary()
 		s.put(pepa, 0)
