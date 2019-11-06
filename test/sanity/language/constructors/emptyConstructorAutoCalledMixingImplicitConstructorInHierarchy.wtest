@@ -1,25 +1,25 @@
 class A {
-	var x
-	constructor() { x = 20 }
+	var parentValue
+	constructor() { parentValue = 20 }
 
-	method getX() { return x }
+	method parentValue() { return parentValue }
 }
 
 class B inherits A {
 }
 
 class C inherits B {
-	var c1
+	var childValue
 	constructor() {
-		c1 = 10
+		childValue = 10
 	}
-	method getC1() { return c1 }
+	method childValue() { return childValue }
 }
 
 class D inherits C {}
 
 test "empty constructor auto called mixing implicit constructor in hierarchy" {
 	const o = new D()
-	assert.equals(20, o.getX())
-	assert.equals(10, o.getC1())
+	assert.equals(20, o.parentValue())
+	assert.equals(10, o.childValue())
 }

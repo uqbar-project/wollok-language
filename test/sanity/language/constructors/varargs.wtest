@@ -1,23 +1,22 @@
-class Sample2 {
+class Sample {
 	var result
 	constructor(preffix, numbers...) {
-		result = numbers.map{n=> preffix + n}
+		result = numbers.map { n => preffix + n }
 	}
-	method getResult() = result
+	method result() = result
 }
 
 test "varArgsInConstructor: Var arg in constructor with 4 elements" {
-  const p = new Sample2("#", 1, 2, 3, 4)
-  assert.equals("#1, #2, #3, #4", p.getResult().join(", "))
+  const sample = new Sample("#", 1, 2, 3, 4)
+  assert.equals("#1, #2, #3, #4", sample.result().join(", "))
 }
 
 test "varArgsInConstructor: Var arg in constructor with just 1 element" {
-  const p = new Sample2("#", 1)
-  assert.equals("#1", p.getResult().join(", "))
+  const sample = new Sample("#", 1)
+  assert.equals("#1", sample.result().join(", "))
 }
 
 test "varArgsInConstructor: Var args in method without elements" {
-  const p = new Sample2("#")
-  assert.equals("", p.getResult().join(", "))
+  const sample = new Sample("#")
+  assert.equals("", sample.result().join(", "))
 }
-

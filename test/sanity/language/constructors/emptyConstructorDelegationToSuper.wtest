@@ -1,19 +1,19 @@
 class SuperClass {
-	var superX
+	var parentValue
 	constructor(){}
-	method getSuperX() { return superX }
-	method setSuperX(value) { superX = value }
+	method parentValue() { return parentValue }
+	method parentValue(value) { parentValue = value }
 }
 
 class SubClass inherits SuperClass { 
-	var anotherVariable
+	var childValue
 	constructor(n) = super() {
-		anotherVariable = n
+		childValue = n
 	}
-	method getAnotherVariable() = anotherVariable
+	method childValue() = childValue
 }
 
 test "empty constructor delegation to super" {
 	const o = new SubClass(20)
-	assert.equals(20, o.getAnotherVariable())
+	assert.equals(20, o.childValue())
 }

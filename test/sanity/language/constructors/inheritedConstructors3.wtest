@@ -1,0 +1,75 @@
+class Arma {
+	const mm
+	
+	constructor(_mm) {
+		mm = _mm
+	}
+}
+
+class Unidad {
+	var nombre = "Peloton"
+}
+
+class UnidadArmada inherits Unidad {
+	var arma
+	
+	constructor(unArma) {
+		arma = unArma
+	}
+}
+
+object armeria {
+	method arco() = new Arma(25)
+}
+
+class Arquero inherits UnidadArmada {
+	constructor() = super(armeria.arco())
+}
+
+class Musico {
+	var habilidadBase
+	var grupo = ''
+	const albumes = #{}
+	constructor() { }
+	constructor ( _habilidadBase) {
+		habilidadBase = _habilidadBase
+	}
+}
+
+class MusicoConRoles inherits Musico {
+	var rolInterpretador
+	var rolCobrador
+	constructor ( _habilidadBase, _rolInterpretador, _rolCobrador) = super ( _habilidadBase) {
+		rolInterpretador = _rolInterpretador
+		rolCobrador = _rolCobrador
+	}
+	method internalInterpretaBien(cancion) = rolInterpretador.interpretaBien(cancion)
+	method cobra(presentacion) = rolCobrador.cobra(presentacion)
+}
+
+class VocalistaPopular inherits MusicoConRoles {
+	method esSolista() = true
+	method habilidadExtra() = if (self.esSolista()) 0 else -20
+}
+
+describe "inherited constructors - real world examples" {
+
+	test "issue 1288" {
+		new Arquero()
+		assert.that(true)
+	}
+
+	test "a subclass which inherits a superclass which defines its own constructor does not inherit any superclass constructor - no param" {
+		assert.throwsException { new VocalistaPopular()	}
+	}
+
+	test "a subclass which inherits a superclass which defines its own constructor does not inherit any superclass constructor - one param" {
+		assert.throwsException { new VocalistaPopular(2) }
+	}
+
+	test "a subclass does not define any constructor inherits all constructor its superclass defines - several params" {
+		new VocalistaPopular(30, null, null)
+		assert.that(true)
+	}
+
+}

@@ -1,13 +1,13 @@
 class SuperClass {
-	var superX
-	constructor() { superX = 20 }
+	var parentValue
+	constructor() { parentValue = 20 }
 
-	method getSuperX() { return superX }
+	method parentValue() { return parentValue }
 }
 
 class SubClass inherits SuperClass { }
 
 test "empty constructor in super class must be automatically called" {
 	const o = new SubClass()
-	assert.equals(20, o.getSuperX())
+	assert.equals(20, o.parentValue())
 }

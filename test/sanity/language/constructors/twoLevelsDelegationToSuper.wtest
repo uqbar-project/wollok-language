@@ -1,8 +1,8 @@
 class A {
-	var x
-	constructor(a) { x = a }
+	var value
+	constructor(a) { value = a }
 
-	method getX() { return x }
+	method value() { return value }
 }
 
 class B inherits A { 
@@ -15,5 +15,5 @@ class C inherits B {
 
 test "twoLevelsDelegationToSuper" {
 	const o = new C(20)
-	assert.equals(41, o.getX())
+	assert.equals(41, o.value())
 }

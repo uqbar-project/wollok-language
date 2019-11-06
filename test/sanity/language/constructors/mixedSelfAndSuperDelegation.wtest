@@ -1,11 +1,12 @@
 class A {
 	var x
 	var y
-	constructor(p) = self(p.getX(), p.getY()) {}
+
+	constructor(point) = self(point.x(), point.y()) {}
 	constructor(_x,_y) { x = _x ; y = _y }
 
-	method getX() { return x }
-	method getY() { return y }
+	method x() { return x }
+	method y() { return y }
 }
 
 class B inherits A { 
@@ -20,19 +21,21 @@ class C inherits B {
 class Point {
 	var x
 	var y
+
 	constructor(_x,_y) { x = _x ; y = _y }
+
 	method +(delta) {
 		x += delta
 		y += delta
 		return self
 	}
 
-	method getX() { return x }
-		method getY() { return y }
+	method x() { return x }
+	method y() { return y }
 }
 
 test "mixed self and super delegation" {
 	const o = new C(10, 20)
-	assert.equals(20, o.getX())
-	assert.equals(30, o.getY())
+	assert.equals(20, o.x())
+	assert.equals(30, o.y())
 }
