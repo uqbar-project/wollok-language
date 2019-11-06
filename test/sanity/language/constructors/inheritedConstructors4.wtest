@@ -1,9 +1,12 @@
+/**
+  * Scenario: a grandson class inherits superclass constructors from its grandfather class.
+	*/
 class Musico {
 	var habilidadBase
 	var grupo = ''
 	const albumes = #{}
 	constructor() { }
-	constructor ( _habilidadBase) {
+	constructor(_habilidadBase) {
 		habilidadBase = _habilidadBase
 	}
 }
@@ -20,6 +23,9 @@ class VocalistaPopular inherits MusicoConRoles {
 	method habilidadExtra() = if (self.esSolista()) 0 else -20
 }
 
+/**
+  * Tests
+  */
 describe "inherited methods - grandson class inheriting all constructors from its granfather" {
 
 	test "a subclass which does not define any constructor inherits all constructor its superclass defines - zero params" {

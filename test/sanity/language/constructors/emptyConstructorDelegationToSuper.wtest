@@ -1,3 +1,7 @@
+/**
+  * Scenario: a hierarchy, superclass has a no-parameter constructor and child class
+	* overrides this definition generating a one-parameter constructor
+	*/
 class SuperClass {
 	var parentValue
 	constructor(){}
@@ -13,6 +17,9 @@ class SubClass inherits SuperClass {
 	method childValue() = childValue
 }
 
+/**
+  * Tests
+	*/
 test "empty constructor delegation to super" {
 	const o = new SubClass(20)
 	assert.equals(20, o.childValue())

@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class in a hierarchy having a constructor that uses self and super delegation
+	*/
 class A {
 	var x
 	var y
@@ -34,6 +37,9 @@ class Point {
 	method y() { return y }
 }
 
+/**
+  * Tests
+	*/
 test "mixed self and super delegation" {
 	const o = new C(10, 20)
 	assert.equals(20, o.x())

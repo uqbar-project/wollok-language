@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class having a vargars constructor
+	*/
 class Sample {
 	var result
 	constructor(preffix, numbers...) {
@@ -6,6 +9,9 @@ class Sample {
 	method result() = result
 }
 
+/**
+  * Tests
+	*/
 test "varArgsInConstructor: Var arg in constructor with 4 elements" {
   const sample = new Sample("#", 1, 2, 3, 4)
   assert.equals("#1, #2, #3, #4", sample.result().join(", "))

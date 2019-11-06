@@ -1,3 +1,6 @@
+/**
+  * Scenario: a hierarchy of class with default constructors (inherited from object)
+	*/
 class Point {
   var property x = 0
   var property y = 0
@@ -13,7 +16,7 @@ class C inherits B {
 }
 
 /**
- *   These tests should remain after constructor change
+ * Tests: these tests should remain after constructor change
  */
 describe "default constructor" {
 

@@ -1,3 +1,7 @@
+/**
+  * Scenario: a class having several attributes, in order to see it is tedious to define
+	* a long-parameter constructor.
+	*/
 class Point {
 	var x
 	var y
@@ -14,6 +18,9 @@ class Presentacion {
 	var property localidades
 }
 
+/**
+  * Tests
+	*/
 test "named parameters with numbers" {
 	const point = new Point(x = 1, y = 2)
 	assert.equals(3, point.total())

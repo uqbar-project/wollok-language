@@ -1,3 +1,7 @@
+/**
+  * Scenario: a hierarchy where superclass defines a no-parameter constructor and
+	* child class inherits this definition (it does not define any constructor at all)
+	*/
 class SuperClass {
 	var parentValue
 	constructor() { parentValue = 20 }
@@ -7,6 +11,9 @@ class SuperClass {
 
 class SubClass inherits SuperClass { }
 
+/**
+  * Tests
+	*/
 test "empty constructor in super class must be automatically called" {
 	const o = new SubClass()
 	assert.equals(20, o.parentValue())

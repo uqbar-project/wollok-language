@@ -1,3 +1,8 @@
+/**
+  * Scenario: 
+	* - a class with constructors, default constructor with empty body
+	* - a second class with constructors, default constructor without body
+	*/
 class PointWithBody {
 	var x
 	var y
@@ -20,6 +25,9 @@ class PointWithoutBody {
 	method y() = y
 }
 
+/**
+  * Tests
+	*/
 describe "constructor delegation to self" {
 
 	test "constructor delegation to self with body" {

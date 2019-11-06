@@ -1,3 +1,6 @@
+/**
+  * Scenario: a hierarchy of classes where second level class defines a one parameter constructor
+	*/
 class A {
 }
 
@@ -10,6 +13,9 @@ class B inherits A {
 class C inherits B {
 }
 
+/**
+  * Tests
+	*/
 describe "inherited constructors" {
 
 	test "constructor defined in subclass overrides default constructor" {

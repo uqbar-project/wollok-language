@@ -11,6 +11,9 @@ import asustables.Adolescente
 import asistentes.*
 import actividades.*
 
+/**
+  * Helper for fixture initialization
+	*/
 object monstersFactory {
 	method getMike() {
 		const mike = new AsustadorPerseverante(edad = 0)
@@ -47,6 +50,9 @@ object asistenteFactory {
 	}
 }
 
+/**
+  * Tests
+	*/
 describe "puntos iniciales" {
 
 	test "Asustador Nato con Ninio genera energia" {

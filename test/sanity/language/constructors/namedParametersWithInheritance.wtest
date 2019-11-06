@@ -1,3 +1,7 @@
+/**
+  * Scenario: a class having several (inherited) attributes in a long hierarchy, 
+	* in order to see it is tedious to define a long-parameter constructor.
+	*/
 object chayanne {
 	method nombre() = "Chayanne"
 }
@@ -18,6 +22,9 @@ class Presentacion inherits EventoLocalizado {
 	var property localidades
 }
 
+/**
+  * Tests
+	*/
 describe "named parameters with inheritance" {
 	const presentacion = new Presentacion(
 		lugar = lunaPark,

@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class having a several-argument constructor
+	*/
 class C {
 	var a = 10
 	const b
@@ -15,6 +18,9 @@ class C {
 
 }
 
+/**
+  * Tests
+	*/
 test "several arguments constructor" {
 	const c = new C(1,2,3)
 	assert.equals(1, c.a())

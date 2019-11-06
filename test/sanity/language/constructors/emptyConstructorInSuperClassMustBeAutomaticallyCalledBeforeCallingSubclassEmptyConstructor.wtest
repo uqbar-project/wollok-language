@@ -1,3 +1,7 @@
+/**
+  * Scenario: a hierarchy where superclass has a no-parameter constructor and
+	* child class overrides it by defining its own no-parameter constructor
+	*/
 class SuperClass {
 	var superX
 	var otherX
@@ -22,6 +26,9 @@ class SubClass inherits SuperClass {
 	method getSubX() { return subX }
 }
 
+/**
+  * Tests
+	*/
 test "empty constructor in superclass must be automatically called before calling subclass empty constructor" {
 	const o = new SubClass()
 	assert.equals(10, o.getSubX())

@@ -1,3 +1,7 @@
+/**
+  * Scenario: a hierarchy, superclass has a constructor and subclass has also a constructor
+	* which delegates to the superclass via super
+	*/
 class SuperClass {
 	var value
 	constructor(a) { value = a }
@@ -9,6 +13,9 @@ class SubClass inherits SuperClass {
 	constructor(n) = super(n + 1) {}
 }
 
+/**
+  * Tests
+	*/
 describe "constructor delegation to super" {
 
 	test "constructor delegation to super" {

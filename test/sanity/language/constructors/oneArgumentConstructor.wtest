@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class with a one-parameter constructor
+	*/
 class Ave {
 	var energia
 	constructor(_energia) { energia = _energia }
@@ -5,6 +8,9 @@ class Ave {
 	method energia() = energia
 }
 
+/**
+  * Tests
+	*/
 describe "one argument constructor" {
 
 	test "one argument constructor happy path" {

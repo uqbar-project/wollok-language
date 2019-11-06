@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class having several constructors
+	*/
 class Point {
 	var x
 	var y
@@ -13,6 +16,9 @@ class Point {
 	method y() { return y }
 }
 
+/**
+  * Tests
+	*/
 describe "multiple constructors" {
 
 	test "having several constructors, one of them with 2 parameters, should work" {

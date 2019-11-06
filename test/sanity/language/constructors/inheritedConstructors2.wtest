@@ -1,6 +1,7 @@
 /**
-  * Scenario: a superclass with one constructor, child class with another constructor and granson class with
-  * a default constructor overriding parents constructors in the hierarchy
+  * Scenario: a superclass with one constructor, child class with another 
+  * constructor and granson class with a default constructor overriding
+  * parents constructors in the hierarchy
   */
 class A {
 	var a
@@ -18,6 +19,9 @@ class C inherits B {
 	constructor() { a = 2 ; x = 3 }
 }
 
+/**
+  * Tests
+	*/
 describe "inherited constructors - constructors for each class in a hierarchy" {
 
   test "superclass uses a constructor with one parameter" {
