@@ -3,22 +3,19 @@ class Asustable {
 }
 
 class Ninio inherits Asustable {
-	var edad = 0
+	var property edad = 0
 	
-	constructor(e) { edad = e }
-	method setEdad(e) { edad = e }
-	method getEdad() = edad
 	override method teVaAAsustar(asustador) {
 		return asustador.asustar(self)
 	}
 }
 
 class Piyamada inherits Asustable {
-	var ninios = []
-	method agregarNinio(n) { ninios.add(n) }
+	const ninios = []
+	method agregarNinio(nene) { ninios.add(nene) }
 	override method teVaAAsustar(asustador) {
-		return ninios.fold(0, {a, n=> 
-			a + asustador.asustar(n)
+		return ninios.fold(0, {acum, nene => 
+			acum + asustador.asustar(nene)
 		})
 	}
 }
@@ -28,7 +25,7 @@ class Adulto inherits Asustable {
 
 class Adolescente inherits Asustable {
 	override method teVaAAsustar(asustador) {
-		var factor = 0.10
+		const factor = 0.10
 		asustador.reducirMotivacion(factor)
 		return 0
 	}

@@ -1,12 +1,6 @@
 class Asustador {
-	var edad = 0
-	var nivelMotivacion = 100
-	
-	constructor(e) { edad = e }
-	method getEdad() = edad  
-	method setEdad(e) { edad = e }
-	
-	method getNivelMotivacion() = nivelMotivacion
+	var property edad = 0
+	var property nivelMotivacion = 100
 	
 	method entrarAPuerta(puerta) {
 		return puerta.entra(self)
@@ -14,7 +8,7 @@ class Asustador {
 	
 	method asustar(ninio) {
 		const a = self.getPorcentaje()
-		return a * self.puntosDeTerror() / ninio.getEdad()
+		return a * self.puntosDeTerror() / ninio.edad()
 	}
 	method getPorcentaje() {
 		return nivelMotivacion / 100
@@ -22,29 +16,25 @@ class Asustador {
 	
 	method puntosDeTerror()
 	
-	method reducirMotivacion(cuantoPorciento) {
-		nivelMotivacion -= cuantoPorciento * nivelMotivacion
+	method reducirMotivacion(cuantoPorCiento) {
+		nivelMotivacion -= cuantoPorCiento * nivelMotivacion
 	}
 }
 
 class AsustadorNato inherits Asustador {
 	var puntosTerrorInnatos
-	constructor(e, p) = super(e) { 
-		puntosTerrorInnatos = p
-	}
+
 	override method puntosDeTerror() {
-		return puntosTerrorInnatos * self.getEdad()
+		return puntosTerrorInnatos * self.edad()
 	}
 }
 
 class AsustadorPerseverante inherits Asustador {
 	var puntosDeTerror = 0
 	
-	constructor(e) = super(e)
-	
 	method mejora(actividad) {
 		puntosDeTerror += actividad.calcularMejora()
 	}
+
 	override method puntosDeTerror() = puntosDeTerror
 }
-
