@@ -942,13 +942,15 @@ class Collection {
    * Answers the concatenated string representation of the elements in the given set.
    * You can pass an optional character as an element separator (default is ",")
    */
-  method join(separator)
+  method join(separator) =
+    if (self.isEmpty()) ""
+    else self.subList(1).fold({ string, element => string + separator + element.toString() }, self.first.toString())
   
   /**
    * Answers the concatenated string representation of the elements in the given set
    * with default element separator (",")
    */
-  method join()
+  method join() = self.join(",")
 
 }
 
