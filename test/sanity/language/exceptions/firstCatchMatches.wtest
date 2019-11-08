@@ -1,19 +1,36 @@
+/**
+  * Scenario: several classes with methods in which they throw
+	* different exceptions based on a hierarchy
+  */
 class MyException inherits Exception {}
 class MySubclassException inherits MyException {}
 class AnotherException inherits Exception {}
 
-class A { method m1() { throw new MySubclassException() } }
+class A {
+	method m1() {
+		throw new MySubclassException()
+	}
+}
 
 class AException inherits Exception { }
 class BException inherits Exception { }
 class CException inherits Exception { }
 
 class B { 
-	method m1() { throw new AException(message = "hello you see") }
-	method m2() { throw new BException(message = "hello you see") }
-	method m3() { throw new CException(message = "hello you see") }
+	method m1() {
+		throw new AException(message = "hello you see")
+	}
+	method m2() {
+		throw new BException(message = "hello you see")
+	}
+	method m3() {
+		throw new CException(message = "hello you see")
+	}
 }
 
+/**
+  * Tests
+  */
 describe "first catch matches" {
 
 	test "first catch matches - sibling exceptions - first catch" {
@@ -81,7 +98,6 @@ describe "first catch matches" {
 		catch e { 
 			assert.fail("incorrect catch!")
 		}
-
 		assert.equals(3, result)
 	}
 

@@ -1,0 +1,25 @@
+/**
+  * Scenario: a class defining a method with try/catch and returning 
+	* different values
+  */
+object cuenta {
+	method sacar(c) = try { 
+		if (c > 0)
+			throw new Exception("saldo insuficiente") 
+		else
+			19
+	} catch e {
+		20
+	}
+}
+
+/**
+  * Tests
+  */
+test "catch evaluation in a shortcut method - happy case" {
+	assert.equals(19, cuenta.sacar(0))
+}
+
+test "catch evaluation in a shortcut method - catch case" {
+	assert.equals(20, cuenta.sacar(10))
+}

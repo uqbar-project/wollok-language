@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class with methods throwing exceptions from a hierarchy
+  */
 class MyException inherits Exception {}
 class A {
 	method m1() { throw new MyException() }
@@ -5,9 +8,12 @@ class A {
 	method m3() { throw new Exception(message = "hello you see") }
 }
 
+/**
+  * Test
+  */
 describe "throw, catch and then always flow" {
 
-	test "Test throw and catch" {
+	test "catching a throw from the model" {
 		const a = new A()
 		var counter = 1
 		try {
@@ -19,7 +25,7 @@ describe "throw, catch and then always flow" {
 		assert.equals(2, counter)
 	}
 
-	test "Test catch without type" {
+	test "catch without type always should enter when an error occurs" {
 		const a = new A()
 		try {
 			a.m3()
@@ -31,7 +37,7 @@ describe "throw, catch and then always flow" {
 		}
 	}
 
-	test "Test then always executed on exception" {
+	test "then always executed on exception" {
 		const a = new A()
 		var counter = 1
 		try {
@@ -44,7 +50,7 @@ describe "throw, catch and then always flow" {
 		assert.equals(6, counter)
 	}
 
-	test "Test then always executed even without an exception raised" {
+	test "then always executed even without an exception raised" {
 		const a = new A()
 		var counter = 0
 		try {

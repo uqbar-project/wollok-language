@@ -1,11 +1,17 @@
+/**
+  * A class with a method in which it throws an exception
+  */
 class A { 
 	method m1() { throw new Exception("hello you see") }
 	method m5(a, b) { return a - b }
 }
 
+/**
+  * Tests
+  */
 describe "message not understood" {
 
-	test "Test message not understood" {
+	test "sending a message not understood should fail" {
 		const a = new A()
 		try {
 			a.m2()
@@ -16,7 +22,7 @@ describe "message not understood" {
 		}
 	}
 
-	test "Test message not understood - less parameters" {
+	test "message not understood - less parameters case" {
 		const a = new A()
 		try {
 			a.m5()
@@ -27,7 +33,7 @@ describe "message not understood" {
 		}
 	}
 
-	test "Test message not understood - more parameters" {
+	test "message not understood - more parameters case" {
 		const a = new A()
 		try {
 			a.m1(2, new Date())
@@ -38,7 +44,7 @@ describe "message not understood" {
 		}
 	}
 
-	test "Test message not understood - case sensitive" {
+	test "message not understood - case sensitive" {
 		const a = new A()
 		try {
 			a.M1(3)
@@ -49,7 +55,7 @@ describe "message not understood" {
 		}
 	}
 
-	test "Test message not understood with literals case sensitive" {
+	test "message not understood with literals case sensitive" {
 		try {
 			4.truncATE(2)
 			assert.fail("Should have thrown message not understood")
@@ -59,7 +65,7 @@ describe "message not understood" {
 		}
 	}
 
-	test "Test message not understood with literals - less parameters" {
+	test "message not understood with literals - less parameters" {
 		try {
 			4.truncate()
 			assert.fail("Should have thrown message not understood")
@@ -69,7 +75,7 @@ describe "message not understood" {
 		}
 	}
 
-	test "Test message not understood with params" {
+	test "message not understood with params" {
 		const a = new A()
 		try {
 			a.m2(2, 4)
