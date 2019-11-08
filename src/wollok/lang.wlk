@@ -1080,6 +1080,9 @@ class Set inherits Collection {
    *     set.add(2)   => set = #{2, 3}, second add produces no effect   
    */
   override method add(element) native
+
+  /** @private */
+  method unsafeAdd(element) native
   
   /**
    * Removes the specified element from this set if it is present.
