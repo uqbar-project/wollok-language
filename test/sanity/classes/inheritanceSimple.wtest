@@ -2,12 +2,12 @@
   * Scenario: Simple hierarchy of classes
 	*/
 class BaseClass {
-	method overriden() = 1
+	method overridden() = 1
 	method inherited() = "inherited"
 }
 
 class ChildClass inherits BaseClass {
-	override method overriden() = 2
+	override method overridden() = 2
 }
 
 /**
@@ -16,7 +16,7 @@ class ChildClass inherits BaseClass {
 describe "classes - basic inheritance" {
 
 	test "calling an overrided method should execute it" {
-		assert.equals(2, new ChildClass().overriden())
+		assert.equals(2, new ChildClass().overridden())
 	}
 
 	test "sending a message to a subclass that does not implement it should call the inherited method" {
