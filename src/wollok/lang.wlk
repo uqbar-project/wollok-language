@@ -1475,6 +1475,8 @@ class List inherits Collection {
  */
 class Dictionary {
 
+  override method initialize() native
+
   /**
    * Adds or updates a value based on a key.
    * If key is not present, a new value is added. 
@@ -2371,6 +2373,8 @@ class Range {
     * Both start and end must be integer values.
     */
   override method initialize() {
+    super()
+
 		start = start.truncate(0)
 		end = end.truncate(0)
     if (step == null) {
