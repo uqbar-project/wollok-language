@@ -95,38 +95,51 @@ describe "Strings"{
 		assert.that("mARejaDA".equalsIgnoreCase("MAREJADA"))
 	}
 	
-	test "Split con espacio separa en palabras"{
-		
+	test "Split: con espacio separa en palabras"{
 		const result = "Esto Es una prueba".split(" ")
 		const expected = ["Esto", "Es", "una", "prueba"]
 		assert.equals(expected, result)
 	}
 
-	test "Split con separador vacío separa en lista de un elemento por caracter"{
-		
+	test "Split: con separador vacío separa en lista de un elemento por caracter"{
 		const result = "Esto Es una".split("")
 		const expected = ["E","s","t","o"," ","E","s"," ","u","n","a"]
 		assert.equals(expected, result)
 	}
 
-	test "Split con separador que no está contenido devuelve todo el string como un elemento"{
-		
+	test "Split: con separador que no está contenido devuelve todo el string como un elemento"{
 		const result = "Esto Es una".split("|")
 		const expected = ["Esto Es una"]
 		assert.equals(expected, result)
 	}
 
-	test "Split a string vacío devuelve lista vacía"{
-		
+	test "Split: a string vacío devuelve lista vacía"{
 		const result = "".split("")
 		const expected = []
 		assert.equals(expected, result)
 	}
 
-	test "Split separador coincide completamente con el string, devuelve lista de dos strings vacíos"{
-		
+	test "Split: separador coincide completamente con el string, devuelve lista de dos strings vacíos"{
 		const result = "texto de prueba".split("texto de prueba")
 		const expected = ["",""]
+		assert.equals(expected, result)
+	}
+
+	test "Split: separador aparece consecutivamente en el string, elemento vacío en medio"{
+		const result = "a,b,,c,".split(",")
+		const expected = ["a", "b","", "c", ""]
+		assert.equals(expected, result)
+	}
+
+	test "Split: separador de más de un caracter, separa correctamente cuando aparece"{
+		const result = "texto de prueba".split("de")
+		const expected = ["texto ", " prueba"]
+		assert.equals(expected, result)
+	}
+
+	test "Split: separador de más de un caracter, que coincide completamente con todo el texto devuelve elementos vacíos"{
+		const result = "aaaa".split("aa")
+		const expected = ["", "", ""]
 		assert.equals(expected, result)
 	}
 	
