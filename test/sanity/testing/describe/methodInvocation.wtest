@@ -1,3 +1,6 @@
+/**
+  * Tests
+  */
 describe "method invocation inside a describe" {
 
 	method uno() = 1

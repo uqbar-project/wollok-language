@@ -1,3 +1,6 @@
+/**
+  * Scenario: a named object
+  */
 object pepita {
 	var energia = 0
 	method come(cantidad){
@@ -8,6 +11,9 @@ object pepita {
 	}
 }
 
+/**
+  * Tests
+  */
 describe "Simple tests" {
 
 	test "1 + 1 is equal to 2" {

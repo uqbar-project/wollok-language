@@ -1,3 +1,6 @@
+/**
+  * Tests
+  */
 describe "assert tests" {
 
   test "assert that when not true should fail" {

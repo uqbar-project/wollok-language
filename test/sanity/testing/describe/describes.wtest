@@ -1,3 +1,7 @@
+/**
+  * Tests
+	* using several types of describes
+  */
 describe "testing group of isolated tests with instance variables" {
 
 	const a = 8

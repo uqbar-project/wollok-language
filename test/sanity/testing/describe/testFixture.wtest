@@ -1,3 +1,6 @@
+/**
+  * Scenario: classes and named objects for fixture purposes
+  */
 class Golondrina { 
 	var energia = 100
 	method energia() = energia
@@ -9,6 +12,9 @@ object alpiste {
 	method energia() = 5
 }
 
+/**
+  * Tests
+  */
 describe "testing fixture runs before every test" {
 	const pepita = new Golondrina()
 

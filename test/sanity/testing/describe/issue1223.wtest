@@ -1,3 +1,7 @@
+/**
+  * Scenario: several classes, one of them uses the other 
+	* as a reference in a method
+  */
 class Enfermo {}
 
 class Doctor {
@@ -7,6 +11,9 @@ class Doctor {
 	method cura(alguien) { calidad = calidad + 1 }
 }
 
+/**
+  * Tests
+  */
 describe "issue 1223 - NPE for const defined in fixtures" {
 	var unDoctorCualquiera
 	var enfermo
@@ -17,11 +24,11 @@ describe "issue 1223 - NPE for const defined in fixtures" {
 		unDoctorCualquiera.calidad(2)
 	}
 
-	test "reference to unDoctorCualquiera should not be null" {
+	test "a describe reference inside the fixture should not be null" {
 		const calidadInicial = unDoctorCualquiera.calidad()
 		unDoctorCualquiera.cura(enfermo)
 		const calidadFinal = unDoctorCualquiera.calidad()
 		assert.that(calidadFinal > calidadInicial)
-		}
+	}
 
 }

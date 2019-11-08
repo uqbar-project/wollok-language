@@ -1,3 +1,6 @@
+/**
+  * Scenario: a hierarchy of exceptions
+  */
 class SpecialException inherits Exception {}
 
 class BusinessException inherits Exception {
@@ -8,12 +11,15 @@ class OtherBusinessException inherits Exception {
 	constructor() {}
 }
 
+/**
+  * Tests
+  */
 describe "testing exceptions" {
 
 	test "test expected exception catches the error and succeeds" {
 		assert.throwsException { 
-			const x = null
-			x.foo()
+			const nullReference = null
+			nullReference.foo()
 		}
 	}
 
