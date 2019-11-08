@@ -1,14 +1,35 @@
+/**
+  * Scenario: a class with
+	* - a method that returns a value using return syntax
+	* - a method that returns a value using = syntax
+	* - a method that returns a constant
+  */
 class A {
-	method method1(asd) {
-		return asd + 1
+	method method1(value) {
+		return value + 1
 	}
-	method method2(asd) = asd + 1
-	method method3(asd) = 4
+	method method2(value) = value + 1
+	method method3(value) = 4
 }
 
-test "Inline ok" {
-		const x = new A()
-		assert.equals(x.method1(2), 3)
-		assert.equals(x.method2(2), 3) 
-		assert.equals(x.method3(2), 4) 
+/**
+  * Tests
+  */
+describe "inline values returned from a method" {
+
+	const a = new A()
+
+	test "value returned from a method using return" {
+			assert.equals(a.method1(2), 3)
+	}
+
+	test "value returned from a method using =" {
+			assert.equals(a.method2(2), 3)
+	}
+
+	test "constant returned from a method" {
+			assert.equals(a.method3(2), 4)
+	}
+
 }
+

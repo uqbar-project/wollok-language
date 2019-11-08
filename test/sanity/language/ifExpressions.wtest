@@ -1,3 +1,6 @@
+/**
+  * Scenario: a named object with a method using an if expression
+  */
 object numeroLoco {
 	method calculoLoco(n) {
 		if (n) {
@@ -7,6 +10,9 @@ object numeroLoco {
 	}
 }
 
+/**
+  * Tests
+  */
 describe "If expressions" {
 
 	test "if without '{}'" {
@@ -17,7 +23,7 @@ describe "If expressions" {
 				t = 1
 			}
 
-			method getT() = t
+			method t() = t
 
 			method m(a){
 				if (a)
@@ -26,12 +32,12 @@ describe "If expressions" {
 		}
 
 		o.m(true)
-		assert.equals(1, o.getT())
+		assert.equals(1, o.t())
 	}
 
 	test "if without '{}' with else" {
 		const o = object {
-			method m(a){
+			method m(a) {
 				if (a)
 					return 1
 				else
@@ -44,7 +50,7 @@ describe "If expressions" {
 
 	test "if with '{}' with else" {
 		const o = object {
-			method m(a){
+			method m(a) {
 				if (a) {
 					return 1
 				}	else {
@@ -67,10 +73,9 @@ describe "If expressions" {
 					return 0
 				}
 			}
-
-			method getP()=p
+			method p() = p
 		}
-		assert.that(o.m(true) == 1 && o.getP()==1)
+		assert.that(o.m(true) == 1 && o.p() == 1)
 		assert.equals(0, o.m(false))
 	}
 

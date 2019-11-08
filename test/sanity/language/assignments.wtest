@@ -1,3 +1,6 @@
+/**
+  * Tests
+  */
 describe "Assignments and fields" {
 
 	test "Simple assignment" {
@@ -7,12 +10,38 @@ describe "Assignments and fields" {
 				a = b
 			}
 
-			method getA() = a
+			method a() = a
 		}
 
 		myObject.assignA(5)
-		assert.equals(5, myObject.getA())
+		assert.equals(5, myObject.a())
 	}
+
+}
+
+describe "Multi op assign test case"{
+
+	test "Plus equals" {
+		var n = 1
+		n += 1
+		assert.equals(2, n) 
+	}
+
+	test "Multiply equals" {
+		var n = 2
+		n *= 3
+		assert.equals(6, n) 
+	}
+
+	test "Substract equals" {
+		var n = 2
+		n -= 1
+		assert.equals(1, n) 
+	}
+
+}
+
+describe "Compound assignment" {
 
 	test "+= operation" {
 		const myObject = object {
@@ -21,12 +50,11 @@ describe "Assignments and fields" {
 				a += b
 			}
 
-			method getA() = a
-		  
+			method a() = a
 		}
 
 		myObject.assignA(5)
-		assert.equals(7, myObject.getA())
+		assert.equals(7, myObject.a())
 	}
 
 	test "-= operation" {
@@ -35,12 +63,11 @@ describe "Assignments and fields" {
 			method assignA(b) {
 				a -= b
 			}
-
-			method getA() = a
+			method a() = a
 		}
 
 		myObject.assignA(5)
-		assert.equals(-3, myObject.getA())
+		assert.equals(-3, myObject.a())
 	}
 
 	test "*= operation" {
@@ -49,11 +76,11 @@ describe "Assignments and fields" {
 			method assignA(b) {
 				a *= b
 			}
-			method getA() = a
+			method a() = a
 		}
 
 		myObject.assignA(5)
-		assert.equals(10, myObject.getA())
+		assert.equals(10, myObject.a())
 	}
 
 	test "/= operation" {
@@ -62,13 +89,11 @@ describe "Assignments and fields" {
 			method assignA(b) {
 				a /= b
 			}
-
-			method getA() = a
-		  
+			method a() = a
 		}
 
 		myObject.assignA(2)
-		assert.equals(5, myObject.getA())
+		assert.equals(5, myObject.a())
 	}
 
 	test "%= operation" {
@@ -78,11 +103,11 @@ describe "Assignments and fields" {
 			method assignA(b) {
 				a %= b
 			}
-			method getA() = a
+			method a() = a
 		}
 
 		myObject.assignA(5)
-		assert.equals(4, myObject.getA())
+		assert.equals(4, myObject.a())
 	}
 
 }

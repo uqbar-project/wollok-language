@@ -1,3 +1,7 @@
+/**
+  * Tests
+	* We use two object literals having a polymorphic method
+  */
 test "polymorphism" {
 
 	const pepona = object {
@@ -17,7 +21,6 @@ test "polymorphism" {
 	}
 
 	pepona.comer(alpiste)
-
 	assert.equals(105, pepona.energia())
 
 }

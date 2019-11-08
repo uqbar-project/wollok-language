@@ -1,3 +1,7 @@
+/**
+  * Scenario: a named object without attribute initialization
+	* and some other classes and named objects
+  */
 class Golondrina { var energia = 0 }
 
 object pepita {
@@ -14,6 +18,9 @@ object alpiste {
 	method energia() = 2
 }
 
+/**
+  * Tests
+  */
 describe "Null Test Case"{
 
 	test "message sent to null" {
@@ -95,5 +102,3 @@ describe "Null Test Case"{
 	}
 
 }
-
-	
