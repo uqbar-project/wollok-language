@@ -1,8 +1,12 @@
+/**
+  * Scenario: defined in packageExample.wlk file
+  */
 import packageExample.aves.*
 
+/**
+  * Tests
+  */
 test "use a package" {
-
-	assert.that(pepita.m()==1)
-
+	assert.equals(1, pepita.valueOne())
 }
 

@@ -1,3 +1,6 @@
+/**
+  * Scenario: a named object with const and var properties
+  */
 object pepita {
 	const property energiaOriginal = 100
 	var property energiaReal = 100
@@ -10,9 +13,12 @@ object pepita {
 	}
 }
 
-describe "Getter for properties in objects" {
+/**
+  * Tests
+  */
+describe "properties in named objects" {
 
-	test "property getter - const reference - wko" {
+	test "property getter - const reference - named object" {
 		assert.equals(100, pepita.energiaOriginal())
 	}
 
@@ -23,11 +29,11 @@ describe "Getter for properties in objects" {
 		assert.equals([1, 3, 5, 8], pepita.numerosFavoritos())
 	}
 
-	test "property getter - var reference - wko" {
+	test "property getter - var reference - named object" {
 		assert.equals(100, pepita.energiaReal())
 	}
 
-	test "property setter - var reference - wko" {
+	test "property setter - var reference - named object" {
 		pepita.energiaReal(40)
 		pepita.volar()
 		assert.equals(30, pepita.energiaReal())

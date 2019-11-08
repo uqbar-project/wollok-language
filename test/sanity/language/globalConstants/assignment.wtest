@@ -1,0 +1,25 @@
+/**
+  * Scenario: a set of global variables pointing to custom classes,
+  * one references to the other which is defined later
+  */
+class Golondrina {
+  var property energia = 0
+  method entrenar() { energia += 1 }
+}
+
+class Entrenador {
+    const property ave
+    method entrenar() { ave.entrenar() }
+}
+
+const chuck = new Entrenador(ave = pepita)
+const pepita = new Golondrina()
+
+/**
+  * Test
+  */
+test "references - assigning a global constant to a global constant" {
+  assert.equals(0, pepita.energia())
+  chuck.entrenar()
+  assert.equals(1, pepita.energia())
+}

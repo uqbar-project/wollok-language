@@ -1,0 +1,20 @@
+/**
+  * Scenario: a class defining a method with try/catch and returning 
+	* different values
+  */
+class Golondrina {
+  var property energy = 0
+
+  method addEnergy(amount) {
+    energy = energy + amount
+  }
+  
+}
+
+const pepita = new Golondrina()
+
+test "effects - changing attributes of global constant during test" {
+  assert.equals(0, pepita.energy())
+  pepita.addEnergy(10)
+  assert.equals(10, pepita.energy())
+}

@@ -1,0 +1,22 @@
+/**
+  * Scenario: a class with var properties, and a subclass
+	* overriding setter from subclass
+  */
+class MaestroTierra {
+	var property base = 0
+}
+
+class MaestroMetal inherits MaestroTierra {
+	override method base(value) {
+		return super(value * 2)
+	}
+}
+
+/**
+  * Tests
+  */
+test "setter overridden by subclass should use property definition" {
+	const acdc = new MaestroMetal()
+	acdc.base(40)
+	assert.equals(80, acdc.base())
+}

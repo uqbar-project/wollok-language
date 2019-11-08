@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class in a package
+  */
 package points {
     class ImmutablePoint {
     }
@@ -5,6 +8,6 @@ package points {
 
 package aves {
     object pepita {
-       method m() = 1
+       method valueOne() = 1
     }
 }
