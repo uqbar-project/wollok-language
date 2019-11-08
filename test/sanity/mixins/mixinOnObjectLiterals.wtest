@@ -1,3 +1,6 @@
+/**
+  * Scenario: a mixin
+  */
 mixin Flies {
 	var times = 0
 	method fly() {
@@ -6,6 +9,9 @@ mixin Flies {
 	method times() = times
 }
 
+/**
+  * Tests
+  */
 test "mixin on object literals" {
 	const pepita = object mixed with Flies {}
 	pepita.fly()

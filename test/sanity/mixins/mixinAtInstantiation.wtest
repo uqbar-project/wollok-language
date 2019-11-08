@@ -1,10 +1,12 @@
+/**
+  * Scenario: a class and several mixins they will be applied
+	* in different ways
+  */
+class Warrior {}
+
 mixin Energy {
 	var energy = 100
 	method energy() = energy
-}
-
-class Warrior {
-
 }
 
 mixin Energy2 {
@@ -35,13 +37,11 @@ mixin Attacks {
 }
 
 test "single mixin at instantiation time" {
-
-	const w = new Warrior() with Energy
-	assert.equals(100, w.energy())
+	const warrior = new Warrior() with Energy
+	assert.equals(100, warrior.energy())
 }
 
-test "multiple mixin at instantiation time"{
-
+test "multiple mixins at instantiation time" {
 	const warrior1 = new Warrior() with Attacks with Energy2 with GetsHurt
 	assert.equals(100, warrior1.energy())
 
@@ -52,5 +52,4 @@ test "multiple mixin at instantiation time"{
 
 	assert.equals(90, warrior2.energy())
 	assert.equals(99, warrior1.energy())
-
 }

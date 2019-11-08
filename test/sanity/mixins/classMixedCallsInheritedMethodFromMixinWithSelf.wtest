@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class mixed with a mixin
+  */
 mixin Flies {
 	var times = 0
 	method fly() {
@@ -13,6 +16,9 @@ class Bird mixed with Flies {
 	}
 }
 
+/**
+  * Tests
+  */
 test "class mixed calls inherited method from mixin with self" {
 	const pepita = new Bird()
 	pepita.doubleFly()

@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class mixed with two mixins
+  */
 class Bird {
 	var energy = 200
 	method fly(meters) { energy -= meters }
@@ -14,8 +17,11 @@ method fly(meters)
 class MockingBird inherits Bird mixed with FlyingShortcuts {
 }
 
+/**
+  * Tests
+  */
 test "mixin method calls a method on the class that is inherited" {
-	const b = new MockingBird()
-	b.fly100Meters()
-	assert.equals(100, b.energy())
+	const bird = new MockingBird()
+	bird.fly100Meters()
+	assert.equals(100, bird.energy())
 }

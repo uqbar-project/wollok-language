@@ -1,3 +1,6 @@
+/**
+  * Scenario: a named object mixed with a mixin
+  */
 mixin Flies {
 	var times = 0
 	method fly() {
@@ -12,6 +15,9 @@ object pepita mixed with Flies {
 	}
 }
 
+/**
+  * Tests
+  */
 test "mixin variables are in scope on a WKO" {
 	pepita.fly()
 	assert.equals(1, pepita.times())

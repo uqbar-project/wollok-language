@@ -1,3 +1,7 @@
+/**
+  * Scenario: a class mixed with two mixins in two different ways
+	* (altering the order of linearization)
+  */
 mixin Energy {
 	var energy = 100
 	method energy() = energy
@@ -17,20 +21,24 @@ mixin Flying {
 	method reduceEnergy(meters)
 }
 
+/**
+  * Tests
+	* Proving order does not matter
+  */
 class BirdWithEnergyThatFlies mixed with Energy and Flying {}
-
-		// order doesn't matter
 
 class BirdWithThatFliesWithEnergy mixed with Flying and Energy {}
 
-test "class with a mixin that calls another" {
-	const b = new BirdWithEnergyThatFlies()
-	b.fly(10)
-	assert.equals(90, b.energy())
-	assert.equals(10, b.fliedMeters())
+test "class with a mixin that calls another - first sequence" {
+	const bird = new BirdWithEnergyThatFlies()
+	bird.fly(10)
+	assert.equals(90, bird.energy())
+	assert.equals(10, bird.fliedMeters())
+}
 
-	const b2 = new BirdWithThatFliesWithEnergy()
-	b2.fly(10)
-	assert.equals(90, b2.energy())
-	assert.equals(10, b2.fliedMeters())
+test "class with a mixin that calls another - second sequence" {
+	const bird = new BirdWithThatFliesWithEnergy()
+	bird.fly(10)
+	assert.equals(90, bird.energy())
+	assert.equals(10, bird.fliedMeters())
 }

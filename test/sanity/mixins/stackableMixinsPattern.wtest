@@ -1,3 +1,7 @@
+/**
+  * Scenario: a hierarchy of subclasses and superclasses
+	* mixed with several mixins (stackable pattern)
+  */
 mixin M1 {
 	method doFoo(chain) { super(chain + " > M1") }
 }
@@ -15,6 +19,9 @@ class C1 {
 class C2 inherits C1 mixed with M1 and M2 {
 }
 
+/**
+  * Tests
+  */
 test "stackable mixins pattern" {
 	const c = new C2()
 	c.doFoo("Test ")

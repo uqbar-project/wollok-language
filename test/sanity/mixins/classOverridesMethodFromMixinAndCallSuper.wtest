@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class mixed with a mixin
+  */
 mixin Energy {
 	var energy = 100
 	method reduceEnergy(amount) { energy -= amount }
@@ -10,8 +13,11 @@ class Bird mixed with Energy {
 	}
 }
 
+/**
+  * Tests
+  */
 test "class overrides method from mixin and call super" {
-	const b = new Bird()
-	b.reduceEnergy(100)
-	assert.equals(99, b.energy())
+	const bird = new Bird()
+	bird.reduceEnergy(100)
+	assert.equals(99, bird.energy())
 }

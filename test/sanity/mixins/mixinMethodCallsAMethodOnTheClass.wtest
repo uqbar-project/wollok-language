@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class mixed with a mixin
+  */
 mixin FlyingShortcuts {
 	method fly100Meters() {
 		self.fly(100)
@@ -11,8 +14,11 @@ class BirdWithFlyingShortCuts mixed with FlyingShortcuts {
 	method energy() = energy
 }
 
+/**
+  * Tests
+  */
 test "mixin method calls A method on the class" {
-	const b = new BirdWithFlyingShortCuts()
-	b.fly100Meters()
-	assert.equals(100, b.energy())
+	const bird = new BirdWithFlyingShortCuts()
+	bird.fly100Meters()
+	assert.equals(100, bird.energy())
 }

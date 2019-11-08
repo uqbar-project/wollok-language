@@ -1,9 +1,15 @@
+/**
+  * Scenario: a class mixed with a mixin
+  */
 mixin Organic {
   method dehydratate() = super() + " an organic"
 }
 
 class Tomato mixed with Organic {}
 
+/**
+  * Tests
+  */
 test "calling super in a mixin " {
     assert.throwsException {
       new Tomato().dehydratate()
