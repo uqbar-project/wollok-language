@@ -944,7 +944,7 @@ class Collection {
    */
   method join(separator) =
     if (self.isEmpty()) ""
-    else self.subList(1).fold({ string, element => string + separator + element.toString() }, self.first().toString())
+    else self.subList(1).fold(self.first().toString(), { string, element => string + separator + element.toString() })
   
   /**
    * Answers the concatenated string representation of the elements in the given set
