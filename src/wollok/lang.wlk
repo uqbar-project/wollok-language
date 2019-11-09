@@ -109,6 +109,8 @@ class StackTraceElement {
  */
 class Object {
 
+  method initialize() { }
+
   /** 
    * Answers object identity of a Wollok object, represented by
    * a unique number in Wollok environment 
@@ -153,7 +155,7 @@ class Object {
    * Tells whether self object is "equal" to the given object
    * The default behavior compares them in terms of identity (===)
    */
-  method ==(other) = other != null && self === other 
+  method ==(other) = self === other 
   
   /** Tells whether self object is not equal to the given one */
   method !=(other) = ! (self == other)
@@ -931,13 +933,15 @@ class Collection {
    * Answers the concatenated string representation of the elements in the given set.
    * You can pass an optional character as an element separator (default is ",")
    */
-  method join(separator)
+  method join(separator) =
+    if (self.isEmpty()) ""
+    else self.subList(1).fold(self.first().toString(), { string, element => string + separator + element.toString() })
   
   /**
    * Answers the concatenated string representation of the elements in the given set
    * with default element separator (",")
    */
-  method join()
+  method join() = self.join(",")
 
 }
 
@@ -1069,6 +1073,9 @@ class Set inherits Collection {
    *     set.add(2)   => set = #{2, 3}, second add produces no effect   
    */
   override method add(element) native
+
+  /** @private */
+  method unsafeAdd(element) native
   
   /**
    * Removes the specified element from this set if it is present.
@@ -1185,7 +1192,7 @@ class List inherits Collection {
    */
   override method anyOne() {
     self.validateNotEmpty("anyOne")    
-    return self.get(0.randomUpTo(self.size()))
+    return self.get(0.randomUpTo(self.size()).truncate(0))
   }
   
   /**
@@ -1458,6 +1465,8 @@ class List inherits Collection {
  * 
  */
 class Dictionary {
+
+  override method initialize() native
 
   /**
    * Adds or updates a value based on a key.
@@ -2354,7 +2363,9 @@ class Range {
     * Instantiates a Range. 
     * Both start and end must be integer values.
     */
-  method initialize() {
+  override method initialize() {
+    super()
+
 		start = start.truncate(0)
 		end = end.truncate(0)
     if (step == null) {
@@ -2533,8 +2544,6 @@ class Range {
  */
 class Closure {
 
-  method initialize() native
-
   /** Evaluates this closure passing its parameters
    *
    * Example: 
@@ -2572,7 +2581,7 @@ class Date {
   const property year
   
   /** @private */
-  method initialize() native
+  override method initialize() native
   
   /** String representation of a date */
   override method toString() = self.toSmartString(false) 

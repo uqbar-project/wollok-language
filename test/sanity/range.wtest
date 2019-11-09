@@ -77,7 +77,7 @@ describe "Range Test Case"{
 
 	test "map" {
 		 
-		var range = 0 .. 5 
+		var range = 0 .. 5
 		assert.that([0, 2, 4, 6, 8, 10] == range.map({ elem => elem * 2}))
 		  	
 	}
