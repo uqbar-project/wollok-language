@@ -1,0 +1,4 @@
+package nadadoras {
+  class Pato {
+  }
+}

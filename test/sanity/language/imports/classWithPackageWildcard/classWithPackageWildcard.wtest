@@ -1,0 +1,5 @@
+import aves.nadadoras.*
+
+test "import class with package and wildcard should work" {
+  assert.that(new Pato() != null)
+}

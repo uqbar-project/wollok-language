@@ -1,0 +1,7 @@
+import aves.nadadoras.patitoFeo
+import aves.pepona
+
+test "import packages inside a file" {
+  assert.equals("Patito Feo", patitoFeo.nombre())
+  assert.equals("pepona", pepona.nombre())
+}

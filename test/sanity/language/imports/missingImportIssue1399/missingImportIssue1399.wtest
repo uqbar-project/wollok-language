@@ -1,0 +1,8 @@
+describe "Cuenta" {
+  test "depositar monto should fail if referencing to a non-imported class" {
+    assert.throwsException {
+      const cuenta = new Cuenta()
+      cuenta.depositar()
+    }
+  }
+}

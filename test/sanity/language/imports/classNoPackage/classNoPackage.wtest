@@ -1,0 +1,5 @@
+import aves.Golondrina
+
+test "import class no package should work" {
+  assert.that(new Golondrina() != null)
+}

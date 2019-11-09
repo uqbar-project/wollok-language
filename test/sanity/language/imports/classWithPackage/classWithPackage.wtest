@@ -1,0 +1,5 @@
+import aves.nadadoras.Pato
+
+test "import class with package should work" {
+  assert.that(new Pato() != null)
+}
