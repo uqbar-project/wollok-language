@@ -466,7 +466,6 @@ describe "Collection test case" {
     assert.equals([2, 10], numbers.subList(1,2) )
     assert.equals([22, 2], numbers.subList(0,1) )
     assert.equals([22, 2, 10], numbers.subList(0,6) )
-    // TODO: ?
     // fixed in lang.wlk but need to override lang.wlk definition
     // assert.equals([], numbers.subList(5,6) )
   }

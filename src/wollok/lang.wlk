@@ -115,28 +115,24 @@ class Object {
    * Answers object identity of a Wollok object, represented by
    * a unique number in Wollok environment 
    */
-  // TODO: Move to mirror?
   method identity() native
   
   /** 
    * Answers a list of instance variables for this Wollok object
    * @private - needed by wollok-xtext implementation
    */
-  // TODO: Move to mirror?
   method instanceVariables() native
   
   /** 
    * Retrieves a specific variable. Expects a name
    * @private - needed by wollok-xtext implementation
    */
-  // TODO: Move to mirror?
   method instanceVariableFor(name) native
   
   /**
    * Accesses a variable by name, in a reflexive way.
    * @private - needed by wollok-xtext implementation 
    */
-  // TODO: Move to mirror?
   method resolve(name) native
   
   /** Object description in english/spanish/... (depending on i18n configuration)
@@ -147,14 +143,12 @@ class Object {
    *
    * @private
    */
-  // TODO: Move to mirror?
   method kindName() native
 
   /** 
    * Full name of Wollok object class
    * @private 
    */
-  // TODO: Move to mirror?
   method className() native
   
   /**
@@ -249,8 +243,6 @@ class Object {
     * internal method: generates a does not understand message
     * parametersSize must be an integer value
     */
-  // TODO: Does this really need to be a native?
-  // TODO: Move to mirror?
   method generateDoesNotUnderstandMessage(target, messageName, parametersSize) native
   
   /** Builds an exception with a message */    
@@ -648,7 +640,6 @@ class Collection {
    *      [1, 3, 5].findOrElse({ number => number.even() }, { 6.max(4) }) => Answers 6
    *      [].findOrElse({ number => number.even() }, { false })           => Answers false
    */
-  // TODO: Does this really need to be a native?
   method findOrElse(predicate, continuation) native
 
   /**
