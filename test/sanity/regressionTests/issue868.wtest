@@ -1,0 +1,11 @@
+object juan {
+    var mascota = firulais
+}
+
+object firulais {
+    var duenio = juan
+}
+
+test "should not raise a stack overflow error if circular references setted" {
+  assert.that(juan !== null)
+}

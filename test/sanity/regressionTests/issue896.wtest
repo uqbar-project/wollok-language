@@ -1,0 +1,15 @@
+object juan {
+  method blah() {
+      self.blah()
+  }
+}
+
+test "issue 896 - stack overflow call should fail and finish too" {
+  try {
+    juan.blah()
+    throw new Exception(message = "Should have failed!")
+  }
+  catch e : StackOverflowException {
+    // fine !
+  }
+}
