@@ -109,10 +109,6 @@ class StackTraceElement {
  */
 class Object {
 
-  constructor() {
-    self.initialize()
-  }
-
   method initialize() { }
 
   /** 
