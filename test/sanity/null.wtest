@@ -71,8 +71,7 @@ describe "Null Test Case"{
 	
 			assert.notThat(8 == null)
 			assert.notThat("pepe" == null)
-			// TODO: ?
-			//assert.notThat(false == null)
+			assert.notThat(false == null)
 			assert.notThat(2.0 == null)
 			assert.notThat(1..2 == null)
 			assert.notThat([1,2,3] == null)
