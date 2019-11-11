@@ -1,5 +1,5 @@
 class A { 
-	method m1() { throw new Exception("hello you see") }
+	method m1() { throw new Exception() }
 }
 			
 test "Test message not understood with params" {

@@ -10,12 +10,21 @@ Wollok is a language designed to satisfy our main goals for teaching OO concepts
 
 ## About this repository
 
-Still a work in progress, it'll be a Wollok Project containing
+It is a Wollok Project which contains
 
 - Wollok core libraries: strings, numbers, dates, booleans, etc. in `src` folder
 - Wollok language specification, in form of unit tests: in `test` folder you'll see our **sanity tests** where you can check how should you use Wollok objects from core libraries, and syntax definitions.
 
 All files follow a [standard coding convention](https://github.com/uqbar-project/wollok-language/wiki/Coding-Standards-for-writing-this-repository), please read them before collaborating.
+
+## Changes
+
+- If you want to propose a change, please [open a new issue](/issues/new). Ideally, a new feature proposal should have: a) what do you want to achieve, b) why do you want the new feature, c) (optional) if it could solved with Wollok-side implementation or it could require native implementations, d) (optional, nice-to-have) acceptance tests. We have a sort of _consensus_ instead of a bureaucratic committee, and will evaluate and prioritize the proposal.
+- Once approved, we should add it to the [changelog file](CHANGELOG.md), which could also be useful in case you need to migrate your examples according to different versions.
+
+## Current work
+
+- [Wollok Roadmap for 2020](https://docs.google.com/document/d/1M8suCfdetT12YIb62VzORnpesRW2DKrm8hS01dqIPlc/edit)
 
 ## Another useful repositories
 
