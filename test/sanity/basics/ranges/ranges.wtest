@@ -74,7 +74,7 @@ describe "ranges" {
 	}
 
 	test "map" {
-		const range = 0 .. 5 
+		const range = 0 .. 5
 		assert.equals([0, 2, 4, 6, 8, 10], range.map({ elem => elem * 2}))
 	}
 

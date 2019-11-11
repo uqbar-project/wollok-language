@@ -2,7 +2,7 @@
   * A class with a method in which it throws an exception
   */
 class A { 
-	method m1() { throw new Exception("hello you see") }
+	method m1() { throw new Exception() }
 	method m5(a, b) { return a - b }
 }
 
