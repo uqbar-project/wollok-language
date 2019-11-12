@@ -2201,6 +2201,20 @@ class String {
    * Example:
    *     "this,could,be,a,list".split(",")
    *          ==> Answers ["this", "could", "be", "a", "list"]
+   *     "Esto Es una prueba".split(" ")
+   *          ==> Answers ["Esto", "Es", "una", "prueba"]
+   *     "Esto Es una".split("")
+   *          ==> Answers ["E","s","t","o"," ","E","s"," ","u","n","a"] , splitting into a character list
+   *     "Esto Es una".split("|")
+   *          ==> Answers ["Esto Es una"], the same original string
+   *     "texto de prueba".split("texto de prueba")
+   *          ==> Answers ["",""]
+   *     "a,b,,c,".split(",")
+   *          ==> Answers ["a", "b", "", "c", ""]
+   *     "texto de prueba".split("de")
+   *          ==> Answers ["texto ", " prueba"]
+   *     "aaaa".split("aa")
+   *          ==> Answers ["", "", ""]
    */
   method split(expression) {
     self.checkNotNull(expression, "split")
