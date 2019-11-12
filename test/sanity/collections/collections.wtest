@@ -314,14 +314,20 @@ describe "Collection test case" {
   }
 
   test "sortedBy" {
+    const numbers = [22, 2, 10, 5]
     const numbersSet = numbers.asSet()
-    assert.equals([22,10,2], numbers.sortedBy({a,b=>a>b}))
-    assert.equals([22,10,2], numbersSet.sortedBy({a,b=>a>b}))
-    assert.equals([2,10,22], numbers.sortedBy({a,b=>a<b}))
-    assert.equals([2,10,22], numbersSet.sortedBy({a,b=>a<b}))
-    assert.equals([5], [5].sortedBy({a,b=>a>b}))
-    assert.equals([5], #{5}.sortedBy({a,b=>a>b}))
-    assert.equals([], [].sortedBy({a,b=>a>b}))
+
+    assert.equals([22, 10, 5, 2], numbers.sortedBy { a, b => a > b })
+    assert.equals([22, 10, 5, 2], numbersSet.sortedBy{ a, b => a > b })
+
+    assert.equals([2, 5, 10, 22], numbers.sortedBy { a, b => a < b })
+    assert.equals([2, 5, 10, 22], numbersSet.sortedBy { a, b => a < b })
+
+    assert.equals([5], [5].sortedBy{ a, b => a > b })
+    assert.equals([5], #{5}.sortedBy{ a, b => a > b })
+
+    assert.equals([], [].sortedBy{ a, b => a > b })
+    assert.equals([], #{}.sortedBy{ a, b => a > b })    
   }  
 
 }

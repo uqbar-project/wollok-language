@@ -140,6 +140,53 @@ describe "strings" {
 		(0..3).forEach { i => assert.that(result.get(i) == comparison.get(i)) }
 		(0..3).forEach { i => assert.that(result2.get(i) == comparison.get(i)) }
 		(0..3).forEach { i => assert.that(result3.get(i) == comparison.get(i)) }
+	
+	test "split with spaces => words" {
+		const result = "Esto Es una prueba".split(" ")
+		const expected = ["Esto", "Es", "una", "prueba"]
+		assert.equals(expected, result)
+	}
+
+	test "split with empty space => character list" {
+		const result = "Esto Es una".split("")
+		const expected = ["E","s","t","o"," ","E","s"," ","u","n","a"]
+		assert.equals(expected, result)
+	}
+
+	test "split if separator not found returns original string" {
+		const result = "Esto Es una".split("|")
+		const expected = ["Esto Es una"]
+		assert.equals(expected, result)
+	}
+
+	test "split for empty string returns empty list" {
+		const result = "".split("")
+		const expected = []
+		assert.equals(expected, result)
+	}
+
+	test "split: when separator is exactly original string, it should return two empty strings" {
+		const result = "texto de prueba".split("texto de prueba")
+		const expected = ["",""]
+		assert.equals(expected, result)
+	}
+
+	test "split: if separator appears twice in a row, it should have an empty element between" {
+		const result = "a,b,,c,".split(",")
+		const expected = ["a", "b", "", "c", ""]
+		assert.equals(expected, result)
+	}
+
+	test "Split: separador de más de un caracter, separa correctamente cuando aparece"{
+		const result = "texto de prueba".split("de")
+		const expected = ["texto ", " prueba"]
+		assert.equals(expected, result)
+	}
+
+	test "split, if separator has more than one character and matches exactly the original text, it should return empty elements" {
+		const result = "aaaa".split("aa")
+		const expected = ["", "", ""]
+		assert.equals(expected, result)
 	}
 
 	test "split using null should fail" {
