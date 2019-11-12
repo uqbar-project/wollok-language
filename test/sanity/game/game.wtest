@@ -102,4 +102,5 @@ describe "game" {
     assert.equals(3, game.allVisuals().size())
     assert.equals([myVisual, visual2, visual3].asSet(), game.allVisuals().asSet())
   }
+
 }
