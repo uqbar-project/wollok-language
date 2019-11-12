@@ -935,7 +935,7 @@ class Collection {
    */
   method join(separator) =
     if (self.isEmpty()) ""
-    else self.subList(1).fold(self.first().toString(), { string, element => string + separator + element.toString() })
+    else self.asList().subList(1).fold(self.asList().first().toString(), { string, element => string + separator + element.toString() })
   
   /**
    * Answers the concatenated string representation of the elements in the given set
@@ -2218,7 +2218,7 @@ class String {
    */
   method split(expression) {
     self.checkNotNull(expression, "split")
-    const text = self
+    var text = self
     const result = []
     if (text.equals("") && expression.equals("")) return result
     const size = text.size() - 1
