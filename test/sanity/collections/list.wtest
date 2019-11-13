@@ -352,4 +352,10 @@ describe "List tests" {
 		assert.equals(newList, ["hola","como","estas"])
   }
 
+  test "Testing regression of Bug #44" {
+    const aList = [ 1, 2, 3, 4 ]
+    const clone = aList.copy()
+  	assert.equals(aList.className(), clone.className())
+  }
+
 }

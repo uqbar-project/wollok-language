@@ -22,7 +22,7 @@ class C {
   * Tests
 	*/
 test "several arguments constructor" {
-	const c = new C(1,2,3)
+	const c = new C(1, 2, 3)
 	assert.equals(1, c.a())
 	assert.equals(2, c.b())
 	assert.equals(3, c.c())

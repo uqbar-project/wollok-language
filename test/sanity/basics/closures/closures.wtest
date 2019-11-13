@@ -19,7 +19,7 @@ describe "closures" {
 		assert.equals(10, { a, b... => a + b.sum() }.apply(1, 2, 3, 4))
 	}
 
-	test "closure access local variable in program" {
+	test "closure using outside context value" {
 		var to = "world"
 		const helloWorld = { "hello " + to }
 
@@ -27,6 +27,14 @@ describe "closures" {
 
 		to = "someone else"
 		assert.equals("hello someone else", helloWorld.apply())
+	}
+
+	test "closure using outside context variable (mutating)" {
+		var n2 = 2
+		const multiplyByN2 = {i=> i * n2}
+		n2 = 10
+
+		assert.equals(30,multiplyByN2.apply(3))		
 	}
 
 	test "closure as parameter to closure" {

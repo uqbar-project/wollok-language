@@ -1,5 +1,8 @@
 /**
-  * Scenario: a named object with a method using an if expression
+  * Scenario: 
+	* - a named object with a method using an if expression
+	* - a named object with a method (= syntax) using an if expression
+	* - a named object with a method using an if expression with a single return
   */
 object numeroLoco {
 	method calculoLoco(n) {
@@ -7,6 +10,16 @@ object numeroLoco {
 			return 0
 		}
 		return n
+	}
+}
+
+object oddOrEven {
+	method calculate(number) = if (number % 2 == 0) "even" else "odd"
+}
+
+object oddOrEvenWithReturn {
+	method calculate(number) {
+		return if (number % 2 == 0) "even" else "odd"
 	}
 }
 
@@ -96,6 +109,22 @@ describe "If expressions" {
 		assert.equals(1, o.m(true, true))
 		assert.equals(3, o.m(true, false))
 		assert.equals(0, o.m(false, true))
+	}
+
+	test "if inline - true part" {
+		assert.equals(oddOrEven.calculate(2), "even")
+	}
+
+	test "if inline - false part" {
+		assert.equals(oddOrEven.calculate(3), "odd")
+	}
+
+	test "if inline with return - true part" {
+		assert.equals(oddOrEvenWithReturn.calculate(2), "even")
+	}
+
+	test "if inline with return - false part" {
+		assert.equals(oddOrEvenWithReturn.calculate(3), "odd")
 	}
 
 	test "if condition as a number should fail" {

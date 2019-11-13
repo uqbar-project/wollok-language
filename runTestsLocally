@@ -1,1 +1,1 @@
-rm -rf .history/ && WOLLOK_DEV_ROOT=../wollok wollok test -dontValidate
+rm -rf .history/ && cd src && wollok test && cd .. && WOLLOK_DEV_ROOT=../wollok wollok test -dontValidate

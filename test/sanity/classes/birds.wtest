@@ -1,0 +1,15 @@
+class Golondrina {
+	var property energia = 50
+	method volar(kms) {
+		energia -= kms
+	}
+}
+
+test "when a swallow flies it does not affect the others" {
+  const pepita = new Golondrina()
+	assert.equals(50, pepita.energia())
+	const pepona = new Golondrina()
+	pepona.volar(2)
+	assert.equals(48, pepona.energia())
+	assert.equals(50, pepita.energia())
+}
