@@ -932,6 +932,9 @@ class Collection {
   /**
    * Answers the concatenated string representation of the elements in the given set.
    * You can pass an optional character as an element separator (default is ",")
+   *
+   * Example:
+   *      ["hola", "como", "estas"].join(" ") ==> Answers "hola como estas"
    */
   method join(separator) =
     if (self.isEmpty()) ""
@@ -940,6 +943,9 @@ class Collection {
   /**
    * Answers the concatenated string representation of the elements in the given set
    * with default element separator (",")
+   *
+   * Example:
+   *      ["hola", "como", "estas"].join()    ==> Answers "hola,como,estas"
    */
   method join() = self.join(",")
 
@@ -970,7 +976,7 @@ class Set inherits Collection {
    *
    * Examples
    *    #{1, 2, 3}.asList() => Answers [1, 2, 3]
-   *     #{}.asList()        => Answers []
+   *    #{}.asList()        => Answers []
    *
    * @see List
    */
@@ -985,7 +991,7 @@ class Set inherits Collection {
    *
    * Examples
    *    #{1, 2, 3}.anyOne() => Answers 1, for example
-   *     #{}.anyOne()        => Throws error, set must not be empty
+   *    #{}.anyOne()        => Throws error, set must not be empty
    *
    */
   override method anyOne() native
@@ -1111,7 +1117,7 @@ class Set inherits Collection {
    * Examples:
    *     #{1, 5, 3, 7}.join(":")                   => Answers "1:5:3:7"
    *     #{"you","will","love","wollok"}.join(" ") => Answers "love will wollok you"
-   *      #{}.join(",")                             => Answers ""
+   *     #{}.join(",")                             => Answers ""
    */
   override method join(separator) native
 
