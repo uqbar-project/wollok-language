@@ -23,9 +23,9 @@ class Exception {
   }
 
   /**
-    * @private
-    * Prints this exception and its backtrace to the specified printer
-    */
+   * @private
+   * Prints this exception and its backtrace to the specified printer
+   */
   method printStackTrace(printer) { self.printStackTraceWithPrefix("", printer) }
 
   /** @private */
@@ -238,11 +238,11 @@ class Object {
   }
 
   /**
-    * @private
-    *
-    * internal method: generates a does not understand message
-    * parametersSize must be an integer value
-    */
+   * @private
+   *
+   * internal method: generates a does not understand message
+   * parametersSize must be an integer value
+   */
   method generateDoesNotUnderstandMessage(target, messageName, parametersSize) native
 
   /** Builds an exception with a message */
@@ -292,51 +292,51 @@ class Pair {
  */
 class Collection {
   /**
-    * Answers the element that is considered to be/have the maximum value.
-    * The criteria is given by a closure that receives a single element
-    * as input (one of the element). The closure must return a comparable
-    * value (something that understands the >, >= messages).
-    * If collection is empty, an ElementNotFound exception is thrown.
-    *
-    * Example:
-    *       ["a", "ab", "abc", "d" ].max({ e => e.length() })
-    *            => Answers "abc"
-    *
-    *       [].max({ e => e.length() })
-    *            => Throws error, list must not be empty
-    */
+   * Answers the element that is considered to be/have the maximum value.
+   * The criteria is given by a closure that receives a single element
+   * as input (one of the element). The closure must return a comparable
+   * value (something that understands the >, >= messages).
+   * If collection is empty, an ElementNotFound exception is thrown.
+   *
+   * Example:
+   *       ["a", "ab", "abc", "d" ].max({ e => e.length() })
+   *            => Answers "abc"
+   *
+   *       [].max({ e => e.length() })
+   *            => Throws error, list must not be empty
+   */
   method max(closure) {
     self.checkNotNull(closure, "max")
     return self.maxIfEmpty(closure, { throw new ElementNotFoundException(message = "collection is empty") })
   }
 
   /**
-    * Answers the element that represents the maximum value in the collection.
-    * The criteria is by direct comparison of the elements.
-    * If collection is empty, an ElementNotFound exception is thrown.
-    *
-    * Example:
-    *       [11, 1, 4, 8, 3, 15, 6].max() =>  Answers 15
-    *       [].max()                      =>  Throws error, list must not be empty
-    */
+   * Answers the element that represents the maximum value in the collection.
+   * The criteria is by direct comparison of the elements.
+   * If collection is empty, an ElementNotFound exception is thrown.
+   *
+   * Example:
+   *       [11, 1, 4, 8, 3, 15, 6].max() =>  Answers 15
+   *       [].max()                      =>  Throws error, list must not be empty
+   */
   method max() = self.max({it => it})
 
   /**
-    * Answers the element that is considered to be/have the maximum value,
-    * or applies a closure if the collection is empty.
-    * The criteria is given by a closure that receives a single element
-    * as input (one of the element). The closure must return a comparable
-    * value (something that understands the >, >= messages).
-    * The closure to execute when the collection is empty is given as a second
-    * argument.
-    *
-    * Example:
-    *       ["a", "ab", "abc", "d" ].maxIfEmpty({ e => e.length() }, { "default" })
-    *            => Answers "abc"
-    *
-    *       [].maxIfEmpty({ e => e.length() }, { "default" })
-    *            => Answers "default"
-    */
+   * Answers the element that is considered to be/have the maximum value,
+   * or applies a closure if the collection is empty.
+   * The criteria is given by a closure that receives a single element
+   * as input (one of the element). The closure must return a comparable
+   * value (something that understands the >, >= messages).
+   * The closure to execute when the collection is empty is given as a second
+   * argument.
+   *
+   * Example:
+   *       ["a", "ab", "abc", "d" ].maxIfEmpty({ e => e.length() }, { "default" })
+   *            => Answers "abc"
+   *
+   *       [].maxIfEmpty({ e => e.length() }, { "default" })
+   *            => Answers "default"
+   */
   method maxIfEmpty(toComparableClosure, emptyCaseClosure) {
     self.checkNotNull(toComparableClosure, "maxIfEmpty")
     self.checkNotNull(emptyCaseClosure, "maxIfEmpty")
@@ -344,63 +344,63 @@ class Collection {
   }
 
   /**
-    * Answers the element that is considered to be/have the maximum value,
-    * or applies a closure if the collection is empty.
-    * The criteria is by direct comparison of the elements.
-    * The closure to execute when the collection is empty is given as a second
-    * argument.
-    *
-    * Example:
-    *       [11, 1, 4, 8, 3, 15, 6].maxIfEmpty({ 99 }) =>  Answers 15
-    *       [].maxIfEmpty({ 99 })                      =>  Answers 99
-    */
+   * Answers the element that is considered to be/have the maximum value,
+   * or applies a closure if the collection is empty.
+   * The criteria is by direct comparison of the elements.
+   * The closure to execute when the collection is empty is given as a second
+   * argument.
+   *
+   * Example:
+   *       [11, 1, 4, 8, 3, 15, 6].maxIfEmpty({ 99 }) =>  Answers 15
+   *       [].maxIfEmpty({ 99 })                      =>  Answers 99
+   */
   method maxIfEmpty(emptyCaseClosure) = self.maxIfEmpty({it => it}, emptyCaseClosure)
 
   /**
-    * Answers the element that is considered to be/have the minimum value.
-    * The criteria is given by a closure that receives a single element
-    * as input (one of the element). The closure must return a comparable
-    * value (something that understands the <, <= messages).
-    *
-    * Example:
-    *       ["ab", "abc", "hello", "wollok world"].min({ e => e.length() })
-    *             =>  Answers "ab"
-    *
-    *       [].min({ e => e.length() })
-    *             => Throws error, list must not be empty
-    */
+   * Answers the element that is considered to be/have the minimum value.
+   * The criteria is given by a closure that receives a single element
+   * as input (one of the element). The closure must return a comparable
+   * value (something that understands the <, <= messages).
+   *
+   * Example:
+   *       ["ab", "abc", "hello", "wollok world"].min({ e => e.length() })
+   *             =>  Answers "ab"
+   *
+   *       [].min({ e => e.length() })
+   *             => Throws error, list must not be empty
+   */
   method min(closure) {
     self.checkNotNull(closure, "min")
     return self.absolute(closure, { a, b => a < b }, { throw new ElementNotFoundException(message = "collection is empty") })
   }
 
   /**
-    * Answers the element that represents the minimum value in the
-    * non-empty collection.
-    * The criteria is by direct comparison of the elements.
-    *
-    * Example:
-    *       [11, 1, 4, 8, 3, 15, 6].min()  => Answers 1
-    *       [].min()                       => Throws error, list must not be empty
-    */
+   * Answers the element that represents the minimum value in the
+   * non-empty collection.
+   * The criteria is by direct comparison of the elements.
+   *
+   * Example:
+   *       [11, 1, 4, 8, 3, 15, 6].min()  => Answers 1
+   *       [].min()                       => Throws error, list must not be empty
+   */
   method min() = self.min({it => it})
 
   /**
-    * Answers the element that is considered to be/have the minimum value,
-    * or applies a closure if the collection is empty.
-    * The criteria is given by a closure that receives a single element
-    * as input (one of the element). The closure must return a comparable
-    * value (something that understands the >, >= messages).
-    * The closure to execute when the collection is empty is given as a second
-    * argument.
-    *
-    * Example:
-    *       ["ab", "abc", "hello", "wollok world"].minIfEmpty({ e => e.length() }, { "default" })
-    *             =>  Answers "ab"
-    *
-    *       [].minIfEmpty({ e => e.length() }, { "default" })
-    *             => Answers "default"
-    */
+   * Answers the element that is considered to be/have the minimum value,
+   * or applies a closure if the collection is empty.
+   * The criteria is given by a closure that receives a single element
+   * as input (one of the element). The closure must return a comparable
+   * value (something that understands the >, >= messages).
+   * The closure to execute when the collection is empty is given as a second
+   * argument.
+   *
+   * Example:
+   *       ["ab", "abc", "hello", "wollok world"].minIfEmpty({ e => e.length() }, { "default" })
+   *             =>  Answers "ab"
+   *
+   *       [].minIfEmpty({ e => e.length() }, { "default" })
+   *             => Answers "default"
+   */
   method minIfEmpty(toComparableClosure, emptyCaseClosure) {
     self.checkNotNull(toComparableClosure, "minIfEmpty")
     self.checkNotNull(emptyCaseClosure, "minIfEmpty")
@@ -408,16 +408,16 @@ class Collection {
   }
 
   /**
-    * Answers the element that is considered to be/have the minimum value,
-    * or applies a closure if the collection is empty.
-    * The criteria is by direct comparison of the elements.
-    * The closure to execute when the collection is empty is given as a second
-    * argument.
-    *
-    * Example:
-    *       [11, 1, 4, 8, 3, 15, 6].minIfEmpty({ 99 })  => Answers 1
-    *       [].minIfEmpty({ 99 })                       => Answers 99
-    */
+   * Answers the element that is considered to be/have the minimum value,
+   * or applies a closure if the collection is empty.
+   * The criteria is by direct comparison of the elements.
+   * The closure to execute when the collection is empty is given as a second
+   * argument.
+   *
+   * Example:
+   *       [11, 1, 4, 8, 3, 15, 6].minIfEmpty({ 99 })  => Answers 1
+   *       [].minIfEmpty({ 99 })                       => Answers 99
+   */
   method minIfEmpty(emptyCaseClosure) {
     self.checkNotNull(emptyCaseClosure, "minIfEmpty")
     return self.minIfEmpty({it => it}, emptyCaseClosure)
@@ -446,15 +446,15 @@ class Collection {
   }
 
   /**
-    * Answers the unique element in the collection.
-    * If collection is empty, an error is thrown.
-    * If collection has more than one element, an error is thrown.
-    *
-    * Example:
-    *       [1].uniqueElement()    => Answers 1
-    *       [].uniqueElement()     => Throws error, list must not be empty
-    *       [1, 2].uniqueElement() => Throws error, list must have one element
-    */
+   * Answers the unique element in the collection.
+   * If collection is empty, an error is thrown.
+   * If collection has more than one element, an error is thrown.
+   *
+   * Example:
+   *       [1].uniqueElement()    => Answers 1
+   *       [].uniqueElement()     => Throws error, list must not be empty
+   *       [1, 2].uniqueElement() => Throws error, list must have one element
+   */
   method uniqueElement() {
     self.validateNotEmpty("uniqueElement")
     const size = self.size()
@@ -463,19 +463,16 @@ class Collection {
     return self.anyOne()
   }
 
-
-  // non-native methods
-
   /**
-    * Concatenates this collection to all elements from the given
-    * collection parameter giving a new collection
-    * (no side effect)
-    *
-    * Example:
-    *    [1, 2] + [3]   => Answers [1, 2, 3]
-    *     [1, 2] + #{3}  => supports concatenation between lists and sets, answers [1, 2, 3]
-    *     #{} + []       => Answers #{}
-    */
+   * Concatenates this collection to all elements from the given
+   * collection parameter giving a new collection
+   * (no side effect)
+   *
+   * Example:
+   *    [1, 2] + [3]   => Answers [1, 2, 3]
+   *    [1, 2] + #{3}  => supports concatenation between lists and sets, answers [1, 2, 3]
+   *    #{} + []       => Answers #{}
+   */
   method +(elements) {
     const newCol = self.copy()
     newCol.addAll(elements)
@@ -483,58 +480,58 @@ class Collection {
   }
 
   /**
-    * Adds all elements from the given collection parameter to self collection.
-    * This is a side effect operation.
-    *
-    * Example:
-    *    const list = []
-    *     list.addAll(#{2, 4})  => list == [2, 4], always pointing to a list
-    */
+   * Adds all elements from the given collection parameter to self collection.
+   * This is a side effect operation.
+   *
+   * Example:
+   *    const list = []
+   *    list.addAll(#{2, 4})  => list == [2, 4], always pointing to a list
+   */
   method addAll(elements) {
     self.checkNotNull(elements, "addAll")
     elements.forEach { element => self.add(element) }
   }
 
   /**
-    * Removes all elements of the given collection parameter from self collection.
-    * This is a side effect operation.
-    *
-    * Example:
-    *    const list = [1, 6, 5]
-    *     list.removeAll([6]) => list == [1, 5]
-    */
+   * Removes all elements of the given collection parameter from self collection.
+   * This is a side effect operation.
+   *
+   * Example:
+   *    const list = [1, 6, 5]
+   *    list.removeAll([6]) => list == [1, 5]
+   */
   method removeAll(elements) {
     self.checkNotNull(elements, "removeAll")
     elements.forEach { element => self.remove(element) }
   }
 
   /**
-    * Removes those elements that meet a given condition.
-    * This is a side effect operation.
-    * Supports empty collections.
-    *
-    * Example:
-    *    const list = [1, 6, 5]
-    *     list.removeAllSuchThat { e => e.even() } => list == [1, 5]
-    */
+  * Removes those elements that meet a given condition.
+  * This is a side effect operation.
+  * Supports empty collections.
+  *
+  * Example:
+  *    const list = [1, 6, 5]
+  *    list.removeAllSuchThat { e => e.even() } => list == [1, 5]
+  */
    method removeAllSuchThat(closure) {
     self.checkNotNull(closure, "removeAllSuchThat")
      self.removeAll( self.filter(closure) )
    }
 
   /**
-    * Tells whether self collection has no elements
-    *
-    * Example:
-    *    [1, 6, 5].isEmpty() => Answers false
-    *   [].isEmpty()        => Answers true
-    */
+   * Tells whether self collection has no elements
+   *
+   * Example:
+   *    [1, 6, 5].isEmpty() => Answers false
+   *    [].isEmpty()        => Answers true
+   */
   method isEmpty() = self.size() == 0
 
   /**
-    * @private
-    * Throws error if self collection is empty
-    */
+   * @private
+   * Throws error if self collection is empty
+   */
   method validateNotEmpty(operation) {
     if (self.isEmpty())
       throw new Exception(message = "Illegal operation '" + operation + "' on empty collection")
@@ -583,7 +580,7 @@ class Collection {
    * Example:
    *      plants.any({ plant => plant.hasFlowers() })
    *      [1, 2, 3].any { number => number.even() }   ==> Answers true
-   *      [].any { number => number.even() }   ==> Answers false
+   *      [].any { number => number.even() }          ==> Answers false
    */
   method any(predicate) {
     self.checkNotNull(predicate, "any")
@@ -723,16 +720,16 @@ class Collection {
    *
    * Example:
    *     object klaus {
-   *      method languages() = ["c", "cobol", "pascal"]
-   *    }
+   *       method languages() = ["c", "cobol", "pascal"]
+   *     }
    *
-   *    object fritz {
+   *     object fritz {
    *       method languages() = ["java", "perl"]
    *     }
    *
    *
    *     [klaus, fritz].flatMap({ person => person.languages() })
-   *      => Answers ["c", "cobol", "pascal", "java", "perl"]
+   *       => Answers ["c", "cobol", "pascal", "java", "perl"]
    */
   method flatMap(closure) {
     self.checkNotNull(closure, "flatMap")
@@ -758,7 +755,7 @@ class Collection {
      return self.fold(self.newInstance(), { newCollection, element =>
       if (closure.apply(element))
          newCollection.add(element)
-       newCollection
+      newCollection
     })
   }
 
@@ -775,7 +772,8 @@ class Collection {
    * Flattens a collection of collections
    *
    * Example:
-   *     [ [1, 2], [3], [4, 0], [] ].flatten()  => Answers [1, 2, 3, 4, 0]
+   *     [ [1, 2], [3], [4, 0], [] ].flatten()  
+   *       => Answers [1, 2, 3, 4, 0]
    *
    */
   method flatten() = self.flatMap { it => it }
@@ -805,11 +803,11 @@ class Collection {
    *
    * Examples:
    *    [1, 2, 3].asSet()       => Answers #{1, 2, 3}
-   *      [].asSet()              => Answers #{}
-   *      [1, 2, 1, 1, 2].asSet() => Answers #{1, 2}
+   *    [].asSet()              => Answers #{}
+   *    [1, 2, 1, 1, 2].asSet() => Answers #{1, 2}
    *
-   *    #{1, 2, 3}.asSet() => Answers #{1, 2, 3}
-   *     #{}.asSet()        => Answers #{}
+   *    #{1, 2, 3}.asSet()      => Answers #{1, 2, 3}
+   *    #{}.asSet()             => Answers #{}
    *
    * @see Set
    */
@@ -1074,7 +1072,7 @@ class Set inherits Collection {
    *
    * Example:
    *     const set = #{}
-   *    set.add(3)   => set = #{3}
+   *     set.add(3)   => set = #{3}
    *     set.add(2)   => set = #{2, 3}
    *     set.add(2)   => set = #{2, 3}, second add produces no effect
    */
@@ -1088,7 +1086,7 @@ class Set inherits Collection {
    *
    * Example:
    *     const set = #{2, 3}
-   *    set.remove(3) => set = #{2}
+   *     set.remove(3) => set = #{2}
    *     set.remove(4) => set = #{2}, remove operation produces no effect
    */
   override method remove(element) native
@@ -1097,7 +1095,7 @@ class Set inherits Collection {
    *
    * Example:
    *     #{2, 3}.size()   => Answers 2
-   *    #{}.size()       => Answers 0
+   *     #{}.size()       => Answers 0
    */
   override method size() native
 
@@ -1106,7 +1104,7 @@ class Set inherits Collection {
    *
    * Example:
    *     const set = #{2, 3}
-   *    set.clear()         => set = #{}
+   *     set.clear()         => set = #{}
    */
   override method clear() native
 
@@ -1137,12 +1135,13 @@ class Set inherits Collection {
   override method contains(other) native
 
   /**
-   * Two sets are equals if they have the same elements
+   * Two sets are equals if they have the same elements, no matter
+   * the order.
    *
    * Examples:
    *     #{}.equals(#{})         => Answers true
-   *      #{1, 2}.equals(#{2, 1}) => Answers true
-   *      #{3, 2}.equals(#{2, 1}) => Answers false
+   *     #{1, 2}.equals(#{2, 1}) => Answers true
+   *     #{3, 2}.equals(#{2, 1}) => Answers false
    */
   override method equals(other) native
 
@@ -1182,7 +1181,7 @@ class List inherits Collection {
    *     [].get(0)        => Throws error, list must not be empty
    *     [1].get(-1)      => Throws error, index must be 0 or positive
    *     [1, 2, 3].get(3) => Throws error, index exceeds list size
-   *      [5, 2, 7].get(0) => Answers 5
+   *     [5, 2, 7].get(0) => Answers 5
    */
   method get(index) native
 
@@ -1194,7 +1193,7 @@ class List inherits Collection {
    *
    * Examples
    *    #[1, 2, 3].anyOne() => Answers 3, for example
-   *     #[].anyOne()        => Throws error, list must not be empty
+   *    #[].anyOne()        => Throws error, list must not be empty
    */
   override method anyOne() {
     self.validateNotEmpty("anyOne")    
@@ -1208,7 +1207,7 @@ class List inherits Collection {
    *
    * Example:
    *    [1, 2, 3, 4].first()  => Answers 1
-   *      [].first()            => Throws error, list must not be empty
+   *    [].first()            => Throws error, list must not be empty
    */
   method first() = self.head()
 
@@ -1224,7 +1223,7 @@ class List inherits Collection {
    *
    * Examples:
    *    [1, 2, 3, 4].last()  => Answers 4
-   *      [].last()            => Throws error, list must not be empty
+   *    [].last()            => Throws error, list must not be empty
    */
   method last() = self.get(self.size() - 1)
 
@@ -1289,8 +1288,8 @@ class List inherits Collection {
    *
    * Examples:
    *    const list = [2, 9, 3]
-   *      list.sortBy { el1, el2 => el1 > el2 }
-   *     list.get(0)           => Answers 9
+   *    list.sortBy { el1, el2 => el1 > el2 }
+   *    list.get(0)            => Answers 9
    *
    * @see List#sortedBy
    */
@@ -1300,7 +1299,7 @@ class List inherits Collection {
    * Takes first n elements of a list.
    *
    * Examples:
-   *     [1,9,2,3].take(5)  ==> Answers [1, 9, 2, 3]
+   *    [1,9,2,3].take(5)  ==> Answers [1, 9, 2, 3]
    *    [1,9,2,3].take(2)  ==> Answers [1, 9]
    *    [1,9,2,3].take(-2) ==> Answers []
    *    [].take(2)         ==> Answers []
@@ -1318,10 +1317,10 @@ class List inherits Collection {
    *     [1, 9, 2, 3].drop(3)  ==> Answers [3]
    *     [1, 9, 2, 3].drop(1)  ==> Answers [9, 2, 3]
    *     [1, 9, 2, 3].drop(-2) ==> Answers [1, 9, 2, 3]
-   *      [].drop(2)            ==> Answers []
+   *     [].drop(2)            ==> Answers []
    */
   method drop(n) {
-     self.checkNotNull(n, "drop")
+    self.checkNotNull(n, "drop")
     return if (n >= self.size()) self.newInstance() else self.subList(n, self.size() - 1)
   }
 
@@ -1332,8 +1331,8 @@ class List inherits Collection {
    *
    * Example:
    *    [1, 9, 2, 3].reverse()  ==> Answers [3, 2, 9, 1]
-   *      [1, 2].reverse()        ==> Answers [2, 1]
-   *      [].reverse()            ==> Answers []
+   *    [1, 2].reverse()        ==> Answers [2, 1]
+   *    [].reverse()            ==> Answers []
    *
    */
   method reverse() = self.subList(self.size() - 1, 0)
@@ -1363,10 +1362,10 @@ class List inherits Collection {
    *      [].fold(0, {acum, each => acum + each})
    *           => Answers 0, the seed.
    *
-   *     var numbers = #{3, 2, 9, 1, 7}
+   *     const numbers = #{3, 2, 9, 1, 7}
    *     numbers.fold(numbers.anyOne(), { acum, number => acum.max(number) })
    *           => Answers 9, the maximum of all elements
-     *
+   *
    */
   override method fold(initialValue, closure) native
 
@@ -1385,7 +1384,7 @@ class List inherits Collection {
    *
    * Example:
    *     const list = []
-   *    list.add(3)   => list = [3]
+   *     list.add(3)   => list = [3]
    *     list.add(2)   => list = [3, 2]
    *     list.add(2)   => list = [3, 2, 2]
    */
@@ -1396,7 +1395,7 @@ class List inherits Collection {
    *
    * Example:
    *     const list = [2, 3]
-   *    list.remove(3) => list = [2]
+   *     list.remove(3) => list = [2]
    *     list.remove(4) => list = [2], remove operation produces no effect
    */
   override method remove(element) native
@@ -1406,7 +1405,7 @@ class List inherits Collection {
    *
    * Example:
    *     [2, 3].size()   => Answers 2
-   *    [].size()       => Answers 0
+   *     [].size()       => Answers 0
    */
   override method size() native
 
@@ -1416,7 +1415,7 @@ class List inherits Collection {
    *
    * Example:
    *     const list = [2, 3]
-   *    list.clear()     => list = []
+   *     list.clear()     => list = []
    */
   override method clear() native
 
@@ -1451,8 +1450,8 @@ class List inherits Collection {
    *
    * Examples:
    *     [] == []         => Answers true
-   *      [1, 2] == [2, 1] => Answers false
-   *      [1, 2] == [1, 2] => Answers true
+   *     [1, 2] == [2, 1] => Answers false
+   *     [1, 2] == [1, 2] => Answers true
    */
   override method ==(other) native
 
@@ -1556,11 +1555,11 @@ class Dictionary {
    *
    * Example:
    *     const numbers = new Dictionary()
-     *     numbers.put("one", 1)
-     *     numbers.put("two", 2)
+   *     numbers.put("one", 1)
+   *     numbers.put("two", 2)
    *     numbers.containsValue(2)          => Answers true
-     *     numbers.containsValue(5)          => Answers false
-     *     new Dictionary().containsValue(3) => Answers false
+   *     numbers.containsValue(5)          => Answers false
+   *     new Dictionary().containsValue(3) => Answers false
    */
   method containsValue(_value) = self.values().contains(_value)
 
@@ -1571,8 +1570,8 @@ class Dictionary {
    *
    * Example:
    *     const numbers = new Dictionary()
-     *     numbers.put("one", 1)
-     *     numbers.put("two", 2)
+   *     numbers.put("one", 1)
+   *     numbers.put("two", 2)
    *     numbers.remove("one")   => numbers is a dictionary ("two" -> 2)
    *     numbers.remove("three") => nothing happens
    */
@@ -1583,9 +1582,9 @@ class Dictionary {
    *
    * Example:
    *     const numbers = new Dictionary()
-     *     numbers.put("one", 1)
-     *     numbers.put("two", 2)
-     *     numbers.keys()   => ["one", "two"]
+   *     numbers.put("one", 1)
+   *     numbers.put("two", 2)
+   *     numbers.keys()   => ["one", "two"]
    */
   method keys() native
 
@@ -1594,9 +1593,9 @@ class Dictionary {
    *
    * Example:
    *     const numbers = new Dictionary()
-     *     numbers.put("one", 1)
-     *     numbers.put("two", 2)
-     *     numbers.values()   => [1, 2]
+   *     numbers.put("one", 1)
+   *     numbers.put("two", 2)
+   *     numbers.values()   => [1, 2]
    */
   method values() native
 
@@ -1617,10 +1616,10 @@ class Dictionary {
    * Removes all of the mappings from this Dictionary.
    * This is a side effect operation.
    *
-     * Example:
+   * Example:
    *     const numbers = new Dictionary()
-     *     numbers.put("one", 1)
-     *     numbers.put("two", 2)
+   *     numbers.put("one", 1)
+   *     numbers.put("two", 2)
    *     numbers.clear()  => phones == empty dictionary
    */
   method clear() native
@@ -1628,10 +1627,10 @@ class Dictionary {
   /**
    * String representation of a Dictionary
    *
-     * Example:
+   * Example:
    *     const numbers = new Dictionary()
-     *     numbers.put("one", 1)
-     *     numbers.put("two", 2)
+   *     numbers.put("one", 1)
+   *     numbers.put("two", 2)
    *         => Answers a Dictionary ["one" -> 1, "two" -> 2]
    */
   override method toString() {
@@ -1709,8 +1708,8 @@ class Number {
    * Integer division between self and other
    *
    * Example:
-   *    8.div(3)  ==> Answers 2
-   *     15.div(5) ==> Answers 3
+   *    8.div(3)      ==> Answers 2
+   *    15.div(5)     ==> Answers 3
    *    8.2.div(3.3)  ==> Answers 2
    */
   method div(other) {
@@ -1720,10 +1719,10 @@ class Number {
 
   /**
    * raisedTo operation
-     *
+   *
    * Example:
-   *      3.2 ** 2 ==> Answers 10.24
-   *     3 ** 2 ==> Answers 9
+   *     3.2 ** 2 ==> Answers 10.24
+   *     3 ** 2   ==> Answers 9
    */
   method **(other) native
 
@@ -1759,10 +1758,10 @@ class Number {
    * Answers absolute value of self
    *
    * Example:
-   *     2.abs() ==> 2
-   *     (-3).abs() ==> 3 (be careful with parentheses)
-   *     2.7.abs() ==> Answers 2.7
-   *    (-3.2).abs() ==> Answers 3.2 (be careful with parentheses)
+   *     2.abs()      ==> 2
+   *     (-3).abs()   ==> 3 (be careful with parentheses)
+   *     2.7.abs()    ==> Answers 2.7
+   *     (-3.2).abs() ==> Answers 3.2 (be careful with parentheses)
    */
   method abs() native
 
@@ -1770,15 +1769,16 @@ class Number {
    * Inverts sign of self
    *
    * Example:
-   *     3.invert() ==> Answers -3
-   *     (-2).invert() ==> Answers 2 (be careful with parentheses)
-   *     3.2.invert() ==> -3.2
+   *     3.invert()      ==> Answers -3
+   *     (-2).invert()   ==> Answers 2 (be careful with parentheses)
+   *     3.2.invert()    ==> -3.2
    *     (-2.4).invert() ==> 2.4 (be careful with parentheses)
    */
   method invert() native
 
   /**
    * Answers the greater number between two
+   *
    * Example:
    *     5.max(8)    ==> Answers 8
    */
@@ -1789,6 +1789,7 @@ class Number {
 
   /**
     * Answers the lower number between two. @see max
+    *
     * Example:
     *     5.min(8)    ==> Answers 5
     */
@@ -1815,39 +1816,39 @@ class Number {
       if (limitA <= limitB)
         limitA.max(self).min(limitB)
       else
-         limitB.max(self).min(limitA)
+        limitB.max(self).min(limitA)
   }
 
   /**
-    * Answers whether self is between min and max
-    *
-    * Example:
-    *     2.between(2, 3) ==> Answers true
-    *     6.between(4, 6) ==> Answers true
-    *     3.between(4, 6) ==> Answers false
-    */
+   * Answers whether self is between min and max
+   *
+   * Example:
+   *     2.between(2, 3) ==> Answers true
+   *     6.between(4, 6) ==> Answers true
+   *     3.between(4, 6) ==> Answers false
+   */
   method between(min, max) = (self >= min) && (self <= max)
 
   /** Answers squareRoot of self
-     *
-    * Example:
-    *     9.squareRoot() => Answers 3
-    */
+   *
+   * Example:
+   *     9.squareRoot() => Answers 3
+   */
   method squareRoot() = self ** 0.5
 
   /** Answers square of self
-    *
-    * Example:
-    *     3.square() => Answers 9
-    */
+   *
+   * Example:
+   *     3.square() => Answers 9
+   */
   method square() = self * self
 
   /**
-    * Answers whether self is an even number
-    * (divisible by 2, mathematically 2k).
-    *
-    * Self must be an integer value
-    */
+   * Answers whether self is an even number
+   * (divisible by 2, mathematically 2k).
+   *
+   * Self must be an integer value
+   */
   method even() = self % 2 == 0
 
   /**
@@ -1865,7 +1866,7 @@ class Number {
    *
    * Example:
    *     5.rem(3)   ==> Answers 2
-   *     5.5.rem(3)   ==> Answers 2
+   *     5.5.rem(3) ==> Answers 2
    */
   method rem(other) {
     self.checkNotNull(other, "rem")
@@ -1882,10 +1883,10 @@ class Number {
    * Amount of decimals must be a positive and integer value.
    *
    * Example:
-   *     1.223445.roundUp(3) ==> 1.224
+   *     1.223445.roundUp(3)  ==> 1.224
    *     -1.223445.roundUp(3) ==> -1.224
-   *     14.6165.roundUp(3) ==> 14.617
-   *     5.roundUp(3) ==> 5
+   *     14.6165.roundUp(3)   ==> 14.617
+   *     5.roundUp(3)         ==> 5
    */
    method roundUp(_decimals) native
 
@@ -1895,9 +1896,9 @@ class Number {
    *
    * Example:
    *     1.223445.truncate(3) ==> 1.223
-   *     14.6165.truncate(3) ==> 14.616
+   *     14.6165.truncate(3)  ==> 14.616
    *     -14.6165.truncate(3) ==> -14.616
-   *     5.truncate(3) ==> 5
+   *     5.truncate(3)        ==> 5
    */
   method truncate(_decimals) native
 
@@ -1908,19 +1909,21 @@ class Number {
 
   /**
    * Answers the next integer greater than self
-   * 13.224.roundUp() ==> 14
-   * -13.224.roundUp() ==> -14
-   * 15.942.roundUp() ==> 16
+   *
+   * Example:
+   *     13.224.roundUp()  ==> 14
+   *     -13.224.roundUp() ==> -14
+   *     15.942.roundUp()  ==> 16
    */
   method roundUp() = self.roundUp(0)
 
-   /**
+  /**
    * greater common divisor.
    * Both self and "other" parameter are coerced to be integer values.
    *
    * Example:
    *     8.gcd(12) ==> Answers 4
-   *    5.gcd(10) ==> Answers 5
+   *     5.gcd(10) ==> Answers 5
    */
   method gcd(other) native
 
@@ -1929,7 +1932,7 @@ class Number {
    * Both self and "other" parameter are coerced to be integer values.
    *
    * Example:
-   *     3.lcm(4) ==> Answers 12
+   *     3.lcm(4)  ==> Answers 12
    *     6.lcm(12) ==> Answers 12
    */
   method lcm(other) {
@@ -1942,9 +1945,9 @@ class Number {
    * Number of digits of self (without sign)
    *
    * Examples:
-   *     600.digits()  ==> Answers 3
+   *     600.digits()     ==> Answers 3
    *     6.00012.digits() ==> Answers 6
-   *     -100.digits() ==> Answers -3
+   *     -100.digits()    ==> Answers -3
    */
   method digits() {
     var digits = self.toString().size()
@@ -1961,7 +1964,7 @@ class Number {
    * Tells if this number can be considered an integer number.
    *
    * Examples:
-   *     2.isInteger() ==> Answers true
+   *     2.isInteger()     ==> Answers true
    *     (2.0).isInteger() ==> Answers true
    *     (2.3).isInteger() ==> Answers false
    *
@@ -1971,10 +1974,11 @@ class Number {
    */
   method isInteger() native
 
-  /** Answers whether self is a prime number,
-    * like 2, 3, 5, 7, 11 ...
-    * Self must be an integer positive value
-    */
+  /** 
+   * Answers whether self is a prime number,
+   * like 2, 3, 5, 7, 11 ...
+   * Self must be an integer positive value
+   */
   method isPrime() {
     const intValue = self.coerceToInteger()
     if (intValue == 1) return false
@@ -2042,14 +2046,13 @@ class String {
    */
   method concat(other) native
 
-
   /**
    * Tests if this string starts with the specified prefix.
    * It is case sensitive.
    *
    * Examples:
    *     "mother".startsWith("moth")  ==> Answers true
-   *      "mother".startsWith("Moth")  ==> Answers false
+   *     "mother".startsWith("Moth")  ==> Answers false
    */
   method startsWith(other) native
 
@@ -2066,7 +2069,7 @@ class String {
    * If character is not present, Answers -1
    *
    * Examples:
-   *     "pototo".indexOf("o")  ==> Answers 1
+   *     "pototo".indexOf("o")         ==> Answers 1
    *     "unpredictable".indexOf("o")  ==> Answers -1
    */
   method indexOf(other) native
@@ -2077,7 +2080,7 @@ class String {
    * If character is not present, Answers -1
    *
    * Examples:
-   *     "pototo".lastIndexOf("o")  ==> Answers 5
+   *     "pototo".lastIndexOf("o")         ==> Answers 5
    *     "unpredictable".lastIndexOf("o")  ==> Answers -1
    */
   method lastIndexOf(other) native
@@ -2113,7 +2116,7 @@ class String {
    * Answers a string reversing this string,
    * so that first character becomes last character of the new string and so on.
    *
-     * Example:
+   * Example:
    *     "hola".reverse()  ==> "aloh"
    */
   method reverse() native
@@ -2267,7 +2270,8 @@ class String {
   /** @private */
   override method toSmartString(alreadyShown) native
 
-  /** Compares this string to the specified object.
+  /** 
+   * Compares this string to the specified object.
    * The result is true if and only if the
    * argument is not null and is a String object
    * that represents the same sequence of characters as this object.
@@ -2350,7 +2354,8 @@ class Boolean {
   /** A synonym for and operation */
   method &&(other) native
 
-  /** Answers the result of applying the logical OR operator
+  /** 
+   * Answers the result of applying the logical OR operator
    * to the specified boolean operands self and other
    */
   method or(other) native
@@ -2364,7 +2369,8 @@ class Boolean {
   /** @private */
   override method toSmartString(alreadyShown) native
 
-  /** Compares this string to the specified object.
+  /** 
+   * Compares this string to the specified object.
    * The result is true if and only if the
    * argument is not null and represents same value
    * (true or false)
@@ -2390,9 +2396,9 @@ class Range {
   var property step = null
 
   /**
-    * Instantiates a Range.
-    * Both start and end must be integer values.
-    */
+   * Instantiates a Range.
+   * Both start and end must be integer values.
+   */
   override method initialize() {
     super()
 
@@ -2430,7 +2436,7 @@ class Range {
    *
    * Example:
    *     new Range(start = 1, end = 3).forEach { value => console.println(value) }
-   *     => prints 1, 2, 3
+   *         => prints 1, 2, 3
    */
   method forEach(closure) native
 
@@ -2487,7 +2493,7 @@ class Range {
    * Answers the number of elements
    *
    * Examples:
-   *     new Range(start = 0, end = 2).size() ==> Answers 3
+   *     new Range(start = 0, end = 2).size()  ==> Answers 3
    *     new Range(start = -2, end = 2).size() ==> Answers 5
    */
   method size()  {
@@ -2578,7 +2584,7 @@ class Closure {
    *
    * Example:
    *     { number => number + 1 }.apply(8) ==> Answers 9 // 1 parameter
-   *    { "screw" + "driver" }.apply() ==> Answers "screwdriver" // no parameter
+   *     { "screw" + "driver" }.apply()    ==> Answers "screwdriver" // no parameter
    */
   method apply(parameters...) native
 
@@ -2588,7 +2594,6 @@ class Closure {
 }
 
 /** Represents days of week. */
-
 object monday { }
 object tuesday { }
 object wednesday { }
@@ -2596,12 +2601,14 @@ object thursday { }
 object friday { }
 object saturday { }
 object sunday { }
+
 const daysOfWeek = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
 
 /**
  *
  * Represents a Date (without time). A Date is immutable, once created you can not change it.
  *
+ * @author dodain
  * @since 1.4.5
  */
 class Date {
@@ -2620,53 +2627,53 @@ class Date {
   override method ==(_aDate) native
 
   /**
-    * Answers a copy of this Date with the specified number of days added.
-    * Parameter must be an integer value.
-    * This operation has no side effect (a new date is returned).
-    *
-    * Example:
-    *     new Date(day = 12, month = 5, year = 2018).plusDays(1)
-    *        ==> Answers 13/5/2018, a day forward
-    *
-    *     new Date(day = 12, month = 5, year = 2018).plusDays(-1)
-    *        ==> Answers 11/5/2018, a day back
-    */
+   * Answers a copy of this Date with the specified number of days added.
+   * Parameter must be an integer value.
+   * This operation has no side effect (a new date is returned).
+   *
+   * Example:
+   *     new Date(day = 12, month = 5, year = 2018).plusDays(1)
+   *        ==> Answers 13/5/2018, a day forward
+   *
+   *     new Date(day = 12, month = 5, year = 2018).plusDays(-1)
+   *        ==> Answers 11/5/2018, a day back
+   */
   method plusDays(_days) native
 
   /**
-    * Answers a copy of this Date with the specified number of months added.
-    * Parameter must be an integer value.
-    * This operation has no side effect (a new date is returned).
-    *
-    * Example:
-    *     new Date(day = 31, month = 1, year = 2018).plusMonths(1)
-      *        ==> Answers 28/2/2018, a month forward
-    *
-    *     new Date(day = 12, month = 5, year = 2018).plusMonths(-1)
-    *        ==> Answers 12/4/2018, a month back
-    */
+   * Answers a copy of this Date with the specified number of months added.
+   * Parameter must be an integer value.
+   * This operation has no side effect (a new date is returned).
+   *
+   * Example:
+   *     new Date(day = 31, month = 1, year = 2018).plusMonths(1)
+   *        ==> Answers 28/2/2018, a month forward
+   *
+   *     new Date(day = 12, month = 5, year = 2018).plusMonths(-1)
+   *        ==> Answers 12/4/2018, a month back
+   */
   method plusMonths(_months) native
 
   /**
-    * Answers a copy of this Date with the specified number of years added.
-    * Parameter must be an integer value.
-    * This operation has no side effect (a new date is returned).
-    *
-    * Example:
-    *     new Date(day = 31, month = 1, year = 2018).plusYears(1)
-      *        ==> Answers 31/1/2019, a year forward
-    *
-    *     new Date(day = 12, month = 5, year = 2018).plusYears(-1)
-    *        ==> Answers 12/5/2017, a year back
-    */
+   * Answers a copy of this Date with the specified number of years added.
+   * Parameter must be an integer value.
+   * This operation has no side effect (a new date is returned).
+   *
+   * Example:
+   *     new Date(day = 31, month = 1, year = 2018).plusYears(1)
+   *        ==> Answers 31/1/2019, a year forward
+   *
+   *     new Date(day = 12, month = 5, year = 2018).plusYears(-1)
+   *        ==> Answers 12/5/2017, a year back
+   */
   method plusYears(_years) native
 
   /**
-    * Checks if the year is a leap year, like 2000, 2004, 2008...
-    *
-    * Example:
-    *     new Date(day = 12, month = 5, year = 2018).isLeapYear() ==> Answers false
-    */
+   * Checks if the year is a leap year, like 2000, 2004, 2008...
+   *
+   * Example:
+   *     new Date(day = 12, month = 5, year = 2018).isLeapYear() ==> Answers false
+   */
   method isLeapYear() native
 
   /** Answers the day of the week of the Date with an object representation.
@@ -2694,7 +2701,7 @@ class Date {
    *
    * Examples:
    *     new Date().plusDays(4) - new Date() ==> Answers 4
-   *    new Date() - new Date().plusDays(2) ==> Answers -2
+   *     new Date() - new Date().plusDays(2) ==> Answers -2
    */
   method -(_aDate) native
 
@@ -2703,7 +2710,7 @@ class Date {
    * This instance is immutable and unaffected by this method call.
    * Parameter must be an integer value.
    * This operation has no side effect (a new date is returned).
-     *
+   *
    * Examples:
    *     new Date(day = 1, month = 1, year = 2009).minusDays(1)
    *          ==> Answers 31/12/2008, a day back
@@ -2714,31 +2721,31 @@ class Date {
   method minusDays(_days) native
 
   /**
-    * Answers a copy of this date with the specified number of months subtracted.
-    * Parameter must be an integer value.
-    * This operation has no side effect (a new date is returned).
-    *
-    * Examples:
-    *     new Date(day = 1, month = 1, year = 2009).minusMonths(1)
-    *             ==> Answers 1/12/2008, a month back
-    *
-    *     new Date(day = 1, month = 1, year = 2009).minusMonths(-1)
-    *             ==> Answers 1/2/2009, a month forward
-    */
+   * Answers a copy of this date with the specified number of months subtracted.
+   * Parameter must be an integer value.
+   * This operation has no side effect (a new date is returned).
+   *
+   * Examples:
+   *     new Date(day = 1, month = 1, year = 2009).minusMonths(1)
+   *             ==> Answers 1/12/2008, a month back
+   *
+   *     new Date(day = 1, month = 1, year = 2009).minusMonths(-1)
+   *             ==> Answers 1/2/2009, a month forward
+   */
   method minusMonths(_months) native
 
   /**
-    * Answers a copy of this date with the specified number of years subtracted.
-    * Parameter must be an integer value.
-    * This operation has no side effect (a new date is returned).
-    *
-    * Examples:
-    *     new Date(day = 1, month = 1, year = 2009).minusYears(1)
-    *             ==> Answers 1/1/2008, a year back
-    *
-    *     new Date(day = 1, month = 1, year = 2009).minusYears(-1)
-    *             ==> Answers 1/1/2010, a year forward
-    */
+   * Answers a copy of this date with the specified number of years subtracted.
+   * Parameter must be an integer value.
+   * This operation has no side effect (a new date is returned).
+   *
+   * Examples:
+   *     new Date(day = 1, month = 1, year = 2009).minusYears(1)
+   *             ==> Answers 1/1/2008, a year back
+   *
+   *     new Date(day = 1, month = 1, year = 2009).minusYears(-1)
+   *             ==> Answers 1/1/2010, a year forward
+   */
   method minusYears(_years) native
 
   method <(_aDate) native
@@ -2747,12 +2754,12 @@ class Date {
   method >=(_aDate) = (self > _aDate) || (self.equals(_aDate))
 
   /**
-    * Answers whether self is between two dates (both inclusive comparison)
-    *
-    * Example:
-    *     new Date(day = 2, month = 4, year = 2018).between(new Date(day = 1, month = 4, year = 2018), new Date(day = 2, month = 4, year = 2018))
-    *         ==> Answers true
-    */
+   * Answers whether self is between two dates (both inclusive comparison)
+   *
+   * Example:
+   *     new Date(day = 2, month = 4, year = 2018).between(new Date(day = 1, month = 4, year = 2018), new Date(day = 2, month = 4, year = 2018))
+   *         ==> Answers true
+   */
   method between(_startDate, _endDate) = (self >= _startDate) && (self <= _endDate)
 
   /** Shows nicely an internal representation of a date **/
@@ -2760,17 +2767,24 @@ class Date {
     self.shortDescription()
 
   /**
-    * Shows a short, internal representation of a date
-    * (the result varies depending on user's locale)
-    *
-    * Example:
-    *     new Date(day = 2, month = 4, year = 2018).shortDescription()
-    *         ==> Answers 2/4/2018
-    */
+   * Shows a short, internal representation of a date
+   * (the result varies depending on user's locale)
+   *
+   * Example:
+   *     new Date(day = 2, month = 4, year = 2018).shortDescription()
+   *         ==> Answers 2/4/2018
+   */
   override method shortDescription() native
 
 }
 
+/**
+ *
+ * Represents an Input/Output event handler.
+ *
+ * @author nscarcella
+ * @since 1.9.2
+ */
 object io {
   const eventHandlers = new Dictionary()
   var eventQueue = []

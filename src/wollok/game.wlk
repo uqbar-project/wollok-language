@@ -454,7 +454,6 @@ object keyboard {
 
 }
 
-
 class Key {  
   const property keyCodes
   
@@ -462,8 +461,8 @@ class Key {
    * Adds a block that will be executed always self is pressed.
    *
    * Example:
-        *     keyboard.i().onPressDo { game.say(pepita, "hola!") } 
-        *         => when user hits "i" key, pepita will say "hola!"
+   *     keyboard.i().onPressDo { game.say(pepita, "hola!") } 
+   *         => when user hits "i" key, pepita will say "hola!"
    */  
   method onPressDo(action) {
     keyCodes.forEach{ key => game.whenKeyPressedDo(key, action) } //TODO: Implement native
