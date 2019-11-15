@@ -1,6 +1,3 @@
-// object myObject {
-//   override method toString() = "My Object"
-// }
 
 const greetings = ['hello', 'hola', 'bonjour', 'ciao', 'hi']
 const numbers = [22, 2, 10]  

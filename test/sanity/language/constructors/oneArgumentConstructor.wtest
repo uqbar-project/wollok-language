@@ -1,29 +1,29 @@
 /**
   * Scenario: a class with a one-parameter constructor
-	*/
+  */
 class Ave {
-	var energia
-	constructor(_energia) { energia = _energia }
+  var energia
+  constructor(_energia) { energia = _energia }
 
-	method energia() = energia
+  method energia() = energia
 }
 
 /**
   * Tests
-	*/
+  */
 describe "one argument constructor" {
 
-	test "one argument constructor happy path" {
-		const pepita = new Ave(100)
-		assert.equals(100, pepita.energia())
-	}
+  test "one argument constructor happy path" {
+    const pepita = new Ave(100)
+    assert.equals(100, pepita.energia())
+  }
 
-	test "one argument constructor called with no arguments should fail" {
-		assert.throwsException { new Ave() }
-	}
+  test "one argument constructor called with no arguments should fail" {
+    assert.throwsException { new Ave() }
+  }
 
-	test "one argument constructor called with more than one argument should fail" {
-		assert.throwsException { new Ave(1, 10) }
-	}
+  test "one argument constructor called with more than one argument should fail" {
+    assert.throwsException { new Ave(1, 10) }
+  }
 
 }

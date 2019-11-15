@@ -2,7 +2,7 @@
   * Scenario: a wko not inheriting from any superclass
   */
 object myObject {
-	method something() = "abc"
+  method something() = "abc"
 }
 
 /**
@@ -10,12 +10,12 @@ object myObject {
   */
 describe "wko - no explicit parent superclass" {
 
-	test "calling a method should use the definition in the wko" {
-		assert.equals("abc", myObject.something())
-	}
+  test "calling a method should use the definition in the wko" {
+    assert.equals("abc", myObject.something())
+  }
 
-	test "calling a method which exists in Object should work" {
-		assert.that(myObject.identity() != null)
-	}
+  test "calling a method which exists in Object should work" {
+    assert.that(myObject.identity() != null)
+  }
 
 }

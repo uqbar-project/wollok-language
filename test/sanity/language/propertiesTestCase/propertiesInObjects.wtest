@@ -2,15 +2,15 @@
   * Scenario: a named object with const and var properties
   */
 object pepita {
-	const property energiaOriginal = 100
-	var property energiaReal = 100
-	const property numerosFavoritos = [1, 3, 5, 8]
-	var property vecesQueVolo = self.energiaOriginal() - 100
+  const property energiaOriginal = 100
+  var property energiaReal = 100
+  const property numerosFavoritos = [1, 3, 5, 8]
+  var property vecesQueVolo = self.energiaOriginal() - 100
 
-	method volar() {
-		energiaReal -= 10
-		vecesQueVolo += 1
-	}
+  method volar() {
+    energiaReal -= 10
+    vecesQueVolo += 1
+  }
 }
 
 /**
@@ -18,34 +18,34 @@ object pepita {
   */
 describe "properties in named objects" {
 
-	test "property getter - const reference - named object" {
-		assert.equals(100, pepita.energiaOriginal())
-	}
+  test "property getter - const reference - named object" {
+    assert.equals(100, pepita.energiaOriginal())
+  }
 
-	test "property getter for a const reference remains unchanged" {
-		pepita.volar()
-		assert.equals(100, pepita.energiaOriginal())
-		assert.equals(1, pepita.vecesQueVolo())
-		assert.equals([1, 3, 5, 8], pepita.numerosFavoritos())
-	}
+  test "property getter for a const reference remains unchanged" {
+    pepita.volar()
+    assert.equals(100, pepita.energiaOriginal())
+    assert.equals(1, pepita.vecesQueVolo())
+    assert.equals([1, 3, 5, 8], pepita.numerosFavoritos())
+  }
 
-	test "property getter - var reference - named object" {
-		assert.equals(100, pepita.energiaReal())
-	}
+  test "property getter - var reference - named object" {
+    assert.equals(100, pepita.energiaReal())
+  }
 
-	test "property setter - var reference - named object" {
-		pepita.energiaReal(40)
-		pepita.volar()
-		assert.equals(30, pepita.energiaReal())
-	}
+  test "property setter - var reference - named object" {
+    pepita.energiaReal(40)
+    pepita.volar()
+    assert.equals(30, pepita.energiaReal())
+  }
 
-	test "you cannot invoke a setter for a property const" {
-			assert.throwsException { pepita.energiaOriginal(10) }
-	}
+  test "you cannot invoke a setter for a property const" {
+      assert.throwsException { pepita.energiaOriginal(10) }
+  }
 
-	test "Bad setter for property const in object" {
-		// Warning: this will fail before even executing tests unless it is run with `-dontValidate` option
-		assert.throwsException { pepita.energia(10, "hola") }
-	}
+  test "Bad setter for property const in object" {
+    // Warning: this will fail before even executing tests unless it is run with `-dontValidate` option
+    assert.throwsException { pepita.energia(10, "hola") }
+  }
 
 }

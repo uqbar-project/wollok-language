@@ -1,26 +1,26 @@
 /**
   * Scenario: a hierarchy in which superclass has default constructor and subclass
-	* has a single constructor
-	*/
+  * has a single constructor
+  */
 class SuperClass {
-	var parentValue
+  var parentValue
 
-	method parentValue() { return parentValue }
-	method parentValue(value) { parentValue = value }
+  method parentValue() { return parentValue }
+  method parentValue(value) { parentValue = value }
 }
 
 class SubClass inherits SuperClass { 
-	var childValue
-	constructor(n) {
-		childValue = n
-	}
-	method childValue() { return childValue }
+  var childValue
+  constructor(n) {
+    childValue = n
+  }
+  method childValue() { return childValue }
 }
 
 /**
   * Tests
-	*/
+  */
 test "default constructor in a hierarchy" {
-	const o = new SubClass(20)
-	assert.equals(20, o.childValue())
+  const o = new SubClass(20)
+  assert.equals(20, o.childValue())
 }

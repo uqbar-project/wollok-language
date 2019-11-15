@@ -1,31 +1,31 @@
 /**
   * Scenario: a class with a method in which it throws a
-	* specific exception from a hierarchy
+  * specific exception from a hierarchy
   */
 class AException inherits Exception {}
 class BException inherits Exception {}
 class CException inherits Exception {}
 
 class A { 
-	method m1() { throw new CException(message="hello you see") }
+  method m1() { throw new CException(message="hello you see") }
 }
 
 /**
   * Tests
   */
 test "Test catch without type matching the last catch" {
-	const a = new A()
-	try {
-		a.m1()
-		assert.fail("Should have thrown exception")
-	}
-	catch e : AException {
-		assert.fail("incorrect catch !")
-	}
-	catch e : BException {
-		assert.fail("incorrect catch !")
-	}
-	catch e {
-	// OK !
-	}
+  const a = new A()
+  try {
+    a.m1()
+    assert.fail("Should have thrown exception")
+  }
+  catch e : AException {
+    assert.fail("incorrect catch !")
+  }
+  catch e : BException {
+    assert.fail("incorrect catch !")
+  }
+  catch e {
+  // OK !
+  }
 }

@@ -1,23 +1,23 @@
 test "object literals" {
-	var pepita = object {
-		var energia = 120
-		
-		method comer(cuanto) {
-			energia = energia + cuanto
-		}
+  var pepita = object {
+    var energia = 120
+  
+    method comer(cuanto) {
+      energia = energia + cuanto
+    }
 
-		method energia() {
-			return energia
-		}
-	}
-	
-	pepita.comer(5)
-	assert.equals(125, pepita.energia())
-	
-	pepita = object {
-		method comer(cuanto) {}
-		method energia() { return 5 }
-	}
+    method energia() {
+      return energia
+    }
+  }
+
+  pepita.comer(5)
+  assert.equals(125, pepita.energia())
+
+  pepita = object {
+    method comer(cuanto) {}
+    method energia() { return 5 }
+  }
 
   pepita.comer(5)
   assert.equals(5, pepita.energia())

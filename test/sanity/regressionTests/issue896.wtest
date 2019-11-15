@@ -4,6 +4,7 @@ object juan {
   }
 }
 
+// https://github.com/uqbar-project/wollok/issues/896
 test "issue 896 - stack overflow call should fail and finish too" {
   try {
     juan.blah()

@@ -1,45 +1,45 @@
 /**
   * Scenario: a class having several (inherited) attributes in a long hierarchy, 
-	* in order to see it is tedious to define a long-parameter constructor.
-	*/
+  * in order to see it is tedious to define a long-parameter constructor.
+  */
 object chayanne {
-	method nombre() = "Chayanne"
+  method nombre() = "Chayanne"
 }
 
 object lunaPark {}
 
 class Evento {
-	var fecha
+  var fecha
 }
 
 class EventoLocalizado inherits Evento {
-	var lugar
-	method lugar() = lugar
+  var lugar
+  method lugar() = lugar
 }
 
 class Presentacion inherits EventoLocalizado {
-	var property cantante
-	var property localidades
+  var property cantante
+  var property localidades
 }
 
 /**
   * Tests
-	*/
+  */
 describe "named parameters with inheritance" {
-	const presentacion = new Presentacion(
-		lugar = lunaPark,
-		fecha = new Date(),
-		cantante = chayanne,
-		localidades = [100, 50, 200]
-	)
+  const presentacion = new Presentacion(
+    lugar = lunaPark,
+    fecha = new Date(),
+    cantante = chayanne,
+    localidades = [100, 50, 200]
+  )
 
-	test "wko initialization for named parameters constructor should work" {
-		assert.equals(chayanne, presentacion.cantante())
-		assert.equals(presentacion.lugar(), lunaPark)
-	}
+  test "wko initialization for named parameters constructor should work" {
+    assert.equals(chayanne, presentacion.cantante())
+    assert.equals(presentacion.lugar(), lunaPark)
+  }
 
-	test "number initialization for named parameters constructor should work" {
-		assert.equals(350, presentacion.localidades().sum())
-	}
+  test "number initialization for named parameters constructor should work" {
+    assert.equals(350, presentacion.localidades().sum())
+  }
 
 }

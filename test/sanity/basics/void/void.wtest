@@ -4,16 +4,16 @@ object example {
 
 describe "void" {
 
-	test "void in assert should fail" {
-		assert.throwsException({ assert.equals("27", example.nothing()) })
-	}
+  test "void in assert should fail" {
+    assert.throwsException({ assert.equals("27", example.nothing()) })
+  }
 
-	test "void in binary operation should fail" {
-		assert.throwsException({ 7 + example.nothing() })
-	}
+  test "void in binary operation should fail" {
+    assert.throwsException({ 7 + example.nothing() })
+  }
 
-	test "void in unary operation should fail" {
-		assert.throwsException({ !example.nothing() })
-	}
+  test "void in unary operation should fail" {
+    assert.throwsException({ !example.nothing() })
+  }
 
 }

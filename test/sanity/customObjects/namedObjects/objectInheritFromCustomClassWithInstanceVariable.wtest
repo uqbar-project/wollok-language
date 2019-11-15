@@ -1,52 +1,55 @@
 /**
   * Scenario: a wko inheriting from a custom superclass which also has an attribute
+	*
+	* https://github.com/uqbar-project/wollok/issues/213
+  *
 	* Regression test for bug #213
   */
 class Golondrina {
-	var energia = 100
-	method volar(kms) {
-			self.modificar(-kms * 2)
-	}
-	method modificar(n) {
-			energia += n 
-	}
-	method energia() = energia
+  var energia = 100
+  method volar(kms) {
+      self.modificar(-kms * 2)
+  }
+  method modificar(n) {
+      energia += n 
+  }
+  method energia() = energia
 }
 
 object pepita inherits Golondrina {
-	const energiaResiliente = 50
+  const energiaResiliente = 50
 
-	method energiaTotal() {
-		return energia + energiaResiliente
-	}
+  method energiaTotal() {
+    return energia + energiaResiliente
+  }
 
-	method energia(aValue){
-		energia = aValue
-	}
+  method energia(aValue){
+    energia = aValue
+  }
 
 }
 
 /**
   * Tests
-	*/
+  */
 describe "wko - inheriting from custom class with attribute" {
 
-	test "originally has the default value assigned from the superclass" {
-		assert.equals(100, pepita.energia())
-	}
+  test "originally has the default value assigned from the superclass" {
+    assert.equals(100, pepita.energia())
+  }
 
-	test "wko could set another value" {
-		pepita.energia(200)
-		assert.equals(200, pepita.energia())
-	}
+  test "wko could set another value" {
+    pepita.energia(200)
+    assert.equals(200, pepita.energia())
+  }
 
-	test "wko can set an inherited attribute from a method" {
-		pepita.volar(10)
-		assert.equals(80, pepita.energia())
-	}
+  test "wko can set an inherited attribute from a method" {
+    pepita.volar(10)
+    assert.equals(80, pepita.energia())
+  }
 
-	test "using inherited and self defined attributes" {
-		assert.equals(150, pepita.energiaTotal())
-	}
+  test "using inherited and self defined attributes" {
+    assert.equals(150, pepita.energiaTotal())
+  }
 
 }

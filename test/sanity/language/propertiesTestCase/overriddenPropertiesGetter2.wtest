@@ -1,22 +1,22 @@
 /**
   * Scenario: a class / subclass overriding getter property
-	* defined in superclass
+  * defined in superclass
   */
 class MaestroTierra {
-	var property base = 100
-	
-	method base() = 150
+  var property base = 100
+
+  method base() = 150
 }
 
 class MaestroMetal inherits MaestroTierra {
-	override method base() {
-		return super() * 2
-	}
+  override method base() {
+    return super() * 2
+  }
 }
 
 /**
   * Tests
   */
 test "property getter overridden by superclass & subclass should not take into account property definition" {
-	assert.equals(300, new MaestroMetal().base())
+  assert.equals(300, new MaestroMetal().base())
 }

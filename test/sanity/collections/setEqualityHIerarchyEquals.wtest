@@ -1,8 +1,8 @@
 /**
   * Scenario: a hierarchy in which the superclass overrides equals
-	*/
+  */
 class Animal {
-	override method equals(other) = true
+  override method equals(other) = true
 }
 
 class Perro inherits Animal {}
@@ -11,9 +11,11 @@ class Gato inherits Animal {}
 
 /**
   * Tests
-	*/
+  *
+  * https://github.com/uqbar-project/wollok/issues/1771
+  */
 test "issue 1771 - a set with objects in same hierarchy will not be added if equals returns always true" {
-	const aSet = #{new Perro(), new Perro(), new Gato() }
-	assert.equals(1, aSet.size())
+  const aSet = #{new Perro(), new Perro(), new Gato() }
+  assert.equals(1, aSet.size())
 }
 

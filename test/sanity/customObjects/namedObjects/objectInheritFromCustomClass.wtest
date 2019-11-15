@@ -2,24 +2,24 @@
   * Scenario: a wko inheriting from a custom superclass
   */
 class MyClass {
-	method myMethod() = "1234"
+  method myMethod() = "1234"
 }
 
 object myObject inherits MyClass {
-	method something() = "abc"
+  method something() = "abc"
 }
 
 /**
   * Tests
-	*/
+  */
 describe "wko - inheriting from custom class" {
 
-	test "calling method in wko should work" {
-		assert.equals("abc", myObject.something())
-	}
+  test "calling method in wko should work" {
+    assert.equals("abc", myObject.something())
+  }
 
-	test "calling method inherited from superclass should work" {
-		assert.equals("1234", myObject.myMethod())
-	}
+  test "calling method inherited from superclass should work" {
+    assert.equals("1234", myObject.myMethod())
+  }
 
 }

@@ -2,15 +2,15 @@
   * Scenario: a class mixed with two mixins
   */
 class Bird {
-	var energy = 200
-	method fly(meters) { energy -= meters }
-	method energy() = energy
+  var energy = 200
+  method fly(meters) { energy -= meters }
+  method energy() = energy
 }
 
 mixin FlyingShortcuts {
-	method fly100Meters() {
-		self.fly(100)
-	}
+  method fly100Meters() {
+    self.fly(100)
+  }
 method fly(meters)
 }
 
@@ -21,7 +21,7 @@ class MockingBird inherits Bird mixed with FlyingShortcuts {
   * Tests
   */
 test "mixin method calls a method on the class that is inherited" {
-	const bird = new MockingBird()
-	bird.fly100Meters()
-	assert.equals(100, bird.energy())
+  const bird = new MockingBird()
+  bird.fly100Meters()
+  assert.equals(100, bird.energy())
 }

@@ -5,21 +5,21 @@ class MyException inherits Exception {}
 class MySubclassException inherits MyException {}
 
 class A {
-	method m1() {
-		throw new MySubclassException()
-	}
+  method m1() {
+    throw new MySubclassException()
+  }
 }
 
 /**
   * Tests
   */
 test "catch matches subtype of exception properly" {
-	const a = new A()
-	var result = 0
-	try {
-		a.m1()
-	}	catch e : MyException
-		result = 3
+  const a = new A()
+  var result = 0
+  try {
+    a.m1()
+  }  catch e : MyException
+    result = 3
 
-	assert.equals(3, result)
+  assert.equals(3, result)
 }

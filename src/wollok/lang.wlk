@@ -934,10 +934,12 @@ class Collection {
    * Example:
    *      ["hola", "como", "estas"].join(" ") ==> Answers "hola como estas"
    */
-  method join(separator) =
-    if (self.isEmpty()) ""
-    else self.asList().subList(1).fold(self.asList().first().toString(), { string, element => string + separator + element.toString() })
-  
+  method join(separator) {
+    if (self.isEmpty()) return ""
+    const newList = self.asList()
+    return newList.subList(1).fold(newList.first().toString(), { string, element => string + separator + element.toString() })
+  }
+
   /**
    * Answers the concatenated string representation of the elements in the given set
    * with default element separator (",")

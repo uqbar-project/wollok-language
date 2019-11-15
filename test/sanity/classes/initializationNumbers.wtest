@@ -1,19 +1,19 @@
 /**
   * Scenario: A Class with attributes pointing to numbers
-	*/
+  */
 class A {
-	var i = 10
-	var j = 0.10
+  var i = 10
+  var j = 0.10
 
-	method getI() = i
-	method getJ() = j
+  method getI() = i
+  method getJ() = j
 }
 
 /**
   * Tests
-	*/
+  */
 test "clases - attributes number initialization" {
-	const a = new A()
-	assert.equals(10, a.getI())
-	assert.equals(0.10, a.getJ())
+  const a = new A()
+  assert.equals(10, a.getI())
+  assert.equals(0.10, a.getJ())
 }

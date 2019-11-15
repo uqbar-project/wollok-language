@@ -3,58 +3,58 @@ describe "pairs" {
   const pair = 1->2
 
   test "smoke test" {
-		const pair = new Pair(1, 1)
-		assert.equals(pair, pair)
+    const pair = new Pair(1, 1)
+    assert.equals(pair, pair)
   }
 
   test "new pair constructor" {
- 		const pair = new Pair(x = 1, y = 2)
-		assert.equals(1, pair.x())
-		assert.equals(2, pair.y())
+     const pair = new Pair(x = 1, y = 2)
+    assert.equals(1, pair.x())
+    assert.equals(2, pair.y())
   }
 
   test "arrow constructor" {
- 		const pair = 1->2
-		assert.equals(1, pair.x())
-		assert.equals(2, pair.y())
+     const pair = 1->2
+    assert.equals(1, pair.x())
+    assert.equals(2, pair.y())
   }
 
   test "x getter" {
-		const pair = "1"->2
-		assert.equals("1", pair.x())
+    const pair = "1"->2
+    assert.equals("1", pair.x())
   }
 
   test "y getter" {
-		const pair = 1->"2"
-		assert.equals("2", pair.y())
+    const pair = 1->"2"
+    assert.equals("2", pair.y())
   }
 
   test "x constant property cannot be modified" {
-		assert.throwsException { pair.x(10) }
+    assert.throwsException { pair.x(10) }
   }
 
   test "y constant property cannot be modified" {
-		assert.throwsException { pair.y(10) }
+    assert.throwsException { pair.y(10) }
   }
 
   test "key getter" {
-		assert.equals(1, pair.key())
+    assert.equals(1, pair.key())
   }
 
   test "value getter" {
-		assert.equals(2, pair.value())
+    assert.equals(2, pair.value())
   }
 
   test "key setter does not exist" {
-		assert.throwsException { pair.key(10) }
+    assert.throwsException { pair.key(10) }
   }
 
   test "value setter does not exist" {
-		assert.throwsException { pair.value(20) }
+    assert.throwsException { pair.value(20) }
   }
 
   test "toString representation" {
-		assert.equals("1 -> 2", pair.toString())
+    assert.equals("1 -> 2", pair.toString())
   }
 
 }

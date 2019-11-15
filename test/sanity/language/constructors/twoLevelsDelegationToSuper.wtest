@@ -1,26 +1,26 @@
 /**
   * Scenario: a hierarchy of classes. Each of them has a one-parameter constructor, 
-	* and delegates to super constructor definition
-	*/
+  * and delegates to super constructor definition
+  */
 class A {
-	var value
-	constructor(a) { value = a }
+  var value
+  constructor(a) { value = a }
 
-	method value() { return value }
+  method value() { return value }
 }
 
 class B inherits A { 
-	constructor(n) = super(n + 1) {}
+  constructor(n) = super(n + 1) {}
 }
 
 class C inherits B {
-	constructor(v) = super(v * 2) {}
+  constructor(v) = super(v * 2) {}
 }
 
 /**
   * Tests
-	*/
+  */
 test "two levels delegation to super" {
-	const o = new C(20)
-	assert.equals(41, o.value())
+  const o = new C(20)
+  assert.equals(41, o.value())
 }

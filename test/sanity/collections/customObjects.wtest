@@ -2,15 +2,15 @@
   * Scenario 1: a group of custom named objects
   */
 object x1 {
-	method value() { return 1 }
+  method value() { return 1 }
 }
 
 object x2 {
-	method value() { return 2 }
+  method value() { return 2 }
 }
 
 object x3 {
-	method value() { return 3 }
+  method value() { return 3 }
 }
 
 /**

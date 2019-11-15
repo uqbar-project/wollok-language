@@ -2,11 +2,11 @@
   * Scenario: a named object mixed with a mixin
   */
 mixin Flies {
-	var times = 0
-	method fly() {
-		times = 1
-	}
-	method times() = times
+  var times = 0
+  method fly() {
+    times = 1
+  }
+  method times() = times
 }
 
 object pepita mixed with Flies {}
@@ -15,6 +15,6 @@ object pepita mixed with Flies {}
   * Tests
   */
 test "mixin on a named object" {
-	pepita.fly()
-	assert.equals(1, pepita.times())
+  pepita.fly()
+  assert.equals(1, pepita.times())
 }

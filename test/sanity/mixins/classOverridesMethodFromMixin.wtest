@@ -2,22 +2,22 @@
   * Scenario: a class mixed with a mixin
   */
 mixin Energy {
-	var energy = 100
-	method reduceEnergy(amount) { energy -= amount }
-	method energy() = energy
+  var energy = 100
+  method reduceEnergy(amount) { energy -= amount }
+  method energy() = energy
 }
 
 class Bird mixed with Energy {
-	override method reduceEnergy(amount) { 
-		// does nothing
-	}
+  override method reduceEnergy(amount) { 
+    // does nothing
+  }
 }
 
 /**
   * Tests
   */
 test "class overrides method from mixin" {
-	const bird = new Bird()
-	bird.reduceEnergy(100)
-	assert.equals(100, bird.energy())
+  const bird = new Bird()
+  bird.reduceEnergy(100)
+  assert.equals(100, bird.energy())
 }

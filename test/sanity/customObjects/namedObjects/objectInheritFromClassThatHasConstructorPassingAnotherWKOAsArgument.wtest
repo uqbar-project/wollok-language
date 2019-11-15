@@ -2,23 +2,23 @@
   * Scenario: a wko inheriting from a custom superclass
   */
 class Dog {
-	const owner
-	constructor(param) {
-		owner = param
-	}
+  const owner
+  constructor(param) {
+    owner = param
+  }
 
-	method owner() = owner
+  method owner() = owner
 }
 
 object lassie inherits Dog(jorge) {}
 
 object jorge {
-	method name() = "Jorge"
+  method name() = "Jorge"
 }
 
 /**
   * Tests
   */
 test "wko - inheriting from class that has constructor passing another wko as argument" {
-	assert.equals(jorge, lassie.owner())
+  assert.equals(jorge, lassie.owner())
 }

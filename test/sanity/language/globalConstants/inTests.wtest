@@ -1,6 +1,6 @@
 /**
   * Scenario: a class defining a method with try/catch and returning 
-	* different values
+  * different values
   */
 class Golondrina {
   var property energy = 0

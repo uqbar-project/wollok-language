@@ -4,24 +4,24 @@
   * parents constructors in the hierarchy
   */
 class A {
-	var a
-	constructor(_a) { a = _a }
-	method a() = a
+  var a
+  constructor(_a) { a = _a }
+  method a() = a
 }
 
 class B inherits A {
-	var x
-	constructor(_y, _x) { x = _x ; a = _y }
-	method x() = x
+  var x
+  constructor(_y, _x) { x = _x ; a = _y }
+  method x() = x
 }
 
 class C inherits B {
-	constructor() { a = 2 ; x = 3 }
+  constructor() { a = 2 ; x = 3 }
 }
 
 /**
   * Tests
-	*/
+  */
 describe "inherited constructors - constructors for each class in a hierarchy" {
 
   test "superclass uses a constructor with one parameter" {

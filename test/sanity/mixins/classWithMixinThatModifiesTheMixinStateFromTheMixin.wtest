@@ -2,11 +2,11 @@
   * Scenario: a class mixed with a mixin
   */
 mixin Walks {
-	var walkedDistance = 0
-	method walk(distance) {
-		walkedDistance += distance
-	}
-	method walkedDistance() = walkedDistance
+  var walkedDistance = 0
+  method walk(distance) {
+    walkedDistance += distance
+  }
+  method walkedDistance() = walkedDistance
 }
 
 class WalkingBird mixed with Walks {}
@@ -15,7 +15,7 @@ class WalkingBird mixed with Walks {}
   * Tests
   */
 test "class with mixin that modifies the mixin state from the mixin" {
-	const bird = new WalkingBird()
-	bird.walk(10)
-	assert.equals(10, bird.walkedDistance())
+  const bird = new WalkingBird()
+  bird.walk(10)
+  assert.equals(10, bird.walkedDistance())
 }

@@ -1,21 +1,21 @@
 /**
   * Scenario: a class with
-	* - a method that returns a value using return syntax
-	* - a method that returns a value using = syntax
-	* - a method that returns a constant
-	* - a method that mutates a local variable
+  * - a method that returns a value using return syntax
+  * - a method that returns a value using = syntax
+  * - a method that returns a constant
+  * - a method that mutates a local variable
   */
 class A {
-	method method1(value) {
-		return value + 1
-	}
-	method method2(value) = value + 1
-	method method3(value) = 4
-	method method4() {
-		var a = 10
-		a = a + 20
-		return a
-	}
+  method method1(value) {
+    return value + 1
+  }
+  method method2(value) = value + 1
+  method method3(value) = 4
+  method method4() {
+    var a = 10
+    a = a + 20
+    return a
+  }
 }
 
 /**
@@ -23,23 +23,23 @@ class A {
   */
 describe "inline values returned from a method" {
 
-	const a = new A()
+  const a = new A()
 
-	test "value returned from a method using return" {
-			assert.equals(3, a.method1(2))
-	}
+  test "value returned from a method using return" {
+      assert.equals(3, a.method1(2))
+  }
 
-	test "value returned from a method using =" {
-			assert.equals(3, a.method2(2))
-	}
+  test "value returned from a method using =" {
+      assert.equals(3, a.method2(2))
+  }
 
-	test "constant returned from a method" {
-			assert.equals(4, a.method3(2))
-	}
+  test "constant returned from a method" {
+      assert.equals(4, a.method3(2))
+  }
 
-	test "constant returned from a method" {
-			assert.equals(30, a.method4())
-	}
+  test "constant returned from a method" {
+      assert.equals(30, a.method4())
+  }
 
 }
 

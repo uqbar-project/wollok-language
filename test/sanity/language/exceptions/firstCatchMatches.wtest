@@ -1,15 +1,15 @@
 /**
   * Scenario: several classes with methods in which they throw
-	* different exceptions based on a hierarchy
+  * different exceptions based on a hierarchy
   */
 class MyException inherits Exception {}
 class MySubclassException inherits MyException {}
 class AnotherException inherits Exception {}
 
 class A {
-	method m1() {
-		throw new MySubclassException()
-	}
+  method m1() {
+    throw new MySubclassException()
+  }
 }
 
 class AException inherits Exception { }
@@ -17,15 +17,15 @@ class BException inherits Exception { }
 class CException inherits Exception { }
 
 class B { 
-	method m1() {
-		throw new AException(message = "hello you see")
-	}
-	method m2() {
-		throw new BException(message = "hello you see")
-	}
-	method m3() {
-		throw new CException(message = "hello you see")
-	}
+  method m1() {
+    throw new AException(message = "hello you see")
+  }
+  method m2() {
+    throw new BException(message = "hello you see")
+  }
+  method m3() {
+    throw new CException(message = "hello you see")
+  }
 }
 
 /**
@@ -33,72 +33,72 @@ class B {
   */
 describe "first catch matches" {
 
-	test "first catch matches - sibling exceptions - first catch" {
-		const b = new B()
+  test "first catch matches - sibling exceptions - first catch" {
+    const b = new B()
 
-		try {
-			b.m1()
-			assert.fail("Should have thrown exception")
-		}
-		catch e : AException {
-			// OK !
-		}
-		catch e : BException {
-			assert.fail("incorrect catch !")
-		}
-		catch e {
-			assert.fail("incorrect catch !")
-		}
-	}
+    try {
+      b.m1()
+      assert.fail("Should have thrown exception")
+    }
+    catch e : AException {
+      // OK !
+    }
+    catch e : BException {
+      assert.fail("incorrect catch !")
+    }
+    catch e {
+      assert.fail("incorrect catch !")
+    }
+  }
 
-	test "first catch matches - sibling exceptions - second catch" {
-		const b = new B()
-		try {
-			b.m2()
-			assert.fail("Should have thrown exception")
-		}
-		catch e : AException {
-			assert.fail("incorrect catch !")
-		}
-		catch e : BException {
-			// OK !
-		}
-		catch e {
-			assert.fail("incorrect catch !")
-		}
-	}
+  test "first catch matches - sibling exceptions - second catch" {
+    const b = new B()
+    try {
+      b.m2()
+      assert.fail("Should have thrown exception")
+    }
+    catch e : AException {
+      assert.fail("incorrect catch !")
+    }
+    catch e : BException {
+      // OK !
+    }
+    catch e {
+      assert.fail("incorrect catch !")
+    }
+  }
 
-	test "first catch matches - sibling exceptions - last catch" {
-		const b = new B()
-		try {
-			b.m3()
-			assert.fail("Should have thrown exception")
-		}
-		catch e : AException {
-			assert.fail("incorrect catch !")
-		}
-		catch e : BException {
-			assert.fail("incorrect catch !")
-		}
-		catch e {
-			// OK !
-		}
-	}
+  test "first catch matches - sibling exceptions - last catch" {
+    const b = new B()
+    try {
+      b.m3()
+      assert.fail("Should have thrown exception")
+    }
+    catch e : AException {
+      assert.fail("incorrect catch !")
+    }
+    catch e : BException {
+      assert.fail("incorrect catch !")
+    }
+    catch e {
+      // OK !
+    }
+  }
 
-	test "first catch matches - exception subclass hierarchy" {
-		const a = new A()
-		var result = 0
+  test "first catch matches - exception subclass hierarchy" {
+    const a = new A()
+    var result = 0
 
-		try 
-			a.m1()
-		catch e : MySubclassException
-			result = 3
-		catch e : MyException
-			assert.fail("incorrect catch!")
-		catch e { 
-			assert.fail("incorrect catch!")
-		}
-		assert.equals(3, result)
-	}
+    try 
+      a.m1()
+    catch e : MySubclassException
+      result = 3
+    catch e : MyException
+      assert.fail("incorrect catch!")
+    catch e { 
+      assert.fail("incorrect catch!")
+    }
+    assert.equals(3, result)
+  }
 
 }

@@ -1,44 +1,44 @@
 /**
   * Scenario: a class mixed with two mixins in two different ways
-	* (altering the order of linearization)
+  * (altering the order of linearization)
   */
 mixin Energy {
-	var energy = 100
-	method energy() = energy
-	method reduceEnergy(amount) {
-		energy -= amount
-	}
+  var energy = 100
+  method energy() = energy
+  method reduceEnergy(amount) {
+    energy -= amount
+  }
 }
 
 mixin Flying {
-	var fliedMeters = 0
-	method fly(meters) {
-		self.reduceEnergy(meters)
-		fliedMeters += meters
-	}
-	method fliedMeters() = fliedMeters
+  var fliedMeters = 0
+  method fly(meters) {
+    self.reduceEnergy(meters)
+    fliedMeters += meters
+  }
+  method fliedMeters() = fliedMeters
 
-	method reduceEnergy(meters)
+  method reduceEnergy(meters)
 }
 
 /**
   * Tests
-	* Proving order does not matter
+  * Proving order does not matter
   */
 class BirdWithEnergyThatFlies mixed with Energy and Flying {}
 
 class BirdWithThatFliesWithEnergy mixed with Flying and Energy {}
 
 test "class with a mixin that calls another - first sequence" {
-	const bird = new BirdWithEnergyThatFlies()
-	bird.fly(10)
-	assert.equals(90, bird.energy())
-	assert.equals(10, bird.fliedMeters())
+  const bird = new BirdWithEnergyThatFlies()
+  bird.fly(10)
+  assert.equals(90, bird.energy())
+  assert.equals(10, bird.fliedMeters())
 }
 
 test "class with a mixin that calls another - second sequence" {
-	const bird = new BirdWithThatFliesWithEnergy()
-	bird.fly(10)
-	assert.equals(90, bird.energy())
-	assert.equals(10, bird.fliedMeters())
+  const bird = new BirdWithThatFliesWithEnergy()
+  bird.fly(10)
+  assert.equals(90, bird.energy())
+  assert.equals(10, bird.fliedMeters())
 }

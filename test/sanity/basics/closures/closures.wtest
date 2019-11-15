@@ -5,84 +5,84 @@
  */
 describe "closures" {
 
-	test "apply a closure without parameters" {
-		assert.equals(7, {2 + 5}.apply())
-	}
+  test "apply a closure without parameters" {
+    assert.equals(7, {2 + 5}.apply())
+  }
 
-	test "apply closure with one argument" {
-		const helloWorld = {to => "hello " + to }
-		const response = helloWorld.apply("world")
-		assert.equals("hello world", response)
-	}
+  test "apply closure with one argument" {
+    const helloWorld = {to => "hello " + to }
+    const response = helloWorld.apply("world")
+    assert.equals("hello world", response)
+  }
 
-	test "apply a closure with vararg parameters" {
-		assert.equals(10, { a, b... => a + b.sum() }.apply(1, 2, 3, 4))
-	}
+  test "apply a closure with vararg parameters" {
+    assert.equals(10, { a, b... => a + b.sum() }.apply(1, 2, 3, 4))
+  }
 
-	test "closure using outside context value" {
-		var to = "world"
-		const helloWorld = { "hello " + to }
+  test "closure using outside context value" {
+    var to = "world"
+    const helloWorld = { "hello " + to }
 
-		assert.equals("hello world", helloWorld.apply())
+    assert.equals("hello world", helloWorld.apply())
 
-		to = "someone else"
-		assert.equals("hello someone else", helloWorld.apply())
-	}
+    to = "someone else"
+    assert.equals("hello someone else", helloWorld.apply())
+  }
 
-	test "closure using outside context variable (mutating)" {
-		var n2 = 2
-		const multiplyByN2 = {i=> i * n2}
-		n2 = 10
+  test "closure using outside context variable (mutating)" {
+    var n2 = 2
+    const multiplyByN2 = {i=> i * n2}
+    n2 = 10
 
-		assert.equals(30,multiplyByN2.apply(3))		
-	}
+    assert.equals(30,multiplyByN2.apply(3))  
+  }
 
-	test "closure as parameter to closure" {
-		const twice = { block => block.apply() + block.apply() }
-		assert.equals(4, twice.apply {=> 2 })
-	}
+  test "closure as parameter to closure" {
+    const twice = { block => block.apply() + block.apply() }
+    assert.equals(4, twice.apply {=> 2 })
+  }
 
-	test "nested closure" {
-		const sum =  {a, b => a + b}
+  test "nested closure" {
+    const sum =  {a, b => a + b}
 
-		const curried = { a =>
-			{ b => sum.apply(a, b) } 
-		}
+    const curried = { a =>
+      { b => sum.apply(a, b) } 
+    }
 
-		const curriedSum = curried.apply(2)
+    const curriedSum = curried.apply(2)
 
-		assert.equals(5, curriedSum.apply(3))
-	}
+    assert.equals(5, curriedSum.apply(3))
+  }
 
-	test "folding closures" {
-		const sum2 = { a => a + 2 }
-		const by3 = { b => b * 3 }
-		const pow = { c => c ** 2 }
+  test "folding closures" {
+    const sum2 = { a => a + 2 }
+    const by3 = { b => b * 3 }
+    const pow = { c => c ** 2 }
 
-		const op = [sum2, by3, pow]
+    const op = [sum2, by3, pow]
 
-		const result = op.fold(0, {acc, operation =>  operation.apply(acc) })
+    const result = op.fold(0, {acc, operation =>  operation.apply(acc) })
 
-		assert.equals(36, result)
-	}
+    assert.equals(36, result)
+  }
 
-	test "a closure with arguments should throw an exception if more arguments are passed" {
-		assert.throwsException { { a => a + 2 }.apply(1, 2) }
-	}
+  test "a closure with arguments should throw an exception if more arguments are passed" {
+    assert.throwsException { { a => a + 2 }.apply(1, 2) }
+  }
 
-	test "a closure with arguments should throw an exception if less arguments are passed" {
-		assert.throwsException { { a => a + 2 }.apply() }
-	}
+  test "a closure with arguments should throw an exception if less arguments are passed" {
+    assert.throwsException { { a => a + 2 }.apply() }
+  }
 
-	test "number closure" {
-		assert.equals(2, { a => a }.apply(2))
-	}
+  test "number closure" {
+    assert.equals(2, { a => a }.apply(2))
+  }
 
-	test "null closure" {
-		assert.equals(null, { null }.apply())
-	}
+  test "null closure" {
+    assert.equals(null, { null }.apply())
+  }
 
-	test "closure toString should be its source code" {
-		assert.equals("{x => 5 + x}", {x => 5 + x}.toString())
-	}
+  test "closure toString should be its source code" {
+    assert.equals("{x => 5 + x}", {x => 5 + x}.toString())
+  }
 }

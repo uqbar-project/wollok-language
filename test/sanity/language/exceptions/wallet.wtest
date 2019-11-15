@@ -6,16 +6,16 @@ class UserException inherits Exception {
 }
 
 object monedero {
-	var plata = 500
+  var plata = 500
 
-	method poner(cantidad) {
-		if (cantidad < 0) {
-			throw new UserException(message="La cantidad debe ser positiva", valorInvalido=cantidad)
-		} 
-		plata += cantidad
-	}
+  method poner(cantidad) {
+    if (cantidad < 0) {
+      throw new UserException(message="La cantidad debe ser positiva", valorInvalido=cantidad)
+    } 
+    plata += cantidad
+  }
 
-	method sacar(cantidad) { plata -= cantidad }
+  method sacar(cantidad) { plata -= cantidad }
 }
 
 /**

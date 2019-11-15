@@ -3,223 +3,223 @@
  */
 describe "arithmetic operations"{
 
-	test "addition" {
-		assert.equals(2, 1 + 1)
-		assert.equals(2.5, 1 + 1.5)
-		assert.equals(2.5, 1.5 + 1)
-		assert.equals(3.0, 1.3 + 1.7)
-		assert.equals(4, 4 + 0.0)
-		assert.equals(4, 4.0 + 0.0)
-		assert.equals(4, 4.0 + 0)
-		assert.equals(4, 4 + 0)
-	}
+  test "addition" {
+    assert.equals(2, 1 + 1)
+    assert.equals(2.5, 1 + 1.5)
+    assert.equals(2.5, 1.5 + 1)
+    assert.equals(3.0, 1.3 + 1.7)
+    assert.equals(4, 4 + 0.0)
+    assert.equals(4, 4.0 + 0.0)
+    assert.equals(4, 4.0 + 0)
+    assert.equals(4, 4 + 0)
+  }
 
-	test "add with failing parameters" {
-		assert.throwsException( { 3 + new Cuenta() })
-		assert.throwsException( { 3 + "pepe" })
-	}
+  test "add with failing parameters" {
+    assert.throwsException( { 3 + new Cuenta() })
+    assert.throwsException( { 3 + "pepe" })
+  }
 
-	test "add 1 to null should fail" {
-		assert.throwsException({ 1 + null })
-	}
+  test "add 1 to null should fail" {
+    assert.throwsException({ 1 + null })
+  }
 
-	test "add several decimals" {
-		assert.equals(4.00001, 3.000004 + 1.000006)
-		assert.equals(4.00001, 3.000002 + 1.000006)
-		assert.equals(4, 3.000002 + 1.000002)
-	}
+  test "add several decimals" {
+    assert.equals(4.00001, 3.000004 + 1.000006)
+    assert.equals(4.00001, 3.000002 + 1.000006)
+    assert.equals(4, 3.000002 + 1.000002)
+  }
 
-	test "very big integer add" {
-		const a = 100000000000000000
-		assert.equals(100000000000000001, a + 1)
-	}
+  test "very big integer add" {
+    const a = 100000000000000000
+    assert.equals(100000000000000001, a + 1)
+  }
 
-	test "subtraction"{
-		assert.equals(0, 1 - 1)
-		assert.equals(-0.5, 1 - 1.5)
-		assert.equals(0.5, 1.5 - 1)
-		assert.equals(0.0, 1.5 - 1.5)
-	}
+  test "subtraction"{
+    assert.equals(0, 1 - 1)
+    assert.equals(-0.5, 1 - 1.5)
+    assert.equals(0.5, 1.5 - 1)
+    assert.equals(0.0, 1.5 - 1.5)
+  }
 
-	test "subtract using null" {
-		assert.throwsException({ 1 - null })
-	}
+  test "subtract using null" {
+    assert.throwsException({ 1 - null })
+  }
 
-	test "subtract fail" {
-		assert.throwsException({ 4 - "a" })
-	}
+  test "subtract fail" {
+    assert.throwsException({ 4 - "a" })
+  }
 
-	test "subtract several decimals" {
-		assert.equals(-0.00001, 4.000004 - 4.000006)
-		assert.equals(0, 4.000007 - 4.000006)
-		assert.equals(2, 3.000002 - 1.000001)
-		assert.equals(1.99999, 3.000002 - 1.000006)
-		assert.equals(1.99978, 3.000002 - 1.000222)
-	}
+  test "subtract several decimals" {
+    assert.equals(-0.00001, 4.000004 - 4.000006)
+    assert.equals(0, 4.000007 - 4.000006)
+    assert.equals(2, 3.000002 - 1.000001)
+    assert.equals(1.99999, 3.000002 - 1.000006)
+    assert.equals(1.99978, 3.000002 - 1.000222)
+  }
 
-	test "product"{
-		assert.equals(1, 1 * 1)
-		assert.equals(1.5, 1 * 1.5)
-		assert.equals(1.5, 1.5 * 1)
-		assert.equals(2.25, 1.5 * 1.5)
-		assert.equals(1.96, 1.4 * 1.4)
-	}
+  test "product"{
+    assert.equals(1, 1 * 1)
+    assert.equals(1.5, 1 * 1.5)
+    assert.equals(1.5, 1.5 * 1)
+    assert.equals(2.25, 1.5 * 1.5)
+    assert.equals(1.96, 1.4 * 1.4)
+  }
 
-	test "multiply using null should fail" {
-		assert.throwsException({ 1 * null })
-	}
+  test "multiply using null should fail" {
+    assert.throwsException({ 1 * null })
+  }
 
-	test "multiply fail" {
-		assert.throwsException({ 4 * "a" })
-	}
+  test "multiply fail" {
+    assert.throwsException({ 4 * "a" })
+  }
 
-	test "multiply several decimals" {
-		assert.equals(8, 4.00000000001 * 2.000000000003)
-		assert.equals(0, 4.00222222222222000000001 * 0)
-		assert.equals(4.00270, 4.00222222222222000000001 * 1.00012)
-		assert.equals(4.00415, 4.00222522222222000000001 * 1.00048)
-	}
+  test "multiply several decimals" {
+    assert.equals(8, 4.00000000001 * 2.000000000003)
+    assert.equals(0, 4.00222222222222000000001 * 0)
+    assert.equals(4.00270, 4.00222222222222000000001 * 1.00012)
+    assert.equals(4.00415, 4.00222522222222000000001 * 1.00048)
+  }
 
-	test "multiply by zero" {
-		assert.equals(6.2500000 * 0.5 * 0, 0)
-		assert.equals(6.2500000 * 0, 0)
-		assert.equals(0.0 * 0, 0)
-		assert.equals(0.0 * 0.0, 0)
-		assert.equals(0 * 0.0, 0)
-	}
+  test "multiply by zero" {
+    assert.equals(6.2500000 * 0.5 * 0, 0)
+    assert.equals(6.2500000 * 0, 0)
+    assert.equals(0.0 * 0, 0)
+    assert.equals(0.0 * 0.0, 0)
+    assert.equals(0 * 0.0, 0)
+  }
 
-	test "very big integer multiply" {
-		const a = 100000000000000000
-		assert.equals(100000000000000000, a * 1)
-	}
+  test "very big integer multiply" {
+    const a = 100000000000000000
+    assert.equals(100000000000000000, a * 1)
+  }
 
-	test "division" {
-		assert.equals(1.5, 3 / 2)
-		assert.equals(1.5, 3 / 2.0)
-		assert.equals(1.5, 3.0 / 2)
-		assert.equals(1.5, 2.25 / 1.5)
-		assert.equals(0.3, 3 / 10)
-		assert.equals(2.5, 5 / 2)
-		assert.equals(2, 4 / 2)
-		assert.equals(2, 4 / 2.0)
-	}
+  test "division" {
+    assert.equals(1.5, 3 / 2)
+    assert.equals(1.5, 3 / 2.0)
+    assert.equals(1.5, 3.0 / 2)
+    assert.equals(1.5, 2.25 / 1.5)
+    assert.equals(0.3, 3 / 10)
+    assert.equals(2.5, 5 / 2)
+    assert.equals(2, 4 / 2)
+    assert.equals(2, 4 / 2.0)
+  }
 
-	test "divide zero" {
-		assert.equals(0, 0 / 10)
-		assert.equals(0, 0 / 10.0)
-		assert.equals(0, 0.0 / 10.0)
-		assert.equals(0, 0 / 10.0)
-		assert.equals(0, 0 / 100.0)
-		assert.equals(0, 1 / 100000000000.0)
-	}
+  test "divide zero" {
+    assert.equals(0, 0 / 10)
+    assert.equals(0, 0 / 10.0)
+    assert.equals(0, 0.0 / 10.0)
+    assert.equals(0, 0 / 10.0)
+    assert.equals(0, 0 / 100.0)
+    assert.equals(0, 1 / 100000000000.0)
+  }
 
-	test "divide several decimals" {
-		assert.equals(0.51235, 5.123456 / 10.00000011)
-		assert.equals(0.51235, 5.123456 / 10)
-		assert.equals(0.51235, 5123456 / 10000000)
-	}
+  test "divide several decimals" {
+    assert.equals(0.51235, 5.123456 / 10.00000011)
+    assert.equals(0.51235, 5.123456 / 10)
+    assert.equals(0.51235, 5123456 / 10000000)
+  }
 
-	test "division by zero should fail" {
-		assert.throwsException({ 1 / 0 })
-		assert.throwsException({ 1.0 / 0 })
-		assert.throwsException({ 1.0 / 0.0 })
-		assert.throwsException({ 1 / 0.0 })
-	}
+  test "division by zero should fail" {
+    assert.throwsException({ 1 / 0 })
+    assert.throwsException({ 1.0 / 0 })
+    assert.throwsException({ 1.0 / 0.0 })
+    assert.throwsException({ 1 / 0.0 })
+  }
 
-	test "divide periodic decimals" {
-		assert.equals(0.72727, 40 / 55)
-		assert.equals(0.72727, 40 / 55.0)
-		assert.equals(0.72727, 40.0 / 55.0)
-		assert.equals(0.72727, 40.0 / 55)
-		assert.equals(0.33333, 1 / 3)
-		assert.equals(0.66667, 2 / 3)
-	}
+  test "divide periodic decimals" {
+    assert.equals(0.72727, 40 / 55)
+    assert.equals(0.72727, 40 / 55.0)
+    assert.equals(0.72727, 40.0 / 55.0)
+    assert.equals(0.72727, 40.0 / 55)
+    assert.equals(0.33333, 1 / 3)
+    assert.equals(0.66667, 2 / 3)
+  }
 
-	test "divide decimals" {
-		assert.equals(0.3, 3 / 10.0)
-		assert.equals(0.3, 3.0 / 10.0)
-		assert.equals(2.5, 5 / 2.0)
-		assert.equals(2, 4.0 / 2.0)
-	}
+  test "divide decimals" {
+    assert.equals(0.3, 3 / 10.0)
+    assert.equals(0.3, 3.0 / 10.0)
+    assert.equals(2.5, 5 / 2.0)
+    assert.equals(2, 4.0 / 2.0)
+  }
 
-	test "very big integer divide" {
-		const a = 100000000000000000
-		assert.equals(100000, a / 1000000000000)
-	}
+  test "very big integer divide" {
+    const a = 100000000000000000
+    assert.equals(100000, a / 1000000000000)
+  }
 
-	test "division using null" {
-		assert.throwsException( { 3 / null })
-	}
+  test "division using null" {
+    assert.throwsException( { 3 / null })
+  }
 
-	test "division fail" {
-		assert.throwsException( { 3 / "a" })
-	}
+  test "division fail" {
+    assert.throwsException( { 3 / "a" })
+  }
 
-	test "decimal exponentiation"{
-		assert.equals(3.0, 9 ** 0.5)
-		assert.equals(1.5, 2.25 ** 0.5)
-	}
+  test "decimal exponentiation"{
+    assert.equals(3.0, 9 ** 0.5)
+    assert.equals(1.5, 2.25 ** 0.5)
+  }
 
-	test "negative exponentiation" {
-		assert.equals(0.2, 5 ** (-1))
-		assert.equals(0.2, 5 ** (-1.0))
-		assert.equals(0.2, 5.0 ** (-1.0))
-		assert.equals(0.2, 5.0 ** (-1))
-		assert.equals(1, 5.0 ** 0)
-		assert.equals(1, 5.0 ** 0.0)
-		assert.equals(1, 5 ** 0)
-		assert.equals(1, 5 ** 0.0)
-	}
+  test "negative exponentiation" {
+    assert.equals(0.2, 5 ** (-1))
+    assert.equals(0.2, 5 ** (-1.0))
+    assert.equals(0.2, 5.0 ** (-1.0))
+    assert.equals(0.2, 5.0 ** (-1))
+    assert.equals(1, 5.0 ** 0)
+    assert.equals(1, 5.0 ** 0.0)
+    assert.equals(1, 5 ** 0)
+    assert.equals(1, 5 ** 0.0)
+  }
 
-	test "integer exponentiation" {
-		assert.equals(25, 5 ** 2)
-		assert.equals(25, 5 ** 2.0)
-		assert.equals(25.0, 5.0 ** 2)
-		assert.equals(25.0, 5.0 ** 2.0)
-	}
+  test "integer exponentiation" {
+    assert.equals(25, 5 ** 2)
+    assert.equals(25, 5 ** 2.0)
+    assert.equals(25.0, 5.0 ** 2)
+    assert.equals(25.0, 5.0 ** 2.0)
+  }
 
-	test "exponentiation using null" {
-		assert.throwsException({ 4 ** null } )
-	}
+  test "exponentiation using null" {
+    assert.throwsException({ 4 ** null } )
+  }
 
-	test "exponentiation Fail" {
-		assert.throwsException({ 4 ** "a" } )
-	}
+  test "exponentiation Fail" {
+    assert.throwsException({ 4 ** "a" } )
+  }
 
-	test "exponentiation precedence" {
-		assert.equals(24, 3 * 2 ** 3)
-		assert.equals(36, 4.0 * 3 ** 2)
-		assert.equals(5, 1 + 2 ** 2)
-	}
+  test "exponentiation precedence" {
+    assert.equals(24, 3 * 2 ** 3)
+    assert.equals(36, 4.0 * 3 ** 2)
+    assert.equals(5, 1 + 2 ** 2)
+  }
 
-	test "module"{
-		assert.equals(1, 10 % 3)
-	}
+  test "module"{
+    assert.equals(1, 10 % 3)
+  }
 
 }
 
 describe "mixed number types operations" {
 
-	test "equals between decimals and integers" {
-		assert.equals(2 * 2.0, 2.0 * 2)
-		assert.equals(2 * 2.0, 2.0 * 2)
+  test "equals between decimals and integers" {
+    assert.equals(2 * 2.0, 2.0 * 2)
+    assert.equals(2 * 2.0, 2.0 * 2)
 
-		assert.equals(1 + 2.0, 1.0 + 2)
-		assert.equals(1 + 2.0, 1.0 + 2)
+    assert.equals(1 + 2.0, 1.0 + 2)
+    assert.equals(1 + 2.0, 1.0 + 2)
 
-		assert.equals(1 - 2.0, 1.0 - 2)
-		assert.equals(1 - 2.0, 1.0 - 2)
+    assert.equals(1 - 2.0, 1.0 - 2)
+    assert.equals(1 - 2.0, 1.0 - 2)
 
-		assert.equals(1 / 2.0, 1.0 / 2)
-		assert.equals(1 / 2.0, 1.0 / 2)
-	}
+    assert.equals(1 / 2.0, 1.0 / 2)
+    assert.equals(1 / 2.0, 1.0 / 2)
+  }
 
-	test "operationss with decimals and integers" {
-		assert.equals(100 * 1.1, 110.0)
-		assert.equals(100 * 1.1, 110.0)
+  test "operationss with decimals and integers" {
+    assert.equals(100 * 1.1, 110.0)
+    assert.equals(100 * 1.1, 110.0)
 
-		assert.equals(1.4 * 1.4, 1.96)
-		assert.equals(1.4 * 1.4, 1.96)
-	}
+    assert.equals(1.4 * 1.4, 1.96)
+    assert.equals(1.4 * 1.4, 1.96)
+  }
 
 }

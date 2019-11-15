@@ -1,66 +1,66 @@
 describe "booleans - tests with literals" {
 
-	test "true literal used in an assert" {
-		assert.that(true)
-	}
+  test "true literal used in an assert" {
+    assert.that(true)
+  }
 
-	test "false literal used in an assert" {
-		assert.notThat(false)
-	}
+  test "false literal used in an assert" {
+    assert.notThat(false)
+  }
 
-	test "obtaining true from a closure" {
-		assert.that({{true}.apply()}.apply())
-	}
+  test "obtaining true from a closure" {
+    assert.that({{true}.apply()}.apply())
+  }
 
-	test "false" {
-		assert.notThat({{false}.apply()}.apply())
-	}
+  test "false" {
+    assert.notThat({{false}.apply()}.apply())
+  }
 
-	test "null" {
-		assert.equals(null, null)
-	}
+  test "null" {
+    assert.equals(null, null)
+  }
 
-	test "and operator used with literals true and false" {
-		assert.that(true && true)
-		assert.that(true and true)
+  test "and operator used with literals true and false" {
+    assert.that(true && true)
+    assert.that(true and true)
 
-		assert.notThat(true && false)
-		assert.notThat(true and false)
+    assert.notThat(true && false)
+    assert.notThat(true and false)
 
-		assert.notThat(false && true)
-		assert.notThat(false and true)
+    assert.notThat(false && true)
+    assert.notThat(false and true)
 
-		assert.notThat(false && false)
-		assert.notThat(false and false)
-	}
+    assert.notThat(false && false)
+    assert.notThat(false and false)
+  }
 
-	test "or operator used with literals true and false" {
-		assert.that(true || true)
-		assert.that(true or true)
+  test "or operator used with literals true and false" {
+    assert.that(true || true)
+    assert.that(true or true)
 
-		assert.that(true || false)
-		assert.that(true or false)
+    assert.that(true || false)
+    assert.that(true or false)
 
-		assert.that(false || true)
-		assert.that(false or true)
+    assert.that(false || true)
+    assert.that(false or true)
 
-		assert.notThat(false || false)
-		assert.notThat(false or false)
-	}
+    assert.notThat(false || false)
+    assert.notThat(false or false)
+  }
 
-	test "using and operator with closures" {
-		assert.that({{true}.apply()}.apply() && {{true}.apply()}.apply())
+  test "using and operator with closures" {
+    assert.that({{true}.apply()}.apply() && {{true}.apply()}.apply())
 
-		assert.notThat({{true}.apply()}.apply() && {{false}.apply()}.apply())
-		assert.notThat({{false}.apply()}.apply() && {{true}.apply()}.apply())
-		assert.notThat({{false}.apply()}.apply() && {{false}.apply()}.apply())
-	}
+    assert.notThat({{true}.apply()}.apply() && {{false}.apply()}.apply())
+    assert.notThat({{false}.apply()}.apply() && {{true}.apply()}.apply())
+    assert.notThat({{false}.apply()}.apply() && {{false}.apply()}.apply())
+  }
 
-	test "or with literals" {
-		assert.that({true}.apply() || {true}.apply())
-		assert.that({true}.apply() || {false}.apply())
-		assert.that({false}.apply() || {true}.apply())
-		assert.notThat({false}.apply() || {false}.apply())
-	}
+  test "or with literals" {
+    assert.that({true}.apply() || {true}.apply())
+    assert.that({true}.apply() || {false}.apply())
+    assert.that({false}.apply() || {true}.apply())
+    assert.notThat({false}.apply() || {false}.apply())
+  }
 
 }

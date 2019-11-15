@@ -3,121 +3,121 @@
  */
 describe "number comparisons" {
 
-	test "number comparisons - happy path" {
-		assert.that(2 > 1)
-		assert.notThat(1 > 1)
-		assert.notThat(1 > 2)
-		assert.that(2 >= 1)
-		assert.that(1 >= 1)
-		assert.notThat(1 >= 2)
-		assert.notThat(2 < 1)
-		assert.notThat(1 < 1)
-		assert.that(1 < 2)
-		assert.notThat(2 <= 1)
-		assert.that(1 <= 1)
-		assert.that(1 <= 2)
+  test "number comparisons - happy path" {
+    assert.that(2 > 1)
+    assert.notThat(1 > 1)
+    assert.notThat(1 > 2)
+    assert.that(2 >= 1)
+    assert.that(1 >= 1)
+    assert.notThat(1 >= 2)
+    assert.notThat(2 < 1)
+    assert.notThat(1 < 1)
+    assert.that(1 < 2)
+    assert.notThat(2 <= 1)
+    assert.that(1 <= 1)
+    assert.that(1 <= 2)
 
-		assert.that(2 > 1.0)
-		assert.notThat(1 > 1.0)
-		assert.notThat(1 > 2.0)
-		assert.that(2 >= 1.0)
-		assert.that(1 >= 1.0)
-		assert.notThat(1 >= 2.0)
-		assert.notThat(2 < 1.0)
-		assert.notThat(1 < 1.0)
-		assert.that(1 < 2.0)
-		assert.notThat(2 <= 1.0)
-		assert.that(1 <= 1.0)
-		assert.that(1 <= 2.0)
+    assert.that(2 > 1.0)
+    assert.notThat(1 > 1.0)
+    assert.notThat(1 > 2.0)
+    assert.that(2 >= 1.0)
+    assert.that(1 >= 1.0)
+    assert.notThat(1 >= 2.0)
+    assert.notThat(2 < 1.0)
+    assert.notThat(1 < 1.0)
+    assert.that(1 < 2.0)
+    assert.notThat(2 <= 1.0)
+    assert.that(1 <= 1.0)
+    assert.that(1 <= 2.0)
 
-		assert.that(2.0 > 1)
-		assert.notThat(1.0 > 1)
-		assert.notThat(1.0 > 2)
-		assert.that(2.0 >= 1)
-		assert.that(1.0 >= 1)
-		assert.notThat(1.0 >= 2)
-		assert.notThat(2.0 < 1)
-		assert.notThat(1.0 < 1)
-		assert.that(1.0 < 2)
-		assert.notThat(2.0 <= 1)
-		assert.that(1.0 <= 1)
-		assert.that(1.0 <= 2)
+    assert.that(2.0 > 1)
+    assert.notThat(1.0 > 1)
+    assert.notThat(1.0 > 2)
+    assert.that(2.0 >= 1)
+    assert.that(1.0 >= 1)
+    assert.notThat(1.0 >= 2)
+    assert.notThat(2.0 < 1)
+    assert.notThat(1.0 < 1)
+    assert.that(1.0 < 2)
+    assert.notThat(2.0 <= 1)
+    assert.that(1.0 <= 1)
+    assert.that(1.0 <= 2)
 
-		assert.that(2.0 > 1.0)
-		assert.notThat(1.0 > 1.0)
-		assert.notThat(1.0 > 2.0)
-		assert.that(2.0 >= 1.0)
-		assert.that(1.0 >= 1.0)
-		assert.notThat(1.0 >= 2.0)
-		assert.notThat(2.0 < 1.0)
-		assert.notThat(1.0 < 1.0)
-		assert.that(1.0 < 2.0)
-		assert.notThat(2.0 <= 1.0)
-		assert.that(1.0 <= 1.0)
-		assert.that(1.0 <= 2.0)
+    assert.that(2.0 > 1.0)
+    assert.notThat(1.0 > 1.0)
+    assert.notThat(1.0 > 2.0)
+    assert.that(2.0 >= 1.0)
+    assert.that(1.0 >= 1.0)
+    assert.notThat(1.0 >= 2.0)
+    assert.notThat(2.0 < 1.0)
+    assert.notThat(1.0 < 1.0)
+    assert.that(1.0 < 2.0)
+    assert.notThat(2.0 <= 1.0)
+    assert.that(1.0 <= 1.0)
+    assert.that(1.0 <= 2.0)
 
-		assert.that((1.1 / 1) > (1.000002))
-		assert.that(1 < 1.0001)
-	}
+    assert.that((1.1 / 1) > (1.000002))
+    assert.that(1 < 1.0001)
+  }
 
-	test "greater than failing cases" {
-		assert.throwsException({ 3 > [1, 2] })
-	}
+  test "greater than failing cases" {
+    assert.throwsException({ 3 > [1, 2] })
+  }
 
-	test "greater than using null should fail" {
-		assert.throwsException({ 3 > null })
-	}
+  test "greater than using null should fail" {
+    assert.throwsException({ 3 > null })
+  }
 
-	test "lesser than failing cases" {
-		assert.throwsException({ 3 < [1, 2] })
-	}
+  test "lesser than failing cases" {
+    assert.throwsException({ 3 < [1, 2] })
+  }
 
-	test "lesser than using null should fail" {
-		assert.throwsException({ 3 < null })
-	}
+  test "lesser than using null should fail" {
+    assert.throwsException({ 3 < null })
+  }
 
 }
 
 test "numberEquality" {
-	assert.that(1 == 1)
-	assert.that(1 == 1.0)
-	assert.that(1.0 == 1)
-	assert.that(1.0 == 1.0)
+  assert.that(1 == 1)
+  assert.that(1 == 1.0)
+  assert.that(1.0 == 1)
+  assert.that(1.0 == 1.0)
 
-	assert.notThat(1 == 2)
-	assert.notThat(1.0 == 2)
-	assert.notThat(1 == 2.0)
-	assert.notThat(1.0 == 2.0)
+  assert.notThat(1 == 2)
+  assert.notThat(1.0 == 2)
+  assert.notThat(1 == 2.0)
+  assert.notThat(1.0 == 2.0)
 
-	assert.that(1 != 2)
-	assert.that(1 != 2.0)
-	assert.that(1.0 != 2)
-	assert.that(1.0 != 2.0)
+  assert.that(1 != 2)
+  assert.that(1 != 2.0)
+  assert.that(1.0 != 2)
+  assert.that(1.0 != 2.0)
 
-	assert.notThat(1 != 1)
-	assert.notThat(1.0 != 1)
-	assert.notThat(1 != 1.0)
-	assert.notThat(1.0 != 1.0)
+  assert.notThat(1 != 1)
+  assert.notThat(1.0 != 1)
+  assert.notThat(1 != 1.0)
+  assert.notThat(1.0 != 1.0)
 
-	assert.notThat(1 == "aString")
+  assert.notThat(1 == "aString")
 }
 
 describe "positive and negative numbers comparisons" {
 
-	test "positive number equality" {
-		assert.equals(10, 1+9)
-	}
+  test "positive number equality" {
+    assert.equals(10, 1+9)
+  }
 
-	test "negative number equality" {
-		assert.equals(-10, -11+1)
-	}
+  test "negative number equality" {
+    assert.equals(-10, -11+1)
+  }
 
-	test "positive fractional number equality" {
-		assert.equals(1.5, 1.5)
-	}
+  test "positive fractional number equality" {
+    assert.equals(1.5, 1.5)
+  }
 
-	test "negative fractional number equality" {
-		assert.equals(-1.5, -1.5)
-	}
+  test "negative fractional number equality" {
+    assert.equals(-1.5, -1.5)
+  }
 
 }

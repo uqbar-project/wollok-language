@@ -1,5 +1,5 @@
 /**
-  * Scenario: a group of custom classes
+  * Scenario: a group of classes
   */
 object pajarera {
   const pajaros = []
@@ -45,12 +45,13 @@ object pepita {
 describe "collections - using custom classes" {
 
   test "collection as instance variable" {
-			pajarera.agregar(pepita)
-			pajarera.quitar(pepita)
-			assert.equals(0, pajarera.cantidad())
+      pajarera.agregar(pepita)
+      pajarera.quitar(pepita)
+      assert.equals(0, pajarera.cantidad())
   }
 
-  test "issue 40" {
+  // https://github.com/uqbar-project/wollok/issues/40
+  test "issue 40 - Recursive modifying of a variable is not working" {
     pajarera.agregar(pepita)
     pajarera.agregar(pepe)
     const menor = pajarera.menorValor()

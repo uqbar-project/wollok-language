@@ -89,14 +89,14 @@ describe "position" {
   }
 
   test "positions can draw visuals without position" {
-			origin.drawElement(visualWithoutPosition)
-			const expected = origin.allElements().head()
-			assert.equals(expected, visualWithoutPosition)
+      origin.drawElement(visualWithoutPosition)
+      const expected = origin.allElements().head()
+      assert.equals(expected, visualWithoutPosition)
   }
 
   test "clear should remove all visuals in it" {
-			2.times{ i => origin.drawElement(new Visual()) }
-			new Position(x = 1, y = 1).drawElement(new Visual())
+      2.times{ i => origin.drawElement(new Visual()) }
+      new Position(x = 1, y = 1).drawElement(new Visual())
       assert.equals(3, game.allVisuals().size())
       origin.clear()
       assert.equals(1, game.allVisuals().size())

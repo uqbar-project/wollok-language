@@ -1,25 +1,33 @@
+/**
+  * Scenario:
+  * - a superclass with a template method
+  * - a subclass implementing an overriden primitive / hook method
+  */
 class Golondrina {
-	var energia = 100
+  var energia = 100
 
-	method energia() = energia
+  method energia() = energia
 
-	method volar(kms) {
-		energia = energia - self.gastoParaVolar(kms) // Invocacion a método que se va a sobreescribir
-	}
-	
-	method gastoParaVolar(kms) = kms
+  method volar(kms) {
+    energia = energia - self.gastoParaVolar(kms) // Invocacion a método que se va a sobreescribir
+  }
+
+  method gastoParaVolar(kms) = kms
 }
 
 class NoSeCansa inherits Golondrina {
-	override method gastoParaVolar(kms) = 0
+  override method gastoParaVolar(kms) = 0
 }
 
+/**
+  * Tests
+  */
 describe "template method" {
 
-  test "behavior for swallow does not change" {
-  	const pepita = new Golondrina()
-	  pepita.volar(50)
-	  assert.equals(50, pepita.energia())
+  test "behavior for superclass is not affected by subclasses definitions" {
+    const pepita = new Golondrina()
+    pepita.volar(50)
+    assert.equals(50, pepita.energia())
   }
 
   test "behavior for subclass is overridden by primitive method" {

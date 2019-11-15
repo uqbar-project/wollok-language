@@ -1,26 +1,26 @@
 /**
   * Scenario: a hierarchy, superclass has a constructor and subclass has also a constructor
-	* which delegates to the superclass via super
-	*/
+  * which delegates to the superclass via super
+  */
 class SuperClass {
-	var value
-	constructor(a) { value = a }
+  var value
+  constructor(a) { value = a }
 
-	method value() { return value }
+  method value() { return value }
 }
 
 class SubClass inherits SuperClass { 
-	constructor(n) = super(n + 1) {}
+  constructor(n) = super(n + 1) {}
 }
 
 /**
   * Tests
-	*/
+  */
 describe "constructor delegation to super" {
 
-	test "constructor delegation to super" {
-		const o = new SubClass(20)
-		assert.equals(21, o.value())
-	}
+  test "constructor delegation to super" {
+    const o = new SubClass(20)
+    assert.equals(21, o.value())
+  }
 
 }

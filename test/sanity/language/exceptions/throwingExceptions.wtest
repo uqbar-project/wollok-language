@@ -3,16 +3,16 @@
   */
 describe "throwing exceptions" {
 
-	test "exception from native method gets wrapped into a Wollok exception" {
-		assert.throwsException { 2 / 0 }
-	}
+  test "exception from native method gets wrapped into a Wollok exception" {
+    assert.throwsException { 2 / 0 }
+  }
 
-	test "assert throws exception failing" {
-		var a = 0
-		assert.throwsExceptionLike(
-			new AssertionException(message = "Block { a + 1 } should have failed"),
-			{ assert.throwsException({ a + 1 }) }
-		)
-	}
+  test "assert throws exception failing" {
+    var a = 0
+    assert.throwsExceptionLike(
+      new AssertionException(message = "Block { a + 1 } should have failed"),
+      { assert.throwsException({ a + 1 }) }
+    )
+  }
 
 }

@@ -4,11 +4,11 @@
 class SpecialException inherits Exception {}
 
 class BusinessException inherits Exception {
-	constructor() {}
+  constructor() {}
 }
 
 class OtherBusinessException inherits Exception {
-	constructor() {}
+  constructor() {}
 }
 
 /**
@@ -16,16 +16,16 @@ class OtherBusinessException inherits Exception {
   */
 describe "testing exceptions" {
 
-	test "test expected exception catches the error and succeeds" {
-		assert.throwsException { 
-			const nullReference = null
-			nullReference.foo()
-		}
-	}
+  test "test expected exception catches the error and succeeds" {
+    assert.throwsException { 
+      const nullReference = null
+      nullReference.foo()
+    }
+  }
 
-	test "test expected exception fails if no error is thrown" {
-		assert.throwsException { assert.throwsException { 4 } }
-	}
+  test "test expected exception fails if no error is thrown" {
+    assert.throwsException { assert.throwsException { 4 } }
+  }
 
   test "use throwsExceptionLike with same class should work" {
     assert.throwsExceptionLike(new BusinessException(), { => throw new BusinessException() })

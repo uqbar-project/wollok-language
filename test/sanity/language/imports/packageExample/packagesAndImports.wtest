@@ -7,6 +7,6 @@ import packageExample.aves.*
   * Tests
   */
 test "use a package" {
-	assert.equals(1, pepita.valueOne())
+  assert.equals(1, pepita.valueOne())
 }
 

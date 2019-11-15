@@ -2,55 +2,55 @@
   * Scenario: a class with const and var properties
   */
 class Ave {
-	var property energia = 100
-	const property fechaNacimiento = new Date()
-	var property vecesQueVolo = 0
-	var property velocidad = 0
+  var property energia = 100
+  const property fechaNacimiento = new Date()
+  var property vecesQueVolo = 0
+  var property velocidad = 0
 
-	method volar() {
-		energia -= 10
-		vecesQueVolo++
-	}
+  method volar() {
+    energia -= 10
+    vecesQueVolo++
+  }
 
-	method velocidad() = velocidad / 2
+  method velocidad() = velocidad / 2
 }
 
 /**
   * Tests
   */
 describe "Getter and setter for properties in class" {
-	const pepita = new Ave()
+  const pepita = new Ave()
 
-	test "property getter for a var reference - instance of a class" {
-		assert.equals(100, pepita.energia())
-	}
+  test "property getter for a var reference - instance of a class" {
+    assert.equals(100, pepita.energia())
+  }
 
-	test "property setter for a var reference - instance of a class" {
-		pepita.energia(40)
-		pepita.volar()
-		assert.equals(30, pepita.energia())
-	}
+  test "property setter for a var reference - instance of a class" {
+    pepita.energia(40)
+    pepita.volar()
+    assert.equals(30, pepita.energia())
+  }
 
-	test "property getter for an const reference - instance of a class" {
-		assert.equals(new Date(), pepita.fechaNacimiento())
-	}
-	
-	test "property reference change - instance of a class" {
-		pepita.volar()
-		assert.equals(1, pepita.vecesQueVolo())
-	}
+  test "property getter for an const reference - instance of a class" {
+    assert.equals(new Date(), pepita.fechaNacimiento())
+  }
 
-	test "trying to invoke a setter for a property const should fail" {
-		assert.throwsException { pepita.fechaNacimiento(new Date()) }
-	}
+  test "property reference change - instance of a class" {
+    pepita.volar()
+    assert.equals(1, pepita.vecesQueVolo())
+  }
 
-	test "Custom getter for property const in class"{
-		pepita.velocidad(10)
-		assert.equals(5, pepita.velocidad())
-	}
+  test "trying to invoke a setter for a property const should fail" {
+    assert.throwsException { pepita.fechaNacimiento(new Date()) }
+  }
 
-	test "Bad setter for property const in class"{
-		assert.throwsException { pepita.velocidad(10, [21, 1]) }
-	}	
+  test "Custom getter for property const in class"{
+    pepita.velocidad(10)
+    assert.equals(5, pepita.velocidad())
+  }
+
+  test "Bad setter for property const in class"{
+    assert.throwsException { pepita.velocidad(10, [21, 1]) }
+  }
 
 }

@@ -1,33 +1,33 @@
 /**
   * Scenario: a class having several attributes, in order to see it is tedious to define
-	* a long-parameter constructor.
-	*/
+  * a long-parameter constructor.
+  */
 class Point {
-	var x
-	var y
-	method total() = x + y
+  var x
+  var y
+  method total() = x + y
 }
 
 object chayanne {
-	method nombre() = "Chayanne"
+  method nombre() = "Chayanne"
 }
 
 class Presentacion {
-	var fecha
-	var property cantante
-	var property localidades
+  var fecha
+  var property cantante
+  var property localidades
 }
 
 /**
   * Tests
-	*/
+  */
 test "named parameters with numbers" {
-	const point = new Point(x = 1, y = 2)
-	assert.equals(3, point.total())
+  const point = new Point(x = 1, y = 2)
+  assert.equals(3, point.total())
 }
 
 test "named parameters with literals" {
-	const presentacion = new Presentacion(fecha = new Date(), cantante = chayanne, localidades = [100, 50, 200])
-	assert.equals(chayanne, presentacion.cantante())
-	assert.equals(350, presentacion.localidades().sum())
+  const presentacion = new Presentacion(fecha = new Date(), cantante = chayanne, localidades = [100, 50, 200])
+  assert.equals(chayanne, presentacion.cantante())
+  assert.equals(350, presentacion.localidades().sum())
 }
