@@ -7,6 +7,7 @@ object link {
 
 object captainFalcon {}
 
+// https://github.com/uqbar-project/wollok/issues/578
 test "issue 578 - stack trace for closure used in a forEach" {
   var failed = false
   try {
