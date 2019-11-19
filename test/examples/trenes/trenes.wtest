@@ -1,0 +1,114 @@
+import solucion.*
+
+describe "trenes example" {
+
+  const tren = new Tren()
+
+  fixture {
+    tren.agregarVagon(new VagonPasajeros(ancho = 2, largo = 10))
+    tren.agregarVagon(new VagonPasajeros(ancho = 3, largo = 10))
+    tren.agregarVagon(new VagonCarga(cargaMaxima = 1000))
+  }
+
+  test "cantidad de pasajeros inicial del tren" {
+    assert.equals(180, tren.cantidadPasajeros())
+  }
+
+  test "vagones livianos de una formación" {
+    assert.equals(1, tren.cantidadVagonesLivianos()) // el de carga
+  }
+
+}
+
+describe "formaciones eficientes" {
+
+  test "locomotora eficiente - caso borde" {
+    assert.that(new Locomotora(peso = 10, pesoMaximoArrastre = 50, velocidadMaxima = 0).esEficiente())
+  }
+
+  test "locomotora eficiente" {
+    assert.that(new Locomotora(peso = 10, pesoMaximoArrastre = 51, velocidadMaxima = 0).esEficiente())
+  }
+
+  test "locomotora ineficiente - caso borde" {
+    assert.notThat(new Locomotora(peso = 10, pesoMaximoArrastre = 49, velocidadMaxima = 0).esEficiente())
+  }
+
+}
+
+describe "tren con locomotoras" {
+
+  const tren = new Tren()
+
+  fixture {
+    tren.agregarVagon(new VagonPasajeros(ancho = 2, largo = 10))
+    tren.agregarVagon(new VagonPasajeros(ancho = 3, largo = 10))
+    tren.agregarVagon(new VagonCarga(cargaMaxima = 1000))
+    tren.agregarLocomotora(new Locomotora(peso = 1020, pesoMaximoArrastre = 8100, velocidadMaxima = 60))
+    tren.agregarLocomotora(new Locomotora(peso = 1400, pesoMaximoArrastre = 10000, velocidadMaxima =  75))
+  }
+
+  test "la velocidad máxima de una formación" {
+    assert.equals(60, tren.velocidadMaxima())
+  }
+
+  test "eficiencia del tren" {
+    assert.that(tren.esEficiente())
+  }
+
+  test "tren puede moverse" {
+    assert.that(tren.puedeMoverse())    
+  }
+
+  test "kilos de empuje faltante" {
+    assert.equals(0, tren.kilosEmpujeFaltantes())
+  }
+
+}
+
+describe "tren que no se mueve" {
+
+  const trenNoSeMueve = new Tren()
+
+  fixture {
+    trenNoSeMueve.agregarVagon(new VagonPasajeros(ancho = 3, largo = 12))
+    trenNoSeMueve.agregarLocomotora(new Locomotora(peso = 1200, pesoMaximoArrastre = 4000, velocidadMaxima = 55))
+  }
+
+  test "el tren no puede moverse" {
+    assert.notThat(trenNoSeMueve.puedeMoverse())
+  }
+
+  test "kilos de empuje faltantes" {
+    assert.equals(6800, trenNoSeMueve.kilosEmpujeFaltantes())
+  }
+
+}
+
+describe "deposito" {
+
+  const tren = new Tren()
+  const trenNoSeMueve = new Tren()
+  const vagonMasPesadoDeTren = new VagonPasajeros(ancho = 3, largo = 10)
+  const vagonMasPesadoDeTrenNoSeMueve = new VagonPasajeros(ancho = 3, largo = 12)
+  const deposito = new Deposito()
+
+  fixture {
+    tren.agregarVagon(new VagonPasajeros(ancho = 2, largo = 10))
+    tren.agregarVagon(vagonMasPesadoDeTren)
+    tren.agregarVagon(new VagonCarga(cargaMaxima = 1000))
+    tren.agregarLocomotora(new Locomotora(peso = 1020, pesoMaximoArrastre = 8100, velocidadMaxima = 60))
+    tren.agregarLocomotora(new Locomotora(peso = 1400, pesoMaximoArrastre = 10000, velocidadMaxima =  75))
+
+    trenNoSeMueve.agregarVagon(vagonMasPesadoDeTrenNoSeMueve)
+    trenNoSeMueve.agregarLocomotora(new Locomotora(peso = 1200, pesoMaximoArrastre = 4000, velocidadMaxima = 55))
+
+    deposito.agregarFormacion(tren)
+    deposito.agregarFormacion(trenNoSeMueve)
+  }
+
+  test "vagon mas pesado de la formacion" {
+    assert.equals([vagonMasPesadoDeTren, vagonMasPesadoDeTrenNoSeMueve], deposito.vagonesMasPesados()))
+  }
+
+}

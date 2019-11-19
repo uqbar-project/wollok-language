@@ -1,9 +1,0 @@
-class Ave {
-	const property energia = 0
-}
-
-test "Bad setter for property const in class"{
-	
-	const pepita = new Ave()
-	assert.throwsException { pepita.energia(10, [21, 1]) }
-}

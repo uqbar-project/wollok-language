@@ -1,0 +1,178 @@
+/**
+  * Scenario: a class and a wko having common attributes
+  */
+class Alumno { 
+  var nombre 
+  constructor(_nombre) { nombre = _nombre }
+}
+
+object manuel {
+  var nombre = "ElManu"
+}
+
+/**
+  * Scenario 2: list of numbers used mostly in tests
+  */
+const numbers = #{22, 2, 10}
+
+describe "set tests" {
+
+  const aSet = #{1, 2, 3}
+  const anotherSet = #{3, 4, 5}
+
+  test "union with empty set" {
+    assert.equals(aSet, aSet.union(#{}))
+    assert.equals(aSet, #{}.union(aSet))
+  }
+
+  test "union with non empty sets" {
+    const unionSet = #{1, 2, 3, 4, 5}
+
+    assert.equals(aSet, aSet.union(aSet))
+    assert.equals(unionSet, aSet.union(anotherSet))
+    assert.equals(unionSet, anotherSet.union(aSet))
+  }
+
+  test "intersection with empty set" {
+    assert.equals(#{}, aSet.intersection(#{}))
+    assert.equals(#{}, #{}.intersection(aSet))
+  }
+
+  test "intersection with non empty sets" {
+    const intersectionSet = #{3}
+
+    assert.equals(aSet, aSet.intersection(aSet))
+    assert.equals(intersectionSet, aSet.intersection(anotherSet))
+    assert.equals(intersectionSet, anotherSet.intersection(aSet))
+  }
+
+  test "difference with empty set" {
+    assert.equals(aSet, aSet.difference(#{}))
+    assert.equals(#{}, #{}.difference(aSet))
+  }
+
+  test "difference with non empty sets" {
+    assert.equals(#{}, aSet.difference(aSet))
+    assert.equals(#{1, 2}, aSet.difference(anotherSet))
+    assert.equals(#{4, 5}, anotherSet.difference(aSet))
+  }
+
+  test "equality case true" {
+    assert.equals(#{'Hello'}, #{'Hello'})
+    assert.equals(#{5, 4, 9}, #{4, 5, 9})
+    assert.equals(#{true}, #{true})
+    assert.equals(#{}, #{})
+    assert.equals(#{1,1,2,2}, #{1,2})  
+  }
+
+  test "equality special cases" {
+    assert.notEquals(#{3, 4}, #{3})
+    assert.notThat(#{3, 4}.equals(#{3}))
+    assert.notThat(#{3, 4}.equals(#{3, 8}))
+    assert.notThat(#{3, 4}.equals(#{3}))
+    assert.notThat(#{3}.equals(#{3, 4}))
+    assert.notThat(#{2, 3}.equals(#{3, 4}))
+    assert.notThat(#{2, 3, 4}.equals(#{3, 4}))
+    assert.notThat(#{3, 4}.equals(#{3.01, 4}))
+    assert.that(#{3, 4}.equals(#{2.00 + 1, 4}))
+    assert.notThat(#{}.equals(#{3}))
+    assert.notThat(#{5}.equals(#{3}))
+    assert.notThat(#{5}.equals(#{}))
+  }
+
+  test "equality case false" {
+    assert.notEquals(#{'Hello'}, #{'Hellou'})
+    assert.notEquals(#{5, 4, 9}, #{4, 5, 3})
+    assert.notEquals(#{4, 5, 9}, [4, 5, 9])
+  }
+
+  test "elements are unique" {
+    assert.equals(2, #{"melon", "tomate", "melon"}.size())
+    assert.equals(2, #{5, 7, 7, 5, 5, 5, 7, 7, 5, 5, 7}.size())
+  }
+
+  test "elements are unique with common representations" {
+    assert.equals(4, #{"4", 4.01, 4, "Cuatro"}.size())
+  }
+
+  test "elements are unique for classes" {
+    assert.equals(3, #{new Alumno("juan"), new Alumno("manuel"), new Alumno("juan")}.size())
+  }
+
+  test "elements are unique for classes and objects" {
+    const juancete = new Alumno("juan")
+    assert.equals(2, #{juancete, manuel, juancete, manuel, manuel}.size())
+  }
+
+  test "anyOne for a list with one element returns that element" {
+    assert.equals(1, #{1}.anyOne())
+  }
+
+  test "anyOne on set throwsException when empty" {
+    assert.throwsException({ #{}.anyOne() })
+  }
+
+  test "toString for a long set" {
+    const unSet = #{}
+    (1..51).forEach { i => unSet.add(i) }
+    assert.equals("#{...51 elements}", unSet.toString())
+  }
+
+  test "toString for a short set" {
+    const unSet = #{23, 2, 2}
+    assert.that("#{23, 2}" == unSet.toString() || "#{2, 23}" == unSet.toString())
+  }
+
+  test "asSet conversion" {
+    const set = #{}
+    set.add(1)
+    set.add(2)
+    set.add(3)
+    assert.equals(set, set.asSet())
+  }
+
+  test "asSet - list" {
+    const list = new List()
+    list.addAll([1,2,3])
+    assert.equals(1, #{list,[1,2,3]}.asSet().size())  
+  }
+
+  test "asSet - set" {
+    const set = new Set()
+    set.addAll([1,2,3])
+    assert.equals(1, #{set, #{1,2,3}}.asSet().size())  
+  }
+
+  test "size adding duplicates individually" {
+    const numbers = #{ 23, 2, 1, 1, 1 }
+    numbers.add(1)
+    numbers.add(1)  
+    assert.equals(3, numbers.size())
+  }
+
+  test "size adding duplicates with addAll" {
+    const numbers = #{ 23, 2, 1, 1, 1 }
+    numbers.addAll(#{1, 1, 1, 1, 4})
+    assert.equals(4, numbers.size())  
+  }
+
+  test "flatten" {
+    assert.equals(#{1,2,3,4}, #{#{1, 2}, #{1, 3, 4}}.flatten())
+    assert.equals(#{1,2, 3}, #{#{1, 2}, #{}, #{1, 2, 3}}.flatten())
+  }
+
+  test "flatten for empty sets" {
+    assert.equals(#{}, #{}.flatten())
+    assert.equals(#{}, #{#{}}.flatten())
+  }
+
+  test "set converted as list" {
+    assert.equals([1, 2, 3], #{1,2,3}.asList())
+  }
+
+  test "removeAll" {
+    numbers.removeAll(#{2, 10})
+    assert.equals(#{22}, numbers)  
+  }
+
+}

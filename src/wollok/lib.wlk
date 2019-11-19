@@ -51,7 +51,8 @@ object assert {
     if (!value) throw new AssertionException(message = "Value was not true")
   }
   
-  /** Tests whether value is false. Otherwise throws an exception. 
+  /** 
+   * Tests whether value is false. Otherwise throws an exception. 
    * @see assert#that(value) 
    */
   method notThat(value) {
@@ -59,13 +60,6 @@ object assert {
     if (value) throw new AssertionException(message = "Value was not false")
   }
   
-  /*
-   * This method avoids confusion with equals definition in Object
-   */
-  override method equals(value) {
-    throw new AssertionException(message = "assert.equals(expected, actual): missing second parameter")
-  }
-
   /** 
    * Tests whether two values are equal, based on wollok ==, != methods
    * 
@@ -174,8 +168,8 @@ object assert {
    *
    * Examples:
    *    assert.throwsExceptionWithType(new BusinessException("hola"),{ => throw new BusinessException("hola") } 
-     *          => Works! Both exceptions are instances of the same class.
-     *
+   *          => Works! Both exceptions are instances of the same class.
+   *
    *    assert.throwsExceptionWithType(new BusinessException("chau"),{ => throw new BusinessException("hola") } 
    *          => Works again! Both exceptions are instances of the same class.
    *
@@ -237,6 +231,13 @@ object assert {
   method fail(message) {
     self.checkNotNull(message, "fail")
     throw new AssertionException(message = message)
+  }
+
+  /*
+   * This method avoids confusion with equals definition in Object
+   */
+  override method equals(value) {
+    throw new AssertionException(message = "assert.equals(expected, actual): missing second parameter")
   }
   
 }

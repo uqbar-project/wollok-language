@@ -1,0 +1,11 @@
+describe "set literals" {
+
+  test "Empty set" {
+    assert.equals(#{}, #{})
+  }
+
+  test "Non-empty set" {
+    assert.equals(#{1,2,3}, #{1,2,3})
+  }
+
+}

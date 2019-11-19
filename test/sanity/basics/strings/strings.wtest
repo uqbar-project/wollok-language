@@ -1,0 +1,328 @@
+/**
+ * Tests for Wollok strings.
+ */
+describe "strings" {
+
+  test "string equality" {
+    assert.equals("foo", "foo")
+  }
+
+  test "empty strings" {
+    assert.equals("","")
+  }
+
+  test "strings with escape sequences" {
+    assert.equals("foo\\nbar","foo\\nbar")
+  }
+
+  test "strings with the escaped escape character without escaping the whole sequence" {
+    assert.equals("foo\\\\nbar","foo\\\\nbar")
+  }
+
+  test "substring" {
+    const helloWollok = "Hola, wollok!".substring(0, 3)
+    assert.equals("Hol", helloWollok)
+  }
+
+  test "substring in first parameter using null should fail" {
+    assert.throwsException( { "hola".substring(null) })
+  }
+
+  test "substring in first parameter fail" {
+    assert.throwsException({ "hola".substring("a") })
+  }
+
+  test "substring in second parameter using null should fail" {
+    assert.throwsException( { "hola".substring(null, null) })
+  }
+
+  test "substring in second parameter fail" {
+    assert.throwsException({ "hola".substring("a", "e") })
+  }
+
+  test "greater than using null should fail" {
+    assert.throwsException { "hola" > null }
+  }
+
+  test "less than" {
+    assert.that("miau" < "ufa")
+  }
+
+  test "less than false condition" {
+    assert.notThat("zapallo" <= "ufa")
+  }
+
+  test "less than using null should fail" {
+    assert.throwsException { "hola" < null }
+  }
+
+  test "greater or equal than" {
+    assert.that("zapallo" >= "ufa")
+    assert.that("zapallo" >= "zapallo")
+    assert.notThat("aguacero" >= "guarecer")
+  }
+
+  test "less or equal than for less" {
+    assert.that("miau" <= "ufa")
+  }
+
+  test "less or equal than for equal" {
+    assert.that("miau" <= "miau")
+  }
+
+  test "contains" {
+    assert.that("aguacate".contains("cat"))
+    assert.that("aguacate".contains("agua"))
+    assert.notThat("aguacate".contains("managua"))
+    assert.notThat("aguacate".contains("AGUA"))
+  }
+
+  test "contains using null" {
+    assert.throwsException( { "hola".contains(null) })
+  }
+
+  test "contains fail" {
+    assert.throwsException( { "hola".contains(7) })
+  }
+
+  test "indexOf" {
+    assert.equals(0, "aguacate".indexOf("agua"))
+    assert.equals(4, "aguacate".indexOf("cat"))
+    assert.throwsException( {"aguacate".indexOf("trinitrotolueno")} )
+  }
+
+  test "indexOf fail" {
+    assert.throwsException( { "hola".indexOf(7) })
+  }
+
+  test "lastIndexOf" {
+    assert.equals(6, "aguacate".lastIndexOf("te"))
+    assert.equals(5, "aguacate".lastIndexOf("a"))
+    assert.throwsException( {"aguacate".lastIndexOf("trinitrotolueno")} )
+  }
+
+  test "lastIndexOf using null should fail" {
+    assert.throwsException( { "hola".lastIndexOf(null) })
+  }
+
+  test "lastIndexOf fail" {
+    assert.throwsException( { "hola".lastIndexOf(7) })
+  }
+
+  test "isEmpty" {
+    assert.that("".isEmpty())
+    assert.notThat("pepe".isEmpty())
+  }
+
+  test "==" {
+    const unString = "perro"
+    const otroString = "per" + "ro"
+    assert.that(unString == otroString)
+  }
+
+  test "equalsIgnoreCase" {
+    assert.that("mARejaDA".equalsIgnoreCase("MAREJADA"))
+  }
+
+  test "equalsIgnoreCase using null should fail" {
+    assert.throwsException( { "hola".equalsIgnoreCase(null) })
+  }
+
+  test "equalsIgnoreCase fail" {
+    assert.throwsException( { "hola".equalsIgnoreCase(7) })
+  }
+
+  test "split" {
+    const result = "Esto Es una prueba".split(" ")
+    const result2 = "Esto|Es|una|prueba".split("|")
+    const result3 = "Esto,Es,una,prueba".split(",")
+    const comparison = ["Esto", "Es", "una", "prueba"]
+    (0..3).forEach { i => assert.that(result.get(i) == comparison.get(i)) }
+    (0..3).forEach { i => assert.that(result2.get(i) == comparison.get(i)) }
+    (0..3).forEach { i => assert.that(result3.get(i) == comparison.get(i)) }
+
+  test "split with spaces => words" {
+    const result = "Esto Es una prueba".split(" ")
+    const expected = ["Esto", "Es", "una", "prueba"]
+    assert.equals(expected, result)
+  }
+
+  test "split with empty space => character list" {
+    const result = "Esto Es una".split("")
+    const expected = ["E","s","t","o"," ","E","s"," ","u","n","a"]
+    assert.equals(expected, result)
+  }
+
+  test "split if separator not found returns original string" {
+    const result = "Esto Es una".split("|")
+    const expected = ["Esto Es una"]
+    assert.equals(expected, result)
+  }
+
+  test "split for empty string returns empty list" {
+    const result = "".split("")
+    const expected = []
+    assert.equals(expected, result)
+  }
+
+  test "split: when separator is exactly original string, it should return two empty strings" {
+    const result = "texto de prueba".split("texto de prueba")
+    const expected = ["",""]
+    assert.equals(expected, result)
+  }
+
+  test "split: if separator appears twice in a row, it should have an empty element between" {
+    const result = "a,b,,c,".split(",")
+    const expected = ["a", "b", "", "c", ""]
+    assert.equals(expected, result)
+  }
+
+  test "Split: separador de más de un caracter, separa correctamente cuando aparece"{
+    const result = "texto de prueba".split("de")
+    const expected = ["texto ", " prueba"]
+    assert.equals(expected, result)
+  }
+
+  test "split, if separator has more than one character and matches exactly the original text, it should return empty elements" {
+    const result = "aaaa".split("aa")
+    const expected = ["", "", ""]
+    assert.equals(expected, result)
+  }
+
+  test "split using null should fail" {
+    assert.throwsException { "hola".split(null) }  
+  }
+
+  test "replace" {
+    const mardel = "Mar del Plata"
+    const tuyu = mardel.replace("Plata", "Tuyu")
+    assert.equals("Mar del Tuyu", tuyu)
+  }
+
+  test "replace using null" {
+    assert.throwsException( { "hola".replace("1", null) })
+    assert.throwsException( { "hola".replace(null, "2") })
+  }
+
+  test "replace fail" {
+    assert.throwsException( { "hola".replace(7, "a") })
+  }
+
+  test "random for strings are not allowed anymore" {
+    assert.throwsException({ => "fafafa".randomUpTo(8.9)})
+  }
+
+  test "take" {
+    assert.equals("cl", "clearly".take(2))
+    assert.equals("clearly", "clearly".take(8))
+    assert.equals("", "clearly".take(0))
+  }
+
+  test "take using null should fail" {
+    assert.throwsException { "hola".take(null) }
+  }
+
+  test "drop" {
+    assert.equals("early", "clearly".drop(2))
+    assert.equals("", "clearly".drop(8))
+    assert.equals("clearly", "clearly".drop(0))
+  }
+
+  test "drop using null should fail" {
+    assert.throwsException { "hola".drop(null) }
+  }
+
+  test "words" {
+    const words = "in wollok everything is an object".words()
+    assert.equals("in", words.get(0))
+    assert.equals("object", words.get(5))
+  }
+
+  test "capitalize" {
+    assert.equals("alfa romeo".capitalize(), "Alfa Romeo")
+    assert.equals("AUDI".capitalize(), "Audi")
+    assert.equals("bmw".capitalize(), "Bmw")
+    assert.equals("ONETWO THREE FOUR".capitalize(), "Onetwo Three Four")
+  }
+
+  test "toString" {
+    assert.equals("hola".toString(), "hola")
+    assert.equals("3".toString(), "3")
+  }
+
+  test "charAt" {
+    assert.equals("l", "hola".charAt(2))
+  }
+
+  test "charAt using null" {
+    assert.throwsException( { "hola".charAt(null) })
+  }
+
+  test "charAt fail" {
+    assert.throwsException({ "hola".charAt("a") })
+  }
+
+  test "concat" {
+    assert.equals("hey".concat("jude"), "heyjude")
+  }
+
+  test "concat with numbers" {
+    assert.equals("u".concat(2), "u2")  
+  }
+
+  test "reverse" {
+    assert.equals("aloh", "hola".reverse())
+    assert.equals("", "".reverse())  
+  }
+
+  test "takeLeft" {
+    assert.equals("hol", "hola".takeLeft(3))
+    assert.equals("", "".takeLeft(3))
+    assert.equals("", "hola".takeLeft(0))
+    assert.equals("h", "hola".takeLeft(1.5))  
+  }
+
+  test "takeLeft should fail if a negative number is passed" {
+    assert.throwsException { "hola".takeLeft(-1) }
+  }
+
+  test "takeRight" {
+    assert.equals("ola", "hola".takeRight(3))
+    assert.equals("", "".takeRight(3))
+    assert.equals("", "hola".takeRight(0))
+    assert.equals("a", "hola".takeRight(1.5))  
+  }
+
+  test "takeRight should fail if a negative number is passed" {
+    assert.throwsException { "hola".takeRight(-1) }
+  }
+
+  test "startsWith" {
+    assert.that("hola".startsWith("ho"))
+  }
+
+  test "startsWith using null should fail" {
+    assert.throwsException( { "hola".startsWith(null) })
+  }
+
+  test "startsWith fail" {
+    assert.throwsException( { "hola".startsWith(7) })
+  }
+
+  test "endsWith" {
+    assert.that("hola".endsWith("la"))
+  }
+
+  test "endsWith using null should fail" {
+    assert.throwsException( { "hola".endsWith(null) })
+  }
+
+  test "endsWith fail" {
+    assert.throwsException({ "hola".endsWith(7) })
+  }
+
+  test "indexOf using null" {
+    assert.throwsException( { "hola".indexOf(null) })
+  }
+
+}

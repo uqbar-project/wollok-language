@@ -1,0 +1,5 @@
+import aves.*
+
+test "import class no package with wildcard should work" {
+  assert.that(new Golondrina() != null)
+}

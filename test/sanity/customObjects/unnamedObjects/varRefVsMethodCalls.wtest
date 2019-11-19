@@ -1,0 +1,32 @@
+const pepin = object {
+  var altura = 1.40
+  
+  method crecer(cuanto) {
+    altura = altura + cuanto
+  }
+  
+  method ponerseZancos() {
+    self.crecer(0.2)
+  }
+  method altura() {
+    return altura
+  }
+}
+
+describe "object literals with effect methods" {
+
+  test "initial reference" {
+    assert.equals(1.4, pepin.altura())
+  }
+
+  test "using setter kind method" {
+    pepin.crecer(0.1)
+    assert.equals(1.5, pepin.altura())
+  }
+
+  test "using effect method" {
+    pepin.ponerseZancos()
+    assert.equals(1.6, pepin.altura())
+  }
+
+}

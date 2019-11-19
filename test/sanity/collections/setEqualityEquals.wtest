@@ -1,0 +1,17 @@
+/**
+  * Scenario 1: A custom class overriding equals
+  */
+class SpecialClass {
+  override method equals(other) = true
+}
+
+/**
+ * Tests
+ *
+ * https://github.com/uqbar-project/wollok/issues/1771
+ */
+test "issue 1771 - defining a set for a custom class overriding equals" {
+  const aSet = #{new SpecialClass(), new SpecialClass()}
+  assert.equals(1, aSet.size())
+}
+

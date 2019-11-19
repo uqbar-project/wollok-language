@@ -1,0 +1,28 @@
+/**
+  * Scenario: a class having a method in which throws
+  * a customized exception
+  */
+class MyExceptionWithCustomMessage inherits Exception {
+  method customMessage() { 
+    return "Something went wrong"
+  }
+}
+
+class B {
+  method m1() {
+    throw new MyExceptionWithCustomMessage()
+  }
+}
+
+/**
+  * Tests
+  */
+test "Test catch using the exception variable" {
+  const b = new B()
+  var result = null
+  try {
+    b.m1()
+  } catch e : MyExceptionWithCustomMessage
+    result = e.customMessage()
+  assert.equals("Something went wrong", result)
+}

@@ -1,0 +1,21 @@
+object link {
+  var arma
+  method atacarA(alguien) {
+    arma.causarDanio(alguien)
+  }
+}
+
+object captainFalcon {}
+
+// https://github.com/uqbar-project/wollok/issues/578
+test "issue 578 - stack trace for closure used in a forEach" {
+  var failed = false
+  try {
+    #{1}.forEach({ each => link.atacarA(captainFalcon)})
+  }
+  catch e {
+    // OK ! a NPE
+    failed = true
+  }
+  if (!failed) assert.fail("should have thrown a wollok exception")
+}

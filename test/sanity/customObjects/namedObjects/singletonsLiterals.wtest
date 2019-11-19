@@ -1,0 +1,46 @@
+describe "singletons - using literals" {
+
+  test "compare identity of three literal objects" {
+    const ob1 = object {}
+    const ob2 = object {}
+    const ob3 = ob1
+
+    assert.that(ob1 === ob1)
+    assert.that(ob1 !== ob2)
+    assert.that(ob1 === ob3)
+  }
+
+  test "compare equality of three literal objects" {
+    const ob1 = object {}
+    const ob2 = object {}
+    const ob3 = ob1
+
+    assert.equals(ob1, ob1)
+    assert.notEquals(ob1, ob2)
+    assert.equals(ob1, ob3)
+  }
+
+  test "compare equality of three strings" {
+    const ob1 = "hola"
+    const ob2 = "hola"
+    const ob3 = ob1
+
+    assert.equals(ob1, ob1)
+    assert.equals(ob1, ob2)
+    assert.equals(ob1, ob3)
+  }
+
+  test "literal object with instance variables and a simple return method" {
+    const myObject = object {
+      var a
+      method a(_a){
+        a = _a
+      }
+      method m(b) = a * b
+    }
+    myObject.a(2)
+
+    assert.equals(4, myObject.m(2))
+  }
+
+}

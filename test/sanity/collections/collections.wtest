@@ -1,0 +1,330 @@
+
+const greetings = ['hello', 'hola', 'bonjour', 'ciao', 'hi']
+const numbers = [22, 2, 10]  
+
+describe "Collection test case" {
+  
+  test "min using a closure" {
+    assert.equals('hi', greetings.min { e => e.length() })
+  }
+  
+  test "min using null should fail" {
+    assert.throwsException { => [1, 2].min(null) }
+  }
+
+  test "min without parameters - happy path" {
+    assert.equals(2, numbers.min() )
+  }
+
+  test "min with one element should return that element" {
+    assert.equals(1, [1].min())
+  }
+
+  test "min with no args should fail" {
+    assert.throwsException({[].min()})
+  }
+  
+  test "minIfEmpty" {
+    assert.equals('hi', greetings.minIfEmpty({ e => e.length() }, { 'lista vacia' }))
+    assert.equals('lista vacia', [].minIfEmpty({ e => e.length() }, { 'lista vacia' }))
+  }
+  
+  test "minIfEmptyNoArgs" {
+    assert.equals(1, [3, 1, 2].minIfEmpty({ 99 }))
+    assert.equals(99, [].minIfEmpty({ 99 }))
+  }
+
+  test "max with closure" {
+    assert.equals('bonjour', greetings.max { e => e.length() })
+  }
+  
+  test "max using null should fail" {
+    assert.throwsException { => [1, 2].max(null) }
+  }
+
+  test "max without parameters - happy path" {
+    assert.equals(22, numbers.max() )
+  }
+
+  test "max with one element should return that element" {
+    assert.equals(1, [1].max())
+  }
+
+  test "max with no args for an empty list should fail" {
+    assert.throwsException({[].max()})
+  }
+
+  test "maxIfEmpty" {
+    assert.equals('bonjour', greetings.maxIfEmpty({ e => e.length() }, { 'lista vacia' }))
+    assert.equals('lista vacia', [].maxIfEmpty({ e => e.length() }, { 'lista vacia' }))
+  }
+  
+  test "maxIfEmpty when there is a max should return the maximum of that list" {
+    assert.equals(3, [1,3,2].maxIfEmpty({ 99 }))
+  }
+
+  test "maxIfEmpty with no args should return second parameter" {
+    assert.equals(99, [].maxIfEmpty({ 99 }))
+  }
+
+  test "size" {
+    assert.equals(3, numbers.size())
+  }
+  
+  test "contains" {
+    assert.that(numbers.contains(22))
+    assert.that(numbers.contains(2))
+    assert.that(numbers.contains(10))
+  }
+
+  test "uniqueElement in a list with one element should return that element" {
+    assert.equals(1, [1].uniqueElement())    
+  } 
+
+  test "uniqueElement on an empty collection should fail" {
+    assert.throwsException { => [].uniqueElement() }
+  }
+
+  test "uniqueElement on a collection with more than one element should fail" {
+    assert.throwsException { => [1, 2].uniqueElement() }
+  }
+
+  test "any" {
+    assert.that(numbers.any { e => e > 20})
+    assert.that(numbers.any { e => e > 0})
+    assert.notThat(numbers.any { e => e < 0})
+  }
+
+  test "any using null should fail" {
+    assert.throwsException { => [1, 2].any(null) }
+  }
+
+  test "remove" {
+    numbers.remove(22)
+    assert.equals(2, numbers.size())
+  }
+  
+  test "clear" {
+    numbers.clear()
+    assert.equals(0, numbers.size())
+  }
+  
+  test "isEmpty" {
+    const numbers = [22, 2, 10]
+    assert.notThat(numbers.isEmpty())
+  }
+  
+  test "forEach" {
+    var sum = 0
+    numbers.forEach({n => sum += n})
+    assert.equals(34, sum)
+  }
+
+  test "forEach using null should fail" {
+    assert.throwsException { [1, 2].forEach(null) }
+  } 
+  
+  test "all" {
+    assert.that(numbers.all({n => n > 0}))
+    assert.notThat(numbers.all({n => n > 5}))
+  }
+  
+  test "all using null should fail" {
+    assert.throwsException { [1, 2].all(null) }    }  
+
+  test "filter" {
+    const greaterThanFiveElements = numbers.filter({n => n > 5})
+    assert.equals(2, greaterThanFiveElements.size())
+  }
+
+  test "filter using null should fail" {
+    assert.throwsException { [1, 2].filter(null) }    }
+
+  test "map" {
+    const halfs = numbers.map({n => n / 2})
+    assert.equals([11, 1, 5], halfs)
+  }
+
+  test "map using null should fail" {
+    assert.throwsException { [1, 2].map(null) }
+  }
+
+  test "map returns a list" {
+    const evens = #{1,2,3}.map({n => n.even()})
+    assert.equals([false, true, false], evens)
+  }
+    
+  test "shortcut avoiding parenthesis" {
+    const greaterThanFiveElements = numbers.filter { n => n > 5 }
+    assert.that(greaterThanFiveElements.size() == 2)
+  }
+  
+  test "anyOne" {
+    const anyOne = numbers.anyOne()
+    assert.that(numbers.contains(anyOne))
+  }
+  
+  test "equals using method equals" {
+    const a = [23, 2, 1]
+    const b = [23, 2, 1]
+    assert.that(a.equals(b))
+  }
+  
+  test "equals using method ==" {
+    const a = [23, 2, 1]
+    const b = [23, 2, 1]
+    assert.that(a == b)
+  }
+  
+  test "toString" {
+    const numbers = [22, 2, 10]
+    assert.equals("[22, 2, 10]", numbers.toString())
+  }
+  
+  // TODO El toString de collection no llama al toString de objetos sino a otro método.
+  // https://github.com/uqbar-project/wollok/issues/1800
+  // test "testToStringWithObjectRedefiningToStringInWollok" {
+  //   const a = [23, 2, 1, myObject]
+  //   assert.equals("[23, 2, 1, My Object]", a.toString())
+  // }
+  
+  test "find when element exists" {
+    assert.equals(22, numbers.find { e => e > 20 })
+  }
+
+  test "find when element does not exist" {
+    assert.throwsException { numbers.find { e => e > 1000 } }
+  }
+
+  test "findOrElse" {
+    assert.equals(50, numbers.findOrElse({ e => e > 1000}, { 50 }))
+  }
+
+  test "findOrDefault when element does not exist" {
+    assert.equals(50, numbers.findOrDefault({e=> e > 1000}, 50))
+  }
+
+  test "findOrDefault when element exists" {
+    assert.equals(22, numbers.findOrDefault({e=> e > 20}, 50))
+  }
+  
+  test "count" {
+    assert.equals(1, numbers.count { e => e > 20 })
+    assert.equals(3, numbers.count { e => e > 0 })
+    assert.equals(0, numbers.count { e => e < 0 })
+  }
+
+  test "count using null should fail" {
+    assert.throwsException { numbers.count(null) }
+  }
+  
+  test "sum" {
+    assert.equals(34, numbers.sum {n => n})
+  }
+
+  test "sum using null should fail" {
+    assert.throwsException { numbers.sum(null) }    
+  }
+
+  test "concatenation" {
+    const lista1 = [1, 4]
+    const lista2 = [2, 7]
+    const lista3 = lista1 + lista2
+    assert.equals([1, 4], lista1)
+    assert.equals([1, 4, 2, 7], lista3)
+  }
+  
+  test "sum with no arguments for a list of numbers" {
+    assert.equals(34, numbers.sum())
+  }
+
+  test "sum with no arguments and no elements succeeds" {
+    assert.equals(0, [].sum())
+  }
+
+  test "sum with no args with a single element returns that element" {
+    assert.equals(5, [5].sum())
+  }          
+
+  test "occurrencesOf in empty collection is zero" {
+    assert.equals(0, [].occurrencesOf(4))
+  }
+  
+  test "occurrencesOf in single element collection" {
+    assert.equals(1, [4].occurrencesOf(4))
+    assert.equals(0, [4].occurrencesOf('Hola'))
+  }
+
+  test "occurrencesOf in multiple elements collection" {
+    assert.equals(3, [1, 2, 3, 4, 4, 1, 2, 4, 0].occurrencesOf(4))
+    assert.equals(1, [1, 'Hola', 'mundo'].occurrencesOf('Hola'))
+    assert.equals(1, #{'Hola', 'mundo', 4, 4}.occurrencesOf(4))
+  }
+
+  test "occurrencesOf in sets never gets more than one occurrence" {
+    assert.equals(1, #{'Hola', 3.0, 4, 4}.occurrencesOf(4))
+  }
+
+  test "last in a collection with no elements fails" {
+    assert.throwsException({ [].last() })
+  }
+
+  test "last in a collection with a single element returns that element" {
+    assert.equals('Hola', ['Hola'].last())
+  }
+
+  test "last with many elements succeeds" {
+    assert.equals(4, [1, 2, 3, 4].last())
+  }
+  
+  test "removeAll" {
+    numbers.removeAll(numbers.drop(1))
+    assert.equals([numbers.head()], numbers)
+  }
+
+  test "removeAllSuchThat" {
+    const collectionWithA2 = [2]
+    const emptyCollection = []
+    numbers.removeAllSuchThat({it => it >= 10})
+    assert.equals(collectionWithA2, numbers)
+    numbers.removeAllSuchThat({it => it.odd()})
+    assert.equals(collectionWithA2, numbers)
+    numbers.removeAllSuchThat({it => it.even()})
+    assert.equals(emptyCollection, numbers)
+    numbers.removeAllSuchThat({it => it.even()})
+    assert.equals(emptyCollection, numbers)
+  }
+
+  test "removeOnIteration" {
+    numbers.forEach({n => numbers.remove(n)})
+    assert.that(numbers.isEmpty())
+  }
+
+  test "addOnIteration" {
+    numbers.forEach({n => numbers.add(n * 2)})
+    assert.that(numbers.contains(2))
+    assert.that(numbers.contains(22))
+    assert.that(numbers.contains(10))
+    assert.that(numbers.contains(44))
+    assert.that(numbers.contains(4))
+    assert.that(numbers.contains(20))
+  }
+
+  test "sortedBy" {
+    const numbers = [22, 2, 10, 5]
+    const numbersSet = numbers.asSet()
+
+    assert.equals([22, 10, 5, 2], numbers.sortedBy { a, b => a > b })
+    assert.equals([22, 10, 5, 2], numbersSet.sortedBy{ a, b => a > b })
+
+    assert.equals([2, 5, 10, 22], numbers.sortedBy { a, b => a < b })
+    assert.equals([2, 5, 10, 22], numbersSet.sortedBy { a, b => a < b })
+
+    assert.equals([5], [5].sortedBy{ a, b => a > b })
+    assert.equals([5], #{5}.sortedBy{ a, b => a > b })
+
+    assert.equals([], [].sortedBy{ a, b => a > b })
+    assert.equals([], #{}.sortedBy{ a, b => a > b })    
+  }  
+
+}

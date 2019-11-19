@@ -1,0 +1,6 @@
+import entrenador.mostaza
+
+test "multiple objects import" {
+  const nombre = mostaza.entrenar()
+  assert.equals("pepita,pepona", nombre)
+}

@@ -1,0 +1,51 @@
+/**
+ * Tests for Wollok booleans
+ */
+object booleanHelper {
+  var modified = {false}.apply()
+
+  method getModifying() {
+    modified = {true}.apply()
+    return {true}.apply()
+  }
+  method getModified() = modified
+  method setModified(n) { modified = n }
+}
+
+object liberarAFiona {
+  var property cantidadTrolls = 0
+
+  method esDificil() {
+    const result = (cantidadTrolls > 3) && (cantidadTrolls < 6)
+    return result
+  }
+}
+
+describe "booleans - short circuit evaluation" {
+
+  test "and short cirtuit must evaluate" {
+    assert.that({true}.apply() && booleanHelper.getModifying())
+    assert.that(booleanHelper.getModified())
+  }
+   
+  test "and short circuit must NOT evaluate" {
+    assert.notThat({false}.apply() && booleanHelper.getModifying())
+    assert.notThat(booleanHelper.getModified())
+  }
+
+  test "lazy part of the and short circuit accessing the context" {
+    liberarAFiona.cantidadTrolls(5)
+    assert.that(liberarAFiona.esDificil())
+  }
+
+  test "or short cirtuit must evaluate second part when first condition is not satisfied" {
+    assert.that({false}.apply() || booleanHelper.getModifying())
+    assert.that(booleanHelper.getModified())
+  }
+
+  test "or short circuit must NOT evaluate second part when first condition is satisfied" {
+    assert.that({true}.apply() || booleanHelper.getModifying())
+    assert.notThat(booleanHelper.getModified())
+  }
+
+}

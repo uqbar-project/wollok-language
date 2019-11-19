@@ -1,30 +1,30 @@
+/**
+  * Scenario: a class mixed with two mixins
+  */
 mixin Energy {
-	var energy = 100
-	method energy() = energy
+  var energy = 100
+  method energy() = energy
 }
-		
+
 mixin Mojo {
-	var mojo = 0
-	method mojo() = mojo
+  var mojo = 0
+  method mojo() = mojo
 }
-		
+
 class Bird mixed with Energy and Mojo {
-	method fly(meters) {
-		energy -= meters
-		mojo += 1
-	}
-			
+  method fly(meters) {
+    energy -= meters
+    mojo += 1
+  }
+
 }
 
 test "class with two isolated mixins" {
-
-	const b = new Bird()
-	b.fly(10)
-	assert.equals(90, b.energy())
-	assert.equals(1, b.mojo())
-				
-	b.fly(10)
-	assert.equals(80, b.energy())
-	assert.equals(2, b.mojo())
-
+  const bird = new Bird()
+  bird.fly(10)
+  assert.equals(90, bird.energy())
+  assert.equals(1, bird.mojo())
+  bird.fly(10)
+  assert.equals(80, bird.energy())
+  assert.equals(2, bird.mojo())
 }

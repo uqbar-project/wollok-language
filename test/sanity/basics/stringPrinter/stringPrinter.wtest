@@ -1,0 +1,15 @@
+const pepita = object {
+  var energia = 10
+  override method toString() = "pepita"
+}
+
+const printer = new StringPrinter()
+
+describe "stringPrinter tests" {
+
+  test "printing something not null uses toString method" {
+    printer.println(pepita)
+    assert.equals("pepita", printer.getBuffer().trim())
+  }
+
+}

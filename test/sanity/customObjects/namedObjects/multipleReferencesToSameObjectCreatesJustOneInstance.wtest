@@ -1,0 +1,30 @@
+/**
+  * Scenario: a wko having several references to another wko
+  */
+object pepa {
+  var friend = [pepita]
+  method bestFriend() {
+    const bff = pepita
+    return bff
+  }
+  method friends() {
+    return friend
+  }
+}
+
+object pepita {  }
+
+/**
+  * Tests
+  */
+describe "wko - multiple references to same object should create one instance" {
+
+  test "single variable" {
+    assert(pepa.bestFriend(), pepita)
+  }
+
+  test "collection" {
+    assert.equals(pepita, pepa.friends().get(0))
+  }
+
+}

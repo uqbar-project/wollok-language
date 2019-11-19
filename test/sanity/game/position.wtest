@@ -1,0 +1,105 @@
+import wollok.game.*
+
+/**
+  * Scenario: 
+  * - a position pointing to the origin of coordinates
+  * - a visual component with a position property
+  * - a visual component with a position method
+  * - a visual component without position at all
+  * - a generic class Visual
+  */
+const origin = new Position(x = 0, y = 0)
+
+const visualWithPositionProperty = object {
+  var property position = new Position(x = 0, y = 0)
+  method image() = "image.png"
+}
+
+const visualWithPositionMethod = object {
+  method position() = new Position(x = 0, y = 0)
+  method image() = "image.png"
+}
+
+const visualWithoutPosition = object {
+  method image() = "image.png"
+}
+
+class Visual {
+  method image() = "image.png"
+}
+
+/**
+  * Tests
+  */
+describe "position" {
+
+
+  fixture {
+    game.clear()
+  }
+
+  test "equality by coordinates" {
+    assert.equals(new Position(x = 0, y = 0), origin)
+  }
+
+  test "default values for position is the origin" {
+    const defaultPosition = new Position()
+    assert.equals(0, defaultPosition.x())
+    assert.equals(0, defaultPosition.y())
+  }
+
+  test "toString" {
+    assert.equals("(0,0)", origin.toString())
+  }
+
+  test "distance using null should fail" {
+    assert.throwsException { => origin.distance(null) }
+  }
+
+  test "distance" {
+    assert.equals(5, origin.distance(new Position(x = 3, y = 4)))
+  }
+
+  test "should draw objects in board" {
+    assert.equals(0, game.allVisuals().size())
+    origin.drawElement(visualWithPositionMethod)
+    assert.equals(1, game.allVisuals().size())
+  }
+
+  test "position can be accessed by getter method" {
+    origin.drawElement(visualWithPositionMethod)
+    assert.equals(origin, visualWithPositionMethod.position())
+  }
+
+  test "position can be accessed by property" {
+    origin.drawElement(visualWithPositionProperty)
+    assert.equals(origin, visualWithPositionProperty.position())
+  }
+
+  test "position cannot be accessed via attribute" {
+    const visual = object {
+      var position = new Position(x = 0, y = 0)
+      method image() = "image.png"
+    }
+    assert.throwsException { game.addVisual(visual) }
+  }
+
+  test "visual object without position cannot be rendered" {
+    assert.throwsException{ game.addVisual(visualWithoutPosition) }
+  }
+
+  test "positions can draw visuals without position" {
+      origin.drawElement(visualWithoutPosition)
+      const expected = origin.allElements().head()
+      assert.equals(expected, visualWithoutPosition)
+  }
+
+  test "clear should remove all visuals in it" {
+      2.times{ i => origin.drawElement(new Visual()) }
+      new Position(x = 1, y = 1).drawElement(new Visual())
+      assert.equals(3, game.allVisuals().size())
+      origin.clear()
+      assert.equals(1, game.allVisuals().size())
+  }
+
+}

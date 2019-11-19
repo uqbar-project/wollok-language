@@ -1,0 +1,28 @@
+/**
+  * Scenario: A Class with methods using varargs
+  */
+class Sample {
+  method preffix(preffix, numbers...) = numbers.map{n=> preffix + n}
+}
+
+/**
+  * Tests
+  */
+describe "classes - methods using varargs" {
+
+  test "varArgsInMethod: var args method must automatically box params as a list" {
+    const p = new Sample()
+    assert.equals("$1, $2, $3, $4", p.preffix("$", 1, 2, 3, 4).join(", "))
+  }
+
+  test "varArgsInMethod: Var args in method with just 1" {
+    const p = new Sample()
+    assert.equals("#1", p.preffix("#", 1).join(", "))
+  }
+
+  test "varArgsInMethod: Var args in method without elements" {
+    const p = new Sample()
+    assert.equals("", p.preffix("#").join(", "))
+  }
+
+}

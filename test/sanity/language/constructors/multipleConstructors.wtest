@@ -1,0 +1,36 @@
+/**
+  * Scenario: a class having several constructors
+  */
+class Point {
+  var x
+  var y
+
+  constructor() { x = 20 ; y = 20 }
+
+  constructor(ax, ay) {
+    x = ax
+    y = ay
+  }
+
+  method x() { return x }
+  method y() { return y }
+}
+
+/**
+  * Tests
+  */
+describe "multiple constructors" {
+
+  test "having several constructors, one of them with 2 parameters, should work" {
+    const p1 = new Point(1,2)
+    assert.equals(1, p1.x())
+    assert.equals(2, p1.y())
+  }
+
+  test "having several constructors, one of them with no parameter, should work" {
+    const p2 = new Point()
+    assert.equals(20, p2.x())
+    assert.equals(20, p2.y())
+  }
+
+}
