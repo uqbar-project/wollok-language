@@ -36,7 +36,7 @@ describe "mixins" {
     assert.equals(100, warrior.energy())
   }
 
-  test "single mixin with method"
+  test "single mixin with method" {
     const bird = new Bird()
     bird.fly()
     assert.equals(bird.energy(), 200)

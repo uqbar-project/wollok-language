@@ -128,7 +128,7 @@ describe "List tests" {
   }
 
   test "without duplicates - booleans" {
-    assert([true, false], [true, false, !false].withoutDuplicates())
+    assert.equals([true, false], [true, false, !false].withoutDuplicates())
   }
 
   test "without duplicates - lists of lists" {

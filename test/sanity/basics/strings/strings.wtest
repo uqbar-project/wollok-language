@@ -140,6 +140,7 @@ describe "strings" {
     (0..3).forEach { i => assert.that(result.get(i) == comparison.get(i)) }
     (0..3).forEach { i => assert.that(result2.get(i) == comparison.get(i)) }
     (0..3).forEach { i => assert.that(result3.get(i) == comparison.get(i)) }
+  }
 
   test "split with spaces => words" {
     const result = "Esto Es una prueba".split(" ")
@@ -177,7 +178,7 @@ describe "strings" {
     assert.equals(expected, result)
   }
 
-  test "Split: separador de más de un caracter, separa correctamente cuando aparece"{
+  test "Split: separador de más de un caracter, separa correctamente cuando aparece" {
     const result = "texto de prueba".split("de")
     const expected = ["texto ", " prueba"]
     assert.equals(expected, result)
@@ -302,11 +303,11 @@ describe "strings" {
   }
 
   test "startsWith using null should fail" {
-    assert.throwsException( { "hola".startsWith(null) })
+    assert.throwsException({ "hola".startsWith(null) })
   }
 
   test "startsWith fail" {
-    assert.throwsException( { "hola".startsWith(7) })
+    assert.throwsException({ "hola".startsWith(7) })
   }
 
   test "endsWith" {
@@ -314,7 +315,7 @@ describe "strings" {
   }
 
   test "endsWith using null should fail" {
-    assert.throwsException( { "hola".endsWith(null) })
+    assert.throwsException({ "hola".endsWith(null) })
   }
 
   test "endsWith fail" {
@@ -322,7 +323,7 @@ describe "strings" {
   }
 
   test "indexOf using null" {
-    assert.throwsException( { "hola".indexOf(null) })
+    assert.throwsException({ "hola".indexOf(null) })
   }
 
 }

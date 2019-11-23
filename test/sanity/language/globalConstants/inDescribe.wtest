@@ -2,7 +2,7 @@
   * Scenario: a wko with a method returning a global constant
   * defined after
   */
-object wollok {
+object someObject {
   method numero() = numeroLoco
 }
 
@@ -12,7 +12,11 @@ const numeroLoco = 87
   * Tests
   */
 describe "global constants in describe" {
-  test "Numero loco es 87" {
+  test "should be referenceable" {
     assert.equals(87, numeroLoco)
+  }
+
+  test "should be referenceable from an object defined before the constant is initialized" {
+    assert.equals(87, someObject.numero())
   }
 }
