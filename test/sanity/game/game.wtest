@@ -103,4 +103,16 @@ describe "game" {
     assert.equals([myVisual, visual2, visual3].asSet(), game.allVisuals().asSet())
   }
 
+  test "cell size fails when set to 0" {
+    assert.throwsException { => game.cellSize(0) }
+  }
+
+  test "cell size fails when set to negative number" {
+    assert.throwsException { => game.cellSize(-10) }
+  }
+
+  test "cell size correctly set" {
+    game.cellSize(10)
+  }
+
 }
