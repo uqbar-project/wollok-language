@@ -20,7 +20,7 @@ class Gato inherits Animal {
   * https://github.com/uqbar-project/wollok/issues/1771
   */
 test "issue 1771 - a set with object in same hierarchy where == is based on name will add animals with different name only" {
-  const set = new Set()
+  const set = #{}
   const perro = new Perro()
   const otroPerro = new Perro()
   const gato = new Gato()
