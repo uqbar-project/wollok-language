@@ -71,8 +71,7 @@ describe "initializing all variables at once" {
   test "unSet.anyOne() should not fail" {
     const unSet = #{}
     unSet.add(1)
-    const seed = unSet.anyOne()
-    console.println(seed)
+    unSet.anyOne()
   }
 
 }
