@@ -55,7 +55,7 @@ class Exception {
   method getStackTrace() native
 
   /** Overrides the behavior to compare exceptions */
-  override method equals(other) = other.className().equals(self.className()) && other.message() == self.message()
+  override method ==(other) = other.className() == self.className() && other.message() == self.message()
 }
 
 /**
@@ -275,9 +275,9 @@ class Pair {
    * Two pairs are equal if they have the same values
    *
    * Example:
-   *    new Pair(1, 2).equals(new Pair(1, 2))  ==> Answers true
+   *    new Pair(1, 2) == new Pair(1, 2)  ==> Answers true
    */
-  override method equals(other) {
+  override method ==(other) {
     self.checkNotNull(other, "equals")
     return x == other.x() && y == other.y()
   }
@@ -1645,7 +1645,7 @@ class Dictionary {
   /**
    * Two dictionaries are equal if they have the same keys and values
    */
-  override method equals(other) {
+  override method ==(other) {
     self.checkNotNull(other, "equals")
     return self.keys() == other.keys() && self.values() == other.values()
   }
