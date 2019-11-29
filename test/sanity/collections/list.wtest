@@ -209,7 +209,7 @@ describe "List tests" {
   }
 
   test "toString on empty list" {
-    const empty = new List()
+    const empty = []
     assert.equals("[]", empty.toString())
   }
 
