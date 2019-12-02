@@ -278,7 +278,8 @@ class Pair {
    *    new Pair(1, 2) == new Pair(1, 2)  ==> Answers true
    */
   override method ==(other) {
-    self.checkNotNull(other, "equals")
+    if(other == null) return false
+
     return x == other.x() && y == other.y()
   }
 
