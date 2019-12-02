@@ -132,13 +132,13 @@ describe "set tests" {
   }
 
   test "asSet - list" {
-    const list = new List()
+    const list = []
     list.addAll([1,2,3])
     assert.equals(1, #{list,[1,2,3]}.asSet().size())  
   }
 
   test "asSet - set" {
-    const set = new Set()
+    const set = #{}
     set.addAll([1,2,3])
     assert.equals(1, #{set, #{1,2,3}}.asSet().size())  
   }
