@@ -1142,11 +1142,11 @@ class Set inherits Collection {
    * the order.
    *
    * Examples:
-   *     #{}.equals(#{})         => Answers true
-   *     #{1, 2}.equals(#{2, 1}) => Answers true
-   *     #{3, 2}.equals(#{2, 1}) => Answers false
+   *     #{} == #{}         => Answers true
+   *     #{1, 2} == #{2, 1} => Answers true
+   *     #{3, 2} == #{2, 1} => Answers false
    */
-  override method equals(other) native
+  override method ==(other) native
 
   /**
    *
@@ -1445,7 +1445,7 @@ class List inherits Collection {
   /**
    * @see == message
    */
-  override method equals(other) native
+  override method ==(other) native
 
   /**
    * A list is == another list if all elements are equal (defined by == message)
@@ -2152,11 +2152,11 @@ class String {
 
   method <(aString) native
   method <=(aString) {
-    return self < aString || (self.equals(aString))
+    return self == aString || self < aString
   }
   method >(aString) native
   method >=(aString) {
-    return self > aString || (self.equals(aString))
+    return self == aString || self > aString
   }
 
   /**
@@ -2232,9 +2232,9 @@ class String {
     self.checkNotNull(expression, "split")
     var text = self
     const result = []
-    if (text.equals("") && expression.equals("")) return result
+    if (text == "" && expression == "") return result
     const size = text.size() - 1
-    if (expression.equals("")) {
+    if (expression == "") {
       return (0 .. size).fold([], { total, index => 
         total.add(text.charAt(index))
         return total
@@ -2753,8 +2753,8 @@ class Date {
 
   method <(_aDate) native
   method >(_aDate) native
-  method <=(_aDate) = (self < _aDate) || (self.equals(_aDate))
-  method >=(_aDate) = (self > _aDate) || (self.equals(_aDate))
+  method <=(_aDate) = self == _aDate || self < _aDate
+  method >=(_aDate) = self == _aDate || self > _aDate
 
   /**
    * Answers whether self is between two dates (both inclusive comparison)
