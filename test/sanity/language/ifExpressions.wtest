@@ -131,4 +131,13 @@ describe "If expressions" {
     assert.throwsException { => numeroLoco.calculoLoco(3) }
   }
 
+  test "if should be usable as message argument, even with multiline body" {
+    const o = object {
+      method add(a, b, c) = a + b + c
+    }
+
+    assert.equals(6, o.add(1, if(true) { 0 ; 2 } else 0, 3))
+    assert.equals(6, o.add(1, if(false) 0 else { 0 ; 2 }, 3))
+  }
+
 }
