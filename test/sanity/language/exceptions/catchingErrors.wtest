@@ -28,16 +28,4 @@ describe "catching errors" {
     assert.equals(20, cuenta.sacar(10))
   }
 
-  test "try expression should be usable as message argument, even with multiline body" {
-    const o = object {
-      method add(a, b, c) = a + b + c
-    }
-
-    assert.equals(6, o.add(1, try { 0 ; 2 } catch e { 0 }, 3))
-    assert.equals(6, o.add(1, try { 0 ; 2 } then always { 0 }, 3))
-    assert.equals(6, o.add(1, try { 0 ; 2 } catch e { 0 } then always { 0 }, 3))
-    assert.equals(6, o.add(1, try { 0; throw new Exception() } catch e { 0 ; 2 }, 3))
-    assert.equals(6, o.add(1, try { 0; throw new Exception() } catch e { 0 ; 2 } then always { 0 }, 3))
-  }
-
 }
