@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Currently, the Wollok language does not adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). 
 Hopefully, we will be able to do that in the near future.
 
+
+## [To be released in v2.0.0]
+- Equality is now fully based on the `==` method.
+
 ## [To be released in v1.8.6]
 
 ### Added
