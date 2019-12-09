@@ -34,7 +34,7 @@ object monstersFactory {
     const empresa = monstersInc
     // simulamos un día laboral de monsters inc
     empresa.agregarEquipo(equipo)
-    empresa.agregarPuerta(new Puerta(contenido = new Ninio(edad = 4))
+    empresa.agregarPuerta(new Puerta(contenido = new Ninio(edad = 4)))
     empresa.diaLaboral()
     return empresa
   }

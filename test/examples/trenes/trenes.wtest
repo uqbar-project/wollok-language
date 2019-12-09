@@ -108,7 +108,7 @@ describe "deposito" {
   }
 
   test "vagon mas pesado de la formacion" {
-    assert.equals([vagonMasPesadoDeTren, vagonMasPesadoDeTrenNoSeMueve], deposito.vagonesMasPesados()))
+    assert.equals([vagonMasPesadoDeTren, vagonMasPesadoDeTrenNoSeMueve], deposito.vagonesMasPesados())
   }
 
 }

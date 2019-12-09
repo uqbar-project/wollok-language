@@ -1,7 +1,7 @@
 package special {
   object pepita {
     method volar() { 
-      console.println('abc')
+      console.newline()
       return new Pair(x = 1, y = 2)
     }
   }
@@ -15,7 +15,7 @@ object pepona {
 
 object pepusa {
   method volar() { 
-    console.println("pepusa is flying")
+    console.newline()
     return 10
   }
 }

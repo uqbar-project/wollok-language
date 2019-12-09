@@ -55,7 +55,7 @@ class Exception {
   method getStackTrace() native
 
   /** Overrides the behavior to compare exceptions */
-  override method equals(other) = other.className().equals(self.className()) && other.message() == self.message()
+  override method ==(other) = other.className() == self.className() && other.message() == self.message()
 }
 
 /**
@@ -275,10 +275,11 @@ class Pair {
    * Two pairs are equal if they have the same values
    *
    * Example:
-   *    new Pair(1, 2).equals(new Pair(1, 2))  ==> Answers true
+   *    new Pair(1, 2) == new Pair(1, 2)  ==> Answers true
    */
-  override method equals(other) {
-    self.checkNotNull(other, "equals")
+  override method ==(other) {
+    if(other == null) return false
+
     return x == other.x() && y == other.y()
   }
 
@@ -1141,11 +1142,11 @@ class Set inherits Collection {
    * the order.
    *
    * Examples:
-   *     #{}.equals(#{})         => Answers true
-   *     #{1, 2}.equals(#{2, 1}) => Answers true
-   *     #{3, 2}.equals(#{2, 1}) => Answers false
+   *     #{} == #{}         => Answers true
+   *     #{1, 2} == #{2, 1} => Answers true
+   *     #{3, 2} == #{2, 1} => Answers false
    */
-  override method equals(other) native
+  override method ==(other) native
 
   /**
    *
@@ -1444,7 +1445,7 @@ class List inherits Collection {
   /**
    * @see == message
    */
-  override method equals(other) native
+  override method ==(other) native
 
   /**
    * A list is == another list if all elements are equal (defined by == message)
@@ -1645,7 +1646,7 @@ class Dictionary {
   /**
    * Two dictionaries are equal if they have the same keys and values
    */
-  override method equals(other) {
+  override method ==(other) {
     self.checkNotNull(other, "equals")
     return self.keys() == other.keys() && self.values() == other.values()
   }
@@ -2151,11 +2152,11 @@ class String {
 
   method <(aString) native
   method <=(aString) {
-    return self < aString || (self.equals(aString))
+    return self == aString || self < aString
   }
   method >(aString) native
   method >=(aString) {
-    return self > aString || (self.equals(aString))
+    return self == aString || self > aString
   }
 
   /**
@@ -2231,9 +2232,9 @@ class String {
     self.checkNotNull(expression, "split")
     var text = self
     const result = []
-    if (text.equals("") && expression.equals("")) return result
+    if (text == "" && expression == "") return result
     const size = text.size() - 1
-    if (expression.equals("")) {
+    if (expression == "") {
       return (0 .. size).fold([], { total, index => 
         total.add(text.charAt(index))
         return total
@@ -2752,8 +2753,8 @@ class Date {
 
   method <(_aDate) native
   method >(_aDate) native
-  method <=(_aDate) = (self < _aDate) || (self.equals(_aDate))
-  method >=(_aDate) = (self > _aDate) || (self.equals(_aDate))
+  method <=(_aDate) = self == _aDate || self < _aDate
+  method >=(_aDate) = self == _aDate || self > _aDate
 
   /**
    * Answers whether self is between two dates (both inclusive comparison)
