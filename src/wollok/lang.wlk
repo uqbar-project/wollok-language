@@ -1148,17 +1148,6 @@ class Set inherits Collection {
    */
   override method ==(other) native
 
-  /**
-   *
-   * Set equality operator as defined by equals
-   *
-   * #{1, 2} == #{2, 1}  => Answers true
-   * #{} == #{}          => Answers true
-   *
-   * @see Object#==
-   */
-  override method ==(other) native
-
 }
 
 /**
@@ -1441,11 +1430,6 @@ class List inherits Collection {
    *     ["you","will","love","wollok"].join()    => Answers "you,will,love,wollok"
    */
   override method join() native
-
-  /**
-   * @see == message
-   */
-  override method ==(other) native
 
   /**
    * A list is == another list if all elements are equal (defined by == message)
