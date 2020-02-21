@@ -11,7 +11,7 @@ class Visual { }
 /**
   * Tests
   */
-describe "game" {
+describe "Game" {
 
   fixture {
     game.clear()
