@@ -2188,7 +2188,7 @@ class String {
    *     "walking".substring(0, 5)   ==> Answers "walki"
    *     "walking".substring(0, 45)  ==> throws an out of range exception
    */
-  method substring(startIndex, length) native
+  method substring(startIndex, endIndex) native
 
   /**
    * Splits this string around matches of the given string.
