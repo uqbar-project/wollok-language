@@ -812,11 +812,7 @@ class Collection {
    *
    * @see Set
    */
-  method asSet() {
-    const result = #{}
-    result.addAll(self)
-    return result
-  }
+  method asSet()
 
   /**
    * Answers a new collection of the same type and with the same content
@@ -985,6 +981,22 @@ class Set inherits Collection {
     const result = []
     result.addAll(self)
     return result
+  }
+
+  /** Converts a collection to a set (removing duplicates if necessary)
+   *
+   * Examples:
+   *    [1, 2, 3].asSet()       => Answers #{1, 2, 3}
+   *    [].asSet()              => Answers #{}
+   *    [1, 2, 1, 1, 2].asSet() => Answers #{1, 2}
+   *
+   *    #{1, 2, 3}.asSet()      => Answers #{1, 2, 3}
+   *    #{}.asSet()             => Answers #{}
+   *
+   * @see Set
+   */
+  override method asSet() {
+    return self
   }
 
   /**
@@ -1231,6 +1243,24 @@ class List inherits Collection {
    * @see List
    */
   override method asList() = self
+
+  /** Converts a collection to a set (removing duplicates if necessary)
+   *
+   * Examples:
+   *    [1, 2, 3].asSet()       => Answers #{1, 2, 3}
+   *    [].asSet()              => Answers #{}
+   *    [1, 2, 1, 1, 2].asSet() => Answers #{1, 2}
+   *
+   *    #{1, 2, 3}.asSet()      => Answers #{1, 2, 3}
+   *    #{}.asSet()             => Answers #{}
+   *
+   * @see Set
+   */
+  override method asSet() {
+    const result = #{}
+    result.addAll(self.withoutDuplicates())
+    return result
+  }
 
   /**
    * Answers a view of the portion of this list between the specified start index
