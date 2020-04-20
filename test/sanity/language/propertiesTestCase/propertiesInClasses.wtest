@@ -9,7 +9,7 @@ class Ave {
 
   method volar() {
     energia -= 10
-    vecesQueVolo++
+    vecesQueVolo += 1
   }
 
   method velocidad() = velocidad / 2

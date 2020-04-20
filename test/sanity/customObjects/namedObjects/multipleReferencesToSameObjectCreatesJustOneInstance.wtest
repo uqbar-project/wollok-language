@@ -20,7 +20,7 @@ object pepita {  }
 describe "wko - multiple references to same object should create one instance" {
 
   test "single variable" {
-    assert(pepa.bestFriend(), pepita)
+    assert.equals(pepa.bestFriend(), pepita)
   }
 
   test "collection" {

@@ -127,7 +127,7 @@ object assert {
     self.checkNotNull(block, "throwsExceptionLike")
     try 
     {
-      self.throwsExceptionByComparing(block, {a => a.equals(exceptionExpected)})
+      self.throwsExceptionByComparing(block, {a => a == exceptionExpected})
     }
     catch ex : OtherValueExpectedException 
     {
@@ -154,7 +154,7 @@ object assert {
     self.checkNotNull(block, "throwsExceptionWithMessage")
     try 
     {
-      self.throwsExceptionByComparing(block, {a => errorMessage.equals(a.message())})
+      self.throwsExceptionByComparing(block, {a => errorMessage == a.message()})
     }
     catch ex : OtherValueExpectedException 
     {
@@ -181,7 +181,7 @@ object assert {
     self.checkNotNull(block, "throwsExceptionWithType")
     try 
     {
-      self.throwsExceptionByComparing(block,{a => exceptionExpected.className().equals(a.className())})
+      self.throwsExceptionByComparing(block,{a => exceptionExpected.className() == a.className()})
     }
     catch ex : OtherValueExpectedException 
     {
@@ -196,13 +196,13 @@ object assert {
    * returning the result.
    *
    * Examples:
-   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => "hola".equals(ex.message())}} 
+   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => "hola" == ex.message()}} 
    *          => Works!.
    *
-   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => new BusinessException("lele").className().equals(ex.className())} } 
+   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => new BusinessException("lele").className() == ex.className()} } 
    *          => Works again!
    *
-   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => "chau!".equals(ex.message())} } 
+   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => "chau!" == ex.message()} } 
    *          => Doesn't work. The block evaluation resolves to a false value.
    */    
   method throwsExceptionByComparing(block, comparison){

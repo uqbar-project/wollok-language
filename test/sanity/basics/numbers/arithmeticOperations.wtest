@@ -1,6 +1,8 @@
 /**
  * Tests for Wollok numbers => basic arithmetic operations
  */
+class Cuenta { }
+
 describe "arithmetic operations"{
 
   test "addition" {
