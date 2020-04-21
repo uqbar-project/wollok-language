@@ -153,6 +153,20 @@ class Object {
 
   /**
    * Tells whether self object is "equal" to the given object
+   *
+   * This method implements an equivalence relation on non-null object references:
+   *
+   * - It is reflexive: for any non-null reference value x, x == x should return true.
+   * - It is symmetric: for any non-null reference values x and y, x == y
+   *   should return true if and only if y == x returns true.
+   * - It is transitive: for any non-null reference values x, y, and z, 
+   *   if x == y returns true and y == z returns true, 
+   *   then x == z should return true.
+   * - It is consistent: for any non-null reference values x and y, multiple invocations
+   *   of x == y consistently return true or consistently return false,
+   *   provided no information used in equals comparisons on the objects is modified.
+   * - For any non-null reference value x, x == null should return false.
+   * 
    * The default behavior compares them in terms of identity (===)
    */
   method ==(other) = self === other 
@@ -953,6 +967,12 @@ class Collection {
  * A collection that contains no duplicate elements.
  * It models the mathematical set abstraction.
  * A Set guarantees no order of elements.
+ *
+ * Note: Great care must be exercised if mutable objects are used as set elements. 
+ * The behavior of a set is not specified if the value of an object is changed in
+ * a manner that affects equals comparisons while the object is an element in the set.
+ * A special case of this prohibition is that it is not permissible for a set to contain
+ * itself as an element.
  *
  * @author jfernandes
  * @since 1.3
