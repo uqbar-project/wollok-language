@@ -2140,14 +2140,14 @@ class String {
    *     "mother".startsWith("moth")  ==> Answers true
    *     "mother".startsWith("Moth")  ==> Answers false
    */
-  method startsWith(other) native
+  method startsWith(prefix) native
 
   /**
    * Tests if this string ends with the specified suffix.
    * It is case sensitive.
    * @see startsWith
    */
-  method endsWith(other) native
+  method endsWith(suffix) native
 
   /**
    * Answers the index within this string of the first occurrence
@@ -2250,7 +2250,7 @@ class String {
    *     "unusual".contains("usual")  ==> Answers true
    *     "become".contains("CO")      ==> Answers false
    */
-  method contains(other) native
+  method contains(element) native
 
   /** Answers whether this string has no characters */
   method isEmpty() = self.size() == 0
