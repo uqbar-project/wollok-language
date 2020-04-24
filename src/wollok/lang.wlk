@@ -327,7 +327,7 @@ class Collection {
 
   /**
    * Answers the element that represents the maximum value in the collection.
-   * The criteria is by direct comparison of the elements.
+   * The criteria is by direct comparison of the elements (they must be sortable).
    * If collection is empty, an ElementNotFound exception is thrown.
    *
    * Example:
@@ -529,10 +529,10 @@ class Collection {
   *    const list = [1, 6, 5]
   *    list.removeAllSuchThat { e => e.even() } => list == [1, 5]
   */
-   method removeAllSuchThat(closure) {
+  method removeAllSuchThat(closure) {
     self.checkNotNull(closure, "removeAllSuchThat")
-     self.removeAll( self.filter(closure) )
-   }
+    self.removeAll( self.filter(closure) )
+  }
 
   /**
    * Tells whether self collection has no elements
@@ -700,7 +700,7 @@ class Collection {
 
   /**
    * Sums all elements in the collection.
-   * @returns an integer
+   * @returns a number
    *
    * Example:
    *      [1, 2, 3, 4, 5].sum()  => Answers 15
@@ -729,7 +729,8 @@ class Collection {
   }
 
   /**
-   * Map + flatten operation
+   * Flattens a collection of collections: Map + flatten operation
+   *
    * @see map
    * @see flatten
    *
@@ -763,6 +764,7 @@ class Collection {
    * Example:
    *      const overageUsers = users.filter({ user => user.age() >= 18 })
    *      #{1, 2, 3, 4, 5}.filter { number => number.even() }   => Answers #{2, 4}
+   *      [1, 2, 3].filter { number => number.even() }          => Answers [2]
    *      #{}.filter { number => number.even() }                => Answers #{}
    */
   method filter(closure) {
@@ -1071,7 +1073,7 @@ class Set inherits Collection {
    *     #{1, 9, 3, 8}.fold(0, {acum, each => acum + each})
    *           => Answers 21, the sum of all elements
    *
-   *      #{}.fold(0, {acum, each => acum + each})
+   *     #{}.fold(0, {acum, each => acum + each})
    *           => Answers 0, the seed.
    *
    *     var numbers = #{3, 2, 9, 1, 7}
@@ -1082,12 +1084,28 @@ class Set inherits Collection {
   override method fold(initialValue, closure) native
 
   /**
+   * Answers a new set with the elements meeting
+   * a given condition. The condition is a closure argument that
+   * takes a single element and answers a boolean.
+   *
+   * Example:
+   *      #{1, 2, 3, 4, 5}.filter { number => number.even() }   => Answers #{2, 4}
+   *      #{}.filter { number => number.even() }                => Answers #{}
+   *
    * @see Collection#filter(closure)
    */
   override method filter(closure) native
 
 
   /**
+   * Answers the element that represents the maximum value in the collection.
+   * The criteria is by direct comparison of the elements.
+   * If set is empty, an ElementNotFound exception is thrown.
+   *
+   * Example:
+   *       #{1, 9, 3, 15}.max()  =>  Answers 15
+   *       #{}.max()             =>  Throws error, set must not be empty
+   *
    * @see Collection#max()
    */
   override method max() native
@@ -1164,6 +1182,12 @@ class Set inherits Collection {
   override method join() native
 
   /**
+   * Answers whether this collection contains the specified element.
+   *
+   * Example:
+   *      #{}.contains(3)        => Answers false
+   *      #{1, 2, 3}.contains(2) => Answers true
+   *      #{1, 2, 3}.contains(4) => Answers false
    *
    * @see List#contains(other)
    */
@@ -1264,7 +1288,8 @@ class List inherits Collection {
    */
   override method asList() = self
 
-  /** Converts a collection to a set (removing duplicates if necessary)
+  /** 
+   * Converts a collection to a set (removing duplicates if necessary)
    *
    * Examples:
    *    [1, 2, 3].asSet()       => Answers #{1, 2, 3}
@@ -1380,16 +1405,40 @@ class List inherits Collection {
   method reverse() = self.subList(self.size() - 1, 0)
 
   /**
+   *
+   * Answers a new list with the elements meeting
+   * a given condition. The condition is a closure argument that
+   * takes a single element and answers a boolean.
+   *
+   * Example:
+   *      [1, 2, 3, 4, 5].filter { number => number.even() }   => Answers [2, 4]
+   *      [].filter { number => number.even() }                => Answers []
+   *
    * @see Collection#filter(closure)
    */
   override method filter(closure) native
 
   /**
+   * Answers whether this collection contains the specified element.
+   *
+   * Example:
+   *      [].contains(3)        => Answers false
+   *      [1, 2, 3].contains(2) => Answers true
+   *      [1, 2, 3].contains(4) => Answers false
+   *
    * @see Collection#contains(obj)
    */
   override method contains(obj) native
 
   /**
+   * Answers the element that represents the maximum value in the collection.
+   * The criteria is by direct comparison of the elements (they must be sortable).
+   * If collection is empty, an ElementNotFound exception is thrown.
+   *
+   * Example:
+   *       [11, 1, 4, 8, 3, 15, 6].max() =>  Answers 15
+   *       [].max()                      =>  Throws error, list must not be empty
+   *
    * @see Collection#max()
    */
   override method max() native
@@ -1398,13 +1447,13 @@ class List inherits Collection {
    * Reduce a collection to a certain value, beginning with a seed or initial value
    *
    * Examples
-   *     #{1, 9, 3, 8}.fold(0, {acum, each => acum + each})
+   *     [1, 9, 3, 8].fold(0, {acum, each => acum + each})
    *           => Answers 21, the sum of all elements
    *
-   *      [].fold(0, {acum, each => acum + each})
+   *     [].fold(0, {acum, each => acum + each})
    *           => Answers 0, the seed.
    *
-   *     const numbers = #{3, 2, 9, 1, 7}
+   *     const numbers = [3, 2, 9, 1, 7]
    *     numbers.fold(numbers.anyOne(), { acum, number => acum.max(number) })
    *           => Answers 9, the maximum of all elements
    *
@@ -2523,7 +2572,15 @@ class Range {
    */
   method isEmpty() = self.size() == 0
 
-  /** @see List#fold(seed, foldClosure) */
+  /** 
+   * Reduce a range to a certain value, beginning with a seed or initial value.
+   *
+   * Examples
+   *     (1..5).fold(0, {acum, each => acum + each})
+   *           => Answers 15, the sum of all elements
+   *
+   * @see List#fold(seed, foldClosure) 
+   */
   method fold(seed, foldClosure) = self.asList().fold(seed, foldClosure)
 
   /**
@@ -2538,19 +2595,65 @@ class Range {
       return if (base >= 0) base.truncate(0) + 1 else 0
   }
 
-  /** @see List#any(closure) */
+  /**
+   * Tells whether at least one element of range satisfies a
+   * given condition. The condition is a closure argument that takes a
+   * number and answers a boolean value.
+   * @returns true/false
+   *
+   * Example:
+   *      (1..5).any { number => number.even() }   ==> Answers true
+   *
+   * @see List#any(closure)
+   */
   method any(closure) = self.asList().any(closure)
 
-  /** @see List#all(closure) */
+  /**
+   * Answers whether all the elements of range satisfy a given
+   * condition. The condition is a closure argument that takes a number
+   * and answers a boolean value.
+   *
+   * @returns true/false
+   *
+   * Example:
+   *      (1..5).all { number => number.odd() }    => Answers false
+   *  
+   * @see List#all(closure)
+   */
   method all(closure) = self.asList().all(closure)
 
-  /** @see List#filter(closure) */
+  /** 
+   * Answers a new list with the elements meeting
+   * a given condition. The condition is a closure argument that
+   * takes a single element and answers a boolean.
+   *
+   * Example:
+   *      (1..4).filter({ number => number.even() })   => Answers [2, 4]
+   *
+   * @see List#filter(closure) 
+   */
   method filter(closure) = self.asList().filter(closure)
 
-  /** @see List#min() */
+  /**
+   * Answers the element that represents the minimum value in the range.
+   * The criteria is by direct comparison of the elements (they must be sortable).
+   *
+   * Example:
+   *       (1..5).min()  => Answers 1
+   *
+   * @see List#min()
+   */
   method min() = self.asList().min()
 
-  /** @see List#max() */
+  /** 
+   * Answers the element that represents the maximum value in the range.
+   *
+   * Example:
+   *       (1..15).max()                       =>  Answers 15
+   *       new Range(start = 2, end = 5).max() => Answers 5
+   * 
+   * @see List#max() 
+   */
   method max() = self.asList().max()
 
   /**
@@ -2562,15 +2665,23 @@ class Range {
   method anyOne() native
 
   /**
-   * Tests whether a number e is contained in the range
+   * Tests whether a number is contained in the range
    *
    * Examples:
    *     new Range(start = 2, end = 5).contains(4) ==> Answers true
-   *     new Range(start = 2, end = 5).contains(0) ==> Answers false
+   *     (new Range(start = 2, end = 5)).contains(0) ==> Answers false
    */
   method contains(element) = self.asList().contains(element)
 
-  /** @see List#sum() */
+  /**
+   * Sums all elements in the collection.
+   * @returns a number
+   *
+   * Example:
+   *      (1..5).sum()  => Answers 15
+   *
+   * @see List#sum()
+   */
   method sum() = self.asList().sum()
 
   /**
@@ -2589,16 +2700,55 @@ class Range {
    */
   method count(closure) = self.asList().count(closure)
 
-  /** @see List#find(closure) */
+  /**
+   * Answers the number of the range that satisfies a given condition.
+   *
+   * @throws ElementNotFoundException if no element matched the given predicate
+   *
+   * Example:
+   *      (1..5).find { number => number.even() }   ==> Answers 2
+   *
+   * @see List#find(closure)
+   */
   method find(closure) = self.asList().find(closure)
 
-  /** @see List#findOrElse(predicate, continuation)   */
+  /**
+   * Finds the first number matching the boolean closure,
+   * or evaluates the continuation block closure if no element is found
+   *
+   * Examples:
+   *     (1..5).findOrElse({ number => number < 0 }, { 100 })     => Answers 100
+   *     (1..5).findOrElse({ number => number.even() }, { 100 })  => Answers 2
+   *
+   * @see List#findOrElse(predicate, continuation)
+   */
   method findOrElse(closure, continuation) = self.asList().findOrElse(closure, continuation)
 
-  /** @see List#findOrDefault(predicate, value) */
+  /**
+   * Answers the number of the range that satisfies a given condition,
+   * or the given default otherwise, if no element matched the predicate.
+   *
+   * Example:
+   *      (1..5).findOrDefault({ number => number.even() }, 0) => Answers 2
+   *      (1..5).findOrDefault({ number => number < 0 }, 0)    => Answers 0
+   *
+   * @see List#findOrDefault(predicate, value)
+   */
   method findOrDefault(predicate, value) = self.asList().findOrDefault(predicate, value)
 
-  /** @see List#sortBy */
+  /**
+   * Answers a new List that contains the elements of self collection
+   * sorted by a criteria given by a closure. The closure receives two objects
+   * X and Y and answers a boolean, true if X should come before Y in the
+   * resulting collection.
+   *
+   * @returns a new List
+   *
+   * Example:
+   *      (1..5).sortedBy { a, b => a > b } => Answers [5, 4, 3, 2, 1]
+   *
+   * @see List#sortBy
+   */
   method sortedBy(closure) = self.asList().sortedBy(closure)
 
   /** @private */
