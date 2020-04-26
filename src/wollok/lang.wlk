@@ -203,7 +203,7 @@ class Object {
    * String representation of Wollok object
    */
   method toString() {
-    return self.toSmartString([])
+    return self.kindName()
   }
 
   /**
@@ -217,29 +217,6 @@ class Object {
    * like in String
    */
   method printString() = self.toString()
-
-  /** @private */
-  method toSmartString(alreadyShown) {
-    if (alreadyShown.any { e => e.identity() == self.identity() } ) {
-      return self.simplifiedToSmartString()
-    }
-    else {
-      alreadyShown.add(self)
-      return self.internalToSmartString(alreadyShown)
-    }
-  }
-
-  /** @private */
-  method simplifiedToSmartString() = self.kindName()
-
-  /** @private */
-  method internalToSmartString(alreadyShown) {
-    return self.kindName() + "["
-      + self.instanceVariables().map { v =>
-        v.name() + "=" + v.valueToSmartString(alreadyShown)
-      }.join(', ')
-    + "]"
-  }
 
   /** @private */
   method messageNotUnderstood(messageName, parameters) {
@@ -797,13 +774,14 @@ class Collection {
 
   /** @private */
   /*
+   * String representation of this collection object.
    * Optimized version for long collections
    *
    * @see Object#toString()
    */
-  override method internalToSmartString(alreadyShown) {
+  override method toString() {
     const size = self.size()
-    const internalCollection = if (size > 50) "..." + size + " elements" else self.map{ e => e.toSmartString(alreadyShown) }.join(", ")
+    const internalCollection = if (size > 20) "..." + size + " elements" else self.map{ e => e.printString() }.join(", ")
     return self.toStringPrefix() + internalCollection + self.toStringSuffix()
   }
 
@@ -812,6 +790,13 @@ class Collection {
 
   /** @private */
   method toStringSuffix()
+
+  /**
+  * Provides a (short) visual representation of this collection.
+  */
+  override method printString() {
+    return self.toStringPrefix() + self.kindName() + " (" + self.size() + ")" + self.toStringSuffix
+  }
 
   /** Converts a collection to a list */
   method asList()
@@ -1040,7 +1025,7 @@ class Set inherits Collection {
    *
    * @returns a Set
    */
-   method union(another) = self + another
+  method union(another) = self + another
 
   /**
    * Answers a new Set with the elements of self that exist in another collection
@@ -1051,8 +1036,8 @@ class Set inherits Collection {
    *
    * @returns a Set
    */
-   method intersection(another) =
-     self.filter({it => another.contains(it)})
+  method intersection(another) =
+    self.filter({it => another.contains(it)})
 
   /**
    * Answers a new Set with the elements of self that don't exist in another collection
@@ -1063,8 +1048,8 @@ class Set inherits Collection {
    *
    * @returns a Set
    */
-   method difference(another) =
-     self.filter({it => !another.contains(it)})
+  method difference(another) =
+    self.filter({it => !another.contains(it)})
 
   /**
    * Reduce a collection to a certain value, beginning with a seed or initial value.
@@ -2449,7 +2434,7 @@ class Boolean {
   /** A synonym for or operation */
   method ||(other) native
 
-  /** Answers a String object representing this Boolean's value. */
+  /** String representation of this boolean value. */
   override method toString() native
 
   /** @private */
@@ -2751,8 +2736,8 @@ class Range {
    */
   method sortedBy(closure) = self.asList().sortedBy(closure)
 
-  /** @private */
-  override method internalToSmartString(alreadyShown) = start.toString() + ".." + end.toString()
+  /** String representation of this range object */
+  override method toString() = start.toString() + ".." + end.toString()
 }
 
 /**
@@ -2775,7 +2760,7 @@ class Closure {
    */
   method apply(parameters...) native
 
-  /** Answers a string representation of this closure object */
+  /** String representation of this closure object */
   override method toString() native
 
 }
@@ -2808,7 +2793,7 @@ class Date {
   override method initialize() native
   
   /** String representation of a date */
-  override method toString() = self.toSmartString(false)
+  override method toString() = self.shortDescription()
 
   /** Two dates are equals if they represent the same date */
   override method ==(_aDate) native
@@ -2948,10 +2933,6 @@ class Date {
    *         ==> Answers true
    */
   method between(_startDate, _endDate) = (self >= _startDate) && (self <= _endDate)
-
-  /** Shows nicely an internal representation of a date **/
-  override method toSmartString(alreadyShown) =
-    self.shortDescription()
 
   /**
    * Shows a short, internal representation of a date
