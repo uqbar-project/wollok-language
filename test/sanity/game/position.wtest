@@ -49,7 +49,7 @@ describe "position" {
   }
 
   test "toString" {
-    assert.equals("(0,0)", origin.toString())
+    assert.equals("0@0", origin.toString())
   }
 
   test "distance using null should fail" {
