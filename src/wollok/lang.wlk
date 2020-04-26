@@ -795,7 +795,7 @@ class Collection {
   * Provides a (short) visual representation of this collection.
   */
   override method printString() {
-    return self.toStringPrefix() + self.kindName() + " (" + self.size() + ")" + self.toStringSuffix
+    return self.toStringPrefix() + self.kindName() + " (" + self.size() + ")" + self.toStringSuffix()
   }
 
   /** Converts a collection to a list */
@@ -1742,12 +1742,6 @@ class Dictionary {
  */
 class Number {
 
-  /** @private */
-  override method simplifiedToSmartString(){ return self.stringValue() }
-
-  /** @private */
-  override method internalToSmartString(alreadyShown) { return self.stringValue() }
-
   /**
    * @private
    *
@@ -1804,9 +1798,6 @@ class Number {
 
   /** String representation of self number */
   override method toString() native
-
-  /** @private */
-  override method toSmartString(alreadyShown) = self.toString()
 
   /**
    * Builds a Range between self and end
@@ -2338,9 +2329,6 @@ class String {
    */
   override method printString() = '"' + self.toString() + '"'
 
-  /** @private */
-  override method toSmartString(alreadyShown) native
-
   /** 
    * Compares this string to the specified object.
    * The result is true if and only if the
@@ -2436,9 +2424,6 @@ class Boolean {
 
   /** String representation of this boolean value. */
   override method toString() native
-
-  /** @private */
-  override method toSmartString(alreadyShown) native
 
   /** 
    * Compares this string to the specified object.
