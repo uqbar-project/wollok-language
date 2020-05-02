@@ -1,0 +1,32 @@
+import wollok.mirror.InstanceVariableMirror
+
+class Capitan {
+  const nombre
+}
+
+const mirrorCapitan = new InstanceVariableMirror(
+  target = new Capitan(nombre = "Juan"),
+  name = "nombre"
+)
+
+describe "given instance variable mirror" {
+
+  test "you can ask the value for an instance variable of a class, even if it has no getter" {
+    assert.equals("Juan", mirrorCapitan.value())
+  }
+
+  test "you can ask for a printable value of an instance variable of a class, even if it has no getter" {
+    assert.equals("Juan", mirrorCapitan.value())
+  }
+
+  test "you can ask the value for an instance variable of a named object, even if it has no getter" {
+    const pepita = object {
+      var energia = 30
+    }
+
+    const mirrorPepita = new InstanceVariableMirror(target = pepita, name = "energia")
+
+    assert.equals(30, mirrorPepita.value())
+  }
+
+}

@@ -117,24 +117,6 @@ class Object {
    */
   method identity() native
 
-  /**
-   * Answers a list of instance variables for this Wollok object
-   * @private - needed by wollok-xtext implementation
-   */
-  method instanceVariables() native
-
-  /**
-   * Retrieves a specific variable. Expects a name
-   * @private - needed by wollok-xtext implementation
-   */
-  method instanceVariableFor(name) native
-
-  /**
-   * Accesses a variable by name, in a reflexive way.
-   * @private - needed by wollok-xtext implementation
-   */
-  method resolve(name) native
-
   /** Object description in english/spanish/... (depending on i18n configuration)
    *
    * Examples:
