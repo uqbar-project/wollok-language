@@ -117,24 +117,6 @@ class Object {
    */
   method identity() native
 
-  /**
-   * Answers a list of instance variables for this Wollok object
-   * @private - needed by wollok-xtext implementation
-   */
-  method instanceVariables() native
-
-  /**
-   * Retrieves a specific variable. Expects a name
-   * @private - needed by wollok-xtext implementation
-   */
-  method instanceVariableFor(name) native
-
-  /**
-   * Accesses a variable by name, in a reflexive way.
-   * @private - needed by wollok-xtext implementation
-   */
-  method resolve(name) native
-
   /** Object description in english/spanish/... (depending on i18n configuration)
    *
    * Examples:
@@ -153,6 +135,20 @@ class Object {
 
   /**
    * Tells whether self object is "equal" to the given object
+   *
+   * This method implements an equivalence relation on non-null object references:
+   *
+   * - It is reflexive: for any non-null reference value x, x == x should return true.
+   * - It is symmetric: for any non-null reference values x and y, x == y
+   *   should return true if and only if y == x returns true.
+   * - It is transitive: for any non-null reference values x, y, and z, 
+   *   if x == y returns true and y == z returns true, 
+   *   then x == z should return true.
+   * - It is consistent: for any non-null reference values x and y, multiple invocations
+   *   of x == y consistently return true or consistently return false,
+   *   provided no information used in equals comparisons on the objects is modified.
+   * - For any non-null reference value x, x == null should return false.
+   * 
    * The default behavior compares them in terms of identity (===)
    */
   method ==(other) = self === other 
@@ -189,7 +185,7 @@ class Object {
    * String representation of Wollok object
    */
   method toString() {
-    return self.toSmartString([])
+    return self.kindName()
   }
 
   /**
@@ -203,29 +199,6 @@ class Object {
    * like in String
    */
   method printString() = self.toString()
-
-  /** @private */
-  method toSmartString(alreadyShown) {
-    if (alreadyShown.any { e => e.identity() == self.identity() } ) {
-      return self.simplifiedToSmartString()
-    }
-    else {
-      alreadyShown.add(self)
-      return self.internalToSmartString(alreadyShown)
-    }
-  }
-
-  /** @private */
-  method simplifiedToSmartString() = self.kindName()
-
-  /** @private */
-  method internalToSmartString(alreadyShown) {
-    return self.kindName() + "["
-      + self.instanceVariables().map { v =>
-        v.name() + "=" + v.valueToSmartString(alreadyShown)
-      }.join(', ')
-    + "]"
-  }
 
   /** @private */
   method messageNotUnderstood(messageName, parameters) {
@@ -313,7 +286,7 @@ class Collection {
 
   /**
    * Answers the element that represents the maximum value in the collection.
-   * The criteria is by direct comparison of the elements.
+   * The criteria is by direct comparison of the elements (they must be sortable).
    * If collection is empty, an ElementNotFound exception is thrown.
    *
    * Example:
@@ -515,10 +488,10 @@ class Collection {
   *    const list = [1, 6, 5]
   *    list.removeAllSuchThat { e => e.even() } => list == [1, 5]
   */
-   method removeAllSuchThat(closure) {
+  method removeAllSuchThat(closure) {
     self.checkNotNull(closure, "removeAllSuchThat")
-     self.removeAll( self.filter(closure) )
-   }
+    self.removeAll( self.filter(closure) )
+  }
 
   /**
    * Tells whether self collection has no elements
@@ -686,7 +659,7 @@ class Collection {
 
   /**
    * Sums all elements in the collection.
-   * @returns an integer
+   * @returns a number
    *
    * Example:
    *      [1, 2, 3, 4, 5].sum()  => Answers 15
@@ -715,7 +688,8 @@ class Collection {
   }
 
   /**
-   * Map + flatten operation
+   * Flattens a collection of collections: Map + flatten operation
+   *
    * @see map
    * @see flatten
    *
@@ -749,6 +723,7 @@ class Collection {
    * Example:
    *      const overageUsers = users.filter({ user => user.age() >= 18 })
    *      #{1, 2, 3, 4, 5}.filter { number => number.even() }   => Answers #{2, 4}
+   *      [1, 2, 3].filter { number => number.even() }          => Answers [2]
    *      #{}.filter { number => number.even() }                => Answers #{}
    */
   method filter(closure) {
@@ -781,13 +756,14 @@ class Collection {
 
   /** @private */
   /*
+   * String representation of this collection object.
    * Optimized version for long collections
    *
    * @see Object#toString()
    */
-  override method internalToSmartString(alreadyShown) {
+  override method toString() {
     const size = self.size()
-    const internalCollection = if (size > 50) "..." + size + " elements" else self.map{ e => e.toSmartString(alreadyShown) }.join(", ")
+    const internalCollection = if (size > 20) "..." + size + " elements" else self.map{ e => if (e === null) "null" else e.printString() }.join(", ")
     return self.toStringPrefix() + internalCollection + self.toStringSuffix()
   }
 
@@ -796,6 +772,13 @@ class Collection {
 
   /** @private */
   method toStringSuffix()
+
+  /**
+  * Provides a (short) visual representation of this collection.
+  */
+  override method printString() {
+    return self.toStringPrefix() + self.kindName() + " (" + self.size() + ")" + self.toStringSuffix()
+  }
 
   /** Converts a collection to a list */
   method asList()
@@ -812,11 +795,7 @@ class Collection {
    *
    * @see Set
    */
-  method asSet() {
-    const result = #{}
-    result.addAll(self)
-    return result
-  }
+  method asSet()
 
   /**
    * Answers a new collection of the same type and with the same content
@@ -958,6 +937,12 @@ class Collection {
  * It models the mathematical set abstraction.
  * A Set guarantees no order of elements.
  *
+ * Note: Great care must be exercised if mutable objects are used as set elements. 
+ * The behavior of a set is not specified if the value of an object is changed in
+ * a manner that affects equals comparisons while the object is an element in the set.
+ * A special case of this prohibition is that it is not permissible for a set to contain
+ * itself as an element.
+ *
  * @author jfernandes
  * @since 1.3
  */
@@ -987,6 +972,22 @@ class Set inherits Collection {
     return result
   }
 
+  /** Converts a collection to a set (removing duplicates if necessary)
+   *
+   * Examples:
+   *    [1, 2, 3].asSet()       => Answers #{1, 2, 3}
+   *    [].asSet()              => Answers #{}
+   *    [1, 2, 1, 1, 2].asSet() => Answers #{1, 2}
+   *
+   *    #{1, 2, 3}.asSet()      => Answers #{1, 2, 3}
+   *    #{}.asSet()             => Answers #{}
+   *
+   * @see Set
+   */
+  override method asSet() {
+    return self
+  }
+
   /**
    * Answers any element of a non-empty collection
    *
@@ -1006,7 +1007,7 @@ class Set inherits Collection {
    *
    * @returns a Set
    */
-   method union(another) = self + another
+  method union(another) = self + another
 
   /**
    * Answers a new Set with the elements of self that exist in another collection
@@ -1017,8 +1018,8 @@ class Set inherits Collection {
    *
    * @returns a Set
    */
-   method intersection(another) =
-     self.filter({it => another.contains(it)})
+  method intersection(another) =
+    self.filter({it => another.contains(it)})
 
   /**
    * Answers a new Set with the elements of self that don't exist in another collection
@@ -1029,8 +1030,8 @@ class Set inherits Collection {
    *
    * @returns a Set
    */
-   method difference(another) =
-     self.filter({it => !another.contains(it)})
+  method difference(another) =
+    self.filter({it => !another.contains(it)})
 
   /**
    * Reduce a collection to a certain value, beginning with a seed or initial value.
@@ -1039,7 +1040,7 @@ class Set inherits Collection {
    *     #{1, 9, 3, 8}.fold(0, {acum, each => acum + each})
    *           => Answers 21, the sum of all elements
    *
-   *      #{}.fold(0, {acum, each => acum + each})
+   *     #{}.fold(0, {acum, each => acum + each})
    *           => Answers 0, the seed.
    *
    *     var numbers = #{3, 2, 9, 1, 7}
@@ -1050,12 +1051,28 @@ class Set inherits Collection {
   override method fold(initialValue, closure) native
 
   /**
+   * Answers a new set with the elements meeting
+   * a given condition. The condition is a closure argument that
+   * takes a single element and answers a boolean.
+   *
+   * Example:
+   *      #{1, 2, 3, 4, 5}.filter { number => number.even() }   => Answers #{2, 4}
+   *      #{}.filter { number => number.even() }                => Answers #{}
+   *
    * @see Collection#filter(closure)
    */
   override method filter(closure) native
 
 
   /**
+   * Answers the element that represents the maximum value in the collection.
+   * The criteria is by direct comparison of the elements.
+   * If set is empty, an ElementNotFound exception is thrown.
+   *
+   * Example:
+   *       #{1, 9, 3, 15}.max()  =>  Answers 15
+   *       #{}.max()             =>  Throws error, set must not be empty
+   *
    * @see Collection#max()
    */
   override method max() native
@@ -1132,6 +1149,12 @@ class Set inherits Collection {
   override method join() native
 
   /**
+   * Answers whether this collection contains the specified element.
+   *
+   * Example:
+   *      #{}.contains(3)        => Answers false
+   *      #{1, 2, 3}.contains(2) => Answers true
+   *      #{1, 2, 3}.contains(4) => Answers false
    *
    * @see List#contains(other)
    */
@@ -1232,6 +1255,25 @@ class List inherits Collection {
    */
   override method asList() = self
 
+  /** 
+   * Converts a collection to a set (removing duplicates if necessary)
+   *
+   * Examples:
+   *    [1, 2, 3].asSet()       => Answers #{1, 2, 3}
+   *    [].asSet()              => Answers #{}
+   *    [1, 2, 1, 1, 2].asSet() => Answers #{1, 2}
+   *
+   *    #{1, 2, 3}.asSet()      => Answers #{1, 2, 3}
+   *    #{}.asSet()             => Answers #{}
+   *
+   * @see Set
+   */
+  override method asSet() {
+    const result = #{}
+    result.addAll(self.withoutDuplicates())
+    return result
+  }
+
   /**
    * Answers a view of the portion of this list between the specified start index
    * and the end of the list. Remember first element is position 0,
@@ -1330,16 +1372,40 @@ class List inherits Collection {
   method reverse() = self.subList(self.size() - 1, 0)
 
   /**
+   *
+   * Answers a new list with the elements meeting
+   * a given condition. The condition is a closure argument that
+   * takes a single element and answers a boolean.
+   *
+   * Example:
+   *      [1, 2, 3, 4, 5].filter { number => number.even() }   => Answers [2, 4]
+   *      [].filter { number => number.even() }                => Answers []
+   *
    * @see Collection#filter(closure)
    */
   override method filter(closure) native
 
   /**
+   * Answers whether this collection contains the specified element.
+   *
+   * Example:
+   *      [].contains(3)        => Answers false
+   *      [1, 2, 3].contains(2) => Answers true
+   *      [1, 2, 3].contains(4) => Answers false
+   *
    * @see Collection#contains(obj)
    */
   override method contains(obj) native
 
   /**
+   * Answers the element that represents the maximum value in the collection.
+   * The criteria is by direct comparison of the elements (they must be sortable).
+   * If collection is empty, an ElementNotFound exception is thrown.
+   *
+   * Example:
+   *       [11, 1, 4, 8, 3, 15, 6].max() =>  Answers 15
+   *       [].max()                      =>  Throws error, list must not be empty
+   *
    * @see Collection#max()
    */
   override method max() native
@@ -1348,13 +1414,13 @@ class List inherits Collection {
    * Reduce a collection to a certain value, beginning with a seed or initial value
    *
    * Examples
-   *     #{1, 9, 3, 8}.fold(0, {acum, each => acum + each})
+   *     [1, 9, 3, 8].fold(0, {acum, each => acum + each})
    *           => Answers 21, the sum of all elements
    *
-   *      [].fold(0, {acum, each => acum + each})
+   *     [].fold(0, {acum, each => acum + each})
    *           => Answers 0, the seed.
    *
-   *     const numbers = #{3, 2, 9, 1, 7}
+   *     const numbers = [3, 2, 9, 1, 7]
    *     numbers.fold(numbers.anyOne(), { acum, number => acum.max(number) })
    *           => Answers 9, the maximum of all elements
    *
@@ -1658,12 +1724,6 @@ class Dictionary {
  */
 class Number {
 
-  /** @private */
-  override method simplifiedToSmartString(){ return self.stringValue() }
-
-  /** @private */
-  override method internalToSmartString(alreadyShown) { return self.stringValue() }
-
   /**
    * @private
    *
@@ -1720,9 +1780,6 @@ class Number {
 
   /** String representation of self number */
   override method toString() native
-
-  /** @private */
-  override method toSmartString(alreadyShown) = self.toString()
 
   /**
    * Builds a Range between self and end
@@ -2041,14 +2098,14 @@ class String {
    *     "mother".startsWith("moth")  ==> Answers true
    *     "mother".startsWith("Moth")  ==> Answers false
    */
-  method startsWith(other) native
+  method startsWith(prefix) native
 
   /**
    * Tests if this string ends with the specified suffix.
    * It is case sensitive.
    * @see startsWith
    */
-  method endsWith(other) native
+  method endsWith(suffix) native
 
   /**
    * Answers the index within this string of the first occurrence
@@ -2151,7 +2208,7 @@ class String {
    *     "unusual".contains("usual")  ==> Answers true
    *     "become".contains("CO")      ==> Answers false
    */
-  method contains(other) native
+  method contains(element) native
 
   /** Answers whether this string has no characters */
   method isEmpty() = self.size() == 0
@@ -2188,7 +2245,7 @@ class String {
    *     "walking".substring(0, 5)   ==> Answers "walki"
    *     "walking".substring(0, 45)  ==> throws an out of range exception
    */
-  method substring(startIndex, length) native
+  method substring(startIndex, endIndex) native
 
   /**
    * Splits this string around matches of the given string.
@@ -2253,9 +2310,6 @@ class String {
    * simply adds quotation marks
    */
   override method printString() = '"' + self.toString() + '"'
-
-  /** @private */
-  override method toSmartString(alreadyShown) native
 
   /** 
    * Compares this string to the specified object.
@@ -2350,11 +2404,8 @@ class Boolean {
   /** A synonym for or operation */
   method ||(other) native
 
-  /** Answers a String object representing this Boolean's value. */
+  /** String representation of this boolean value. */
   override method toString() native
-
-  /** @private */
-  override method toSmartString(alreadyShown) native
 
   /** 
    * Compares this string to the specified object.
@@ -2473,7 +2524,15 @@ class Range {
    */
   method isEmpty() = self.size() == 0
 
-  /** @see List#fold(seed, foldClosure) */
+  /** 
+   * Reduce a range to a certain value, beginning with a seed or initial value.
+   *
+   * Examples
+   *     (1..5).fold(0, {acum, each => acum + each})
+   *           => Answers 15, the sum of all elements
+   *
+   * @see List#fold(seed, foldClosure) 
+   */
   method fold(seed, foldClosure) = self.asList().fold(seed, foldClosure)
 
   /**
@@ -2488,19 +2547,65 @@ class Range {
       return if (base >= 0) base.truncate(0) + 1 else 0
   }
 
-  /** @see List#any(closure) */
+  /**
+   * Tells whether at least one element of range satisfies a
+   * given condition. The condition is a closure argument that takes a
+   * number and answers a boolean value.
+   * @returns true/false
+   *
+   * Example:
+   *      (1..5).any { number => number.even() }   ==> Answers true
+   *
+   * @see List#any(closure)
+   */
   method any(closure) = self.asList().any(closure)
 
-  /** @see List#all(closure) */
+  /**
+   * Answers whether all the elements of range satisfy a given
+   * condition. The condition is a closure argument that takes a number
+   * and answers a boolean value.
+   *
+   * @returns true/false
+   *
+   * Example:
+   *      (1..5).all { number => number.odd() }    => Answers false
+   *  
+   * @see List#all(closure)
+   */
   method all(closure) = self.asList().all(closure)
 
-  /** @see List#filter(closure) */
+  /** 
+   * Answers a new list with the elements meeting
+   * a given condition. The condition is a closure argument that
+   * takes a single element and answers a boolean.
+   *
+   * Example:
+   *      (1..4).filter({ number => number.even() })   => Answers [2, 4]
+   *
+   * @see List#filter(closure) 
+   */
   method filter(closure) = self.asList().filter(closure)
 
-  /** @see List#min() */
+  /**
+   * Answers the element that represents the minimum value in the range.
+   * The criteria is by direct comparison of the elements (they must be sortable).
+   *
+   * Example:
+   *       (1..5).min()  => Answers 1
+   *
+   * @see List#min()
+   */
   method min() = self.asList().min()
 
-  /** @see List#max() */
+  /** 
+   * Answers the element that represents the maximum value in the range.
+   *
+   * Example:
+   *       (1..15).max()                       =>  Answers 15
+   *       new Range(start = 2, end = 5).max() => Answers 5
+   * 
+   * @see List#max() 
+   */
   method max() = self.asList().max()
 
   /**
@@ -2512,15 +2617,23 @@ class Range {
   method anyOne() native
 
   /**
-   * Tests whether a number e is contained in the range
+   * Tests whether a number is contained in the range
    *
    * Examples:
    *     new Range(start = 2, end = 5).contains(4) ==> Answers true
-   *     new Range(start = 2, end = 5).contains(0) ==> Answers false
+   *     (new Range(start = 2, end = 5)).contains(0) ==> Answers false
    */
   method contains(element) = self.asList().contains(element)
 
-  /** @see List#sum() */
+  /**
+   * Sums all elements in the collection.
+   * @returns a number
+   *
+   * Example:
+   *      (1..5).sum()  => Answers 15
+   *
+   * @see List#sum()
+   */
   method sum() = self.asList().sum()
 
   /**
@@ -2539,20 +2652,59 @@ class Range {
    */
   method count(closure) = self.asList().count(closure)
 
-  /** @see List#find(closure) */
+  /**
+   * Answers the number of the range that satisfies a given condition.
+   *
+   * @throws ElementNotFoundException if no element matched the given predicate
+   *
+   * Example:
+   *      (1..5).find { number => number.even() }   ==> Answers 2
+   *
+   * @see List#find(closure)
+   */
   method find(closure) = self.asList().find(closure)
 
-  /** @see List#findOrElse(predicate, continuation)   */
+  /**
+   * Finds the first number matching the boolean closure,
+   * or evaluates the continuation block closure if no element is found
+   *
+   * Examples:
+   *     (1..5).findOrElse({ number => number < 0 }, { 100 })     => Answers 100
+   *     (1..5).findOrElse({ number => number.even() }, { 100 })  => Answers 2
+   *
+   * @see List#findOrElse(predicate, continuation)
+   */
   method findOrElse(closure, continuation) = self.asList().findOrElse(closure, continuation)
 
-  /** @see List#findOrDefault(predicate, value) */
+  /**
+   * Answers the number of the range that satisfies a given condition,
+   * or the given default otherwise, if no element matched the predicate.
+   *
+   * Example:
+   *      (1..5).findOrDefault({ number => number.even() }, 0) => Answers 2
+   *      (1..5).findOrDefault({ number => number < 0 }, 0)    => Answers 0
+   *
+   * @see List#findOrDefault(predicate, value)
+   */
   method findOrDefault(predicate, value) = self.asList().findOrDefault(predicate, value)
 
-  /** @see List#sortBy */
+  /**
+   * Answers a new List that contains the elements of self collection
+   * sorted by a criteria given by a closure. The closure receives two objects
+   * X and Y and answers a boolean, true if X should come before Y in the
+   * resulting collection.
+   *
+   * @returns a new List
+   *
+   * Example:
+   *      (1..5).sortedBy { a, b => a > b } => Answers [5, 4, 3, 2, 1]
+   *
+   * @see List#sortBy
+   */
   method sortedBy(closure) = self.asList().sortedBy(closure)
 
-  /** @private */
-  override method internalToSmartString(alreadyShown) = start.toString() + ".." + end.toString()
+  /** String representation of this range object */
+  override method toString() = start.toString() + ".." + end.toString()
 }
 
 /**
@@ -2575,7 +2727,7 @@ class Closure {
    */
   method apply(parameters...) native
 
-  /** Answers a string representation of this closure object */
+  /** String representation of this closure object */
   override method toString() native
 
 }
@@ -2608,7 +2760,7 @@ class Date {
   override method initialize() native
   
   /** String representation of a date */
-  override method toString() = self.toSmartString(false)
+  override method toString() = self.shortDescription()
 
   /** Two dates are equals if they represent the same date */
   override method ==(_aDate) native
@@ -2748,10 +2900,6 @@ class Date {
    *         ==> Answers true
    */
   method between(_startDate, _endDate) = (self >= _startDate) && (self <= _endDate)
-
-  /** Shows nicely an internal representation of a date **/
-  override method toSmartString(alreadyShown) =
-    self.shortDescription()
 
   /**
    * Shows a short, internal representation of a date

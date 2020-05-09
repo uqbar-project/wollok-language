@@ -69,7 +69,7 @@ object assert {
    *     assert.equals(10.01, 100.div(10)) ==> throws an exception 
    */
   method equals(expected, actual) {
-    if (expected != actual) throw new AssertionException(message = "Expected [" + expected.printString() + "] but found [" + actual.printString() + "]")
+    if (expected != actual) throw new AssertionException(message = "Expected <" + expected.printString() + "> but found <" + actual.printString() + ">")
   }
   
   /** 
@@ -81,7 +81,7 @@ object assert {
    *     assert.notEquals(10, value)     ==> throws an exception
    */
   method notEquals(expected, actual) {
-    if (expected == actual) throw new AssertionException(message = "Expected to be different, but [" + expected.printString() + "] and [" + actual.printString() + "] match")
+    if (expected == actual) throw new AssertionException(message = "Expected to be different, but <" + expected.printString() + "> and <" + actual.printString() + "> match")
   }
   
   /** 

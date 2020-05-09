@@ -222,7 +222,7 @@ object game {
    */				
   method cellSize(size) {
     if (size <= 0)
-      throw new Exception(message = "Cell size can't be 0 or lower")
+      throw new Exception(message = "Cell size cannot be 0 or lower")
     self.doCellSize(size)
   }
 
@@ -344,7 +344,7 @@ class Position {
   /**
    * String representation of a position
    */
-  override method toString() = "(" + x + "," + y + ")"
+  override method toString() = x.toString() + "@" + y.toString()
   
 }
 
