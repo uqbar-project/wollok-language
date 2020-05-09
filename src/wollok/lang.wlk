@@ -763,7 +763,7 @@ class Collection {
    */
   override method toString() {
     const size = self.size()
-    const internalCollection = if (size > 20) "..." + size + " elements" else self.map{ e => e.printString() }.join(", ")
+    const internalCollection = if (size > 20) "..." + size + " elements" else self.map{ e => if (e === null) "null" else e.printString() }.join(", ")
     return self.toStringPrefix() + internalCollection + self.toStringSuffix()
   }
 
