@@ -345,7 +345,7 @@ class Position {
    * String representation of a position
    */
   override method toString() = x.toString() + "@" + y.toString()
-  
+
 }
 
 /**
