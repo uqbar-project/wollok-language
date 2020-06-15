@@ -1,0 +1,9 @@
+describe "describe - test marked with only flag" {
+  only test "this test shall pass" {
+    assert.that(true)
+  }
+  
+  test "while this test should not execute" {
+    assert.equals(1, 2)
+  }
+}
