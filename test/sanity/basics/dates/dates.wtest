@@ -235,4 +235,17 @@ describe "Date tests" {
     assert.that(new Date().plusYears(1).year() !== null)
   }
 
+  test "Monday to Friday are working days" {
+    assert.that(new Date(day=13, month=7, year=2020).isWorkDay()) //Monday
+    assert.that(new Date(day=14, month=7, year=2020).isWorkDay()) //Tuesday
+    assert.that(new Date(day=15, month=7, year=2020).isWorkDay()) //Wednesday
+    assert.that(new Date(day=16, month=7, year=2020).isWorkDay()) //Thrusay
+    assert.that(new Date(day=17, month=7, year=2020).isWorkDay()) //Friday
+  }
+
+  test "Saturday and Sunday are weekend days" {
+    assert.that(new Date(day=18, month=7, year=2020).isWeekendDay()) //Saturday
+    assert.that(new Date(day=19, month=7, year=2020).isWeekendDay()) //Sunday
+  }
+
 }

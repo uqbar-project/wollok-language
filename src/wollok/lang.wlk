@@ -2911,6 +2911,23 @@ class Date {
    */
   override method shortDescription() native
 
+  /**
+   * Answer wheter the day is a work day [Monday,Tuesday,Wednesday,Thursday,Friday]
+   * Example:
+   *     new Date(day = 13, month = 7, year = 2020).isWorkDay()
+   *         ==> Answers true
+   */
+  method isWorkDay() = self.internalDayOfWeek() < 6
+
+  /**
+   * Answer wheter the day is a weekend day [Saturday,Sunday]
+   * Example:
+   *     new Date(day = 13, month = 7, year = 2020).isWorkDay()
+   *         ==> Answers true
+   */
+  method isWeekendDay() = self.internalDayOfWeek() >= 6
+
+
 }
 
 /**
