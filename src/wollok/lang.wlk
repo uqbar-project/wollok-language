@@ -2920,7 +2920,7 @@ class Date {
   method isWorkDay() = self.internalDayOfWeek() < 6
 
   /**
-   * Answer wheter the day is a weekend day [Saturday,Sunday]
+   * Answer whether the day is a weekend day (saturday or sunday)
    * Example:
    *     new Date(day = 13, month = 7, year = 2020).isWorkDay()
    *         ==> Answers true
