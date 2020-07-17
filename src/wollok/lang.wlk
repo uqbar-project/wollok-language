@@ -2912,7 +2912,7 @@ class Date {
   override method shortDescription() native
 
   /**
-   * Answer wheter the day is a work day [Monday,Tuesday,Wednesday,Thursday,Friday]
+   * Answer whether the day is a work day (between monday and friday)
    * Example:
    *     new Date(day = 13, month = 7, year = 2020).isWorkDay()
    *         ==> Answers true
