@@ -1,5 +1,13 @@
 describe "ranges" {
 
+  test "bad ranges should be rejected" {
+    assert.throwsException {new Range(start = 10, end = 9, step = 3) }
+    assert.throwsException {new Range(start = 10, end = 11, step = -3) }
+    assert.throwsException {new Range(start = 2, end = 10, step = -3) }
+    assert.throwsException {new Range(start = 10, end = 2, step = 3) }
+    assert.throwsException {new Range(start = 1, end = 2, step = 0) }
+  }
+
   test "for each" {
     const range = 0 .. 10
     var sum = 0
@@ -49,12 +57,8 @@ describe "ranges" {
     assert.equals(4, new Range(start= 11, end = 2, step = -3).size())
     assert.equals(1, new Range(start= 10, end = 11,step = 3).size())
     assert.equals(1, new Range(start= 10, end = 10,step = 3).size())
-    assert.equals(0, new Range(start= 10, end = 9, step = 3).size())
     assert.equals(1, new Range(start= 10, end = 9, step = -3).size())
     assert.equals(1, new Range(start= 10, end = 10,step = -3).size())
-    assert.equals(0, new Range(start= 10, end = 11,step = -3).size())
-    assert.equals(0, new Range(start= 2, end = 10, step = -3).size())
-    assert.equals(0, new Range(start= 10, end = 2, step = 3).size())  
   }
 
   test "isEmpty" {
@@ -201,6 +205,30 @@ describe "ranges" {
 
   test "any using null should fail" {
     assert.throwsException { => (1..4).any(null) }
+  }
+
+  test "toString with default step, ascending order" {
+    assert.equals("1..5", new Range(start = 1, end = 5).toString())
+  }
+
+  test "toString with default step, descending order" {
+    assert.equals("5..1", new Range(start = 5, end = 1).toString())
+  }
+
+  test "toString with non-default step, ascending order" {
+    assert.equals("[1, 3, 5]", new Range(start = 1, end = 5, step = 2).toString())
+  }
+
+  test "toString with non-default step, descending order" {
+    assert.equals("[5, 3, 1]", new Range(start = 5, end = 1, step = -2).toString())
+  }
+
+  test "toString with step greater than range, ascending order" {
+    assert.equals("[5]", new Range(start = 5, end = 11, step = 10).toString())
+  }
+
+  test "toString with step greater than range, descending order" {
+    assert.equals("[11]", new Range(start = 11, end = 5, step = -10).toString())
   }
 
 }

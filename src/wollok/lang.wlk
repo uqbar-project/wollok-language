@@ -2449,6 +2449,15 @@ class Range {
         step = 1
       }
     }
+    if (step == 0) {
+      throw new Exception(message = "Range error: step cannot be 0")
+    }
+    if (start < end && step < 0) {
+      throw new Exception(message = "Range error: step must be > 0")
+    }
+    if (start > end && step > 0) {
+      throw new Exception(message = "Range error: step must be < 0")
+    }
   }
 
   /**
@@ -2704,7 +2713,13 @@ class Range {
   method sortedBy(closure) = self.asList().sortedBy(closure)
 
   /** String representation of this range object */
-  override method toString() = start.toString() + ".." + end.toString()
+  override method toString() {
+    if (step == 1 || step == -1) {
+      return start.toString() + ".." + end.toString()
+    }
+    return self.asList().toString()
+  }
+
 }
 
 /**
