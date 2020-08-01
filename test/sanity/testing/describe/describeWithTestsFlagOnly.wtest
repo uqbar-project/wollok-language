@@ -4,6 +4,6 @@ describe "describe - test marked with only flag" {
   }
   
   test "while this test should not execute" {
-    assert.equals(1, 2)
+    assert.fail("test should not execute")
   }
 }
