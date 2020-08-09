@@ -245,7 +245,7 @@ class Pair {
    * Two pairs are equal if they have the same values
    *
    * Example:
-   *    new Pair(1, 2) == new Pair(1, 2)  ==> Answers true
+   *    new Pair(x = 1, y = 2) == new Pair(x = 1, y = 2)  ==> Answers true
    */
   override method ==(other) {
     if(other == null) return false

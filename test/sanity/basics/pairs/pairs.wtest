@@ -3,18 +3,18 @@ describe "pairs" {
   const pair = 1->2
 
   test "smoke test" {
-    const pair = new Pair(1, 1)
+    const pair = new Pair(x = 1, y = 2)
     assert.equals(pair, pair)
   }
 
   test "new pair constructor" {
-     const pair = new Pair(x = 1, y = 2)
+    const pair = new Pair(x = 1, y = 2)
     assert.equals(1, pair.x())
     assert.equals(2, pair.y())
   }
 
   test "arrow constructor" {
-     const pair = 1->2
+    const pair = 1->2
     assert.equals(1, pair.x())
     assert.equals(2, pair.y())
   }

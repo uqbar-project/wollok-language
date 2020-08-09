@@ -156,8 +156,8 @@ describe "List tests" {
   }
 
   test "without duplicates - list of pairs" {
-    const result = [new Pair(1,2), new Pair(5,6)]
-    const withoutDuplicates = [new Pair(1,2), new Pair(5,6), new Pair(1,2), new Pair(5,6)].withoutDuplicates()
+    const result = [(1 -> 2), (5 -> 6)]
+    const withoutDuplicates = [(1 -> 2), (5 -> 6), (1 -> 2), (5 -> 6)].withoutDuplicates()
     assert.equals(2, withoutDuplicates.size())
     (0..result.size()-1).forEach{ i => assert.that(withoutDuplicates.get(i).equals(result.get(i))) }
   }
@@ -290,7 +290,7 @@ describe "List tests" {
   }
 
   test "list of pairs converted as set filters duplicates" {
-    assert.equals(2, [new Pair(1,2), new Pair(4,5), new Pair(1,2)].asSet().size())
+    assert.equals(2, [(1 -> 2), (4 -> 5), (1 -> 2)].asSet().size())
   }
 
   test "list of positions converted as set filters duplicates" {
