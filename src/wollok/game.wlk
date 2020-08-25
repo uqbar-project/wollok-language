@@ -483,7 +483,7 @@ class Key {
    *         => when user hits "i" key, pepita will say "hola!"
    */  
   method onPressDo(action) {
-    keyCodes.forEach{ key => game.whenKeyPressedDo(key, action) } //TODO: Implement native
+    keyCodes.forEach{ key => game.whenKeyPressedDo(['keydown',key], action) } //TODO: Implement native
   }
 }
 
