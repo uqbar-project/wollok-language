@@ -364,7 +364,7 @@ object keyboard {
 
   method num(n) = new Key(keyCodes = ['Digit' + n])
 
-  method letter(l) = new Key(keyCodes = ['Key' + l])
+  method letter(l) = new Key(keyCodes = ['Key' + l.toUpperCase()])
 
   method arrow(a) = new Key(keyCodes = ['Arrow' + a])
   
