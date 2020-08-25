@@ -362,7 +362,11 @@ object keyboard {
 
   method any() = new Key(keyCodes = [-1])
 
-  method num(n) = new Key(keyCodes = [n + 7, n + 144])
+  method num(n) = new Key(keyCodes = ['Digit' + n])
+
+  method letter(l) = new Key(keyCodes = ['Key' + l])
+
+  method arrow(a) = new Key(keyCodes = ['Arrow' + a])
   
   method num0() = self.num(0)
 
@@ -384,87 +388,87 @@ object keyboard {
 
   method num9() = self.num(9)
 
-  method a() = new Key(keyCodes = [29])
+  method a() = self.letter('a')
 
-  method alt() = new Key(keyCodes = [57, 58])
+  method b() = self.letter('b')
 
-  method b() = new Key(keyCodes = [30])
+  method c() = self.letter('c')
 
-  method backspace() = new Key(keyCodes = [67])
+  method d() = self.letter('d')
 
-  method c() = new Key(keyCodes = [31])
+  method e() = self.letter('e')
 
-  method control() = new Key(keyCodes = [129, 130])
+  method f() = self.letter('f')
 
-  method d() = new Key(keyCodes = [32])
+  method g() = self.letter('g')
 
-  method del() = new Key(keyCodes = [67])
+  method h() = self.letter('h')
+
+  method i() = self.letter('i')
+
+  method j() = self.letter('j')
+
+  method k() = self.letter('k')
+
+  method l() = self.letter('l')
+
+  method m() = self.letter('m')
+
+  method n() = self.letter('n')
+
+  method o() = self.letter('o')
+
+  method p() = self.letter('p')
+
+  method q() = self.letter('q')
+
+  method r() = self.letter('r')
+
+  method s() = self.letter('s')
+  
+  method t() = self.letter('t')
+
+  method u() = self.letter('u')
+
+  method v() = self.letter('v')
+
+  method w() = self.letter('w')
+
+  method x() = self.letter('x')
+
+  method y() = self.letter('y')
+
+  method z() = self.letter('z')
+
+  method alt() = new Key(keyCodes = ['AltLeft', 'AltRight'])
+
+  method backspace() = new Key(keyCodes = ['Backspace'])
+
+  method control() = new Key(keyCodes = ['Control'])
+
+  method del() = new Key(keyCodes = ['Delete'])
 
   method center() = new Key(keyCodes = [23])
 
-  method down() = new Key(keyCodes = [20])
+  method down() = self.arrow("Down")
 
-  method left() = new Key(keyCodes = [21])
+  method left() = self.arrow("Left")
 
-  method right() = new Key(keyCodes = [22])
+  method right() = self.arrow("Right")
 
-  method up() = new Key(keyCodes = [19])
+  method up() = self.arrow("Up")
 
-  method e() = new Key(keyCodes = [33])
+  method enter() = new Key(keyCodes = ['Enter'])
 
-  method enter() = new Key(keyCodes = [66])
+  method minusKey() = new Key(keyCodes = ['Minus'])
 
-  method f() = new Key(keyCodes = [34])
+  method plusKey() = new Key(keyCodes = ['Plus'])
 
-  method g() = new Key(keyCodes = [35])
+  method shift() = new Key(keyCodes = ['Shift'])
 
-  method h() = new Key(keyCodes = [36])
+  method slash() = new Key(keyCodes = ['Slash'])
 
-  method i() = new Key(keyCodes = [37])
-
-  method j() = new Key(keyCodes = [38])
-
-  method k() = new Key(keyCodes = [39])
-
-  method l() = new Key(keyCodes = [40])
-
-  method m() = new Key(keyCodes = [41])
-
-  method minusKey() = new Key(keyCodes = [69])
-
-  method n() = new Key(keyCodes = [42])
-
-  method o() = new Key(keyCodes = [43])
-
-  method p() = new Key(keyCodes = [44])
-
-  method plusKey() = new Key(keyCodes = [81])
-
-  method q() = new Key(keyCodes = [45])
-
-  method r() = new Key(keyCodes = [46])
-
-  method s() = new Key(keyCodes = [47])
-
-  method shift() = new Key(keyCodes = [59, 60])
-
-  method slash() = new Key(keyCodes = [76])
-
-  method space() = new Key(keyCodes = [62])
-
-  method t() = new Key(keyCodes = [48])
-
-  method u() = new Key(keyCodes = [49])
-
-  method v() = new Key(keyCodes = [50])
-
-  method w() = new Key(keyCodes = [51])
-
-  method x() = new Key(keyCodes = [52])
-
-  method y() = new Key(keyCodes = [53])
-
-  method z() = new Key(keyCodes = [54])
+  method space() = new Key(keyCodes = ['Space'])
 
 }
 
