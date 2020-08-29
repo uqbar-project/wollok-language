@@ -4,6 +4,16 @@ import wollok.vm.runtime
   * Wollok Game main object 
   */
 object game {
+
+  override method initialize() {
+    super()
+    
+    self.title("Wollok Game")
+    self.width(5)
+    self.height(5)
+    self.cellSize(50)
+    self.ground("ground.png")
+    }
   
   /**
    * Adds an object to the board for drawing it.

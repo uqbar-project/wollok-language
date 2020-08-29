@@ -115,4 +115,10 @@ describe "Game" {
     game.cellSize(10)
   }
 
+  test "game should initialize with default values"{
+    assert.equals("Wollok Game", game.title())
+    assert.equals(5, game.width())
+    assert.equals(5, game.height())
+  }
+
 }
