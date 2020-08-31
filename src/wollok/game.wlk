@@ -360,7 +360,7 @@ class Position {
  */
 object keyboard {
 
-  method any() = new Key(keyCodes = [-1])
+  method any() = new Key(keyCodes = ['ANY'])
 
   method num(n) = new Key(keyCodes = ['Digit' + n])
 
@@ -448,7 +448,7 @@ object keyboard {
 
   method del() = new Key(keyCodes = ['Delete'])
 
-  method center() = new Key(keyCodes = [23])
+  method center() = self.arrow("Center")
 
   method down() = self.arrow("Down")
 
@@ -483,7 +483,7 @@ class Key {
    *         => when user hits "i" key, pepita will say "hola!"
    */  
   method onPressDo(action) {
-    keyCodes.forEach{ key => game.whenKeyPressedDo(['keydown',key], action) } //TODO: Implement native
+    keyCodes.forEach{ key => game.whenKeyPressedDo(['keypress',key], action) }
   }
 }
 
