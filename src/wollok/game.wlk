@@ -270,6 +270,16 @@ object game {
    */ 
   method sound(audioFile) = new Sound(file = audioFile)
  
+  /**
+   * Adds a sound object to game.
+   */ 
+  method addSound(soundObject) native
+
+  /**
+   * Returns all added sounds.
+   */ 
+  method allSounds() native
+
   /** 
   * @private
   */
