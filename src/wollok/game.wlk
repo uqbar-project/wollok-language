@@ -511,6 +511,13 @@ class Key {
 class Sound {	
   const property file	
 
+  override method initialize() {
+    super()
+    game.addSound(self)
+    self.volume(1)
+    self.shouldLoop(false)
+  }
+
   /**	
    * Plays the file's sound. 	
    * A sound can only be played once.	
