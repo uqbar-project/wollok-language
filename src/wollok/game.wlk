@@ -275,11 +275,6 @@ object game {
    */ 
   method addSound(soundObject) native
 
-  /**
-   * Returns all added sounds.
-   */ 
-  method allSounds() native
-
   /** 
   * @private
   */
