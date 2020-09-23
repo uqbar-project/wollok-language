@@ -269,11 +269,6 @@ object game {
    * Returns a sound object. Audio file must be a .mp3, .ogg or .wav file.
    */ 
   method sound(audioFile) = new Sound(file = audioFile)
- 
-  /**
-   * Adds a sound object to game.
-   */ 
-  method addSound(soundObject) native
 
   /** 
   * @private
