@@ -503,7 +503,6 @@ class Sound {
 
   override method initialize() {
     super()
-    game.addSound(self)
     self.volume(1)
     self.shouldLoop(false)
   }
