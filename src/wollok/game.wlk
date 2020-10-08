@@ -269,7 +269,7 @@ object game {
    * Returns a sound object. Audio file must be a .mp3, .ogg or .wav file.
    */ 
   method sound(audioFile) = new Sound(file = audioFile)
- 
+
   /** 
   * @private
   */
@@ -500,6 +500,12 @@ class Key {
 /** Wollok Game Sound object */
 class Sound {	
   const property file	
+
+  override method initialize() {
+    super()
+    self.volume(1)
+    self.shouldLoop(false)
+  }
 
   /**	
    * Plays the file's sound. 	
