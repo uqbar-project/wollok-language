@@ -3,13 +3,9 @@
   */
 class Auto {
   var property kms
-
-  constructor(_kms) {
-    kms = _kms
-  }
 }
 
-object bordini inherits Auto(2000) {
+object bordini inherits Auto(kms = 2000) {
   method color() = "celeste"
 }
 

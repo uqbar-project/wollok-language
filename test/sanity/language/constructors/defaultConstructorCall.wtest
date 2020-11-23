@@ -26,10 +26,6 @@ describe "default constructor" {
     assert.equals(0, point.y())
   }
 
-  test "default constructor called with one parameter should fail" {
-    assert.throwsException { new Point(1) }
-  }
-
   test "default constructor inherited from object class should work" {
     const a = new A()
     const b = new B()

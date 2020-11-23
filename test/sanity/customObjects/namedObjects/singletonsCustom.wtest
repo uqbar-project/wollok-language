@@ -11,12 +11,10 @@ object o inherits A { }
   * Scenario 2: a named object inheriting from a class using constructor
   */
 class B {
-  constructor(b) {
-  }
   method m() = 6
 }
 
-object o2 inherits B(5) { }
+object o2 inherits B { }
 
 /**
   * Scenario 3: a named object inheriting from a class and linearized with one mixin
@@ -56,12 +54,12 @@ describe "singletons - customs named object, classes and mixins" {
     assert.equals(10, o3.z())
   }
 
-  test "object thats have multiple mixins" {
+  test "object that have multiple mixins" {
     assert.equals(11, o4.z2())
     assert.equals(10, o4.z())
   }
 
-  test "object that inherit from a class and have multiple mixins" {
+  test "object that inherits from a class and have multiple mixins" {
     assert.equals(6, o5.m())
     assert.equals(11, o5.z2())
     assert.equals(10, o5.z())

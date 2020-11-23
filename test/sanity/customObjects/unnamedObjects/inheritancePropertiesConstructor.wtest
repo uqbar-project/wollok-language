@@ -3,10 +3,6 @@
   */
 class Auto {
   var property kms
-
-  constructor(_kms) {
-    kms = _kms
-  }
 }
 
 /**
@@ -15,7 +11,7 @@ class Auto {
 test "object inheriting from a class - calling a property" {
   var age = 33
 
-  const dodge = object inherits Auto(2000) {
+  const dodge = object inherits Auto(kms = 2000) {
     method age() {
       return age
     }

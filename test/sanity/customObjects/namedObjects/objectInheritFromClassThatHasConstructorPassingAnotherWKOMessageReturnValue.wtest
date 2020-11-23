@@ -3,13 +3,10 @@
   */
 class Dog {
   const owner
-  constructor(param) {
-    owner = param
-  }
   method owner() = owner
 }
 
-object lassie inherits Dog(jorge.name()) {
+object lassie inherits Dog(owner = jorge.name()) {
 }
 
 object jorge {

@@ -2,11 +2,7 @@
   * Scenario: a class with a constructor delegating to a complex chained message
   */
 class Arma {
-  const mm
-
-  constructor(_mm) {
-    mm = _mm
-  }
+  const property mm
 }
 
 class Unidad {
@@ -14,11 +10,7 @@ class Unidad {
 }
 
 class UnidadArmada inherits Unidad {
-  var arma
-
-  constructor(unArma) {
-    arma = unArma
-  }
+  var property arma
 }
 
 object armeria {
@@ -26,7 +18,6 @@ object armeria {
 }
 
 class Arquero inherits UnidadArmada {
-  constructor() = super(armeria.arco())
 }
 
 /**
@@ -35,6 +26,6 @@ class Arquero inherits UnidadArmada {
 	* https://github.com/uqbar-project/wollok/issues/1288
   */
 test "issue 1288 - delegating to super in a chained message" {
-  new Arquero()
+  new Arquero(arma = armeria.arco())
   assert.that(true)
 }

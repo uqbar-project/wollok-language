@@ -43,3 +43,7 @@ describe "named parameters with inheritance" {
   }
 
 }
+
+// TODO: Migrate some Xtext tests
+// a. unexistent attribute 
+// b. missing attribute to initialize
