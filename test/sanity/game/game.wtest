@@ -13,7 +13,7 @@ class Visual { }
   */
 describe "Game" {
 
-  fixture {
+  method initialize() {
     game.clear()
   }
 
