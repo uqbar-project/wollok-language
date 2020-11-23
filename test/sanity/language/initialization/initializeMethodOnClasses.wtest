@@ -1,0 +1,49 @@
+class A {
+	const property a
+	
+	method initialize() {
+		a = 1
+	}
+}
+
+class B inherits A {
+	var property b
+	
+	method initialize() {
+		super()
+		b = 2
+	}
+}
+
+class C inherits A {
+	var property b
+	
+	method initialize() {
+		b = 2
+	}
+}
+
+describe "instance of B values" {
+	const b = new B()
+
+	test "a initial value" {
+		assert.equals(1, b.a())
+	}
+
+	test "b initial value" {
+		assert.equals(2, b.b())
+	}
+}
+
+describe "instance of C values" {
+	const c = new C()
+
+	test "a initial value" {
+		assert.equals(null, c.a())
+	}
+
+	test "b initial value" {
+		assert.equals(2, c.b())
+	}
+}
+
