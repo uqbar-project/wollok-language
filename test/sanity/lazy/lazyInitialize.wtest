@@ -1,0 +1,43 @@
+object o {
+  const property x = pepita.energia()
+}
+
+class C {
+  const property x
+}
+
+object w inherits C(x = pepita.energia()) { }
+
+const i = new C(x = pepita.energia())
+
+object pepita {
+  var property energia
+
+  override method initialize() {
+    energia = 2
+  }
+}
+
+test "Lazy inline" {
+  assert.equals(2, o.x())
+}
+
+
+test "Lazy inherits" {
+  assert.equals(2, w.x())
+}
+
+test "Lazy inherits with effect before" {
+  pepita.energia(3)
+  assert.equals(3, w.x())
+}
+
+
+test "Lazy const instance" {
+  assert.equals(2, i.x())
+}
+
+test "Lazy const instance with effect before" {
+  pepita.energia(3)
+  assert.equals(3, i.x())
+}
