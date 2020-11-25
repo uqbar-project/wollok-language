@@ -1,5 +1,5 @@
 /**
-  * Scenario: a class with a constructor delegating to a complex chained message
+  * Scenario: a class with a constructor call delegating to a complex chained message
   */
 class Arma {
   const property mm

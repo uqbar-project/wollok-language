@@ -1,3 +1,7 @@
+/**
+  * Scenario: a hierarchy of classes, one of them uses initialize from superclass 
+	* and the other simply overrides it
+  */
 class A {
 	const property a
 	

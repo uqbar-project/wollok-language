@@ -1,5 +1,5 @@
 /**
-  * Scenario: a hierarchy of class with default constructors (inherited from object)
+  * Scenario: a hierarchy of classes with default constructors calls (inherited from object)
   */
 class Point {
   var property x = 0

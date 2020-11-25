@@ -1,3 +1,6 @@
+/**
+  * Scenario: a class with several lazy definitions, interacting with named parameters
+  */
 class C {
   var property a = 1
   const property b = a + 1
