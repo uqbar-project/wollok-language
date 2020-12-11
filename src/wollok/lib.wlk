@@ -84,6 +84,13 @@ object assert {
     if (expected == actual) throw new AssertionException(message = "Expected to be different, but <" + expected.printString() + "> and <" + actual.printString() + "> match")
   }
   
+  /**
+   * Tests that a block does not throw any kind of exception. Block expects no parameters.
+   */
+  method doesNotThrowException(block) {
+    block.apply()
+  }
+
   /** 
    * Tests whether a block throws an exception. Otherwise an exception is thrown.
    *

@@ -29,11 +29,11 @@ class VocalistaPopular inherits MusicoConRoles {
 describe "inherited methods - grandson class inheriting all constructors from its granfather" {
 
   test "a subclass which does not define any constructor inherits all constructor its superclass defines - zero params" {
-    new VocalistaPopular()
+    assert.doesNotThrowException { new VocalistaPopular() }
   }
 
   test "a subclass does not define any constructor inherits all constructor its superclass defines - one param" {
-    new VocalistaPopular(100)
+    assert.doesNotThrowException { new VocalistaPopular(100) }
   }
 
 }
