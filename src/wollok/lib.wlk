@@ -88,7 +88,11 @@ object assert {
    * Tests that a block does not throw any kind of exception. Block expects no parameters.
    */
   method doesNotThrowException(block) {
-    block.apply()
+    try {
+      block.apply()
+    } catch e {
+      throw new AssertionException(message = "Block " + block + " should not have failed")
+    }
   }
 
   /** 
