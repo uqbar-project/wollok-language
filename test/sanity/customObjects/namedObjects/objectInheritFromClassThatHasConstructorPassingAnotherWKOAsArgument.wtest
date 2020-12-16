@@ -15,6 +15,6 @@ object jorge {
 /**
   * Tests
   */
-test "wko - inheriting from class that has constructor passing another wko as argument" {
+test "wko - inheriting from a class passing another wko as named parameter" {
   assert.equals(jorge, lassie.owner())
 }

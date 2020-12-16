@@ -3,7 +3,6 @@
   */
 class Alumno { 
   var nombre 
-  constructor(_nombre) { nombre = _nombre }
 }
 
 object manuel {
@@ -96,11 +95,11 @@ describe "set tests" {
   }
 
   test "elements are unique for classes" {
-    assert.equals(3, #{new Alumno("juan"), new Alumno("manuel"), new Alumno("juan")}.size())
+    assert.equals(3, #{new Alumno(nombre = "juan"), new Alumno(nombre = "manuel"), new Alumno(nombre = "juan")}.size())
   }
 
   test "elements are unique for classes and objects" {
-    const juancete = new Alumno("juan")
+    const juancete = new Alumno(nombre = "juan")
     assert.equals(2, #{juancete, manuel, juancete, manuel, manuel}.size())
   }
 

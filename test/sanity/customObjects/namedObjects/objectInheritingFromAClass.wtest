@@ -1,5 +1,5 @@
 /**
-  * Scenario: a wko inheriting from a superclass with a constructor
+  * Scenario: a wko inheriting from a superclass
   */
 class Auto {
   var property kms

@@ -1,5 +1,5 @@
 /**
-  * Scenario: a class with a constructor call delegating to a complex chained message
+  * Scenario: a class instantiated with a named parameter delegating to a complex chained message
   */
 class Arma {
   const property mm
@@ -25,7 +25,7 @@ class Arquero inherits UnidadArmada {
 	*
 	* https://github.com/uqbar-project/wollok/issues/1288
   */
-test "issue 1288 - delegating to super in a chained message" {
+test "issue 1288 - delegating to message in a chained message of a named parameter" {
   new Arquero(arma = armeria.arco())
   assert.that(true)
 }

@@ -2,19 +2,19 @@
   * Scenario 1: a named object inheriting from a class
   */
 class A {
-  method m() = 5
+  var property m
 }
 
-object o inherits A { }
+object o inherits A(m = 5) { }
 
 /**
-  * Scenario 2: a named object inheriting from a class using constructor
+  * Scenario 2: a named object inheriting from a class using named parameters
   */
 class B {
-  method m() = 6
+  var property m
 }
 
-object o2 inherits B { }
+object o2 inherits B(m = 6) { }
 
 /**
   * Scenario 3: a named object inheriting from a class and linearized with one mixin
@@ -27,7 +27,7 @@ mixin M2 {
   method z2() = 11
 }
 
-object o3 inherits B (6) mixed with M { }
+object o3 inherits B(m = 6) mixed with M { }
 
 /**
   * Scenario 4: a named object without explicit parent and linearized with several mixins
@@ -37,7 +37,7 @@ object o4 mixed with M and M2 { }
 /**
   * Scenario 5: a named object inheriting from a class and linearized with several mixins
   */
-object o5 inherits B (5) mixed with M and M2 { }
+object o5 inherits B(m = 6) mixed with M and M2 { }
 
 describe "singletons - customs named object, classes and mixins" {
 

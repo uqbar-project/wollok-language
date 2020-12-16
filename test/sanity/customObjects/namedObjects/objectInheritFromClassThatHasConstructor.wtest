@@ -1,5 +1,5 @@
 /**
-  * Scenario: a wko inheriting from a custom superclass with a constructor
+  * Scenario: a wko inheriting from a custom superclass
   */
 class Dog {
   const name
@@ -11,6 +11,6 @@ object lassie inherits Dog(name = "lassie") {}
 /**
   * Tests
   */
-test "object inherit from class that has constructor" {
+test "object inherits from a class using named parameters" {
   assert.equals("lassie", lassie.name())
 }

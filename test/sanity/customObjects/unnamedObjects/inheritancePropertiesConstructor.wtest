@@ -1,5 +1,5 @@
 /**
-  * Scenario: a class with a constructor and a property
+  * Scenario: a class with a property
   */
 class Auto {
   var property kms

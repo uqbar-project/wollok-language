@@ -1,5 +1,5 @@
 /**
-  * Scenario: a hierarchy of classes with default constructors calls (inherited from object)
+  * Scenario: a hierarchy of classes
   */
 class Point {
   var property x = 0
@@ -16,17 +16,17 @@ class C inherits B {
 }
 
 /**
- * Tests: these tests should remain after constructor change
+ * Tests: testing no named parameters sent
  */
-describe "default constructor" {
+describe "no named parameters sent" {
 
-  test "default constructor with no parameters should work" { 
+  test "default instantiation with no parameters should work" { 
     const point = new Point()
     assert.equals(0, point.x())
     assert.equals(0, point.y())
   }
 
-  test "default constructor inherited from object class should work" {
+  test "default instantiation inherited from object class should work" {
     const a = new A()
     const b = new B()
     const c = new C()
