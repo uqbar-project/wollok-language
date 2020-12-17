@@ -34,7 +34,7 @@ describe "instance of B values" {
 		assert.equals(1, b.a())
 	}
 
-	test "b initial value" {
+	test "Overrided initialize with super executes additional commands" {
 		assert.equals(2, b.b())
 	}
 }
