@@ -30,7 +30,7 @@ class C inherits A {
 describe "instance of B values" {
 	const b = new B()
 
-	test "a initial value" {
+	test "Overrided initialize with super executes superclass' initialize" {
 		assert.equals(1, b.a())
 	}
 
@@ -50,4 +50,3 @@ describe "instance of C values" {
 		assert.equals(2, c.b())
 	}
 }
-
