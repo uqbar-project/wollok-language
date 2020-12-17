@@ -14,7 +14,7 @@ class UnidadArmada inherits Unidad {
 }
 
 object armeria {
-  method arco() = new Arma(25)
+  method arco() = new Arma(mm = 25)
 }
 
 class Arquero inherits UnidadArmada {
