@@ -42,7 +42,7 @@ describe "instance of B values" {
 describe "instance of C values" {
 	const c = new C()
 
-	test "a initial value" {
+	test "Overrided initialize with no super does not execute superclass' initialize" {
 		assert.equals(null, c.a())
 	}
 
