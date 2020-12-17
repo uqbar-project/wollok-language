@@ -46,7 +46,7 @@ describe "instance of C values" {
 		assert.equals(null, c.a())
 	}
 
-	test "b initial value" {
+	test "Overrided initialize with no super executes its commands" {
 		assert.equals(2, c.b())
 	}
 }
