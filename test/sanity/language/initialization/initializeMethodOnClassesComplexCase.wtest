@@ -28,7 +28,7 @@ class C inherits B {
 	}
 }
 
-describe "instance of C values" {
+describe "Super call within initialize considers effects produced before" {
 	const c = new C()
 
 	test "a initial value" {
