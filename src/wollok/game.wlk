@@ -4,6 +4,16 @@ import wollok.vm.runtime
   * Wollok Game main object 
   */
 object game {
+
+  override method initialize() {
+    super()
+    
+    self.title("Wollok Game")
+    self.width(5)
+    self.height(5)
+    self.cellSize(50)
+    self.ground("ground.png")
+    }
   
   /**
    * Adds an object to the board for drawing it.
@@ -218,6 +228,20 @@ object game {
   method ground(image) native
   
   /**
+   * Sets cells size.	
+   */				
+  method cellSize(size) {
+    if (size <= 0)
+      throw new Exception(message = "Cell size cannot be 0 or lower")
+    self.doCellSize(size)
+  }
+
+	/** 	
+   * @private	
+   */	
+	method doCellSize(size) native
+
+  /**
    * Sets full background image.
    */      
   method boardGround(image) native
@@ -242,10 +266,10 @@ object game {
   method errorReporter(visual) native
      
   /**
-   * Plays once a .mp3, .ogg or .wav audio file
+   * Returns a sound object. Audio file must be a .mp3, .ogg or .wav file.
    */ 
-  method sound(audioFile) native
-    
+  method sound(audioFile) = new Sound(file = audioFile)
+
   /** 
   * @private
   */
@@ -330,8 +354,8 @@ class Position {
   /**
    * String representation of a position
    */
-  override method toString() = "(" + x + "," + y + ")"
-  
+  override method toString() = x.toString() + "@" + y.toString()
+
 }
 
 /**
@@ -346,9 +370,13 @@ class Position {
  */
 object keyboard {
 
-  method any() = new Key(keyCodes = [-1])
+  method any() = new Key(keyCodes = ['ANY'])
 
-  method num(n) = new Key(keyCodes = [n + 7, n + 144])
+  method num(n) = new Key(keyCodes = ['Digit' + n])
+
+  method letter(l) = new Key(keyCodes = ['Key' + l.toUpperCase()])
+
+  method arrow(a) = new Key(keyCodes = ['Arrow' + a])
   
   method num0() = self.num(0)
 
@@ -370,90 +398,89 @@ object keyboard {
 
   method num9() = self.num(9)
 
-  method a() = new Key(keyCodes = [29])
+  method a() = self.letter('a')
 
-  method alt() = new Key(keyCodes = [57, 58])
+  method b() = self.letter('b')
 
-  method b() = new Key(keyCodes = [30])
+  method c() = self.letter('c')
 
-  method backspace() = new Key(keyCodes = [67])
+  method d() = self.letter('d')
 
-  method c() = new Key(keyCodes = [31])
+  method e() = self.letter('e')
 
-  method control() = new Key(keyCodes = [129, 130])
+  method f() = self.letter('f')
 
-  method d() = new Key(keyCodes = [32])
+  method g() = self.letter('g')
 
-  method del() = new Key(keyCodes = [67])
+  method h() = self.letter('h')
 
-  method center() = new Key(keyCodes = [23])
+  method i() = self.letter('i')
 
-  method down() = new Key(keyCodes = [20])
+  method j() = self.letter('j')
 
-  method left() = new Key(keyCodes = [21])
+  method k() = self.letter('k')
 
-  method right() = new Key(keyCodes = [22])
+  method l() = self.letter('l')
 
-  method up() = new Key(keyCodes = [19])
+  method m() = self.letter('m')
 
-  method e() = new Key(keyCodes = [33])
+  method n() = self.letter('n')
 
-  method enter() = new Key(keyCodes = [66])
+  method o() = self.letter('o')
 
-  method f() = new Key(keyCodes = [34])
+  method p() = self.letter('p')
 
-  method g() = new Key(keyCodes = [35])
+  method q() = self.letter('q')
 
-  method h() = new Key(keyCodes = [36])
+  method r() = self.letter('r')
 
-  method i() = new Key(keyCodes = [37])
+  method s() = self.letter('s')
+  
+  method t() = self.letter('t')
 
-  method j() = new Key(keyCodes = [38])
+  method u() = self.letter('u')
 
-  method k() = new Key(keyCodes = [39])
+  method v() = self.letter('v')
 
-  method l() = new Key(keyCodes = [40])
+  method w() = self.letter('w')
 
-  method m() = new Key(keyCodes = [41])
+  method x() = self.letter('x')
 
-  method minusKey() = new Key(keyCodes = [69])
+  method y() = self.letter('y')
 
-  method n() = new Key(keyCodes = [42])
+  method z() = self.letter('z')
 
-  method o() = new Key(keyCodes = [43])
+  method alt() = new Key(keyCodes = ['AltLeft', 'AltRight'])
 
-  method p() = new Key(keyCodes = [44])
+  method backspace() = new Key(keyCodes = ['Backspace'])
 
-  method plusKey() = new Key(keyCodes = [81])
+  method control() = new Key(keyCodes = ['Control'])
 
-  method q() = new Key(keyCodes = [45])
+  method del() = new Key(keyCodes = ['Delete'])
 
-  method r() = new Key(keyCodes = [46])
+  method center() = self.arrow("Center")
 
-  method s() = new Key(keyCodes = [47])
+  method down() = self.arrow("Down")
 
-  method shift() = new Key(keyCodes = [59, 60])
+  method left() = self.arrow("Left")
 
-  method slash() = new Key(keyCodes = [76])
+  method right() = self.arrow("Right")
 
-  method space() = new Key(keyCodes = [62])
+  method up() = self.arrow("Up")
 
-  method t() = new Key(keyCodes = [48])
+  method enter() = new Key(keyCodes = ['Enter'])
 
-  method u() = new Key(keyCodes = [49])
+  method minusKey() = new Key(keyCodes = ['Minus'])
 
-  method v() = new Key(keyCodes = [50])
+  method plusKey() = new Key(keyCodes = ['Plus'])
 
-  method w() = new Key(keyCodes = [51])
+  method shift() = new Key(keyCodes = ['Shift'])
 
-  method x() = new Key(keyCodes = [52])
+  method slash() = new Key(keyCodes = ['Slash'])
 
-  method y() = new Key(keyCodes = [53])
-
-  method z() = new Key(keyCodes = [54])
+  method space() = new Key(keyCodes = ['Space'])
 
 }
-
 
 class Key {  
   const property keyCodes
@@ -462,10 +489,80 @@ class Key {
    * Adds a block that will be executed always self is pressed.
    *
    * Example:
-        *     keyboard.i().onPressDo { game.say(pepita, "hola!") } 
-        *         => when user hits "i" key, pepita will say "hola!"
+   *     keyboard.i().onPressDo { game.say(pepita, "hola!") } 
+   *         => when user hits "i" key, pepita will say "hola!"
    */  
   method onPressDo(action) {
-    keyCodes.forEach{ key => game.whenKeyPressedDo(key, action) } //TODO: Implement native
+    keyCodes.forEach{ key => game.whenKeyPressedDo(['keypress',key], action) }
   }
+}
+
+/** Wollok Game Sound object */
+class Sound {	
+  const property file	
+
+  override method initialize() {
+    super()
+    self.volume(1)
+    self.shouldLoop(false)
+  }
+
+  /**	
+   * Plays the file's sound. 	
+   * A sound can only be played once.	
+   */	
+  method play() native
+
+	/**	
+   * Answers whether the sound has been played or not.	
+   */	
+	method played() native
+
+	/** 	
+   * Stops playing the sound and disposes resources.	
+   */	
+  method stop() native
+
+  /** 	
+   * Pauses the sound.
+   * Throws error if the sound is already paused or if the sound hasn't been played yet.
+   */	
+  method pause() native
+
+  /** 	
+   * Resumes playing the sound. 	
+   * Throws error if the sound is not paused.
+   */	
+  method resume() native
+
+  /** 	
+   * Answers whether the sound is paused or not.
+   */	
+  method paused() native
+
+  /**
+   * Changes absolute volume, values must be between 0 and 1.
+   *
+   * Examples	
+   *		mySound.volume(0)  => The sound is now muted.
+   *		mySound.volume(0.5)  => New volume is half of the original sound's volume
+   *		mySound.volume(mySound.volume()*0.5) => New volume is half of the current volume
+   */	
+  method volume(newVolume) native
+
+  /**
+   * Answers the volume of the sound.
+   */	
+  method volume() native
+
+  /**	
+   * Sets whether the sound should loop or not.	
+   */	
+  method shouldLoop(looping) native	
+
+  /** 	
+   * Answers whether the sound is set to loop or not. 	
+   */	
+  method shouldLoop() native	
+
 }

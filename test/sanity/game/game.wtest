@@ -1,0 +1,124 @@
+import wollok.game.*
+
+/**
+  * Scenario: 
+  * - a visual component as a named object
+  * - a generic class Visual
+  */
+object myVisual { }
+class Visual { }
+
+/**
+  * Tests
+  */
+describe "Game" {
+
+  fixture {
+    game.clear()
+  }
+
+  test "can instance new position" {
+    assert.equals(new Position(x = 1, y = 2), game.at(1,2))
+  }
+
+  test "origin should return origin coordinate position" {
+    assert.equals(new Position(x = 0, y = 0), game.origin())
+  }
+
+  test "center should return centered coordinate position" {
+    game.width(2)
+    game.height(5)
+    assert.equals(new Position(x = 1, y = 2), game.center())
+  }
+
+  test "visual colliders" {
+    new Position(x = 0, y = 0).drawElement(myVisual)
+    2.times { i => new Position(x = 0, y = 0).drawElement(new Visual()) }
+    new Position(x = 0, y = 1).drawElement(new Visual())
+    assert.equals(2, game.colliders(myVisual).size())
+  }
+
+  test "unique collider" {
+    new Position(x = 0, y = 0).drawElement(myVisual)
+    const otherVisual = new Visual()
+    new Position(x = 0, y = 0).drawElement(otherVisual)
+    assert.equals(otherVisual, game.uniqueCollider(myVisual))
+  }
+
+  test "adding same visual twice should fail" {
+    new Position(x = 0, y = 0).drawElement(myVisual)
+    assert.throwsException { new Position(x = 0, y = 0).drawElement(myVisual) }
+  }
+
+  test "addVisual using null should fail" {
+    assert.throwsException { => game.addVisual(null) }
+  }
+
+  test "addVisualIn using null should fail" {
+    assert.throwsException { => game.addVisualIn(null, null) }
+  }
+
+  test "colliders using null should fail" {
+    assert.throwsException { => game.colliders(null) }
+  }
+
+  test "onTick using null should fail" {
+    assert.throwsException { => game.onTick(null, null, null) }
+  }
+
+  test "whenKeyPressedDo using null should fail" {
+    assert.throwsException { => game.whenKeyPressedDo(null, null) }
+  }
+
+  test "once added a visual should be findable in the gameboard" {
+    game.addVisualIn(myVisual, game.at(0, 0))
+    assert.that(game.hasVisual(myVisual))
+  }
+
+  test "looking for a non-added visual should return false" {
+    const otherVisual = object {
+      method position() = game.at(2, 2)
+    }
+    game.addVisualIn(myVisual, game.at(0, 0))
+    assert.notThat(game.hasVisual(otherVisual))
+  }
+
+  test "initially there are no elements in the gameboard" {
+    assert.equals(0, game.allVisuals().size())
+  }
+
+  test "when a visual is added there is 1 element in the gameboard" {
+    game.addVisualIn(myVisual, game.at(0, 0))
+    assert.equals(1, game.allVisuals().size())
+    assert.equals(myVisual, game.allVisuals().get(0))
+  }
+
+  test "adding some visuals and getting them in a sequence" {
+    const visual2 = new Visual()
+    const visual3 = new Visual()
+    game.addVisualIn(myVisual, game.at(0, 0))
+    game.addVisualIn(visual2, game.at(0, 0))
+    game.addVisualIn(visual3, game.at(0, 0))
+    assert.equals(3, game.allVisuals().size())
+    assert.equals([myVisual, visual2, visual3].asSet(), game.allVisuals().asSet())
+  }
+
+  test "cell size fails when set to 0" {
+    assert.throwsException { => game.cellSize(0) }
+  }
+
+  test "cell size fails when set to negative number" {
+    assert.throwsException { => game.cellSize(-10) }
+  }
+
+  test "cell size correctly set" {
+    game.cellSize(10)
+  }
+
+  test "game should initialize with default values"{
+    assert.equals("Wollok Game", game.title())
+    assert.equals(5, game.width())
+    assert.equals(5, game.height())
+  }
+
+}

@@ -1,0 +1,6 @@
+import model.entrenador.*
+
+test "multilevel object relative import" {
+  const nombre = mostaza.entrenar()
+  assert.equals("pepita", nombre)
+}

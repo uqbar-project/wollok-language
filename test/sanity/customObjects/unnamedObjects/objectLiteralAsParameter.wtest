@@ -1,0 +1,13 @@
+test "object literals as parameters" {
+  const pepona = object {
+    var energia = 100
+    method comer(comida) {
+      energia = energia + comida.energia()
+    }
+    method energia() = energia
+  }
+
+  pepona.comer(object { method energia() = 100.0 })
+
+  assert.equals(200, pepona.energia())
+}

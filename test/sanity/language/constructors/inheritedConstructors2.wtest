@@ -1,0 +1,43 @@
+/**
+  * Scenario: a superclass with one constructor, child class with another 
+  * constructor and granson class with a default constructor overriding
+  * parents constructors in the hierarchy
+  */
+class A {
+  var a
+  constructor(_a) { a = _a }
+  method a() = a
+}
+
+class B inherits A {
+  var x
+  constructor(_y, _x) { x = _x ; a = _y }
+  method x() = x
+}
+
+class C inherits B {
+  constructor() { a = 2 ; x = 3 }
+}
+
+/**
+  * Tests
+  */
+describe "inherited constructors - constructors for each class in a hierarchy" {
+
+  test "superclass uses a constructor with one parameter" {
+      assert.equals(1, new A(1).a())
+  }
+
+  test "child class uses a constructor with 2 parameters" {
+    const b = new B(5, 6)
+    assert.equals(5, b.a())
+    assert.equals(6, b.x())
+  }
+
+  test "grandson class uses a constructor with no parameter" {
+    const c = new C()
+    assert.equals(2, c.a())
+    assert.equals(3, c.x())
+  }
+
+}

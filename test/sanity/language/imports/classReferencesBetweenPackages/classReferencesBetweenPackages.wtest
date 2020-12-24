@@ -1,0 +1,5 @@
+import aves.voladoras.Gorrion
+
+test "class references between packages should work" {
+  assert.that(new Gorrion() !== null)
+}

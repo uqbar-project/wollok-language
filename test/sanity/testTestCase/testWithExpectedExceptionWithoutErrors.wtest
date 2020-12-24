@@ -1,7 +1,0 @@
-test "Test with expected exception without errors" {
-	
-	assert.throwsException { 
-		const x = null
-		x.foo()
-	}	
-}

@@ -1,0 +1,6 @@
+import entrenador.*
+
+test "simple import" {
+  const nombre = mostaza.entrenar()
+  assert.equals("pepita", nombre)
+}

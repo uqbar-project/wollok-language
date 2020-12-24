@@ -1,0 +1,20 @@
+/**
+  *
+  * Scenario: A Class with methods using short syntax for returning values.
+  *
+  */
+class Golondrina {
+  var energia = 100
+
+  method energia() = energia
+  method capacidadDeVuelo() = 10
+}
+
+/**
+  * Tests
+  */
+test "short syntax for methods returning a value" {
+  const pepona = new Golondrina()
+  assert.equals(pepona.energia(), 100)
+  assert.equals(pepona.capacidadDeVuelo(), 10)
+}

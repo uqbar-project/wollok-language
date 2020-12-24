@@ -1,0 +1,45 @@
+/**
+  * Scenario: 
+  * - a class with constructors, default constructor with empty body
+  * - a second class with constructors, default constructor without body
+  */
+class PointWithBody {
+  var x
+  var y
+
+  constructor(ax, ay) { x = ax ; y = ay }
+  constructor() = self(10,15) { }
+
+  method x() { return x }
+  method y() { return y }
+}
+
+class PointWithoutBody {
+  var x
+  var y
+
+  constructor(ax, ay) { x = ax ; y = ay }
+  constructor() = self(10,15)
+
+  method x() = x
+  method y() = y
+}
+
+/**
+  * Tests
+  */
+describe "constructor delegation to self" {
+
+  test "constructor delegation to self with body" {
+    const point = new PointWithBody()
+    assert.equals(10, point.x())
+    assert.equals(15, point.y())
+  }
+
+  test "constructor delegation to self without body"{
+    const point = new PointWithoutBody()
+    assert.equals(10, point.x())
+    assert.equals(15, point.y())
+  }
+
+}

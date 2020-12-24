@@ -1,0 +1,40 @@
+/**
+  * Scenario: a hierarchy of class with default constructors (inherited from object)
+  */
+class Point {
+  var property x = 0
+  var property y = 0
+}
+
+class A {
+}
+
+class B inherits A {
+}
+
+class C inherits B {
+}
+
+/**
+ * Tests: these tests should remain after constructor change
+ */
+describe "default constructor" {
+
+  test "default constructor with no parameters should work" { 
+    const point = new Point()
+    assert.equals(0, point.x())
+    assert.equals(0, point.y())
+  }
+
+  test "default constructor called with one parameter should fail" {
+    assert.throwsException { new Point(1) }
+  }
+
+  test "default constructor inherited from object class should work" {
+    const a = new A()
+    const b = new B()
+    const c = new C()
+    assert.that(true)
+  }
+
+}

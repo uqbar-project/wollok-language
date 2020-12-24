@@ -1,0 +1,19 @@
+/**
+  * Tests
+  */
+test "object scoping using variable defined outside of it" {
+  var n = 33
+
+  const ozzy = object {
+    method luckyNumber() {
+      return n
+    }
+  }
+
+  assert.equals(33, ozzy.luckyNumber())
+
+  // change N
+  n = 34
+
+  assert.equals(34, ozzy.luckyNumber())
+}

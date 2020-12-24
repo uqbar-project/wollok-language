@@ -1,0 +1,25 @@
+describe "try expression should be usable as message argument" {
+  const adder = object {
+    method add(a, b, c) = a + b + c
+  }
+
+  test "with multiline body and catch" {
+    assert.equals(6, adder.add(1, try { 0 ; 2 } catch e { 0 }, 3))
+  }
+
+  test "with multiline body and always" {
+    assert.equals(6, adder.add(1, try { 0 ; 2 } then always { 0 }, 3))
+  }
+
+  test "with multiline body, catch and always" {
+    assert.equals(6, adder.add(1, try { 0 ; 2 } catch e { 0 } then always { 0 }, 3))
+  }
+
+  test "with multiline catch" {
+    assert.equals(6, adder.add(1, try { 0; throw new Exception() } catch e { 0 ; 2 }, 3))
+  }
+
+  test "with multiline catch and always" {
+    assert.equals(6, adder.add(1, try { 0; throw new Exception() } catch e { 0 ; 2 } then always { 0 }, 3))
+  }
+}

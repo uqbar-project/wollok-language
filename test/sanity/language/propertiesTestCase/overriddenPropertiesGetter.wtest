@@ -1,0 +1,24 @@
+/**
+  * Scenario: a class with a var property, and a subclass
+  * overriding the property getter with a custom method
+  */
+class MaestroTierra {
+  var property base = 100
+}
+
+class MaestroMetal inherits MaestroTierra {
+  override method base() {
+    return super() * 2
+  }
+
+  override method base(value) {
+    return super(value * 2)
+  }
+}
+
+/**
+  * Tests
+  */
+test "property getter overridden by subclass should use property definition" {
+  assert.equals(200, new MaestroMetal().base())
+}

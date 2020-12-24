@@ -1,0 +1,33 @@
+import wollok.game.*
+
+/**
+  * Tests
+  */
+describe "image in game" {
+
+  test "image can be accessed by getter method" {
+    const aVisual = object {
+      method image() = "image.png"
+    }
+    new Position(x = 0, y = 0).drawElement(aVisual)
+    assert.that(true)
+  }
+
+  test "image can be accessed by property" {
+    const aVisual = object {
+      var property image = "image.png"
+    }
+    new Position(x = 0, y = 0).drawElement(aVisual)
+    assert.that(true)
+  }
+
+  test "image cannot be accessed via attribute" {
+    const aVisual = object {
+      var image = "image.png"
+    }
+    assert.throwsException {
+      game.addVisual(aVisual)
+    }
+  }
+
+}

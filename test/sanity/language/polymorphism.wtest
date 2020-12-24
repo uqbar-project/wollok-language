@@ -1,0 +1,26 @@
+/**
+  * Tests
+  * We use two object literals having a polymorphic method
+  */
+test "polymorphism" {
+
+  const pepona = object {
+    var energia = 100
+    method comer(comida) {
+      energia = energia + comida.energia()
+    }
+    method energia() { 
+      return energia
+    }
+  }
+
+  const alpiste = object {
+    method energia() { 
+      return 5
+    }
+  }
+
+  pepona.comer(alpiste)
+  assert.equals(105, pepona.energia())
+
+}

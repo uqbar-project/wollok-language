@@ -1,0 +1,49 @@
+/**
+  * Scenario:
+  * - separate class and mixin
+  * - a class mixed with a mixin
+  * - a classs mixed with two mixins
+  */
+class Warrior {}
+
+mixin Energy {
+  var energy = 100
+  method energy() = energy
+}
+
+mixin Flies {
+  var property energy = 100
+  method fly() {
+    energy += 100
+  }
+}
+
+class Bird mixed with Flies {}
+
+mixin M1 {}
+mixin M2 {}
+
+class C mixed with M1 and M2 {
+}
+
+/**
+  * Tests
+  */
+describe "mixins" {
+
+  test "single mixin at instantiation time" {
+    const warrior = new Warrior() with Energy
+    assert.equals(100, warrior.energy())
+  }
+
+  test "single mixin with method" {
+    const bird = new Bird()
+    bird.fly()
+    assert.equals(bird.energy(), 200)
+  }
+
+  test "simple multiple mixins" {
+    const c = new C()
+    assert.that(c !== null)
+  }
+}

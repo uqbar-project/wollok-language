@@ -1,0 +1,21 @@
+/**
+  * Scenario: A Class with a method in which it changes a reference
+  */
+class Golondrina {
+  var property energia = 50
+  method volar(kms) {
+    energia -= kms
+  }
+}
+
+/**
+  * Tests
+  */
+test "changing the state of an object does not affect other instances of the same class" {
+  const pepita = new Golondrina()
+  assert.equals(50, pepita.energia())
+  const pepona = new Golondrina()
+  pepona.volar(2)
+  assert.equals(48, pepona.energia())
+  assert.equals(50, pepita.energia())
+}

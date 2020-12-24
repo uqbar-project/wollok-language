@@ -1,0 +1,21 @@
+/**
+  * Scenario: a class with properties
+  */
+class Auto {
+  var property kms
+  var property owner
+}
+
+/**
+  * Tests
+  */
+test "literal object inheriting from a class named parameters - calling a property" {
+  var age = 33
+
+  const dodge = object inherits Auto(owner = 'dodain', kms = 2000) {
+    method age() {
+      return age
+    }
+  }
+  assert.equals(2000, dodge.kms())
+}

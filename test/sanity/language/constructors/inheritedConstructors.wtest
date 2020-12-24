@@ -1,0 +1,43 @@
+/**
+  * Scenario: a hierarchy of classes where second level class defines a one parameter constructor
+  */
+class A {
+}
+
+class B inherits A {
+  var x
+  constructor(_x) { x = _x }
+    method x() = x
+}
+
+class C inherits B {
+}
+
+/**
+  * Tests
+  */
+describe "inherited constructors" {
+
+  test "constructor defined in subclass overrides default constructor" {
+    const b = new B(1)
+    assert.equals(1, b.x())
+  }
+
+  test "calling no args constructor to a class which overrides default constructor from subclass with one parameter should fail" {
+    assert.throwsException { const b = new B() }
+  }
+
+  test "calling no args constructor to subclass where superclass has only a one parameter constructor should fail" {
+    assert.throwsException { const c = new C() }
+  }
+
+  test "calling several args constructor to subclass where superclass has only a one parameter constructor should fail" {
+    assert.throwsException { const b = new C(1, 2) }
+  }
+
+  test "inherited one argument constructor inherited from superclass" {
+    const c = new C(1)
+    assert.equals(1, c.x())
+  }
+
+}

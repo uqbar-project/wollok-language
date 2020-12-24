@@ -5,6 +5,8 @@ Currently, the Wollok language does not adhere to [Semantic Versioning](https://
 Hopefully, we will be able to do that in the near future.
 
 
+## [To be released in v2.0.0]
+- Equality is now fully based on the `==` method.
 
 ## [To be released in v1.9.1]
 

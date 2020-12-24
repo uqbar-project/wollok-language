@@ -1,0 +1,14 @@
+class Cuenta {
+  var monto = 0
+  method depositar_monto(un_monto) {
+    monto += un_monto
+  }
+  method monto() = monto
+}
+
+// https://github.com/uqbar-project/wollok/issues/1398
+test "adding big numbers - issue #1398" {
+  const patricio = new Cuenta()
+  patricio.depositar_monto(100000000000)
+  assert.equals("100000000000", patricio.monto().toString())
+}

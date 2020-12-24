@@ -1,0 +1,12 @@
+/**
+  * Tests
+  * 
+  */
+test "returns tests in an object literal" {
+  const myObject = object {
+    method m() {
+      return 5
+    }
+  }
+  assert.equals(5, myObject.m())
+}

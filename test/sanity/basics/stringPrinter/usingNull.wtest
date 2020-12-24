@@ -1,0 +1,5 @@
+test "printing null" {
+  const printer = new StringPrinter()
+  printer.println(null)
+  assert.equals("null", printer.getBuffer().trim())
+}

@@ -1,0 +1,90 @@
+/**
+  * Scenario: a hierarchy of exceptions
+  */
+class SpecialException inherits Exception {}
+
+class BusinessException inherits Exception {
+  constructor() {}
+}
+
+class OtherBusinessException inherits Exception {
+  constructor() {}
+}
+
+/**
+  * Tests
+  */
+describe "testing exceptions" {
+
+  test "test expected exception catches the error and succeeds" {
+    assert.throwsException { 
+      const nullReference = null
+      nullReference.foo()
+    }
+  }
+
+  test "test expected exception fails if no error is thrown" {
+    assert.throwsException { assert.throwsException { 4 } }
+  }
+
+  test "use throwsExceptionLike with same class should work" {
+    assert.throwsExceptionLike(new BusinessException(), { => throw new BusinessException() })
+  }
+
+  test "use throwsExceptionLike with different message should fail" {
+    try {
+      assert.throwsExceptionLike(new BusinessException(message = "chau"), { => throw new BusinessException(message = "hola") })
+      assert.fail("Should have thrown an exception in use throwsExceptionLike")
+    } catch ex {
+      /* OK */
+    }
+  }
+
+  test "throws special kind of exception do not catch other exceptions" {
+    try {
+      assert.throwsExceptionLike(new BusinessException(), { => throw new OtherBusinessException() })
+      assert.fail("Should have thrown error in throws special kind of exception dont catch other exception")
+    }
+    catch ex {
+      /* OK */
+    }
+  }
+
+  test "throws special kind of exception fails when block does not throw an exception" {
+    try {
+      assert.throwsExceptionLike(new BusinessException(), { => 5 })
+      assert.fail("Should have thrown error in throws special kind of exception fails when block does not throw an exception")
+    } catch ex {
+      /* OK */
+    }
+  }
+
+  test "use throwsExceptionWithMessage - happy path" {
+    assert.throwsExceptionWithMessage("hola!", { => throw new BusinessException(message = "hola!") })
+  }
+
+  test "use throwsExceptionWithMessage: expecting a message but getting other, should fail" {
+    try {
+      assert.throwsExceptionWithMessage("hola!", { => throw new BusinessException("Jamaica") })
+      assert.fail("Should have thrown an exception in throwsExceptionWithMessage getting other message")
+    }
+    catch ex {
+      /* OK */
+    }
+  }
+
+  test "use throwsExceptionWithType - happy path" {
+    assert.throwsExceptionWithType(new BusinessException(message = "lala"), { => throw new BusinessException(message = "hola!") })
+  }
+
+  test "Use throwsExceptionWithType" {
+    try {
+      assert.throwsExceptionWithType(new BusinessException(message = "hola!"), { => throw new OtherBusinessException(message = "hola!") })
+      assert.fail("Should have thrown an exception in throwsExceptionWithType getting same message but different exception")
+    }
+    catch ex {
+      /* OK */
+    }
+  }  
+
+}

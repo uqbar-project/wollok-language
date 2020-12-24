@@ -1,0 +1,14 @@
+import aves.special.pepita
+import aves.*
+
+test "using implicit Wollok lib objects & classes inside a package should work" {
+  assert.equals(pepita.volar().x(), 1)
+}
+
+test "using implicit Wollok lib classes from root object should work" {
+  assert.equals(pepona.volar().x(), 1)
+}
+
+test "using implicit Wollok lib objects from root object should work" {
+  assert.equals(pepusa.volar(), 10)
+}

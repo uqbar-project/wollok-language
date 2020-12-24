@@ -1,0 +1,16 @@
+object juan {
+  method blah() {
+      self.blah()
+  }
+}
+
+// https://github.com/uqbar-project/wollok/issues/896
+test "issue 896 - stack overflow call should fail and finish too" {
+  try {
+    juan.blah()
+    throw new Exception(message = "Should have failed!")
+  }
+  catch e : StackOverflowException {
+    // fine !
+  }
+}

@@ -1,0 +1,12 @@
+/**
+  * Tests
+  */
+describe "method invocation inside a describe" {
+
+  method uno() = 1
+
+  test "testing method invocation" {
+    assert.equals(1, self.uno())
+  }
+
+}

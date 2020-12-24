@@ -1,0 +1,21 @@
+/**
+  * Scenario: a wko inheriting from a superclass with a constructor
+  */
+class Auto {
+  var property kms
+
+  constructor(_kms) {
+    kms = _kms
+  }
+}
+
+object bordini inherits Auto(2000) {
+  method color() = "celeste"
+}
+
+/**
+  * Tests
+  */
+test "object inheriting from a class can set a default value for a superclass attribute" {
+  assert.equals(2000, bordini.kms())
+}

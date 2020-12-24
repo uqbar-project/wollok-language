@@ -1,0 +1,90 @@
+/**
+  * Tests
+  * using several types of describes
+  */
+describe "testing group of isolated tests with instance variables" {
+
+  const a = 8
+  const b = 5
+
+  test "max between two numbers" {
+    assert.equals(8, a.max(b))
+  }
+
+  test "min between two numbers" {
+    assert.equals(5, a.min(b))
+  }
+
+}
+
+describe "testing group of isolated tests with variables" {
+
+  test "max between two numbers" {
+    const a = 8
+    const b = 5
+    const result = a.max(b)
+    assert.equals(8, result)
+  }
+
+  test "min between two numbers" {
+    const a = 8
+    const b = 5
+    const result = a.min(b)
+    assert.equals(5, result)
+  }
+
+}
+
+describe "testing group of isolated tests without state" {
+
+  test "max between two numbers" {
+    assert.equals(8, 5.max(8))
+  }
+
+  test "min between two numbers" {
+    assert.equals(5, 5.min(8))
+  }
+
+}
+
+describe "variables of describe do not have side effects between tests" {
+  var one = 1
+
+  method incrementOne() {
+    one = one + 1
+  }
+
+  method one() = 1
+
+  test "Dos es one + 1" {
+    self.incrementOne()
+    assert.equals(one, self.one() + 1)
+  }
+
+  test "Uno es one" {
+    assert.equals(one, self.one())
+  }
+}
+
+describe "initializing all variables at once" {
+
+  test "unSet.anyOne() should not fail" {
+    const unSet = #{}
+    unSet.add(1)
+    unSet.anyOne()
+  }
+
+}
+
+describe "a local variable inside a try/catch within a test within a describe should work" {
+
+  test "try/catch with an assignment" {
+    var value
+    try {
+      value = 9
+    } catch e {
+    }
+    assert.equals(9, value)
+  }
+
+}

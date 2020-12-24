@@ -1,0 +1,12 @@
+/**
+  * Scenario: defined in packageExample.wlk file
+  */
+import packageExample.aves.*
+
+/**
+  * Tests
+  */
+test "use a package" {
+  assert.equals(1, pepita.valueOne())
+}
+

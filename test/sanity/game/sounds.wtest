@@ -1,0 +1,34 @@
+import wollok.game.*
+
+const sound = game.sound("testSound.mp3")
+
+describe "sound tests" {
+
+  test "volume cannot be set higher than 1" {
+    assert.throwsException { => sound.volume(2.5) }
+  }
+
+  test "volume set correctly" {
+    sound.volume(0)
+    sound.volume(0.01)
+    sound.volume(0.99)
+    sound.volume(1)
+  }
+
+  test "volume cannot be set lower than 0" {
+    assert.throwsException { => sound.volume(-3) }
+  }
+
+  test "a sound cannot be played if game has not started" {
+    assert.throwsException { => sound.play() }
+  }
+
+  test "sound cannot be paused if it has not been played" {
+    assert.throwsException { => sound.pause() }
+  }
+
+  test "sound cannot be stopped if it has not been played" {
+    assert.throwsException { => sound.stop() }
+  }
+
+}

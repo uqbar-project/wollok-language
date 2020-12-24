@@ -1,0 +1,24 @@
+/**
+  * Scenario: a wko inheriting from a custom superclass
+  */
+class Dog {
+  const owner
+  constructor(param) {
+    owner = param
+  }
+  method owner() = owner
+}
+
+object lassie inherits Dog(jorge.name()) {
+}
+
+object jorge {
+  method name() = "Jorge"
+}
+
+/**
+  * Tests
+  */
+test "wko - inheriting from class that has constructor passing another wko message return value" {
+  assert.equals("Jorge", lassie.owner())
+}

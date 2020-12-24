@@ -1,18 +1,22 @@
+/**
+  * Scenario: a class mixed with a mixin
+  */
 mixin Energy {
-	var energy = 100
+  var energy = 100
 }
-		
+
 class Bird mixed with Energy {
-	method fly(meters) {
-		energy -= meters
-	}
-	method energy() = energy
+  method fly(meters) {
+    energy -= meters
+  }
+  method energy() = energy
 }
-		
+
+/**
+  * Tests
+  */
 test "class modifies a variable inherited from the mixin" {
-
-	const b = new Bird()
-	b.fly(10)
-	assert.equals(90, b.energy())
-
+  const bird = new Bird()
+  bird.fly(10)
+  assert.equals(90, bird.energy())
 }

@@ -1,0 +1,16 @@
+object pepita {
+  var energy = 0
+  method energyLevel(){
+    return energy
+  }
+  
+  method addEnergy(amount){
+    energy = energy + amount
+  }
+}
+
+test "wko - effects on named objects" {
+  assert.equals(0, pepita.energyLevel())
+  pepita.addEnergy(10)
+  assert.equals(10, pepita.energyLevel())  
+}

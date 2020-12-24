@@ -51,7 +51,8 @@ object assert {
     if (!value) throw new AssertionException(message = "Value was not true")
   }
   
-  /** Tests whether value is false. Otherwise throws an exception. 
+  /** 
+   * Tests whether value is false. Otherwise throws an exception. 
    * @see assert#that(value) 
    */
   method notThat(value) {
@@ -59,13 +60,6 @@ object assert {
     if (value) throw new AssertionException(message = "Value was not false")
   }
   
-  /*
-   * This method avoids confusion with equals definition in Object
-   */
-  override method equals(value) {
-    throw new AssertionException(message = "assert.equals(expected, actual): missing second parameter")
-  }
-
   /** 
    * Tests whether two values are equal, based on wollok ==, != methods
    * 
@@ -75,7 +69,7 @@ object assert {
    *     assert.equals(10.01, 100.div(10)) ==> throws an exception 
    */
   method equals(expected, actual) {
-    if (expected != actual) throw new AssertionException(message = "Expected [" + expected.printString() + "] but found [" + actual.printString() + "]")
+    if (expected != actual) throw new AssertionException(message = "Expected <" + expected.printString() + "> but found <" + actual.printString() + ">")
   }
   
   /** 
@@ -87,7 +81,7 @@ object assert {
    *     assert.notEquals(10, value)     ==> throws an exception
    */
   method notEquals(expected, actual) {
-    if (expected == actual) throw new AssertionException(message = "Expected to be different, but [" + expected.printString() + "] and [" + actual.printString() + "] match")
+    if (expected == actual) throw new AssertionException(message = "Expected to be different, but <" + expected.printString() + "> and <" + actual.printString() + "> match")
   }
   
   /** 
@@ -133,7 +127,7 @@ object assert {
     self.checkNotNull(block, "throwsExceptionLike")
     try 
     {
-      self.throwsExceptionByComparing(block, {a => a.equals(exceptionExpected)})
+      self.throwsExceptionByComparing(block, {a => a == exceptionExpected})
     }
     catch ex : OtherValueExpectedException 
     {
@@ -160,7 +154,7 @@ object assert {
     self.checkNotNull(block, "throwsExceptionWithMessage")
     try 
     {
-      self.throwsExceptionByComparing(block, {a => errorMessage.equals(a.message())})
+      self.throwsExceptionByComparing(block, {a => errorMessage == a.message()})
     }
     catch ex : OtherValueExpectedException 
     {
@@ -174,8 +168,8 @@ object assert {
    *
    * Examples:
    *    assert.throwsExceptionWithType(new BusinessException("hola"),{ => throw new BusinessException("hola") } 
-     *          => Works! Both exceptions are instances of the same class.
-     *
+   *          => Works! Both exceptions are instances of the same class.
+   *
    *    assert.throwsExceptionWithType(new BusinessException("chau"),{ => throw new BusinessException("hola") } 
    *          => Works again! Both exceptions are instances of the same class.
    *
@@ -187,7 +181,7 @@ object assert {
     self.checkNotNull(block, "throwsExceptionWithType")
     try 
     {
-      self.throwsExceptionByComparing(block,{a => exceptionExpected.className().equals(a.className())})
+      self.throwsExceptionByComparing(block,{a => exceptionExpected.className() == a.className()})
     }
     catch ex : OtherValueExpectedException 
     {
@@ -202,13 +196,13 @@ object assert {
    * returning the result.
    *
    * Examples:
-   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => "hola".equals(ex.message())}} 
+   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => "hola" == ex.message()}} 
    *          => Works!.
    *
-   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => new BusinessException("lele").className().equals(ex.className())} } 
+   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => new BusinessException("lele").className() == ex.className()} } 
    *          => Works again!
    *
-   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => "chau!".equals(ex.message())} } 
+   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => "chau!" == ex.message()} } 
    *          => Doesn't work. The block evaluation resolves to a false value.
    */    
   method throwsExceptionByComparing(block, comparison){
@@ -237,6 +231,13 @@ object assert {
   method fail(message) {
     self.checkNotNull(message, "fail")
     throw new AssertionException(message = message)
+  }
+
+  /*
+   * This method avoids confusion with equals definition in Object
+   */
+  override method equals(value) {
+    throw new AssertionException(message = "assert.equals(expected, actual): missing second parameter")
   }
   
 }
