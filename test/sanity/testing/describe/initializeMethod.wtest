@@ -35,23 +35,23 @@ describe "testing test initialization runs before every test" {
 
 }
 
-describe "const references can be initially assigned in a test initialization" {
+describe "const references cannot be initially assigned in a test initialization" {
   const uno
 
   method initialize() {
-    uno = 1
+    assert.throwsException { => uno = 1 }
   }
 
   test "uno es uno" {
-    assert.equals(1, uno)
+    assert.equals(null, uno)
   }
 }
 
-describe "const references can be additionally assigned in a test initialization" {
+describe "const references cannot be additionally assigned in a test initialization" {
   const uno = 1
 
   method initialize() {
-    uno = 1
+    assert.throwsException { => uno = 1 }
   }
 
   test "uno es uno" {

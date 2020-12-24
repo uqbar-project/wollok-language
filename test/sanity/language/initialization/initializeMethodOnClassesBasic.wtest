@@ -3,7 +3,7 @@
 	* and the other simply overrides it
   */
 class A {
-	const property a
+	var property a
 	
 	method initialize() {
 		a = 1
@@ -30,7 +30,7 @@ class C inherits A {
 describe "instance of B values" {
 	const b = new B()
 
-	test "Overrided initialize with super executes superclass' initialize" {
+	test "Overrided initialize with super executes superclass initialize" {
 		assert.equals(1, b.a())
 	}
 
@@ -42,7 +42,7 @@ describe "instance of B values" {
 describe "instance of C values" {
 	const c = new C()
 
-	test "Overrided initialize with no super does not execute superclass' initialize" {
+	test "Overrided initialize with no super does not execute superclass initialize" {
 		assert.equals(null, c.a())
 	}
 

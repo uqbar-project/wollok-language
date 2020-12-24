@@ -13,6 +13,10 @@ describe "lazy initialization on instances" {
     assert.equals(3, new C(a = 2).b())
   }
 
+  test "overriding default initialization 2: variable -> value" {
+    assert.equals(2, new C().b())
+  }
+
   test "overriding initialization and using an expression in definition" {
     assert.equals(8, new C(b = 7).c())
   }

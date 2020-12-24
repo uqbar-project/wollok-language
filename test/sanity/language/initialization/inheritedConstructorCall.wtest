@@ -26,6 +26,7 @@ class Arquero inherits UnidadArmada {
 	* https://github.com/uqbar-project/wollok/issues/1288
   */
 test "issue 1288 - delegating to message in a chained message of a named parameter" {
-  new Arquero(arma = armeria.arco())
-  assert.that(true)
+  const unArma = armeria.arco()
+  const guillermoTell = new Arquero(arma = unArma)
+  assert.equals(unArma, guillermoTell.arma())
 }

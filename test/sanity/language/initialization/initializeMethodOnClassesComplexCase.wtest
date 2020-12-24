@@ -3,7 +3,7 @@
   * initialize from the superclass. We should see how are variables initialized.
   */
 class A {
-	const property a
+	var property a
 	
 	method initialize() {
 		a = 1
