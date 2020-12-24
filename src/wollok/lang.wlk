@@ -2023,6 +2023,7 @@ class Number {
   method isPrime() {
     const intValue = self.coerceToInteger()
     if (intValue == 1) return false
+    if (intValue == 2) return true
     return (2..(intValue.div(2) + 1)).any({ i => intValue % i == 0 }).negate()
   }
 
