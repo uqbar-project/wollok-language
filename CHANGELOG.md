@@ -5,10 +5,26 @@ Currently, the Wollok language does not adhere to [Semantic Versioning](https://
 Hopefully, we will be able to do that in the near future.
 
 
-## [To be released in v2.0.0]
+## v2.1.0
+- Many Wollok Game changes for web implementation.
+- Changes in `substring` method.
+- Changes in `toString` behaviour.
+- Added some wollokdocs.
+- Added methods: `isWorkDay()` & `isWeekendDay()` in Date class.
+- New `only` flag for tests.
+- Added more sanity tests.
+- `2` is ṕrime!
+
+## v2.0.2
+- Rename a describe test
+
+## v2.0.1
+- == method was duplicated in Set and List classes
+
+## v2.0.0
 - Equality is now fully based on the `==` method.
 
-## [To be released in v1.8.6]
+## v1.8.6
 
 ### Added
 - New method `uniqueElement` in collections as defined by https://github.com/uqbar-project/wollok/issues/1779.
