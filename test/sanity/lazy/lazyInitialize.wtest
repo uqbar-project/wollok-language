@@ -42,9 +42,16 @@ test "Lazy const instance with effect before" {
   assert.equals(3, i.x())
 }
 
-test "Expression object definitions are not lazy" {
+test "Expression object base call definitions are not lazy" {
   pepita.energia(3)
   const o = object inherits C(x = pepita.energia()) { }
+  pepita.energia(5)
+  assert.equals(3, o.x())
+}
+
+test "Expression object definitions are not lazy" {
+  pepita.energia(3)
+  const o = object { const property x = pepita.energia() }
   pepita.energia(5)
   assert.equals(3, o.x())
 }
