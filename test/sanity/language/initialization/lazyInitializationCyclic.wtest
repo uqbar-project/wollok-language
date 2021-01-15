@@ -1,0 +1,34 @@
+/**
+  * Scenario: a class with cyclic lazy definitions, stopped by correct named parameters instantiation
+  */
+class A {
+
+	var property a = c + b
+	var property b = a
+	const property c = b + 1
+
+	method m() = a + b + c
+
+}
+
+describe "cyclic lazy initialization on instances" {
+
+  const a = new A(a = 7)
+
+  test "first attribute" {
+    assert.equals(7, a.a())
+  }
+
+  test "second attribute" {
+    assert.equals(7, a.b())
+  }
+
+  test "third attribute" {
+    assert.equals(8, a.c())
+  }
+
+  test "sum of all attributes" {
+    assert.equals(22, a.m())
+  }
+
+}

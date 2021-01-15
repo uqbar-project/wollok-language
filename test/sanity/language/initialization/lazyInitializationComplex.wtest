@@ -1,0 +1,34 @@
+/**
+  * Scenario: a class with several lazy definitions, interacting with named parameters
+  */
+class C {
+  var property a = 1
+  const property b = a + 1
+  const property c = b + a
+
+  method m() = a + b + c
+}
+
+describe "lazy initialization on instances" {
+
+  test "overriding default initialization: variable -> value" {
+    assert.equals(3, new C(a = 2).b())
+  }
+
+  test "overriding default initialization 2: variable -> value" {
+    assert.equals(2, new C().b())
+  }
+
+  test "overriding initialization and using an expression in definition" {
+    assert.equals(8, new C(b = 7).c())
+  }
+
+  test "overriding default initialization: variable -> expression" {
+    assert.equals(1, new C(b = 3).a())
+  }
+
+  test "overriding default initialization: variable -> expression - 2" {
+    assert.equals(2, new C(c = 2).c())
+  }
+
+}
