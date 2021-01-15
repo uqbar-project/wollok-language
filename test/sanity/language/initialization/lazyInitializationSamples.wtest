@@ -81,3 +81,24 @@ describe "lazy initialization on instances" {
 
 }
 
+
+/**
+  * Scenario: a class with cyclic lazy definitions, stopped by correct named parameters instantiation
+  */
+class A {
+
+	var property a = c + b
+	var property b = a
+	const property c = b + 1
+
+	method m() = a + b + c
+
+}
+
+test "overriding cyclic definition in attributes with an explicit value at instantiation time" {
+	const a = new A(a = 7)
+	assert.equals(a.a(), 15)
+	assert.equals(a.b(), 7)
+	assert.equals(a.c(), 8)
+	assert.equals(a.m(), 30)
+}
