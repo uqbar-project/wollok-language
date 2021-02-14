@@ -4,11 +4,9 @@
 class SpecialException inherits Exception {}
 
 class BusinessException inherits Exception {
-  constructor() {}
 }
 
 class OtherBusinessException inherits Exception {
-  constructor() {}
 }
 
 /**

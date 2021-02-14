@@ -1,0 +1,35 @@
+/**
+  * Scenario: classes with constants, assigned in initialize method
+  *
+  */
+class D {
+	const property a
+
+	method initialize() {
+		a = 1
+	}
+}
+
+class E {
+	const property a = 2
+
+	method initialize() {
+		a = 1
+	}
+}
+
+describe "instance of D values" {
+
+	test "Cannot assign a const inside an initialize method" {
+		assert.throwsException { => new D() }
+	}
+
+}
+
+describe "instance of E values" {
+
+	test "Cannot reassign a const inside an initialize method" {
+		assert.throwsException { => new E() }
+	}
+
+}

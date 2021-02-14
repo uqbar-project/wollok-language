@@ -1,0 +1,46 @@
+/**
+  * Scenario: a hierarchy of classes, grandson defines an initialize method and calls
+  * initialize from the superclass. We should see how are variables initialized.
+  */
+class A {
+	var property a
+	
+	method initialize() {
+		a = 1
+	}
+}
+
+class B inherits A {
+	var property b
+	
+	method initialize() {
+		b = a + 1
+	}
+}
+
+class C inherits B {
+	var property c
+	
+	method initialize() {
+    a = 5
+		super()
+    c = b + 1
+	}
+}
+
+describe "Super call within initialize considers effects produced before" {
+	const c = new C()
+
+	test "a initial value" {
+		assert.equals(5, c.a())
+	}
+
+	test "b initial value" {
+		assert.equals(6, c.b())
+	}
+
+	test "c initial value" {
+		assert.equals(7, c.c())
+	}
+
+}

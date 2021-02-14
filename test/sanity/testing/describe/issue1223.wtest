@@ -16,17 +16,17 @@ class Doctor {
   *
   * https://github.com/uqbar-project/wollok/issues/1223
   */
-describe "issue 1223 - NPE for const defined in fixtures" {
+describe "issue 1223 - NPE for const defined in test initializations" {
   var unDoctorCualquiera
   var enfermo
 
-  fixture {
+  method initialize() {
     enfermo = new Enfermo()
     unDoctorCualquiera = new Doctor()
     unDoctorCualquiera.calidad(2)
   }
 
-  test "a describe reference inside the fixture should not be null" {
+  test "a describe reference inside the test initialization should not be null" {
     const calidadInicial = unDoctorCualquiera.calidad()
     unDoctorCualquiera.cura(enfermo)
     const calidadFinal = unDoctorCualquiera.calidad()

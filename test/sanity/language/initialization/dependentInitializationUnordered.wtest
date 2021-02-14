@@ -1,0 +1,21 @@
+/**
+  * Scenario: a simple initialization class with unordered variable declarations
+  */
+class B {
+  var property x = y + 1
+  var property y = 0
+
+  method m() = x + y
+}
+
+describe "dependent initialization for unordered declarations in class" {
+
+  test "dependent attribute" {
+    assert.equals(1, new B().x())
+  }
+
+  test "sum of all attributes" {
+    assert.equals(1, new B().m())
+  }
+
+}

@@ -1,5 +1,5 @@
 /**
-  * Scenario: classes and named objects for fixture purposes
+  * Scenario: classes and named objects for test initialization purposes
   */
 class Golondrina { 
   var energia = 100
@@ -15,15 +15,15 @@ object alpiste {
 /**
   * Tests
   */
-describe "testing fixture runs before every test" {
+describe "testing test initialization runs before every test" {
   const pepita = new Golondrina()
 
-  fixture {
+  method initialize() {
     pepita.comer(alpiste)
     pepita.comer(alpiste)
   }
 
-  test "pepita initialized with energy in fixture, flies and looses energy" {
+  test "pepita initialized with energy in test initialization, flies and looses energy" {
     assert.equals(110, pepita.energia())
     pepita.volar(25)
     assert.equals(10, pepita.energia())
@@ -35,23 +35,23 @@ describe "testing fixture runs before every test" {
 
 }
 
-describe "const references can be initially assigned in a fixture" {
+describe "const references cannot be initially assigned in a test initialization" {
   const uno
 
-  fixture {
-    uno = 1
+  method initialize() {
+    assert.throwsException { => uno = 1 }
   }
 
   test "uno es uno" {
-    assert.equals(1, uno)
+    assert.equals(null, uno)
   }
 }
 
-describe "const references can be additionally assigned in a fixture" {
+describe "const references cannot be additionally assigned in a test initialization" {
   const uno = 1
 
-  fixture {
-    uno = 1
+  method initialize() {
+    assert.throwsException { => uno = 1 }
   }
 
   test "uno es uno" {

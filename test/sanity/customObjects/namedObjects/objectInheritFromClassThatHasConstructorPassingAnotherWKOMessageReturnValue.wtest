@@ -3,13 +3,10 @@
   */
 class Dog {
   const owner
-  constructor(param) {
-    owner = param
-  }
   method owner() = owner
 }
 
-object lassie inherits Dog(jorge.name()) {
+object lassie inherits Dog(owner = jorge.name()) {
 }
 
 object jorge {
@@ -19,6 +16,6 @@ object jorge {
 /**
   * Tests
   */
-test "wko - inheriting from class that has constructor passing another wko message return value" {
+test "wko - inheriting from a class passing a wko from a message to named parameter" {
   assert.equals("Jorge", lassie.owner())
 }
