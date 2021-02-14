@@ -8,9 +8,9 @@ class B {
   method m() = x + y
 }
 
-describe "lazy initialization for well-ordered declarations in class" {
+describe "dependent initialization for unordered declarations in class" {
 
-  test "lazy attribute" {
+  test "dependent attribute" {
     assert.equals(1, new B().x())
   }
 

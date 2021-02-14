@@ -1,5 +1,5 @@
 /**
-  * Scenario: a class with several lazy definitions, interacting with named parameters
+  * Scenario: a class with attributes in which values depend on other attributes, interacting with named parameters
   */
 class C {
   var property a = 1
@@ -9,7 +9,7 @@ class C {
   method m() = a + b + c
 }
 
-describe "lazy initialization on instances" {
+describe "dependent initialization on instances" {
 
   test "overriding default initialization: variable -> value" {
     assert.equals(3, new C(a = 2).b())

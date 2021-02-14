@@ -1,5 +1,5 @@
 /**
-  * Scenario: a class with cyclic lazy definitions, stopped by correct named parameters instantiation
+  * Scenario: a class with attributes in which values depend on other attributes, stopped by correct named parameters instantiation
   */
 class A {
 
@@ -11,7 +11,7 @@ class A {
 
 }
 
-describe "cyclic lazy initialization on instances" {
+describe "cyclic dependent initialization on instances" {
 
   const a = new A(a = 7)
 

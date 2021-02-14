@@ -7,13 +7,13 @@ describe "pairs" {
     assert.equals(pair, pair)
   }
 
-  test "new pair named parameter" {
+  test "new pair" {
     const pair = new Pair(x = 1, y = 2)
     assert.equals(1, pair.x())
     assert.equals(2, pair.y())
   }
 
-  test "arrow named parameter" {
+  test "arrow" {
     const pair = 1->2
     assert.equals(1, pair.x())
     assert.equals(2, pair.y())

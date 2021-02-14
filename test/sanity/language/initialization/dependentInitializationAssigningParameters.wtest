@@ -1,5 +1,5 @@
 /**
-  * Scenario: a class with lazy definitions, changed by named parameters
+  * Scenario: a class with attributes in which values depend on other attributes, changed by named parameters
   */
 class A {
   var property a = c + b
@@ -9,7 +9,7 @@ class A {
   method m() = a + b + c
 }
 
-describe "lazy initialization on named objects" {
+describe "dependent initialization on named objects" {
 
   test "first attribute" {
     assert.equals(8, new A(b = 2).m())
