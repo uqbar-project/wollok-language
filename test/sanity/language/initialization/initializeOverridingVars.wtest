@@ -1,0 +1,27 @@
+/**
+  * Scenario: a class with a var definition which is overrided in initialize method
+  */
+class Persona{
+  var property edad 
+  var nombre 
+  var property feliz = false
+  var deseos = []
+
+
+  method initialize() {
+    // allows local variables too
+    const dobleDeEdad = 2 * edad
+    edad = dobleDeEdad
+  }
+
+}
+
+describe "initialize overriding vars" {
+
+  test "a person doubling its age" {
+    const juan = new Persona(edad = 50,nombre = "juan", feliz = true)
+    assert.that(juan.feliz())
+    assert.equals(100, juan.edad())
+  }
+
+}

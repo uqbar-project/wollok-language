@@ -1,0 +1,30 @@
+/**
+  * Scenario: a named object with attributes in which values depend on other attributes, interacting with named parameters
+  */
+object dependent {
+  var property a = c + b
+  const property b = c + 1
+  const property c = 2
+
+  method m() = a + b + c
+}
+
+describe "cyclic initialization on named objects" {
+
+  test "first attribute" {
+    assert.equals(5, dependent.a())
+  }
+
+  test "second attribute" {
+    assert.equals(3, dependent.b())
+  }
+
+  test "third attribute" {
+    assert.equals(2, dependent.c())
+  }
+
+  test "sum of all attributes" {
+    assert.equals(10, dependent.m())
+  }
+
+}

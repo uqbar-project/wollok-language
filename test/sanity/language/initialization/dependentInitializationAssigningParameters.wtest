@@ -1,0 +1,17 @@
+/**
+  * Scenario: a class with attributes in which values depend on other attributes, changed by named parameters
+  */
+class A {
+  var property a = c + b
+  const property b = c + 1
+  const property c = 2
+
+  method m() = a + b + c
+}
+
+describe "dependent initialization on named objects" {
+
+  test "first attribute" {
+    assert.equals(8, new A(b = 2).m())
+  }
+}

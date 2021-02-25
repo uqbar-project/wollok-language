@@ -1,0 +1,32 @@
+/**
+  * Scenario: a class instantiated with a named parameter delegating to a complex chained message
+  */
+class Arma {
+  const property mm
+}
+
+class Unidad {
+  var nombre = "Peloton"
+}
+
+class UnidadArmada inherits Unidad {
+  var property arma
+}
+
+object armeria {
+  method arco() = new Arma(mm = 25)
+}
+
+class Arquero inherits UnidadArmada {
+}
+
+/**
+  * Tests
+	*
+	* https://github.com/uqbar-project/wollok/issues/1288
+  */
+test "issue 1288 - delegating to message in a chained message of a named parameter" {
+  const unArma = armeria.arco()
+  const guillermoTell = new Arquero(arma = unArma)
+  assert.equals(unArma, guillermoTell.arma())
+}

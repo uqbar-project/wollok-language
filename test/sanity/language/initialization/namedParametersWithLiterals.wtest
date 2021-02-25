@@ -1,6 +1,6 @@
 /**
   * Scenario: a class having several attributes, in order to see it is tedious to define
-  * a long-parameter constructor.
+  * a long named parameter instantiation.
   */
 class Point {
   var x

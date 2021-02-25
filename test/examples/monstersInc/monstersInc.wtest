@@ -12,7 +12,7 @@ import asistentes.*
 import actividades.*
 
 /**
-  * Helper for fixture initialization
+  * Helper for test initialization
   */
 object monstersFactory {
   method getMike() {

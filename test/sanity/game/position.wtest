@@ -33,8 +33,7 @@ class Visual {
   */
 describe "position" {
 
-
-  fixture {
+  method initialize() {
     game.clear()
   }
 

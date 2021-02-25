@@ -22,6 +22,7 @@ class Equipo {
 object elEquipo inherits Equipo(entrenador = elEntrenador) { }
 object elEntrenador inherits Entrenador(equipo = elEquipo) { }
 
+
 test "cyclic references for wko" {
   assert.that(juan !== null)
 }
