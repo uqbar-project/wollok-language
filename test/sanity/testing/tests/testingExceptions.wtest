@@ -63,7 +63,7 @@ describe "testing exceptions" {
 
   test "use throwsExceptionWithMessage: expecting a message but getting other, should fail" {
     try {
-      assert.throwsExceptionWithMessage("hola!", { => throw new BusinessException("Jamaica") })
+      assert.throwsExceptionWithMessage("hola!", { => throw new BusinessException(message = "Jamaica") })
       assert.fail("Should have thrown an exception in throwsExceptionWithMessage getting other message")
     }
     catch ex {
