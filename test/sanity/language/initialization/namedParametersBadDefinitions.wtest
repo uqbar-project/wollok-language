@@ -6,7 +6,7 @@ class Ave {
 	var energia
 	var edad = 10
 	method cumplirAnios() {
-		edad++
+    edad += 1
 	}
 	method volar() { energia = energia - 10 }
 }

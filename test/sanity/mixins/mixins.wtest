@@ -32,7 +32,7 @@ class C mixed with M1 and M2 {
 describe "mixins" {
 
   test "single mixin at instantiation time" {
-    const warrior = new Warrior() with Energy
+    const warrior = object inherits Warrior mixed with Energy { }
     assert.equals(100, warrior.energy())
   }
 
