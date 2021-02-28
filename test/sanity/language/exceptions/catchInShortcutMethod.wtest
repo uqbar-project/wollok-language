@@ -5,7 +5,7 @@
 object cuenta {
   method sacar(c) = try { 
     if (c > 0)
-      throw new Exception("saldo insuficiente") 
+      throw new Exception(message = "saldo insuficiente") 
     else
       19
   } catch e {
