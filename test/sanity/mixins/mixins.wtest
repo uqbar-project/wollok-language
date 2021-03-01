@@ -18,12 +18,12 @@ mixin Flies {
   }
 }
 
-class Bird mixed with Flies {}
+class Bird inherits Flies {}
 
 mixin M1 {}
 mixin M2 {}
 
-class C mixed with M1 and M2 {
+class C inherits M1 and M2 {
 }
 
 /**
@@ -32,7 +32,7 @@ class C mixed with M1 and M2 {
 describe "mixins" {
 
   test "single mixin at instantiation time" {
-    const warrior = object inherits Warrior mixed with Energy { }
+    const warrior = object inherits Energy and Warrior { }
     assert.equals(100, warrior.energy())
   }
 

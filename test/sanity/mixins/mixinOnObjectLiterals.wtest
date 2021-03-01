@@ -13,13 +13,13 @@ mixin Flies {
   * Tests
   */
 test "mixin on object literals" {
-  const pepita = object mixed with Flies {}
+  const pepita = object inherits Flies {}
   pepita.fly()
   assert.equals(1, pepita.times())
 }
 
 test "mixin on object literal overriding a method"{
-  const pepita = object mixed with Flies {
+  const pepita = object inherits Flies {
     override method fly() {}
   }
   pepita.fly()

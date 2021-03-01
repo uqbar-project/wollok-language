@@ -9,7 +9,7 @@ mixin Flies {
   method times() = times
 }
 
-class Bird mixed with Flies {
+class Bird inherits Flies {
   method doubleFly() {
     self.fly()
     self.fly()

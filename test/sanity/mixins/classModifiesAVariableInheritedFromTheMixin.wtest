@@ -5,7 +5,7 @@ mixin Energy {
   var energy = 100
 }
 
-class Bird mixed with Energy {
+class Bird inherits Energy {
   method fly(meters) {
     energy -= meters
   }

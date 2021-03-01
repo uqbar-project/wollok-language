@@ -16,7 +16,7 @@ class C1 {
   method foo() = foo
 }
 
-class C2 inherits C1 mixed with M1 and M2 {
+class C2 inherits M1 and M2 and C1 {
 }
 
 /**
