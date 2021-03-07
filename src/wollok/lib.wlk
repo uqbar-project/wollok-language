@@ -121,16 +121,16 @@ object assert {
    * Otherwise an exception is thrown.
    *
    * Examples:
-   *    assert.throwsExceptionLike(new BusinessException("hola"), 
-   *            { => throw new BusinessException("hola") } 
+   *    assert.throwsExceptionLike(new BusinessException(message = "hola"), 
+   *            { => throw new BusinessException(message = "hola") } 
    *            => Works! Exception class and message both match.
    *
-   *    assert.throwsExceptionLike(new BusinessException("chau"),
-   *            { => throw new BusinessException("hola") } 
+   *    assert.throwsExceptionLike(new BusinessException(message = "chau"),
+   *            { => throw new BusinessException(message = "hola") } 
    *            => Doesn't work. Exception class matches but messages are different.
    *
-   *    assert.throwsExceptionLike(new OtherException("hola"),
-   *            { => throw new BusinessException("hola") } 
+   *    assert.throwsExceptionLike(new OtherException(message = "hola"),
+   *            { => throw new BusinessException(message = "hola") } 
    *            => Doesn't work. Messages matches but they are instances of different exceptions.
    */   
   method throwsExceptionLike(exceptionExpected, block) {
@@ -178,13 +178,13 @@ object assert {
    * Otherwise an exception is thrown.
    *
    * Examples:
-   *    assert.throwsExceptionWithType(new BusinessException("hola"),{ => throw new BusinessException("hola") } 
+   *    assert.throwsExceptionWithType(new BusinessException(message = "hola"),{ => throw new BusinessException(message = "hola") } 
    *          => Works! Both exceptions are instances of the same class.
    *
-   *    assert.throwsExceptionWithType(new BusinessException("chau"),{ => throw new BusinessException("hola") } 
+   *    assert.throwsExceptionWithType(new BusinessException(message = "chau"),{ => throw new BusinessException(message = "hola") } 
    *          => Works again! Both exceptions are instances of the same class.
    *
-   *    assert.throwsExceptionWithType(new OtherException("hola"),{ => throw new BusinessException("hola") } 
+   *    assert.throwsExceptionWithType(new OtherException(message = "hola"),{ => throw new BusinessException(message = "hola") } 
    *          => Doesn't work. Exception classes differ although they contain the same message.
    */     
   method throwsExceptionWithType(exceptionExpected, block) {
@@ -207,13 +207,13 @@ object assert {
    * returning the result.
    *
    * Examples:
-   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => "hola" == ex.message()}} 
+   *    assert.throwsExceptionByComparing({ => throw new BusinessException(message = "hola"), { ex => "hola" == ex.message()}} 
    *          => Works!.
    *
-   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => new BusinessException("lele").className() == ex.className()} } 
+   *    assert.throwsExceptionByComparing({ => throw new BusinessException(message = "hola"), { ex => new BusinessException(message = "lele").className() == ex.className()} } 
    *          => Works again!
    *
-   *    assert.throwsExceptionByComparing({ => throw new BusinessException("hola"),{ex => "chau!" == ex.message()} } 
+   *    assert.throwsExceptionByComparing({ => throw new BusinessException(message = "hola"), { ex => "chau!" == ex.message()} } 
    *          => Doesn't work. The block evaluation resolves to a false value.
    */    
   method throwsExceptionByComparing(block, comparison){

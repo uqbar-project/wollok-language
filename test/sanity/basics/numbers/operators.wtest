@@ -197,6 +197,8 @@ describe "Number operators" {
   }
 
   test "isPrime" {
+    assert.notThat(1.isPrime())
+    assert.that(2.isPrime())
     assert.that(3.isPrime())
     assert.notThat(4.isPrime())
     assert.that(5.isPrime())
