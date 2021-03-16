@@ -67,4 +67,16 @@ describe "assert tests" {
     assert.throwsException { => assert.throwsExceptionByComparing(null, null) }
   }
 
+  test "doesNotThrowException should pass if code has no error" {
+    assert.doesNotThrowException { => 1 + 1 }
+  }
+
+  test "doesNotThrowException should throw an assertion error if code has error" {
+    try {
+      assert.doesNotThrowException { => 1 / 0 }
+      assert.fail("doesNotThrowException should have failed")
+    } catch e : AssertionException {
+    }
+  }
+
 }

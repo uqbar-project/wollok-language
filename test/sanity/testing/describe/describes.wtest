@@ -68,10 +68,12 @@ describe "variables of describe do not have side effects between tests" {
 
 describe "initializing all variables at once" {
 
-  test "unSet.anyOne() should not fail" {
-    const unSet = #{}
-    unSet.add(1)
-    unSet.anyOne()
+  test "sending anyOne to a non-empty set should not fail" {
+    assert.doesNotThrowException({
+      const unSet = #{}
+      unSet.add(1)
+      unSet.anyOne()
+    })
   }
 
 }

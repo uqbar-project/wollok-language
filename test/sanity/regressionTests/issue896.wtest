@@ -12,5 +12,6 @@ test "issue 896 - stack overflow call should fail and finish too" {
   }
   catch e : StackOverflowException {
     // fine !
+    assert.that(true)
   }
 }
