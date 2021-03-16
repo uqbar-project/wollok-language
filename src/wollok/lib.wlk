@@ -91,7 +91,7 @@ object assert {
     try {
       block.apply()
     } catch e {
-      throw new AssertionException(message = "Block " + block + " should not have failed")
+      throw new AssertionException(message = "Block " + block + " should not have failed with <" + e.message() + ">", cause = e)
     }
   }
 
