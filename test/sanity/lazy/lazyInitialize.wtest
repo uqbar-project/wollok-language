@@ -27,19 +27,8 @@ test "Lazy inherits" {
   assert.equals(2, w.x())
 }
 
-test "Lazy inherits with effect before" {
-  pepita.energia(3)
-  assert.equals(3, w.x())
-}
-
-
 test "Lazy const instance" {
   assert.equals(2, i.x())
-}
-
-test "Lazy const instance with effect before" {
-  pepita.energia(3)
-  assert.equals(3, i.x())
 }
 
 test "Expression object base call definitions are not lazy" {
