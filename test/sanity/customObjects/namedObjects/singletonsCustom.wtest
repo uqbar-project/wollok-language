@@ -37,7 +37,7 @@ object o4 inherits M and M2 { }
 /**
   * Scenario 5: a named object inheriting from a class and linearized with several mixins
   */
-object o5 inherits B(m = 6) mixed with M and M2 { }
+object o5 inherits M and M2 and B(m = 6) { }
 
 describe "singletons - customs named object, classes and mixins" {
 

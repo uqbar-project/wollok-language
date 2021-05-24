@@ -25,9 +25,9 @@ mixin Flying {
   * Tests
   * Proving order does not matter
   */
-class BirdWithEnergyThatFlies mixed with Energy and Flying {}
+class BirdWithEnergyThatFlies inherits Energy and Flying {}
 
-class BirdWithThatFliesWithEnergy mixed with Flying and Energy {}
+class BirdWithThatFliesWithEnergy inherits Flying and Energy {}
 
 test "class with a mixin that calls another - first sequence" {
   const bird = new BirdWithEnergyThatFlies()

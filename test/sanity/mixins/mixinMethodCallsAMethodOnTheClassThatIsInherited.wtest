@@ -14,7 +14,7 @@ mixin FlyingShortcuts {
 method fly(meters)
 }
 
-class MockingBird inherits Bird mixed with FlyingShortcuts {
+class MockingBird inherits FlyingShortcuts and Bird  {
 }
 
 /**
