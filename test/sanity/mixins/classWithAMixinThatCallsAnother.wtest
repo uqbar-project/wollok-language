@@ -29,6 +29,9 @@ class BirdWithEnergyThatFlies inherits Energy and Flying {}
 
 class BirdWithThatFliesWithEnergy inherits Flying and Energy {}
 
+/* Adding named parameters for mixins */
+class FlyingAndEnergizedBirdWithNamedParameters inherits Flying(fliedMeters = 500) and Energy(energy = 200) {}
+
 test "class with a mixin that calls another - first sequence" {
   const bird = new BirdWithEnergyThatFlies()
   bird.fly(10)
@@ -41,4 +44,11 @@ test "class with a mixin that calls another - second sequence" {
   bird.fly(10)
   assert.equals(90, bird.energy())
   assert.equals(10, bird.fliedMeters())
+}
+
+test "class with mixins - named parameters are taken into account" {
+  const bird = new FlyingAndEnergizedBirdWithNamedParameters()
+  bird.fly(10)
+  assert.equals(190, bird.energy())
+  assert.equals(510, bird.fliedMeters())
 }
