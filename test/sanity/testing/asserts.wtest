@@ -72,11 +72,13 @@ describe "assert tests" {
   }
 
   test "doesNotThrowException should throw an assertion error if code has error" {
+    var testFailed = true
     try {
       assert.doesNotThrowException { => 1 / 0 }
-      assert.fail("doesNotThrowException should have failed")
-    } catch e : AssertionException {
+    } catch e {
+      testFailed = false
     }
+    if (testFailed) assert.fail("doesNotThrowException should have failed")
   }
 
 }
