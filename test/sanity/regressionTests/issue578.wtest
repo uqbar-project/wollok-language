@@ -17,5 +17,5 @@ test "issue 578 - stack trace for closure used in a forEach" {
     // OK ! a NPE
     failed = true
   }
-  if (!failed) assert.fail("should have thrown a wollok exception")
+  assert.that(failed)
 }
