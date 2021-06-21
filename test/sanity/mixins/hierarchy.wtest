@@ -1,0 +1,30 @@
+/**
+  * Scenario: a named object inheriting from both superclasses and mixins
+  */
+mixin M {
+  method hierarchy() = "M <: " + super()
+}
+
+mixin N {
+  method hierarchy() =  "N <: " +  super()
+}
+
+mixin O {
+  method hierarchy() =  "O <: " +  super()
+}
+
+object a inherits M and N and B {
+    method hierarchy() = "a <: " + super()  
+}
+
+class B inherits O and C {
+    method hierarchy() =  "B <: " + super()  
+}
+
+class C {
+    method hierarchy() = "C"
+}
+
+test "linearization from a named object with mixins and classes" {
+  assert.equals("a <: M <: N <: B <: O <: C", a.hierarchy())
+}
