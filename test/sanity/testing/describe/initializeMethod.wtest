@@ -58,3 +58,16 @@ describe "const references cannot be additionally assigned in a test initializat
     assert.equals(1, uno)
   }
 }
+
+describe "describe can have local variables in init method" {
+  var valor = 0
+
+  method initialize() {
+    const numero = 5
+    valor = numero * 2
+  }
+
+  test "el doble de un número se calcula correctamente" {
+    assert.equals(10, valor)
+  }
+}
