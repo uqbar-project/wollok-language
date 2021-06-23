@@ -364,4 +364,14 @@ describe "List tests" {
     assert.equals(aList.className(), clone.className())
   }
 
+  test "Get should always truncate the index" {
+
+    //We consider that there is only one Equivalence class
+    //that why we only added one test case scenario
+
+    const numbers = [3,6,9,10]
+
+    assert.equals(3, numbers.get(0.5))
+  }
+
 }
