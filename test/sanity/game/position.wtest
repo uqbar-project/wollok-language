@@ -102,4 +102,9 @@ describe "position" {
       assert.equals(1, game.allVisuals().size())
   }
 
+  test "positions are not truncated at instantiation" {
+    const defaultPosition = game.at(1.5,3.5)
+    assert.equals(1.5, defaultPosition.x())
+    assert.equals(3.5, defaultPosition.y())
+  }
 }

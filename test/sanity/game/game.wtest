@@ -121,4 +121,10 @@ describe "Game" {
     assert.equals(5, game.height())
   }
 
+  test "floating point positions should be truncated when checking for collisions" {
+    const pepita = object { method position() = game.at(1,3) } 
+    game.addVisual(pepita)
+    const floatingPosition = game.at(1.5, 3.5)
+    assert.that(game.getObjectsIn(floatingPosition).contains(pepita))
+  }
 }
