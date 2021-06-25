@@ -1,0 +1,37 @@
+/**
+  * Scenario: a class inheriting from a superclass with some default values and an uninitialized value
+  */
+object sigiloso {}
+object loquito {}
+
+class Soldado {
+  const property fuerza = 100
+  const property actitud
+  const property salud
+}
+
+class Ninja inherits Soldado(fuerza = 75, actitud = sigiloso) { }
+
+/**
+  * Tests
+  */
+test "instantiating Ninja with required field only" {
+  const ninja = new Ninja(salud = 100)
+  assert.equals(75, ninja.fuerza())
+  assert.equals(sigiloso, ninja.actitud())
+  assert.equals(100, ninja.salud())
+}
+
+test "instantiating Ninja overriding a property" {
+  const ninja = new Ninja(salud = 100, fuerza = 40)
+  assert.equals(40, ninja.fuerza())
+  assert.equals(sigiloso, ninja.actitud())
+  assert.equals(100, ninja.salud())
+}
+
+test "instantiating Ninja overriding another property" {
+  const ninja = new Ninja(salud = 100, actitud = loquito)
+  assert.equals(75, ninja.fuerza())
+  assert.equals(loquito, ninja.actitud())
+  assert.equals(100, ninja.salud())
+}

@@ -1,0 +1,73 @@
+/**
+  * Scenario: several classes in a hierarchy that involves both mixins and classes
+  * with a) default values, b) uninitialized values
+  * 
+  * Tests look for overriden values and default ones
+  */
+class A {
+  const property x
+  const property y
+}
+
+class B inherits A(x = 1) {
+  const property z
+}
+
+mixin M {
+  const property w
+}
+
+class C inherits M and B(x = 0) {}
+class C2 inherits M and B(y = 0) { }
+class C3 inherits M and B(z = 0) { }
+class C4 inherits M(w = 0) and B(z = 0) { }
+
+mixin M0 {
+  const property x
+}
+
+mixin M1 inherits M0 { }
+
+mixin M2 inherits M0 { }
+
+class C5 inherits M1(x = 5) and M2 { }
+class C6 inherits M1 and M2(x = 15) { }
+
+describe "default values for linearization in classes" {
+  test "defining uninitialized values only" {
+    const myObject = new C(y = 2, z = 1, w = 1)
+    assert.equals(0, myObject.x())
+    assert.equals(2, myObject.y())
+    assert.equals(1, myObject.z())
+  }
+
+  test "defining uninitialized values only in subclass" {
+    const myObject = new C2(z = 1, w = 1)
+    assert.equals(1, myObject.x())
+    assert.equals(0, myObject.y())
+    assert.equals(1, myObject.z())
+  }
+
+  test "overriding default values in constructor call" {
+    const myObject = new C3(y = 2, z = 1, w = 1)
+    assert.equals(1, myObject.x())
+    assert.equals(2, myObject.y())
+    assert.equals(1, myObject.z())
+  }
+
+  test "using default values for mixins" {
+    const myObject = new C4(y = 2)
+    assert.equals(1, myObject.x())
+    assert.equals(2, myObject.y())
+    assert.equals(0, myObject.z())
+    assert.equals(0, myObject.w())
+  }
+
+  test "overriding definition in mixins inheritance - option 1" {
+    assert.equals(5, new C5().x())
+  }
+
+  test "overriding definition in mixins inheritance - option 2" {
+    assert.equals(15, new C6().x())
+  }
+}

@@ -9,7 +9,7 @@ mixin Flies {
   method times() = times
 }
 
-object pepita mixed with Flies {
+object pepita inherits Flies {
   override method fly() {}
 }
 

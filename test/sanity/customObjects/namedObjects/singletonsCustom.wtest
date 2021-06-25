@@ -20,24 +20,26 @@ object o2 inherits B(m = 6) { }
   * Scenario 3: a named object inheriting from a class and linearized with one mixin
   */
 mixin M {
-  method z() = 10
+  var property value = 5
+  method z() = value * 2
 }
 
 mixin M2 {
-  method z2() = 11
+  var z2 = 11
+  method z2() = z2
 }
 
-object o3 inherits B(m = 6) mixed with M { }
+object o3 inherits M(value = 4) and B(m = 6){ }
 
 /**
   * Scenario 4: a named object without explicit parent and linearized with several mixins
   */
-object o4 mixed with M and M2 { }
+object o4 inherits M(value = 3) and M2 { }
 
 /**
   * Scenario 5: a named object inheriting from a class and linearized with several mixins
   */
-object o5 inherits B(m = 6) mixed with M and M2 { }
+object o5 inherits M(value = 5) and M2(z2 = 15) and B(m = 6) { }
 
 describe "singletons - customs named object, classes and mixins" {
 
@@ -51,17 +53,17 @@ describe "singletons - customs named object, classes and mixins" {
 
   test "object that inherit from a class and have a mixin" {
     assert.equals(6, o3.m())
-    assert.equals(10, o3.z())
+    assert.equals(8, o3.z())
   }
 
   test "object that have multiple mixins" {
     assert.equals(11, o4.z2())
-    assert.equals(10, o4.z())
+    assert.equals(6, o4.z())
   }
 
   test "object that inherits from a class and have multiple mixins" {
     assert.equals(6, o5.m())
-    assert.equals(11, o5.z2())
+    assert.equals(15, o5.z2())
     assert.equals(10, o5.z())
   }
 

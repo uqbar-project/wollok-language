@@ -1,0 +1,27 @@
+/**
+  * Scenario: an object literal inheriting from a superclass with some default values and uninitialized ones
+  */
+class A {
+  const property x
+  const property y
+}
+
+class B inherits A(x = 1) {
+  const property z
+}
+
+describe "default values for linearization in object literals" {
+  test "inheriting default value" {
+    const myObject = object inherits B(y = 2, z = 3) { }
+    assert.equals(1, myObject.x())
+    assert.equals(2, myObject.y())
+    assert.equals(3, myObject.z())
+  }
+
+  test "overriding default value" {
+    const myObject = object inherits B(x = 0, y = 2, z = 3) { }
+    assert.equals(0, myObject.x())
+    assert.equals(2, myObject.y())
+    assert.equals(3, myObject.z())
+  }
+}
