@@ -364,14 +364,16 @@ describe "List tests" {
     assert.equals(aList.className(), clone.className())
   }
 
-  test "Get should always truncate the index" {
+  test "Get should round the index to a lower value" {
+    assert.equals(22, numbers.get(0.1))
+  }
 
-    //We consider that there is only one Equivalence class
-    //that why we only added one test case scenario
+  test "Get should round the index to a higher value" {
+    assert.equals(2, numbers.get(0.9))
+  }
 
-    const numbers = [3,6,9,10]
-
-    assert.equals(3, numbers.get(0.5))
+  test "Get should round prioritizing higher values" {
+    assert.equals(2, numbers.get(0.5))
   }
 
 }
