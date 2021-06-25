@@ -929,6 +929,15 @@ class Collection {
 }
 
 /**
+* Builder object for collections.
+* It compensates for the lack of vararg constructors.
+*/
+object collection {
+  method list(elements...) = elements
+  method set(elements...) = elements.asSet()
+}
+
+/**
  *
  * A collection that contains no duplicate elements.
  * It models the mathematical set abstraction.

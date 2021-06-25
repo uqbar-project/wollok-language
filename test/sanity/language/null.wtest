@@ -85,10 +85,11 @@ describe "Null Test Case" {
     var expresionNula
     try {
       if (expresionNula) {
-        assert.fail("Null Expression didn't fail!")
+        assert.fail("Null Expression did not fail!")
       }
     } catch e: Exception {
       /*Ok*/
+      assert.that(true)
     }
   }
 

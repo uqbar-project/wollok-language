@@ -1,6 +1,6 @@
 /**
   * Scenario: a class having several (inherited) attributes in a long hierarchy, 
-  * in order to see it is tedious to define a long-parameter constructor.
+  * in order to see it is tedious to define a long named parameter instantiation.
   */
 object chayanne {
   method nombre() = "Chayanne"
@@ -33,12 +33,12 @@ describe "named parameters with inheritance" {
     localidades = [100, 50, 200]
   )
 
-  test "wko initialization for named parameters constructor should work" {
+  test "wko initialization for named parameters should work" {
     assert.equals(chayanne, presentacion.cantante())
     assert.equals(presentacion.lugar(), lunaPark)
   }
 
-  test "number initialization for named parameters constructor should work" {
+  test "number initialization for named parameters should work" {
     assert.equals(350, presentacion.localidades().sum())
   }
 

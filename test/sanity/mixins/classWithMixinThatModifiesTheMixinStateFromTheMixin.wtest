@@ -9,7 +9,7 @@ mixin Walks {
   method walkedDistance() = walkedDistance
 }
 
-class WalkingBird mixed with Walks {}
+class WalkingBird inherits Walks {}
 
 /**
   * Tests

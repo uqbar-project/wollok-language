@@ -19,20 +19,12 @@ class Equipo {
   method bienEntrenado() = entrenador.estaContento()
 }
 
-const unEquipo = new Equipo(entrenador = unEntrenador)
-const unEntrenador = new Entrenador(equipo = unEquipo)
-
 object elEquipo inherits Equipo(entrenador = elEntrenador) { }
 object elEntrenador inherits Entrenador(equipo = elEquipo) { }
 
 
 test "cyclic references for wko" {
   assert.that(juan !== null)
-}
-
-test "cyclic references for instance named params" {
-  assert.that(unEntrenador.estaContento())
-  assert.that(unEquipo.bienEntrenado())
 }
 
 test "cyclic references for named objects with inherits named params" {

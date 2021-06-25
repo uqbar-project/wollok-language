@@ -1,0 +1,73 @@
+/**
+  * Scenario: classes and named objects for test initialization purposes
+  */
+class Golondrina { 
+  var energia = 100
+  method energia() = energia
+  method volar(metros) { energia -= metros * 4 }
+  method comer(comida) { energia += comida.energia() }
+}
+
+object alpiste { 
+  method energia() = 5
+}
+
+/**
+  * Tests
+  */
+describe "testing test initialization runs before every test" {
+  const pepita = new Golondrina()
+
+  method initialize() {
+    pepita.comer(alpiste)
+    pepita.comer(alpiste)
+  }
+
+  test "pepita initialized with energy in test initialization, flies and looses energy" {
+    assert.equals(110, pepita.energia())
+    pepita.volar(25)
+    assert.equals(10, pepita.energia())
+  }
+
+  test "in a new test, pepita has same initial energy" {
+    assert.equals(110, pepita.energia())
+  }
+
+}
+
+describe "const references cannot be initially assigned in a test initialization" {
+  const uno
+
+  method initialize() {
+    assert.throwsException { => uno = 1 }
+  }
+
+  test "uno es uno" {
+    assert.equals(null, uno)
+  }
+}
+
+describe "const references cannot be additionally assigned in a test initialization" {
+  const uno = 1
+
+  method initialize() {
+    assert.throwsException { => uno = 1 }
+  }
+
+  test "uno es uno" {
+    assert.equals(1, uno)
+  }
+}
+
+describe "describe can have local variables in init method" {
+  var valor = 0
+
+  method initialize() {
+    const numero = 5
+    valor = numero * 2
+  }
+
+  test "el doble de un número se calcula correctamente" {
+    assert.equals(10, valor)
+  }
+}

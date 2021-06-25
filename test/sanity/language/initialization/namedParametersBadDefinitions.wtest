@@ -1,0 +1,24 @@
+/**
+  * Scenario: a class having several attributes, 
+  * we will try to instantiate using bad definitions
+  */
+class Ave {
+	var energia
+	var edad = 10
+	method cumplirAnios() {
+    edad += 1
+	}
+	method volar() { energia = energia - 10 }
+}
+
+describe "bad definitions for named parameters" {
+
+  test "unexistent attribute should fail instantiation" {
+    assert.throwsException { new Ave(plumaje = true, energia = 200) }
+  }
+
+  // this test is covered by validation but not by interpreter
+  // test "missing uninitialized attribute should fail instantiation" {
+  //   assert.throwsException { new Ave(edad = 22) }
+  // }
+}

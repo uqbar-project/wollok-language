@@ -8,7 +8,7 @@ mixin FlyingShortcuts {
   method fly(meters)
 }
 
-class BirdWithFlyingShortCuts mixed with FlyingShortcuts {
+class BirdWithFlyingShortCuts inherits FlyingShortcuts {
   var energy = 200
   override method fly(meters) { energy -= meters }
   method energy() = energy

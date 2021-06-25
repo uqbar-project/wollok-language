@@ -37,15 +37,15 @@ mixin Attacks {
 }
 
 test "single mixin at instantiation time" {
-  const warrior = new Warrior() with Energy
+  const warrior = object inherits Energy and Warrior { }
   assert.equals(100, warrior.energy())
 }
 
 test "multiple mixins at instantiation time" {
-  const warrior1 = new Warrior() with Attacks with Energy2 with GetsHurt
+  const warrior1 = object inherits Attacks and Energy2 and GetsHurt and Warrior { }
   assert.equals(100, warrior1.energy())
 
-  const warrior2 = new Warrior() with Attacks with Energy2 with GetsHurt
+  const warrior2 = object inherits Attacks and Energy2 and GetsHurt and Warrior { }
   assert.equals(100, warrior2.energy())
 
   warrior1.attack(warrior2)

@@ -13,7 +13,7 @@ class Visual { }
   */
 describe "Game" {
 
-  fixture {
+  method initialize() {
     game.clear()
   }
 
@@ -112,7 +112,7 @@ describe "Game" {
   }
 
   test "cell size correctly set" {
-    game.cellSize(10)
+    assert.doesNotThrowException { game.cellSize(10) }
   }
 
   test "game should initialize with default values"{

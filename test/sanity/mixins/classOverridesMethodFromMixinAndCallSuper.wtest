@@ -7,7 +7,7 @@ mixin Energy {
   method energy() = energy
 }
 
-class Bird mixed with Energy {
+class Bird inherits Energy {
   override method reduceEnergy(amount) { 
     super(1)
   }

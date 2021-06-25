@@ -4,7 +4,7 @@ describe "trenes example" {
 
   const tren = new Tren()
 
-  fixture {
+  method initialize() {
     tren.agregarVagon(new VagonPasajeros(ancho = 2, largo = 10))
     tren.agregarVagon(new VagonPasajeros(ancho = 3, largo = 10))
     tren.agregarVagon(new VagonCarga(cargaMaxima = 1000))
@@ -40,7 +40,7 @@ describe "tren con locomotoras" {
 
   const tren = new Tren()
 
-  fixture {
+  method initialize() {
     tren.agregarVagon(new VagonPasajeros(ancho = 2, largo = 10))
     tren.agregarVagon(new VagonPasajeros(ancho = 3, largo = 10))
     tren.agregarVagon(new VagonCarga(cargaMaxima = 1000))
@@ -70,7 +70,7 @@ describe "tren que no se mueve" {
 
   const trenNoSeMueve = new Tren()
 
-  fixture {
+  method initialize() {
     trenNoSeMueve.agregarVagon(new VagonPasajeros(ancho = 3, largo = 12))
     trenNoSeMueve.agregarLocomotora(new Locomotora(peso = 1200, pesoMaximoArrastre = 4000, velocidadMaxima = 55))
   }
@@ -93,7 +93,7 @@ describe "deposito" {
   const vagonMasPesadoDeTrenNoSeMueve = new VagonPasajeros(ancho = 3, largo = 12)
   const deposito = new Deposito()
 
-  fixture {
+  method initialize() {
     tren.agregarVagon(new VagonPasajeros(ancho = 2, largo = 10))
     tren.agregarVagon(vagonMasPesadoDeTren)
     tren.agregarVagon(new VagonCarga(cargaMaxima = 1000))

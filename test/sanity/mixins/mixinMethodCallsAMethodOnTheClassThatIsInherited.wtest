@@ -11,10 +11,14 @@ mixin FlyingShortcuts {
   method fly100Meters() {
     self.fly(100)
   }
-method fly(meters)
+  method fly(meters)
 }
 
-class MockingBird inherits Bird mixed with FlyingShortcuts {
+class MockingBird inherits FlyingShortcuts and Bird {
+}
+
+/* Using named parameters - scenario 2 */
+class MockingBirdWithNamedParameters inherits FlyingShortcuts and Bird(energy = 500) {
 }
 
 /**
@@ -24,4 +28,10 @@ test "mixin method calls a method on the class that is inherited" {
   const bird = new MockingBird()
   bird.fly100Meters()
   assert.equals(100, bird.energy())
+}
+
+test "mixin method calls a method on the class that is inherited - named parameters are taken into account" {
+  const bird = new MockingBirdWithNamedParameters()
+  bird.fly100Meters()
+  assert.equals(400, bird.energy())
 }

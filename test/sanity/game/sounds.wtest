@@ -9,10 +9,12 @@ describe "sound tests" {
   }
 
   test "volume set correctly" {
-    sound.volume(0)
-    sound.volume(0.01)
-    sound.volume(0.99)
-    sound.volume(1)
+    assert.doesNotThrowException {
+      sound.volume(0)
+      sound.volume(0.01)
+      sound.volume(0.99)
+      sound.volume(1)
+    }
   }
 
   test "volume cannot be set lower than 0" {
