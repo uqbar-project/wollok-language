@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Currently, the Wollok language does not adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). 
 Hopefully, we will be able to do that in the near future.
 
+## v3.0.1
+- Exceptions have an `initialize` native method.
+
+## v3.0.0
+- Dropping Constructors in favor of named instantiation.
+- Dropping Fixtures in favor of `initialize` methods in Describes.
+- New syntax for supertype linearization.
 
 ## v2.1.0
 - Many Wollok Game changes for web implementation.

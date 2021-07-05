@@ -12,6 +12,8 @@ class Exception {
   /** specified cause */
   const property cause = null
 
+  override method initialize() native
+
   /** Prints this exception and its backtrace to the console */
   method printStackTrace() { self.printStackTrace(console) }
 
