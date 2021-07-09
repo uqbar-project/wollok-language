@@ -2756,6 +2756,14 @@ class Closure {
 
 }
 
+
+object calendar {
+  method today() native
+  method yesterday() = self.today().minusDays(1)
+  method tomorrow() = self.today().plusDays(1)
+}
+
+// TODO: Deprecate and move to calendar
 /** Represents days of week. */
 object monday { }
 object tuesday { }
@@ -2776,12 +2784,9 @@ const daysOfWeek = [monday, tuesday, wednesday, thursday, friday, saturday, sund
  */
 class Date {
 
-  const property day
-  const property month
-  const property year
-
-  /** @private */
-  override method initialize() native
+  const property day = calendar.today().day()
+  const property month = calendar.today().month()
+  const property year = calendar.today().year()
   
   /** String representation of a date */
   override method toString() = self.shortDescription()
