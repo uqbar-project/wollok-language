@@ -2756,7 +2756,12 @@ class Closure {
 
 }
 
-
+/**
+ * Utility object to contain Date and Date-related info, such as WKO and factory methods.
+ *
+ * @author nscarcella
+ * @since 3.0.0
+ */
 object calendar {
   method today() native
   method yesterday() = self.today().minusDays(1)
@@ -2774,7 +2779,6 @@ object calendar {
 }
 
 /**
- *
  * Represents a Date (without time). A Date is immutable, once created you can not change it.
  *
  * @author dodain
