@@ -77,14 +77,14 @@ describe "dictionary test case" {
     const mapa = new Dictionary()
     mapa.put(4, "2142-5980")
     mapa.put(9, "5302-6617")
-    assert.equals(mapa.keys(), [4, 9])
+    assert.equals(mapa.keys().sortedBy { a, b => a < b }, [4, 9])
   }
 
   test "values" {
     const mapa = new Dictionary()
     mapa.put("2142-5980", 4)
     mapa.put("5302-6617", 9)
-    assert.equals(mapa.values(), [4, 9])
+    assert.equals(mapa.values().sortedBy { a, b => a < b }, [4, 9])
   }
 
   test "forEach" {
