@@ -2848,7 +2848,7 @@ class Date {
    * Example:
    *     new Date(day = 24, month = 2, year = 2018).dayOfWeek() ==> Answers saturday object
    */
-  method dayOfWeek() = daysOfWeek.get(self.internalDayOfWeek() - 1)
+  method dayOfWeek() = calendar.daysOfWeek().get(self.internalDayOfWeek() - 1)
 
   /** Answers the day of week of the Date, where
    * 1 = MONDAY
