@@ -2761,19 +2761,17 @@ object calendar {
   method today() native
   method yesterday() = self.today().minusDays(1)
   method tomorrow() = self.today().plusDays(1)
+
+  const property monday = "monday"
+  const property tuesday = "tuesday"
+  const property wednesday = "wednesday"
+  const property thursday = "thursday"
+  const property friday = "friday"
+  const property saturday = "saturday"
+  const property sunday = "sunday"
+
+  const property daysOfWeek = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
 }
-
-// TODO: Deprecate and move to calendar
-/** Represents days of week. */
-object monday { }
-object tuesday { }
-object wednesday { }
-object thursday { }
-object friday { }
-object saturday { }
-object sunday { }
-
-const daysOfWeek = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
 
 /**
  *
