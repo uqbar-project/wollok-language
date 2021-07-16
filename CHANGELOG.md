@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Currently, the Wollok language does not adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). 
 Hopefully, we will be able to do that in the near future.
 
+## v3.0.2
+- Date related WKO moved to new `wollok.lang.calendar` object.
+- Deprecating `Date()` instantiation to get today's date in favor of `calendar.today()` 
+
 ## v3.0.1
 - Exceptions have an `initialize` native method.
 
