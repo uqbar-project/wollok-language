@@ -2756,19 +2756,29 @@ class Closure {
 
 }
 
-/** Represents days of week. */
-object monday { }
-object tuesday { }
-object wednesday { }
-object thursday { }
-object friday { }
-object saturday { }
-object sunday { }
+/**
+ * Utility object to contain Date and Date-related info, such as WKO and factory methods.
+ *
+ * @author nscarcella
+ * @since 3.0.0
+ */
+object calendar {
+  method today() native
+  method yesterday() = self.today().minusDays(1)
+  method tomorrow() = self.today().plusDays(1)
 
-const daysOfWeek = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
+  const property monday = "monday"
+  const property tuesday = "tuesday"
+  const property wednesday = "wednesday"
+  const property thursday = "thursday"
+  const property friday = "friday"
+  const property saturday = "saturday"
+  const property sunday = "sunday"
+
+  const property daysOfWeek = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
+}
 
 /**
- *
  * Represents a Date (without time). A Date is immutable, once created you can not change it.
  *
  * @author dodain
@@ -2776,12 +2786,9 @@ const daysOfWeek = [monday, tuesday, wednesday, thursday, friday, saturday, sund
  */
 class Date {
 
-  const property day
-  const property month
-  const property year
-
-  /** @private */
-  override method initialize() native
+  const property day = calendar.today().day()
+  const property month = calendar.today().month()
+  const property year = calendar.today().year()
   
   /** String representation of a date */
   override method toString() = self.shortDescription()
@@ -2845,7 +2852,7 @@ class Date {
    * Example:
    *     new Date(day = 24, month = 2, year = 2018).dayOfWeek() ==> Answers saturday object
    */
-  method dayOfWeek() = daysOfWeek.get(self.internalDayOfWeek() - 1)
+  method dayOfWeek() = calendar.daysOfWeek().get(self.internalDayOfWeek() - 1)
 
   /** Answers the day of week of the Date, where
    * 1 = MONDAY
