@@ -8,6 +8,16 @@ import wollok.game.*
 object myVisual { }
 class Visual { }
 
+object quantumSuperposition {
+  var position = game.at(2, 4)
+
+  method position() = game.at(3, 3)
+}
+
+object positionable {
+  var property position = game.at(5, 3)
+}
+
 /**
   * Tests
   */
@@ -119,6 +129,16 @@ describe "Game" {
     assert.equals("Wollok Game", game.title())
     assert.equals(5, game.width())
     assert.equals(5, game.height())
+  }
+
+  test "method position should have a higher priority than the atribute position" {
+    game.addVisual(quantumSuperposition)
+    assert.equals([quantumSuperposition], game.getObjectsIn(game.at(3, 3)))
+  }
+
+  test "addVisualIn should not change an objects position attribute" {
+    game.addVisualIn(positionable, game.at(2, 2))
+    assert.equals(game.at(5, 3), positionable.position())
   }
 
 }
