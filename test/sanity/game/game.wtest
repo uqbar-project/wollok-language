@@ -14,8 +14,10 @@ object quantumSuperposition {
   method position() = game.at(3, 3)
 }
 
-object positionable {
-  var property position = game.at(5, 3)
+object inamovible {
+  var position = game.at(5, 3)
+
+  method getPosition() = position
 }
 
 /**
@@ -137,8 +139,8 @@ describe "Game" {
   }
 
   test "addVisualIn should not change an objects position attribute" {
-    game.addVisualIn(positionable, game.at(2, 2))
-    assert.equals(game.at(5, 3), positionable.position())
+    game.addVisualIn(inamovible, game.at(2, 2))
+    assert.equals(game.at(5, 3), inamovible.getPosition())
   }
 
 }
