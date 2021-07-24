@@ -364,4 +364,16 @@ describe "List tests" {
     assert.equals(aList.className(), clone.className())
   }
 
+  test "Get should round the index to a lower value" {
+    assert.equals(22, numbers.get(0.1))
+  }
+
+  test "Get should round the index to a higher value" {
+    assert.equals(2, numbers.get(0.9))
+  }
+
+  test "Get should round prioritizing higher values" {
+    assert.equals(2, numbers.get(0.5))
+  }
+
 }
