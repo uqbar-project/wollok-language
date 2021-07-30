@@ -134,4 +134,12 @@ describe "Game" {
     const floatingPosition = game.at(1.7, 3.8)
     assert.that(game.getObjectsIn(floatingPosition).isEmpty())
   }
+
+  test "Two positions are on the same cell" {
+    assert.that(game.onSameCell(game.at(1.3, 2.3), game.at(1,2)))
+  }
+
+  test "Two positions are not on the same cell" {
+    assert.notThat(game.onSameCell(game.at(1.5, 2.6), game.at(1.3, 2.3)))
+  }
 }

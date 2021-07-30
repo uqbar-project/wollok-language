@@ -369,7 +369,7 @@ class Position {
   /**
    * Returns a new position with its coordinates rounded
    */
-  method round() = new Position(x.round(), y.round())
+  method round() = new Position(x = x.round(), y = y.round())
 }
 
 /**
