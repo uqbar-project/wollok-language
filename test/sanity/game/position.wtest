@@ -25,6 +25,8 @@ const visualWithoutPosition = object {
 }
 
 class Visual {
+  var property position = origin
+
   method image() = "image.png"
 }
 
@@ -59,19 +61,13 @@ describe "position" {
     assert.equals(5, origin.distance(new Position(x = 3, y = 4)))
   }
 
-  test "should draw objects in board" {
-    assert.equals(0, game.allVisuals().size())
-    origin.drawElement(visualWithPositionMethod)
-    assert.equals(1, game.allVisuals().size())
-  }
-
   test "position can be accessed by getter method" {
-    origin.drawElement(visualWithPositionMethod)
+    game.addVisual(visualWithPositionMethod)
     assert.equals(origin, visualWithPositionMethod.position())
   }
 
   test "position can be accessed by property" {
-    origin.drawElement(visualWithPositionProperty)
+    game.addVisual(visualWithPositionProperty)
     assert.equals(origin, visualWithPositionProperty.position())
   }
 
@@ -87,18 +83,11 @@ describe "position" {
     assert.throwsException{ game.addVisual(visualWithoutPosition) }
   }
 
-  test "positions can draw visuals without position" {
-      origin.drawElement(visualWithoutPosition)
-      const expected = origin.allElements().head()
-      assert.equals(expected, visualWithoutPosition)
-  }
-
   test "clear should remove all visuals in it" {
-      2.times{ i => origin.drawElement(new Visual()) }
-      new Position(x = 1, y = 1).drawElement(new Visual())
+      2.times{ i => game.addVisual(new Visual()) }
+      game.addVisual(new Visual(position = new Position(x = 1, y = 1)))
       assert.equals(3, game.allVisuals().size())
       origin.clear()
       assert.equals(1, game.allVisuals().size())
   }
-
 }
