@@ -73,4 +73,19 @@ describe "Decimal tests"{
     assert.equals(1.2, (5/4).truncate(1))
   }
 
+  test "a number should be rounded to a smaller integer"{
+    assert.equals(2, 2.4.round())
+    assert.equals(-3, (-2.7).round())
+  }
+
+  test "a number should be rounded to a bigger integer"{
+    assert.equals(3, 2.6.round())
+    assert.equals(-2, (-2.3).round())
+  }
+
+  test "round should prioritize rounding up instead of rounding down"{
+    assert.equals(1, 0.5.round())
+    assert.equals(-1, (-1.5).round())
+  }
+
 }
