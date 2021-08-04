@@ -26,16 +26,6 @@ object game {
   method addVisual(positionable) native
 
   /**
-   * Adds an object to the board for drawing it on a specific position.
-   *
-   * Example:
-   *     game.addVisualIn(pepita, game.origin()) ==> no need for pepita to have a position property
-   *     game.addVisualIn(pepita, game.at(2, 2))
-   */
-  method addVisualIn(element, position) native
-
-  
-  /**
    * Adds an object to the board for drawing it. It can be moved with arrow keys.
    * That object should understand a position property 
    * (implemented by a reference or getter method).
@@ -44,14 +34,6 @@ object game {
    *     game.addVisualCharacter(pepita) ==> pepita should have a position property
    */
   method addVisualCharacter(positionable) native
-
-  /**
-   * Adds an object to the board for drawing it on a specific position. It can be moved with arrow keys.
-   *
-   * Example:
-   *     game.addVisualCharacterIn(pepita, game.origin()) ==> no need for pepita to have a position property
-   */  
-  method addVisualCharacterIn(element, position) native
 
   /**
    * Removes an object from the board for stop drawing it.
@@ -313,16 +295,6 @@ class Position {
    * Returns a new Position, n steps down from this one.
    */    
   method down(n) = new Position(x = x, y = y - n) 
-
-  /**
-   * Adds an object to the board for drawing it in self.
-   */
-  method drawElement(element) { game.addVisualIn(element, self) } //TODO: Implement native
-  
-  /**
-   * Adds an object to the board for drawing it in self. It can be moved with arrow keys.
-   */
-  method drawCharacter(element) { game.addVisualCharacterIn(element, self) } //TODO: Implement native
 
   /**
    * Draw a dialog balloon with given message in given visual object position.

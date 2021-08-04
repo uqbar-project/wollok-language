@@ -5,8 +5,13 @@ import wollok.game.*
   * - a visual component as a named object
   * - a generic class Visual
   */
-object myVisual { }
-class Visual { }
+const origin = new Position(x = 0, y = 0)
+object myVisual {
+  var property position = origin
+ }
+class Visual { 
+  var property position = origin
+}
 
 const pepita = object { method position() = game.at(1,3) } 
 
@@ -34,22 +39,22 @@ describe "Game" {
   }
 
   test "visual colliders" {
-    new Position(x = 0, y = 0).drawElement(myVisual)
-    2.times { i => new Position(x = 0, y = 0).drawElement(new Visual()) }
-    new Position(x = 0, y = 1).drawElement(new Visual())
+    game.addVisual(myVisual)
+    2.times { i => game.addVisual(new Visual()) }
+    game.addVisual(new Visual(position = new Position(x = 0, y = 1)))
     assert.equals(2, game.colliders(myVisual).size())
   }
 
   test "unique collider" {
-    new Position(x = 0, y = 0).drawElement(myVisual)
+    game.addVisual(myVisual)
     const otherVisual = new Visual()
-    new Position(x = 0, y = 0).drawElement(otherVisual)
+    game.addVisual(otherVisual)
     assert.equals(otherVisual, game.uniqueCollider(myVisual))
   }
 
   test "adding same visual twice should fail" {
-    new Position(x = 0, y = 0).drawElement(myVisual)
-    assert.throwsException { new Position(x = 0, y = 0).drawElement(myVisual) }
+    game.addVisual(myVisual)
+    assert.throwsException { game.addVisual(myVisual) }
   }
 
   test "addVisual using null should fail" {
@@ -73,7 +78,7 @@ describe "Game" {
   }
 
   test "once added a visual should be findable in the gameboard" {
-    game.addVisualIn(myVisual, game.at(0, 0))
+    game.addVisual(myVisual)
     assert.that(game.hasVisual(myVisual))
   }
 
@@ -81,7 +86,7 @@ describe "Game" {
     const otherVisual = object {
       method position() = game.at(2, 2)
     }
-    game.addVisualIn(myVisual, game.at(0, 0))
+    game.addVisual(myVisual)
     assert.notThat(game.hasVisual(otherVisual))
   }
 
@@ -90,7 +95,7 @@ describe "Game" {
   }
 
   test "when a visual is added there is 1 element in the gameboard" {
-    game.addVisualIn(myVisual, game.at(0, 0))
+    game.addVisual(myVisual)
     assert.equals(1, game.allVisuals().size())
     assert.equals(myVisual, game.allVisuals().get(0))
   }
@@ -98,9 +103,9 @@ describe "Game" {
   test "adding some visuals and getting them in a sequence" {
     const visual2 = new Visual()
     const visual3 = new Visual()
-    game.addVisualIn(myVisual, game.at(0, 0))
-    game.addVisualIn(visual2, game.at(0, 0))
-    game.addVisualIn(visual3, game.at(0, 0))
+    game.addVisual(myVisual)
+    game.addVisual(visual2)
+    game.addVisual(visual3)
     assert.equals(3, game.allVisuals().size())
     assert.equals([myVisual, visual2, visual3].asSet(), game.allVisuals().asSet())
   }

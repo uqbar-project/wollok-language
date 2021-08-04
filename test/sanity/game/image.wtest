@@ -1,5 +1,7 @@
 import wollok.game.*
 
+const origin = new Position(x = 0, y = 0)
+
 /**
   * Tests
   */
@@ -8,16 +10,20 @@ describe "image in game" {
   test "image can be accessed by getter method" {
     const aVisual = object {
       method image() = "image.png"
+
+      method position() = origin
     }
-    new Position(x = 0, y = 0).drawElement(aVisual)
+    game.addVisual(aVisual)
     assert.that(true)
   }
 
   test "image can be accessed by property" {
     const aVisual = object {
       var property image = "image.png"
+
+      method position() = origin
     }
-    new Position(x = 0, y = 0).drawElement(aVisual)
+    game.addVisual(aVisual)
     assert.that(true)
   }
 
