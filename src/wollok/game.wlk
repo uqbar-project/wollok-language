@@ -131,7 +131,17 @@ object game {
    *      game.removeTickEvent("pepitaMoving")
    */ 
   method removeTickEvent(name) native
-  
+
+  /**
+   * Verifies if two positions are on the same cell of the board
+   *
+   * Examples:
+   *     game.onSameCell(game.at(2,3), game.at(2.4,3.2)) should return True
+   *
+   *     game.onSameCell(game.at(2,3), game.at(2.6,3.8)) should return False
+   */
+  method onSameCell(position1, position2) = position1.round() == position2.round()
+
   /**
    * Returns all objects in given position.
    *
@@ -356,6 +366,10 @@ class Position {
    */
   override method toString() = x.toString() + "@" + y.toString()
 
+  /**
+   * Returns a new position with its coordinates rounded
+   */
+  method round() = new Position(x = x.round(), y = y.round())
 }
 
 /**

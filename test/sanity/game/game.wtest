@@ -8,6 +8,8 @@ import wollok.game.*
 object myVisual { }
 class Visual { }
 
+const pepita = object { method position() = game.at(1,3) } 
+
 /**
   * Tests
   */
@@ -121,4 +123,23 @@ describe "Game" {
     assert.equals(5, game.height())
   }
 
+  test "A floating point position contains an object in an integer position" {
+    game.addVisual(pepita)
+    const floatingPosition = game.at(1.3, 3.2)
+    assert.that(game.getObjectsIn(floatingPosition).contains(pepita))
+  }
+
+  test "A floating point position does not contain an object in an integer position" {
+    game.addVisual(pepita)
+    const floatingPosition = game.at(1.7, 3.8)
+    assert.that(game.getObjectsIn(floatingPosition).isEmpty())
+  }
+
+  test "Two positions are on the same cell" {
+    assert.that(game.onSameCell(game.at(1.3, 2.3), game.at(1,2)))
+  }
+
+  test "Two positions are not on the same cell" {
+    assert.notThat(game.onSameCell(game.at(1.5, 2.6), game.at(1.3, 2.3)))
+  }
 }

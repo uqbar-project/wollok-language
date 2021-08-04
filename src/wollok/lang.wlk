@@ -1970,6 +1970,11 @@ class Number {
   method roundUp() = self.roundUp(0)
 
   /**
+   * Returns the value of a number rounded to the nearest integer.
+  **/
+  method round() native
+
+  /**
    * greater common divisor.
    * Both self and "other" parameter are coerced to be integer values.
    *

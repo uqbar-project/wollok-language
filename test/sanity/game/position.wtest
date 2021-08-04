@@ -101,4 +101,11 @@ describe "position" {
       assert.equals(1, game.allVisuals().size())
   }
 
+  test "positions are not rounded at instantiation" {
+    const x = 1.4
+    const y = 3.6
+    const defaultPosition = game.at(x,y)
+    assert.equals(x, defaultPosition.x())
+    assert.equals(y, defaultPosition.y())
+  }
 }
