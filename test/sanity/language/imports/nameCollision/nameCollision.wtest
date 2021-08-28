@@ -1,0 +1,6 @@
+import foo.*
+import bar.*
+
+	test "imports should ignore local context definitions" { 
+		assert.equals(baz, foo.baz())
+	}
