@@ -5,7 +5,7 @@ object namedObject {
   var f = object { }
 
   method m() {
-    // Inline objects can't be unnamed
+    // Inline objects must be unnamed
     @Expect(code="singletonIsUnnamedIffIsLiteral", level="error")
     object otherNamedObject { }
   }
