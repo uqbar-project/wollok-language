@@ -273,8 +273,8 @@ object game {
  * It is an immutable object since Wollok 1.8.0
  */
 class Position {
-  const property x = 0
-  const property y = 0
+  var property x = 0
+  var property y = 0
   
   /**
    * Returns a new Position n steps right from this one.
@@ -342,6 +342,13 @@ class Position {
    * Returns a new position with its coordinates rounded
    */
   method round() = new Position(x = x.round(), y = y.round())
+}
+
+class MutablePosition inherits Position {
+  override method right(n) { x += n }
+  override method left(n) { x -= n }
+  override method up(n) { y += n }
+  override method down(n) { y -= n }
 }
 
 /**
