@@ -1237,7 +1237,11 @@ class List inherits Collection {
   /**
    * Synonym for first method
    */
-  method head() = self.get(0)
+  method head()
+  {
+  self.validateNotEmpty("first element")
+  self.get(0)
+  } 
 
   /**
    * Answers the last element of the non-empty list.
@@ -1248,7 +1252,11 @@ class List inherits Collection {
    *    [1, 2, 3, 4].last()  => Answers 4
    *    [].last()            => Throws error, list must not be empty
    */
-  method last() = self.get(self.size() - 1)
+  method last()
+  {
+    self.validateNotEmpty("last element")
+    self.get(self.size() - 1)
+  } 
 
   /** @private */
   override method toStringPrefix() = "["
