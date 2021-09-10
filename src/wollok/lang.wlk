@@ -1251,10 +1251,9 @@ class List inherits Collection {
    *    [1, 2, 3, 4].last()  => Answers 4
    *    [].last()            => Throws error, list must not be empty
    */
-  method last()
-  {
-    self.validateNotEmpty("last element")
-    self.get(self.size() - 1)
+  method last() {
+    self.validateNotEmpty("last")
+    return self.get(self.size() - 1)
   } 
 
   /** @private */
