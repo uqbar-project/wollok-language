@@ -21,10 +21,6 @@ describe "sound tests" {
     assert.throwsException { => sound.volume(-3) }
   }
 
-  test "a sound cannot be played if game has not started" {
-    assert.throwsException { => sound.play() }
-  }
-
   test "sound cannot be paused if it has not been played" {
     assert.throwsException { => sound.pause() }
   }
