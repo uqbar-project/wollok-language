@@ -1237,10 +1237,9 @@ class List inherits Collection {
   /**
    * Synonym for first method
    */
-  method head()
-  {
-  self.validateNotEmpty("first element")
-  self.get(0)
+  method head() {
+    self.validateNotEmpty("head")
+    return self.get(0)
   } 
 
   /**
