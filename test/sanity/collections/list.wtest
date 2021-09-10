@@ -304,6 +304,14 @@ describe "List tests" {
   test "head" {
     assert.equals(1, [1, 2, 3].head())
   }
+  
+  test "head of an empty list should fail" {
+  	assert.throwsException({[].head()})
+  }
+  
+  test "last of an empty list should fail" {
+  	assert.throwsException({[].last()})
+  }
 
   test "addAll" {
     const unos = [1,2,3,4]
