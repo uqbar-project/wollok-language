@@ -16,5 +16,14 @@ class SomeClass {
       return 0
     }
   }
+
+  method anotherMethod(param) {
+    if (@Expect(code="dontCheckEqualityAgainstBooleanLiterals", level="warning") (param.value().equals(true))) {
+      return 1
+    }
+    if (@Expect(code="dontCheckEqualityAgainstBooleanLiterals", level="warning") (param.value().equals(false))) {
+      return 0
+    }
+  }
 }
 
