@@ -268,34 +268,34 @@ object game {
   method doStart(isRepl) native
 }
 
-/**
- * Represents a position in a two-dimensional gameboard.
- * It is an immutable object since Wollok 1.8.0
- */
-class Position {
-  var property x = 0
-  var property y = 0
+class AbstractPosition {
+	
+  method x()
+	
+  method y()
   
+  method createPosition(x, y)
+	
   /**
    * Returns a new Position n steps right from this one.
    */    
-  method right(n) = new Position(x = x + n, y = y)
+  method right(n) = self.createPosition(self.x() + n, self.y())
   
   /**
    * Returns a new Position n steps left from this one.
    */    
-  method left(n) = new Position(x = x - n, y = y)
+  method left(n) = self.createPosition(self.x() - n, self.y())
   
   /**
    * Returns a new Position n steps up from this one.
    */    
-  method up(n) = new Position(x = x, y = y + n)
+  method up(n) = self.createPosition(self.x(), self.y() + n)
   
   /**
    * Returns a new Position, n steps down from this one.
    */    
-  method down(n) = new Position(x = x, y = y - n) 
-
+  method down(n) = self.createPosition(self.x(), self.y() - n) 
+  
   /**
    * Draw a dialog balloon with given message in given visual object position.
    */  
@@ -309,15 +309,15 @@ class Position {
   /**
    * Returns a new position with same coordinates.
    */  
-  method clone() = new Position(x = x, y = y)
-
+  method clone() = self.createPosition(self.x(), self.y())
+  
   /**
    * Returns the distance between given position and self.
    */  
   method distance(position) {
     self.checkNotNull(position, "distance")
-    const deltaX = x - position.x()
-    const deltaY = y - position.y()
+    const deltaX = self.x() - position.x()
+    const deltaY = self.y() - position.y()
     return (deltaX.square() + deltaY.square()).squareRoot() 
   }
 
@@ -331,25 +331,65 @@ class Position {
   /**
    * Two positions are equals if they have same coordinates.
    */  
-  override method ==(other) = x == other.x() && y == other.y()
+  override method ==(other) = self.x() == other.x() && self.y() == other.y()
   
   /**
    * String representation of a position
    */
-  override method toString() = x.toString() + "@" + y.toString()
+  override method toString() = self.x().toString() + "@" + self.y().toString()
 
   /**
    * Returns a new position with its coordinates rounded
    */
-  method round() = new Position(x = x.round(), y = y.round())
+  method round() = self.createPosition(self.x().round(), self.y().round())
+	
 }
 
-class MutablePosition inherits Position {
-  override method right(n) { x += n }
-  override method left(n) { x -= n }
-  override method up(n) { y += n }
-  override method down(n) { y -= n }
+/**
+ * Represents a position in a two-dimensional gameboard.
+ * It is an immutable object since Wollok 1.8.0
+ */
+class Position inherits AbstractPosition {
+  const x = 0
+  const y = 0
+  
+  override method x() = x
+  
+  override method y() = y
+  
+  override method createPosition(_x, _y) = new Position(x = _x, y = _y)
+
 }
+
+class MutablePosition inherits AbstractPosition {
+	
+  var x = 0
+  var y = 0
+  
+  override method x() = x
+  
+  override method y() = y
+  
+  override method createPosition(_x, _y) = new MutablePosition(x = _x, y = _y)
+  
+  method goRight(n){
+  	x += n
+  }
+  
+  method goLeft(n){
+  	x -= n
+  }
+  
+  method goUp(n){
+  	y += n
+  }
+  
+  method goDown(n){
+  	y -= n
+  }
+  
+}
+
 
 /**
  * Keyboard object handles all keys movements. There is a method for each key.

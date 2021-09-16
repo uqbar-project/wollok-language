@@ -10,6 +10,8 @@ import wollok.game.*
   */
 const origin = new Position(x = 0, y = 0)
 
+const position = new Position(x = 2, y = 2)
+
 const visualWithPositionProperty = object {
   var property position = new Position(x = 0, y = 0)
   method image() = "image.png"
@@ -97,5 +99,26 @@ describe "position" {
     const defaultPosition = game.at(x,y)
     assert.equals(x, defaultPosition.x())
     assert.equals(y, defaultPosition.y())
+  }
+  
+  test "move right should create a new position" {
+  	assert.equals(new Position(x = 4, y = 2), position.right(2))  	
+  }
+  
+  test "move left should create a new position" {
+  	assert.equals(new Position(x = 0, y = 2), position.left(2))  	
+  }
+  
+  test "move up should create a new position" {
+  	assert.equals(new Position(x = 2, y = 4), position.up(2))  	
+  }
+  
+  test "move down should create a new position" {
+  	assert.equals(new Position(x = 2, y = 0), position.down(2))  	
+  }
+  
+  test "position should be rounded" {
+  	const unroundedPosition = new Position(x = 1.2, y = 1.7)
+  	assert.equals(new Position(x = 1, y = 2), unroundedPosition.round())
   }
 }
