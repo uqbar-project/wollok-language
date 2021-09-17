@@ -2,11 +2,7 @@ import wollok.game.*
 
 describe "mutablePosition" {
 	
-  var mutablePosition
-  
-  method initialize() {
-  	mutablePosition = new MutablePosition(x = 2, y = 2)
-  }
+  const mutablePosition = new MutablePosition(x = 2, y = 2)
 	
   test "go right should modify x axis" {
   	mutablePosition.goRight(1)
