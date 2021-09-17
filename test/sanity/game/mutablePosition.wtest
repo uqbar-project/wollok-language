@@ -1,0 +1,27 @@
+import wollok.game.*
+
+describe "mutablePosition" {
+	
+  const mutablePosition = new MutablePosition(x = 2, y = 2)
+	
+  test "go right should modify x axis" {
+  	mutablePosition.goRight(1)
+  	assert.equals(3, mutablePosition.x())  	
+  }
+  
+  test "go left should modify x axis" {
+  	mutablePosition.goLeft(1)
+  	assert.equals(1, mutablePosition.x())  	
+  }
+  
+  test "go up should modify y axis" {
+  	mutablePosition.goUp(1)
+  	assert.equals(3, mutablePosition.y())  	
+  }
+  
+  test "go down should modify y axis" {
+  	mutablePosition.goDown(1)
+  	assert.equals(1, mutablePosition.y())  	
+  }
+	
+}
