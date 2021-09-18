@@ -14,6 +14,12 @@ class B {
   }
 }
 
+object explosion {
+	method explode(){
+		self.error("Exploded")
+	}
+}
+
 /**
   * Tests
   */
@@ -25,4 +31,17 @@ test "Test catch using the exception variable" {
   } catch e : MyExceptionWithCustomMessage
     result = e.customMessage()
   assert.equals("Something went wrong", result)
+}
+
+test "Catch using an exception with FQN type" {
+	var catched = false
+	
+	try {
+		explosion.explode()
+	}
+	catch e: wollok.lang.DomainException {
+		catched = true
+	}
+	
+	assert.that(catched)
 }
