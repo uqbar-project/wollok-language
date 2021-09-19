@@ -26,3 +26,23 @@ class CyclicA inherits CyclicB {}
 
 @Expect(code="notCyclicHierarchy", level="error")
 class CyclicB inherits CyclicA {}
+
+@Expect(code="notCyclicHierarchy", level="error")
+mixin MixinA inherits MixinA {}
+
+@Expect(code="notCyclicHierarchy", level="error")
+mixin Mixin1 inherits Mixin3 {}
+
+@Expect(code="notCyclicHierarchy", level="error")
+mixin Mixin2 inherits Mixin1 {}
+
+@Expect(code="notCyclicHierarchy", level="error")
+mixin Mixin3 inherits Mixin2 {}
+
+mixin GoodMixin {}
+
+mixin GoodMixin2 inherits GoodMixin {}
+
+mixin GoodMixin3 {}
+
+mixin GoodMixin4 inherits GoodMixin2 and GoodMixin3 {}
