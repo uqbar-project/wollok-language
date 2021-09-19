@@ -46,3 +46,11 @@ mixin GoodMixin2 inherits GoodMixin {}
 mixin GoodMixin3 {}
 
 mixin GoodMixin4 inherits GoodMixin2 and GoodMixin3 {}
+
+object goodPepita {}
+
+// Should not produce any validation report, since the problem is in Mixin1
+object badPepita inherits Mixin1 {}
+
+// Should not produce any validation report, since the problem is in CyclicB
+object anotherBadPepita inherits CyclicB {}
