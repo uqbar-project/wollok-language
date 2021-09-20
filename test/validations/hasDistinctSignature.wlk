@@ -7,12 +7,12 @@ class Bird {
   }
 
   @Expect(code="hasDistinctSignature", level="error")
-  override method eat(food) {
+  method eat(food) {
     energy = 200
   }
 
-  // Podemos definir un método con diferente aridad
-  override method eat() {
+  // We can define a method with different arity
+  method eat() {
     energy = 200
   }
 }
