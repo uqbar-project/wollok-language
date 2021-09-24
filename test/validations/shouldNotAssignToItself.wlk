@@ -2,7 +2,7 @@ class SomeClass {
   var value = 0
 
   method someMethod() {
-    @Expect(code="notAssignToItself", level="error")
+    @Expect(code="shouldNotAssignToItself", level="error")
     value = value
   }
 }

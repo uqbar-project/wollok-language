@@ -10,9 +10,9 @@ object pepita {
   }
 
   method enjoy() {
-    @Expect(code="selfAndNotSingletonReference", level="warning") (pepita.eat(5))
+    @Expect(code="shouldUseSelfAndNotSingletonReference", level="warning") (pepita.eat(5))
 
-    @Expect(code="selfAndNotSingletonReference", level="warning") (pepita.fly(2))
+    @Expect(code="shouldUseSelfAndNotSingletonReference", level="warning") (pepita.fly(2))
 
     self.eat(1)
   }

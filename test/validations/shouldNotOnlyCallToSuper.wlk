@@ -5,12 +5,12 @@ class Superclass {
 }
 
 class Subclass inherits Superclass {
-  @Expect(code="methodNotOnlyCallToSuper", level="warning")
+  @Expect(code="shouldNotOnlyCallToSuper", level="warning")
   override method superclassMethod() = super()
 
   override method superclassMethodValid() = super() * 2
 
-  @Expect(code="methodNotOnlyCallToSuper", level="warning")
+  @Expect(code="shouldNotOnlyCallToSuper", level="warning")
   override method superclassMethodInvalid() { return super() }
 }
 

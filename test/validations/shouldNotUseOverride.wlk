@@ -13,11 +13,11 @@ object foo {
 }
 
 class Bar {
-  @Expect(code = "doesntOverride", level = "error")
+  @Expect(code = "shouldNotUseOverride", level = "error")
   override method fafafa() {}
 }
 
 object bar {
-  @Expect(code = "doesntOverride", level = "error")
+  @Expect(code = "shouldNotUseOverride", level = "error")
   override method fafafa() {}
 }

@@ -1,5 +1,5 @@
 class SomeClass {
-  @Expect(code="onlyLastParameterIsVarArg", level="error")
+  @Expect(code="onlyLastParameterCanBeVarArg", level="error")
   method invalidMethod(arg..., arg2) {
     return 10
   }
