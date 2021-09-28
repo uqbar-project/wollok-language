@@ -1,6 +1,6 @@
 class BadClass {
   method badTry() {
-    @Expect(code="hasCatchOrAlways", level="error")
+    @Expect(code="shouldHaveCatchOrAlways", level="error")
     try {
       return 2
     }

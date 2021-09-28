@@ -1,0 +1,17 @@
+describe "describe with empty test" {
+
+  test "empty test" @Expect(code="shouldNotBeEmpty", level="warning") {
+  }
+
+}
+
+program emptyProgram @Expect(code="shouldNotBeEmpty", level="warning") {
+
+}
+
+class ClassWithEmptyMethod {
+
+  method emptyMethod() {
+  }
+
+}

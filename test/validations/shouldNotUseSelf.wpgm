@@ -1,0 +1,10 @@
+program main {
+  const someVariable = 2
+
+  @Expect(code="shouldNotUseSelf", level="error")
+  self.someVariable() + 2
+
+  2 + @Expect(code="shouldNotUseSelf", level="error") self.someVariable()
+
+  console.println(@Expect(code="shouldNotUseSelf", level="error") self.someVariable())
+}
