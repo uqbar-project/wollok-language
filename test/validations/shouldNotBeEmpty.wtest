@@ -1,6 +1,6 @@
 describe "describe with empty test" {
 
-  test "ëmpty test" @Expect(code="shouldNotBeEmpty", level="warning") {
+  test "empty test" @Expect(code="shouldNotBeEmpty", level="warning") {
   }
 
 }
