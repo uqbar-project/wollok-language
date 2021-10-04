@@ -36,3 +36,11 @@ class AnotherClass {
   method usingMixinUsingUnexistenteAttribute() = new StackableClass(stackableAttribute = 1, @Expect(code="namedArgumentShouldExist", level="error") mixinAttributeNotFound = "bye", someAttribute = "ok")
   method usingMixedClassOk() = new StackableClass(stackableAttribute = 1, mixinAttribute = "bye", someAttribute = "ok")
 }
+
+object someObjectOk inherits SomeClass(someAttribute = "good!") {}
+
+object someObjectUnexistentAttribute inherits SomeClass(@Expect(code="namedArgumentShouldExist", level="error") badAttribute = 0) {}
+
+const literalOk = object inherits SomeClass(someAttribute = "good!") {}
+
+const literalUnexistentAttribute = object inherits SomeClass(@Expect(code="namedArgumentShouldExist", level="error") badAttribute = 0) {}
