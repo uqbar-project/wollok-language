@@ -1,0 +1,22 @@
+object sigiloso {}
+
+class Guerrero {
+	var nombre
+	
+	method nombre() = nombre
+}
+
+class Soldado inherits Guerrero {
+  const fuerza = 100
+  const actitud
+  const salud
+  
+  method fuerzaTotal() = fuerza + actitud.fuerza() + salud
+}
+
+class Ninja inherits Soldado(fuerza = 75, actitud = sigiloso) { }
+
+test "trying to use a Ninja without initializing attributes" {
+	const ninja = @Expect(code="shouldInitializeAllAttributes", level="error") new Ninja()
+	assert.equals(100, ninja.fuerza())
+}
