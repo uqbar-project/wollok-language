@@ -16,7 +16,21 @@ class Soldado inherits Guerrero {
 
 class Ninja inherits Soldado(fuerza = 75, actitud = sigiloso) { }
 
+class GuerreroEspecial {
+  var nombre = null
+}
+
+class SoldadoEspecial inherits GuerreroEspecial {
+  const actitud = null
+}
+
+class NinjaEspecial inherits SoldadoEspecial {}
+
 test "trying to use a Ninja without initializing attributes" {
 	const ninja = @Expect(code="shouldInitializeAllAttributes", level="error") new Ninja()
 	assert.equals(100, ninja.fuerza())
+}
+
+test "if you explicit null values warnings all dismissed" {
+  const ninja = new NinjaEspecial()
 }
