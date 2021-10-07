@@ -60,10 +60,6 @@ describe "Game" {
   test "addVisual using null should fail" {
     assert.throwsException { => game.addVisual(null) }
   }
-
-  test "addVisualIn using null should fail" {
-    assert.throwsException { => game.addVisualIn(null, null) }
-  }
   
   test "removeVisual should remove a visual from the board" {
   	game.addVisual(myVisual)
