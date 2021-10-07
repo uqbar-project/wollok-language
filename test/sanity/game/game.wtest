@@ -61,10 +61,6 @@ describe "Game" {
     assert.throwsException { => game.addVisual(null) }
   }
 
-  test "addVisualIn using null should fail" {
-    assert.throwsException { => game.addVisualIn(null, null) }
-  }
-
   test "colliders using null should fail" {
     assert.throwsException { => game.colliders(null) }
   }
