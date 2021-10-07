@@ -64,6 +64,16 @@ describe "Game" {
   test "addVisualIn using null should fail" {
     assert.throwsException { => game.addVisualIn(null, null) }
   }
+  
+  test "removeVisual should remove a visual from the board" {
+  	game.addVisual(myVisual)
+  	game.removeVisual(myVisual)
+  	assert.that(game.allVisuals().isEmpty())
+  }
+  
+  test "removing a visual that is not on the board should not fail" {
+  	assert.doesNotThrowException({game.removeVisual(myVisual)})
+  }
 
   test "colliders using null should fail" {
     assert.throwsException { => game.colliders(null) }
