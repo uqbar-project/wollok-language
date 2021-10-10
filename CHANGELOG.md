@@ -8,7 +8,7 @@ Hopefully, we will be able to do that in the near future.
 - We have annotations! 🥳
 - New `@Expect` annotation used in validation tests.
 - Changes in Wollok Game:
-  - New MutablePosition class, as alternative to default (inmutable) Position.
+  - New MutablePosition class, as alternative to default (immutable) Position.
   - Sounds can be played before game starts.
   - Change method `removeVisual` in game object: does not throws exception if the object is not in the game.
 - Fix some operations with _not empty_ runtime validations.
