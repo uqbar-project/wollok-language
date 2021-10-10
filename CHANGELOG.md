@@ -10,7 +10,7 @@ Hopefully, we will be able to do that in the near future.
 - Changes in Wollok Game:
   - New MutablePosition class, as alternative to default (immutable) Position.
   - Sounds can be played before game starts.
-  - Change method `removeVisual` in game object: does not throws exception if the object is not in the game.
+  - Change method `removeVisual` in game object: if the object is not in the game it doesn't throw an exception.
 - Fix some operations with _not empty_ runtime validations.
 
 ## v3.0.3
