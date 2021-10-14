@@ -7,7 +7,7 @@ program main {
 
   @Expect(code="shouldNotUseSelf", level="error")
   self.println()
-   
+
   const a = true
   if (a) {
     @Expect(code="shouldNotUseSelf", level="error")
