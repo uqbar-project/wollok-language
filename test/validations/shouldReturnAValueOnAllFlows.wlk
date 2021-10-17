@@ -155,18 +155,18 @@ class A {
   }
   
   method withTryCatch() {
-      try {
-           return 23
-      }
-      catch e : Exception {
-           self.setC("saasas")
-           throw e
-      }
+    try {
+      return 23
+    }
+    catch e : Exception {
+      self.setC("saasas")
+      throw e
+    }
   }
   
   method cargar() {
     ["hola", "chau"]
-      .map{ p =>
+      .map { p =>
         return p
       }
   }
