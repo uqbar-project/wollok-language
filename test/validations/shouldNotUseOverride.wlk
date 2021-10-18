@@ -37,7 +37,7 @@ class SpecialList inherits List {
   override method fafafa() {}
 }
 
-object bar inherits List {
+object barList inherits List {
   @Expect(code = "shouldNotUseOverride", level = "error")
   override method fafafa() {}
 }

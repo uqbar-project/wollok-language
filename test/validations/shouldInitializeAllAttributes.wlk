@@ -54,12 +54,12 @@ class B inherits A(x = 1) {
 }
 
 @Expect(code="shouldInitializeAllAttributes", level="error") 
-object mal1 inherits B(z = 3) { } // missing 'y'
+object malSingleton1 inherits B(z = 3) { } // missing 'y'
 
 @Expect(code="shouldInitializeAllAttributes", level="error") 
-object mal2 inherits B(y = 2) { } // missing 'z'
-object bien1 inherits B(y = 2, z = 3) { }		        // OK! x = 1, y = 2, z = 3
-object bien2 inherits B(x = 0, y = 2, z = 3) { }    // OK! x = 0, y = 2, z = 3
+object malSingleton2 inherits B(y = 2) { } // missing 'z'
+object bienSingleton1 inherits B(y = 2, z = 3) { }		        // OK! x = 1, y = 2, z = 3
+object bienSingleton2 inherits B(x = 0, y = 2, z = 3) { }    // OK! x = 0, y = 2, z = 3
 
 const mal1 = @Expect(code="shouldInitializeAllAttributes", level="error") object inherits B(z = 3) { } // missing 'y'
 const mal2 = @Expect(code="shouldInitializeAllAttributes", level="error") object inherits B(y = 2) { } // missing 'z'

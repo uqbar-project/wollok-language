@@ -96,7 +96,7 @@ class GolondrinaRenga inherits Golondrina {
 
 }
 
-class GolondrinaRenga inherits Golondrina {
+class GolondrinaAlegre inherits Golondrina {
   // ok to override this
   override method alegria(tiempo) = super(tiempo) * 2
 }
