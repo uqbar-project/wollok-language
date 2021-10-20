@@ -39,3 +39,12 @@ object aC inherits C {
 const unnamedAC = @Expect(code="shouldImplementAbstractMethods", level="error") object inherits C {
   method abstractBlah() {}
 }
+
+@Expect(code="shouldImplementAbstractMethods", level="error")
+object badWko {
+	method abstractMethod()
+}
+
+const o2 = @Expect(code="shouldImplementAbstractMethods", level="error") object {
+  method abstractMethod()
+}
