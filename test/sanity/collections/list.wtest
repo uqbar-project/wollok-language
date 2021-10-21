@@ -383,5 +383,11 @@ describe "List tests" {
   test "Get should round prioritizing higher values" {
     assert.equals(2, numbers.get(0.5))
   }
+  
+  test "Randomized should return a new list" {
+  	const aList = [ 1, 2, 3, 4 ]
+  	const clone = aList.randomized()
+  	assert.notEquals(aList.identity(), clone.identity())
+  }
 
 }
