@@ -384,4 +384,12 @@ describe "List tests" {
     assert.equals(2, numbers.get(0.5))
   }
 
+  test "indexOf" {
+    assert.equals(0, ["once", "and", "only", "once"].indexOf("once"))
+    assert.equals(2, ["once", "and", "only", "once"].indexOf("only"))
+    assert.throwsExceptionWithType(new ElementNotFoundException(), ["once", "and", "only", "once"].indexOf("dry"))
+    assert.throwsExceptionWithType(new ElementNotFoundException(), [].indexOf("once"))
+    assert.equals(2, ["dont", "repeat", "yourself"].indexOf("yourself"))
+  }
+
 }

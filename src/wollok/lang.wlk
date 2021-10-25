@@ -1530,6 +1530,18 @@ class List inherits Collection {
    */
   method withoutDuplicates() native
 
+  /**
+   * Answers the index of the first occurrence of the specified element 
+   * @throws ElementNotFoundException when element is not present
+   * Examples
+   *   ["once","and", "only", "once"].indexOf("once") => Answers 0
+   *   ["once","and", "only", "once"].indexOf("only") => Answers 2
+   *   ["once","and", "only", "once"].indexOf("dry")  => Throws ElementNotFoundException
+   *   [].indexOf("dry")                              => Throws ElementNotFoundException
+   */
+
+  method indexOf(element) = (0..self.size() - 1).find({index => element == self.get(index)})
+
 }
 
 /**
