@@ -1,0 +1,15 @@
+@Expect(code = "shouldHaveNonEmptyName", level="warning")
+describe "" {
+  @Expect(code = "shouldHaveNonEmptyName", level="warning")
+  test "" {
+    assert.that(true)
+  }
+}
+
+@Expect(code = "shouldHaveNonEmptyName", level="warning")
+describe "    " {
+  @Expect(code = "shouldHaveNonEmptyName", level="warning")
+  test "   " {
+    assert.that(true)
+  }
+}
