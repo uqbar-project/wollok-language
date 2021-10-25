@@ -11,7 +11,21 @@ program emptyProgram @Expect(code="shouldNotBeEmpty", level="warning") {
 
 class ClassWithEmptyMethod {
 
+  // OK
   method emptyMethod() {
   }
 
+}
+
+object objectWithEmptyMethod {
+  // OK
+  method emptyMethod() {
+
+  }
+
+  method methodWithEmptyTryCatch() {
+    try @Expect(code="shouldNotBeEmpty", level="warning") {
+    } catch e @Expect(code="shouldNotBeEmpty", level="warning") {
+    }
+  }
 }
