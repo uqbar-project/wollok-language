@@ -3,6 +3,22 @@
  *
  * A closure represents an executable piece of code, with (optional) parameters
  */
+ 
+object foo {
+	var property block = null
+	var property magic = false
+	
+	method setMagic() { 
+		{
+			self.block({ self.doMagic() }) 
+		}.apply()
+	}
+	
+	method doMagic() { 
+		magic = true
+	}
+}
+ 
 describe "closures" {
 
   test "apply a closure without parameters" {
@@ -84,5 +100,11 @@ describe "closures" {
 
   test "closure toString should be its source code" {
     assert.equals("{x => 5 + x}", {x => 5 + x}.toString())
+  }
+  
+  test "self inside a nested block should reference primary object" {
+  	foo.setMagic()
+  	foo.block().apply()
+  	assert.that(foo.magic())  	
   }
 }
