@@ -1,0 +1,92 @@
+/* XPECT_SETUP org.uqbar.project.wollok.tests.typesystem.xpect.TypeSystemXpectTestCase END_SETUP */
+
+class Ave {
+	// XPECT type at nombre --> String
+	var nombre
+	var energia = 100
+	
+	// XPECT methodType at come --> (Number) => Void	
+	method come(gramos) {
+		energia = energia + gramos 
+	}
+	
+	// XPECT methodType at energia --> () => Number
+	method energia() = energia
+}
+
+class Golondrina inherits Ave {
+	
+	// XPECT methodType at vola --> () => Void
+	method vola() {
+		energia = energia - 10 
+	}
+	
+	// XPECT methodType at come --> (Number) => Void
+	override method come(gramos) {
+		super(gramos + 10) 
+	}
+}
+
+class GolondrinaMentirosa inherits Golondrina {
+
+	// XPECT methodType at energia --> () => Number
+	override method energia() = super() + 10
+}
+
+class EntrenadorChanta inherits EntrenadorDeGolondrinas {
+	// XPECT methodType at alimentar --> (Golondrina) => Void
+	override method alimentar(ave) { 
+		super(new GolondrinaMentirosa(nombre = "Claudia", energia = 1))
+	}
+	
+	// XPECT methodType at hacerQueVuele --> (Golondrina) => Void
+	override method hacerQueVuele(golondrina) {
+		golondrina.come(1)
+		super(golondrina)
+	}
+	
+	// XPECT methodType at pajaro --> () => GolondrinaMentirosa
+	override method pajaro() {
+		// XPECT type at p --> Golondrina
+		const p = super()
+		return new GolondrinaMentirosa(nombre = "Claudia", energia = 1)
+	} 
+}
+
+class EntrenadorDeGolondrinas inherits EntrenadorDeAves {
+	// XPECT methodType at alimentar --> (Golondrina) => Void
+	override method alimentar(ave) { 
+		super(new Golondrina(nombre = "Edmundo"))
+	}
+	
+	// XPECT methodType at hacerQueVuele --> (Golondrina) => Void	
+	method hacerQueVuele(golondrina) {
+		golondrina.vola()
+	} 
+	
+	// XPECT methodType at pajaro --> () => Golondrina
+	override method pajaro() {
+		// XPECT type at a --> Ave
+		const a = super()
+		return new Golondrina(nombre = "Firulais")
+	}
+	
+	method hacerVolarGolondrina() { self.hacerQueVuele(new Golondrina(nombre = "Pedro")) }
+}
+
+class EntrenadorDeAves {
+	const ave
+	
+	// XPECT methodType at alimentar --> (Golondrina) => Void
+	method alimentar(unAve) { unAve.come(10) }
+	
+	// XPECT methodType at pajaro --> () => Ave
+	method pajaro() = new Ave(nombre = "Pedro")
+	
+	method alimentarFavorita() { ave.come(1) }
+}
+
+object wollok {
+	method entrenadorDeAves() = new EntrenadorDeAves(ave = new Ave(nombre = "Pedro"))
+	method entrenadorDeGolondrinas() = new EntrenadorDeGolondrinas(ave = new Golondrina(nombre = "Pedro"))
+}

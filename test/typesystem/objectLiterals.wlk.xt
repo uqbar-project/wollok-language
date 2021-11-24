@@ -1,0 +1,87 @@
+/* XPECT_SETUP org.uqbar.project.wollok.tests.typesystem.xpect.TypeSystemXpectTestCase END_SETUP */
+
+class Persona {
+	
+	// XPECT type at hambriento -->  { cena }
+	const hambriento = object {
+		const a = 0
+	
+		// XPECT methodType at cena() --> () => Number	
+		method cena() {
+			return a
+		}
+	}
+	
+	// XPECT type at charlatan -->  { habla }
+	const charlatan = object {
+		// XPECT methodType at habla() --> () => String
+		method habla() = "Hola"
+	}
+	
+	// XPECT type at multifacetico -->  { habla; cena }
+	const multifacetico = object {
+		// XPECT methodType at habla() --> () => String
+		method habla() = "Chau"
+		
+		// XPECT methodType at cena() --> () => Number
+		method cena() = 100
+	}
+	
+	// XPECT type at friki -->  { habla; cena }
+	const friki = object {
+		// XPECT methodType at habla() --> () => Number
+		method habla() = 42
+		
+		// XPECT methodType at cena() --> () => String
+		method cena() = "Wollok"
+	}
+	
+	// XPECT methodType at comida() -->  () => Number
+	method comida() = hambriento.cena()
+	
+	// XPECT methodType at comidaMulti() -->  () => Number
+	method comidaMulti() = multifacetico.cena()
+	
+	// XPECT methodType at comidaRara() -->  () => String
+	method comidaRara() = friki.cena()
+	
+	// XPECT warnings --> "{ habla } does not understand cena()" at "charlatan.cena()"
+	method comidaConLaBocaAbierta() = charlatan.cena()
+	
+	
+	// XPECT methodType at charla() -->  () => String
+	method charla() = charlatan.habla()
+	
+	// XPECT methodType at charlaMulti() -->  () => String
+	method charlaMulti() = multifacetico.habla()
+	
+	// XPECT methodType at charlaRara() -->  () => Number
+	method charlaRara() = friki.habla()
+	
+	// XPECT warnings --> "{ cena } does not understand habla()" at "hambriento.habla()"
+	method charlaConEstomagoVacio() = hambriento.habla()
+	
+	
+	// XPECT methodType at hacerHablarACharlatan() -->  () => (Number|String)
+	method hacerHablarACharlatan() = self.hacerHablar(charlatan)
+	
+	// XPECT methodType at hacerHablarAMultifacetico() -->  () => (Number|String)	
+	method hacerHablarAMultifacetico() = self.hacerHablar(multifacetico)
+	
+	// XPECT methodType at hacerHablarAFriki() -->  () => (Number|String)	
+	method hacerHablarAFriki() = self.hacerHablar(friki)
+	
+	//TODO: Skipped because types order is not deterministic
+	// XPECT! warnings --> "Type system: expected <<{ habla ; cena }|{ habla ; cena }|{ habla }>> but found <<{ cena }>>" at "hambriento"
+	method hacerHablarAHambriento() = self.hacerHablar(hambriento)
+
+	// XPECT methodType at hacerHablar(personalidad) --> (({ habla ; cena }|{ habla ; cena }|{ habla })) => (Number|String)
+	method hacerHablar(personalidad) = personalidad.habla()
+
+
+	// XPECT methodType at hacerHablarQueNuncaSeUsa(personalidad) --> (({ habla ; cena }|{ habla ; cena }|{ habla })) => (Number|String)	
+	method hacerHablarQueNuncaSeUsa(personalidad) = personalidad.habla()
+	
+	// XPECT methodType at charlatanString() -->  () => String
+	method charlatanString() = charlatan.toString() 
+}
