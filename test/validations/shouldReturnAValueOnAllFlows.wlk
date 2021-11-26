@@ -200,7 +200,7 @@ object joaquin {
   // OK
   method nombreFancy() = if (nombre != null) ("<" + nombre.toString() + ">") else ""
 
-    override method == (otroMusico) {
+  override method == (otroMusico) {
     // OK, return is not the last line
     if (otroMusico == null) return false
   
