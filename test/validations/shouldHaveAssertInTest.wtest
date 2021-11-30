@@ -1,0 +1,173 @@
+describe "asserts unificados" {
+
+  const ave = object {
+    var property energia = 100
+    method volar() { energia = energia - 10 }
+    method planear() { energia = energia - 5 }
+  }
+
+	const energiaInicial = ave.energia()
+
+  method bajoEnergiaIndirectamente() {
+    self.bajoEnergiaMuyIndirectamente()
+  }
+
+  method bajoEnergiaMuyIndirectamente() {
+    self.bajoEnergia()
+  }
+  
+  method bajoEnergia() {
+    assert.that(ave.energia() < energiaInicial)
+  }
+  
+  method preguntarSiBajoEnergia() {
+    return ave.energia() < energiaInicial
+  }
+
+  /****************************************************************************/
+  /* Tests aislados                                                           */
+  /****************************************************************************/
+
+
+  @Expect(code="shouldHaveAssertInTest", level="warning")
+  test "testWithBinaryOperation" {
+    1 + 1
+  }
+
+  test "okTest" {
+    assert.equals(1, 1.0)
+  }
+
+  @Expect(code="shouldHaveAssertInTest", level="warning")
+  test "testForVariable" {
+    assert
+  }
+
+  test "testOkTryAndCatchWithAssert" {
+    try {
+      assert.equals(1, 1)
+    } catch e : Exception {
+      assert.equals(2, 2)
+    }
+  }
+
+  test "testOkThenAlwaysWithAssert" {
+    var a = 0
+    try {
+      a = 1
+    } catch e : Exception {
+      a = 2
+    } then always {
+      assert.equals(1, a)
+    }
+  }
+
+  test "testOkTryCatchWithAssertAndThenAlwaysWithoutAssert" {
+    try {
+      assert.equals(2, 2)
+    } catch e : Exception {
+      assert.equals(1, 1)
+    } then always {
+      console.println("todo bien")
+    }
+  }
+
+  @Expect(code="shouldHaveAssertInTest", level="warning")
+  test "testNotOkIfWithAssertOnlyInThen" {
+    const a = 1
+    if (a > 0) assert.equals(a, 1)
+  }
+
+  @Expect(code="shouldHaveAssertInTest", level="warning")
+  test "testNotOkIfWithAssertOnlyInElse" {
+    var a = 1
+    if (a > 0) { a = a + 1 } else assert.equals(a, 1)
+  }
+
+  @Expect(code="shouldHaveAssertInTest", level="warning")
+  test "testTryCatchWithoutAssert" {
+    try {
+      1 / 0
+    } catch e : Exception {
+      1 + 1
+    }
+  }
+
+  test "testCatchWithoutAssert" {
+    try {
+      1 / 0
+    } catch e : Exception {
+      assert.equals(1, 1)
+      1 + 1
+    }
+  }
+
+  test "testTryWithoutAssert" {
+    try {
+      assert.equals(1, 1)
+      1 / 0
+    } catch e : Exception {
+      1 + 1
+    }
+  }
+
+  @Expect(code="shouldHaveAssertInTest", level="warning")
+  test "testTryCatchThenAlwaysWithoutAssert" {
+    var a = 0
+    try {
+      a = 1
+    } catch e : Exception {
+      a = 2
+    } then always {
+      a = 3
+    }
+  }
+
+  test "testOkIfWithAssert" {
+    const a = 1
+    if (a > 0) assert.equals(a, 1) else assert.equals(2, 2)
+  }
+
+  @Expect(code="shouldHaveAssertInTest", level="warning")
+  test "testElseWithoutAssert" {
+    const a = 1
+    if (a > 0) assert.equals(a, 1)
+  }
+
+  @Expect(code="shouldHaveAssertInTest", level="warning")
+  test "testIfWithoutAssert" {
+    var a = 1
+    if (a > 0) a = 2 else assert.equals(a, 1)
+  }
+
+  /****************************************************************************/
+  /* Tests asociados con métodos del describe                                 */
+  /****************************************************************************/
+
+  test "al volar la energia baja" {
+    ave.volar()
+    self.bajoEnergia()
+  }
+
+  test "al planear la energia baja" {
+    ave.planear()
+    self.bajoEnergia()
+  }
+
+  @Expect(code="shouldHaveAssertInTest", level="warning")
+  test "al planear sin asserts" {
+    ave.planear()
+  }
+
+  @Expect(code="shouldHaveAssertInTest", level="warning")
+  test "al planear sin asserts llamando a métodos que no usan assert" {
+    ave.planear()
+    self.preguntarSiBajoEnergia()
+  }
+
+  test "al planear y usar asserts en métodos después de varias llamadas" {
+    ave.planear()
+    self.bajoEnergiaIndirectamente()
+  }
+
+}
