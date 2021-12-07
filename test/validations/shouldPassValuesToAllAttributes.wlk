@@ -6,6 +6,7 @@ class Ave {
   var variableInicializadaConNull = null
 	var energia
 	var edad = 10
+	method variableInicializadaConNull() = variableInicializadaConNull
 	method cumplirAnios() {
 		edad = edad + 1
 	}

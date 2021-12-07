@@ -8,6 +8,9 @@ class SomeClass {
   var var = 11
 
   @Expect(code="nameShouldNotBeKeyword", level="error")
+  method var() = var
+  
+  @Expect(code="nameShouldNotBeKeyword", level="error")
   method method() {
     @Expect(code="nameShouldNotBeKeyword", level="error")
     const const = 1

@@ -52,5 +52,5 @@ mixin Volador {
 // the singleton definition is ok since the problem will appear on the variable definition
 object pepona inherits Volador and Ave {
   @Expect(code="shouldNotDuplicateFields", level="error")
-  var energia = 120
+  var property energia = 120
 }

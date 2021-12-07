@@ -17,7 +17,7 @@ mixin SomeMixin {
 }
 
 class StackableClass inherits SomeMixin and SomeClass {
-  const stackableAttribute = 2
+  const property stackableAttribute = 2
 }
 
 

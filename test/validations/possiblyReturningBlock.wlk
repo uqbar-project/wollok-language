@@ -1,5 +1,5 @@
 class SomeClass {
-  var a = 1
+  var property a = 1
   var b = 2
 
   method voidMethod() {
