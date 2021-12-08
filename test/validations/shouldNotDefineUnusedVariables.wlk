@@ -140,3 +140,24 @@ object usedByAlwaysBranch {
     }
   }
 }
+
+// A const property with native methods
+class ObjectMirrorStub {
+  const target
+
+  /*
+   * Accesses a variable by name, in a reflexive way.
+   */
+  method resolve(attributeName) native
+
+  /**
+   * Retrieves a specific variable for target object. Expects a name
+   */
+  method instanceVariableFor(name) native
+
+  /**
+   * Answers a list of instance variables for target object
+   */
+  method instanceVariables() native
+    
+}
