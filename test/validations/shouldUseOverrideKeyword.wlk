@@ -12,3 +12,12 @@ object bar inherits List {
     return true
   }
 }
+
+class SomeSuperClass {
+  method someMethod() = 1
+}
+
+class SomeSubClass inherits SomeSuperClass {
+  @Expect(code="shouldUseOverrideKeyword", level="warning")
+  method someMethod() = 2
+}

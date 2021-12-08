@@ -1,0 +1,11 @@
+@Expect(code="shouldNotDefineGlobalMutableVariables", level="error")
+var variableGlobalNotAllowed = 1
+
+// OK
+const constantReferenceIsOk = 0
+
+program someProgram {
+  // OK
+  var variableInsideProgramAllowed = 0
+  const constantReferenceInsideProgramIsAlsoOk = "holu"
+}

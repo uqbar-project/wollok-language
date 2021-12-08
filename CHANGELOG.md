@@ -10,6 +10,7 @@ Hopefully, we will be able to do that in the near future.
 - Added method `onSameCell` in game object (used for collision detection).
 - Added methods: `round()` in Number and Position classes.
 - Changes in `List.get` behaviour for float numbers.
+- Added validator functions, based on @Expect annotation (see `test/validations` folder)
 
 ## v3.0.2
 - Date related WKO moved to new `wollok.lang.calendar` object.

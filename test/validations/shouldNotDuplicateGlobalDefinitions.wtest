@@ -1,0 +1,63 @@
+@Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+const y = 1
+
+@Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+object y {}
+
+@Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+const repeatedObject = 1
+
+@Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+const repeatedObject = 1
+
+@Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+class A {}
+
+@Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+class A {}
+
+@Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+class Repeated {}
+
+@Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+mixin Repeated {}
+
+@Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+mixin M {}
+
+@Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+mixin M {}
+
+@Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+describe "Fake describe" {
+  test "fake test" {
+    assert.that(true)
+  }
+}
+
+@Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+describe "Fake describe" {
+  test "another fake test" {
+    assert.that(true)
+  }
+}
+
+package solution {
+  @Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+  class RepeatedClass {}
+
+  @Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+  class RepeatedClass {}
+
+  @Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+  mixin RepeatedMixin {}
+
+  @Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+  mixin RepeatedMixin {}
+
+  @Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+  const repeatedObject1 = 1
+
+  @Expect(code="shouldNotDuplicateGlobalDefinitions", level="error")
+  object repeatedObject1 {}
+}

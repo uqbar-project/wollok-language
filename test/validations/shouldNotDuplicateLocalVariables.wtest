@@ -1,0 +1,51 @@
+class Person {
+  var name = ""
+  var toBeHidden = 23
+  
+  method hidingFieldWithLocalVar() {
+    @Expect(code="shouldNotDuplicateLocalVariables", level="error")
+    var toBeHidden = 22
+    return toBeHidden
+  }
+  
+  method hidingParameterWithLocalVar(p1) {
+    @Expect(code="shouldNotDuplicateLocalVariables", level="error")
+    var p1 = 23
+    return p1
+  }
+  
+}
+
+class DuplicatedChecksTest {
+  method run() {
+    @Expect(code="shouldNotDuplicateLocalVariables", level="error")
+    const u = 23
+  
+    @Expect(code="shouldNotDuplicateLocalVariables", level="error")
+    const u = 566
+  }
+}
+
+describe "pruebas generales" {
+	var a = 8
+  const b = 3
+	
+	test "Max between 5 and 8 - using vars" {
+		@Expect(code="shouldNotDuplicateLocalVariables", level="error")
+		const a = 3
+		const result = 5.max(a)
+		assert.equals(3, result)
+	}
+
+  test "Max between 5 and 8 - using consts" {
+		@Expect(code="shouldNotDuplicateLocalVariables", level="error")
+		const b = 3
+		const result = 5.max(b)
+		assert.equals(3, result)
+	}
+
+	test "Min between 5 and 8" {
+		const result = 5.min(a)
+		assert.equals(5, result)
+	}
+}
