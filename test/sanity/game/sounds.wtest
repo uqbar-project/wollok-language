@@ -16,6 +16,18 @@ describe "sound tests" {
       sound.volume(1)
     }
   }
+  
+  test "volume property" {
+  	const volume = 1
+  	sound.volume(volume)
+  	assert.equals(volume, sound.volume())
+  }
+  
+  test "shouldLoop property" {
+  	const shouldLoop = true
+  	sound.shouldLoop(shouldLoop)
+  	assert.that(sound.shouldLoop())
+  }
 
   test "volume cannot be set lower than 0" {
     assert.throwsException { => sound.volume(-3) }

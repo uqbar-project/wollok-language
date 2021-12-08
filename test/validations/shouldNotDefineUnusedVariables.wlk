@@ -143,7 +143,7 @@ object usedByAlwaysBranch {
 
 // A const property with native methods
 class ObjectMirrorStub {
-  const target
+  const property target
 
   /*
    * Accesses a variable by name, in a reflexive way.
