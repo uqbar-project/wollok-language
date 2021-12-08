@@ -16,9 +16,9 @@ program main {
 
   2 + @Expect(code="shouldNotUseSelf", level="error") self.someVariable()
 
-  const collection = ['a', 'b', 'c']
+  const collection1 = ['a', 'b', 'c']
    
-  collection.contains(@Expect(code="shouldNotUseSelf", level="error") self)
+  collection1.contains(@Expect(code="shouldNotUseSelf", level="error") self)
 
   const anObject = object {
     method aMethod() {

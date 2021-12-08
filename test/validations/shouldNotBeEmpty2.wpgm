@@ -1,0 +1,3 @@
+program emptyProgram @Expect(code="shouldNotBeEmpty", level="warning") {
+
+}

@@ -35,29 +35,48 @@ class SomeClass {
  * ===============================================================================*/
 
 class A {
-	const property a = 2
-	
-	override method initialize() {
-		@Expect(code = "shouldNotReassignConst", value = "error")
-		a = 1
-	}
+  const property a = 2
+  
+  override method initialize() {
+    @Expect(code = "shouldNotReassignConst", value = "error")
+    a = 1
+  }
 }
 
 class B inherits A {
-	var property b
+  var property b
 
-	override method initialize() {
-		super()
-		b = 2
-	}
+  override method initialize() {
+    super()
+    b = 2
+  }
 }
 
 class C {
-	var property a = 1
-	const property b
+  var property a = 1
+  const property b
   
-	override method initialize() {
+  override method initialize() {
     @Expect(code = "shouldNotReassignConst", value = "error")
-		b = a + 1
-	}
+    b = a + 1
+  }
+}
+
+/* ================================================================================
+ * - multiops operators
+ * ===============================================================================*/
+
+class MultiOpsOperations {
+  
+  method run() {
+    var n = 1
+    n = n + 1  // OK
+    
+    const m = 1
+    @Expect(code = "shouldNotReassignConst", value = "error")
+    m -= 3
+
+    @Expect(code = "shouldNotReassignConst", value = "error")
+    m += 3
+  }  
 }

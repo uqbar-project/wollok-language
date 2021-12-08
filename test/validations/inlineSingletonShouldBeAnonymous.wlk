@@ -1,11 +1,10 @@
 object namedObject {
 
   // Inline objects must always be unnamed
-  var f = object { }
+  var property f = object { }
 
   method m() {
     // Inline objects must be unnamed
-    @Expect(code="inlineSingletonShouldBeAnonymous", level="error")
-    object otherNamedObject { }
+    return @Expect(code="inlineSingletonShouldBeAnonymous", level="error") object otherNamedObject { }
   }
 }

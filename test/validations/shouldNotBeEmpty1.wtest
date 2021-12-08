@@ -5,10 +5,6 @@ describe "describe with empty test" {
 
 }
 
-program emptyProgram @Expect(code="shouldNotBeEmpty", level="warning") {
-
-}
-
 class ClassWithEmptyMethod {
 
   // OK

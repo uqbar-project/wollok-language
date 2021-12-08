@@ -1,6 +1,5 @@
 class Person {
-  var name = ""
-  var toBeHidden = 23
+  var property toBeHidden = 23
   
   method hidingFieldWithLocalVar() {
     @Expect(code="shouldNotDuplicateLocalVariables", level="error")

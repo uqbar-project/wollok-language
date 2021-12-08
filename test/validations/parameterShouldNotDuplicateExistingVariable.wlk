@@ -1,6 +1,5 @@
 class Person {
-  var name = ""
-  var toBeHidden = 23
+  var property toBeHidden = 23
 
   method repeatedParameters(
     @Expect(code="parameterShouldNotDuplicateExistingVariable", level="error")

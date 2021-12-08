@@ -151,6 +151,31 @@ object joaquin {
     @Expect(code="shouldReturnAValueOnAllFlows", level="error")
     if (tocaEnGrupo) 5
 
+  method validarFelicidad() {
+    assert.equals(10, @Expect(code="shouldReturnAValueOnAllFlows", level="error") if (tocaEnGrupo) 5)
+  }
+
+  method felicidadTotal(numero) = numero + @Expect(code="shouldReturnAValueOnAllFlows", level="error") (if (tocaEnGrupo) 5)
+
+  method ifInsideExpressionWithoutElseShouldFailForReturn() {
+    return @Expect(code="shouldReturnAValueOnAllFlows", level="error") (if(1 == 2) 2)
+  }
+
+  method ifInsideExpressionWithoutElseShouldFailForBinaryLeftOperation() {
+    return (@Expect(code="shouldReturnAValueOnAllFlows", level="error") if(1 == 2) 2) + 3
+  }
+
+  method ifInsideExpressionWithoutElseShouldFailInAssignment() {
+    var failed = @Expect(code="shouldReturnAValueOnAllFlows", level="error") if(1 == 2) 2
+    const ok = if (1 == 2) 2 else 3
+    failed = ok
+    return ok == 3
+  }
+
+  method invokeAddOneTo() {
+    return self.felicidadTotal(@Expect(code="shouldReturnAValueOnAllFlows", level="error") if (1 == 2) 4)
+  }
+
   method testValorDevueltoOFecha() =
     // OK
     if (tocaEnGrupo) 5 else new Date().plusDays(30)
@@ -175,7 +200,7 @@ object joaquin {
   // OK
   method nombreFancy() = if (nombre != null) ("<" + nombre.toString() + ">") else ""
 
-    override method == (otroMusico) {
+  override method == (otroMusico) {
     // OK, return is not the last line
     if (otroMusico == null) return false
   
