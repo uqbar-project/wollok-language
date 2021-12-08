@@ -18,7 +18,7 @@ class InstanceVariableMirror {
   * from the object whose structure is being introspected. 
   */
 class ObjectMirror {
-  const target
+  const property target
 
   /*
    * Accesses a variable by name, in a reflexive way.
