@@ -29,6 +29,10 @@ describe "asserts unificados" {
   /****************************************************************************/
 
 
+  test "initial energy" {
+    assert.equals(100, energiaInicial)
+  }
+
   @Expect(code="shouldHaveAssertInTest", level="warning")
   test "testWithBinaryOperation" {
     1 + 1

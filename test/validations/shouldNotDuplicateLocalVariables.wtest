@@ -47,4 +47,8 @@ describe "pruebas generales" {
 		const result = 5.min(a)
 		assert.equals(5, result)
 	}
+
+  test "ok, initial value for b (just to avoid unused variables)" {
+    assert.equals(3, b)
+  }
 }
