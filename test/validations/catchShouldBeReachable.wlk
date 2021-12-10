@@ -1,7 +1,7 @@
 class ReachAException inherits wollok.lang.Exception {}
 class ReachBException inherits wollok.lang.Exception {}
 class ReachCException inherits wollok.lang.Exception {}
-// TODO: Falta una DException que herede de CException y catchear primero CException y después DException
+class ReachDException inherits ReachCException {}
       
 class A { 
   method m1() { throw new ReachCException(message = "hello you see") }
@@ -37,4 +37,30 @@ object p {
     catch e : ReachBException
       assert.fail("incorrect catch !")
   }
+
+  method catchingFromSpecificToMoreGeneralOk() {
+    try {
+      a.m1()
+      assert.that(true)
+    } 
+    catch e: ReachDException
+      assert.fail("D exception is not ok")
+    catch e: ReachCException
+      assert.fail("C exception is still not good")
+    catch e
+      assert.equals(1, 1)
+  }
+
+  method catchingFromGeneralToSpecificNotOk() {
+    try {
+      a.m1()
+      assert.that(true)
+    } 
+    catch e: ReachCException
+      assert.fail("C exception is still not good")
+    @Expect(code = "catchShouldBeReachable", level="error")
+    catch e: ReachDException
+      assert.fail("D exception is not ok")
+  }
+
 }
