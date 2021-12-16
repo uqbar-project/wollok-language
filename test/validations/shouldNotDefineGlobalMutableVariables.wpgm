@@ -8,4 +8,5 @@ program someProgram {
   // OK
   var variableInsideProgramAllowed = 0
   const constantReferenceInsideProgramIsAlsoOk = "holu"
+  variableInsideProgramAllowed = 1
 }

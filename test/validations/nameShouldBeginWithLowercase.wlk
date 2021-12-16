@@ -13,9 +13,10 @@ object pepita {
   }
 
   method eat(grams) {
-    var doubleGrams = grams * 2
+    const doubleGrams = grams * 2
     @Expect(code="nameShouldBeginWithLowercase", level="warning")
     var Total = doubleGrams + 100
+    Total = Total / energy
     energy = energy + Total
   }
 }

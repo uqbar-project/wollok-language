@@ -44,6 +44,7 @@ describe "pruebas generales" {
 	}
 
 	test "Min between 5 and 8" {
+    a = 9
 		const result = 5.min(a)
 		assert.equals(5, result)
 	}
