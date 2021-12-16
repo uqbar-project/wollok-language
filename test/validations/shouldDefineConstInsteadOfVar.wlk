@@ -156,3 +156,15 @@ object variableDefinedInLambdaWithReassignmentNotRaisesWarning {
 		}
 	}
 }
+
+class SomeClass {
+	method someMethod() {
+		var variableUpdatedInBlock = ""
+		[1, 2, 3].map { number =>
+			if (number.even()) {
+				variableUpdatedInBlock = number.toString()
+			}
+			number + 1
+		}
+	}
+}
