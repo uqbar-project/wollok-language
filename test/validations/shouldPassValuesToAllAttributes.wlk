@@ -9,6 +9,7 @@ class Ave {
 	method variableInicializadaConNull() = variableInicializadaConNull
 	method cumplirAnios() {
 		edad = edad + 1
+		variableInicializadaConNull = true
 	}
 	method volar() { energia = energia - 10 }
 }
@@ -21,6 +22,9 @@ class Golondrina inherits Ave {
 class Torcaza inherits Ave {
 	var color
 	
+	method crecer() {
+		color = "rojo"
+	}
 	method esLinda() = color === "rojo"
 }
 

@@ -345,7 +345,7 @@ class B inherits A {
 }
 
 class C inherits A {
-  var siPuede = true
+  const siPuede = true
 
   // Send + super cases =================================================================
 
@@ -357,7 +357,7 @@ class C inherits A {
 }
 
 class D inherits A {
-  var quizasPuede = true
+  const quizasPuede = true
 
   // Literal + super cases =================================================================
 
@@ -369,7 +369,7 @@ class D inherits A {
 }
 
 class E inherits A {
-  var capazQueSi = true
+  const capazQueSi = true
 
   // Reference + super cases =================================================================
 

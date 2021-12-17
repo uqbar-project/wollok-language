@@ -5,6 +5,8 @@ object p {
     var a = 2
     const b = 2
 
+    a = a + 1
+    
     @Expect(code="shouldUseBooleanValueInIfCondition", level="error")
     if (null)
       throw new Exception(message = "asd")

@@ -1,0 +1,2 @@
+// It's ok if you import same file from wtest
+import shouldNotImportSameFile2.*

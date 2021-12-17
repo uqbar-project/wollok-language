@@ -17,13 +17,13 @@ object someObject {
 // Happy paths
 // Used by variable
 object usedByAnotherVariable {
-  var usedVariable = 6
+  const usedVariable = 6
   var property referencingVariable = usedVariable + 1
 }
 
 // Used by local variable
 object usedByLocalVariable {
-  var usedVariable = 6
+  const usedVariable = 6
   method methodUsingVariable() {
     const condition = usedVariable > 6
     return if (condition) 2 else 3
@@ -32,28 +32,28 @@ object usedByLocalVariable {
 
 // Used by return + if - condition branch
 object usedByReturnCondition {
-  var usedVariable = 6
+  const usedVariable = 6
   method methodUsingVariable() = if (usedVariable.even()) 3 else 2
 }
 
 
 // Used by return + if - if branch
 object usedByReturnIf {
-  var usedVariable = 6
-  var anotherVariable = true
+  const usedVariable = 6
+  const anotherVariable = true
   method methodUsingVariable() = if (anotherVariable) usedVariable else 2
 }
 
 // Used by return + if - else branch
 object usedByReturnElse {
-  var usedVariable = 6
-  var anotherVariable = true
+  const usedVariable = 6
+  const anotherVariable = true
   method methodUsingVariable() = if (anotherVariable) 2 else usedVariable
 }
 
 // Used by plain return
 object usedByPlainReturn {
-  var usedVariable = 6
+  const usedVariable = 6
   method methodUsingVariable() {
     return usedVariable
   }
@@ -71,31 +71,31 @@ object usedByAssignment {
 
 // Used by reference
 object usedByReference {
-  var usedVariable = 6
+  const usedVariable = 6
   method methodUsingVariable() = usedVariable * 2
 }
 
 // Used by sending a message
 object usedBySendingAMessage {
-  var usedVariable = 6
+  const usedVariable = 6
   method methodUsingVariable() = usedVariable.even()
 }
 
 // Used by parameter while sending a message
 object usedByParameterSendingAMessage {
-  var usedVariable = 6
+  const usedVariable = 6
   method methodUsingVariable() = 2.max(usedVariable)
 }
 
 // Used by named parameter in new
 object usedByParameterInNew {
-  var usedVariable = 6
+  const usedVariable = 6
   method methodUsingVariable() = new Date(day = usedVariable, month = 11, year = 2021)
 }
 
 // Used by throw
 object usedByThrow {
-  var usedVariable = "There was an error"
+  const usedVariable = "There was an error"
   method methodUsingVariable() {
     throw new Exception(message = usedVariable)
   }
