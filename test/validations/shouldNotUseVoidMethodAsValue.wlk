@@ -2,9 +2,10 @@ object pepita {
 	var energy = 0
 
 	// self is the void method	
-	method eat(something) {
+	method ingest(something) {
 		energy -= something
 	}
+
 }
 
 class A {
@@ -17,13 +18,11 @@ class MethodsCalledOnWellKnowObjects inherits A {
 
 	
 	method asParameter() {
-		// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-		self.setA(pepita.eat(10))
+		self.setA(@Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10)))
 	}
 	
 	method initialization(aParam) {
-		// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-		const a = pepita.eat(10)
+		const a = @Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10))
 		
 		self.setA(a)
 	}
@@ -31,20 +30,17 @@ class MethodsCalledOnWellKnowObjects inherits A {
 	method assignment(aParam) {
 		var a = null
 		
-		// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-		a = pepita.eat(10)
+		a = @Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10))
 		
 		self.setA(a)
 	}
 	
 	method asReturnValue() {
-		// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-		return pepita.eat(10)
+		return @Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10))
 	}
 	
 	method asAnIfCondition() {
-		// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-		return if (pepita.eat(10))
+		return if (@Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10)))
 			20
 		else 
 			30	
@@ -53,39 +49,30 @@ class MethodsCalledOnWellKnowObjects inherits A {
 	method asABinaryOperatorArgument() {
 		const cond = true
 		return [
-			// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-			10 + pepita.eat(10),
-			// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-			10 * pepita.eat(10),
-			// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-			cond && pepita.eat(10),
-			// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-			cond || pepita.eat(10)
+			10 + @Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10)),
+			10 * @Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10)),
+			cond && @Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10)),
+			cond || @Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10))
 		]
 	}
 	
 	method asTargetForNewMessageSend() {
-		// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-		pepita.eat(10).cantina() 
+		(@Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10))).cantina() 
 	}
 	
 	method asListLiteralElement() {
-		// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-		return [1, 2, 3, pepita.eat(10)] 
+		return [1, 2, @Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10))]
 	}
 	
 	override method toBeOverriden(a) {
-		// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-		super(pepita.eat(10))
+		super(@Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10)))
 	}
 	
 	method asConstructorArg() {
-		// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-		return new B(a = pepita.eat(10)) 
+		return new B(a = @Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10)))
 	}
 	
-	// XPECT errors --> "Message send "eat(10)" produces no value (missing return in method?)" at "eat"
-	method asExpressionOnMethodShortcut() = pepita.eat(10) 
+	method asExpressionOnMethodShortcut() = @Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10))
 }
 
 class B {
