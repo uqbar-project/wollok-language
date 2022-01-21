@@ -272,11 +272,11 @@ object game {
   /*
    * Returns an instance of Tick class, which has methods to start,
    * stop and change the interval for a loop that executes a block of code
-   * every *interval* miliseconds.
+   * every *interval* milliseconds.
   */
   
-  method createTick(miliseconds, codeBlock) {
-    return new Tick(interval = miliseconds, action = codeBlock)
+  method createTick(milliseconds, codeBlock) {
+    return new Tick(interval = milliseconds, action = codeBlock)
   }
 
 }
@@ -619,16 +619,18 @@ class Tick {
   var interval
   
   method start() {
+    if (self.isRunning()) {game.error("This tick is already running.")}
     game.onTick(interval, name, action)
   }
 
   method stop() {
+    if (!self.isRunning()) {game.error("The tick you want to remove does not exist.")}
     game.removeTickEvent(name)
   }
 
-  method interval(miliseconds) {
+  method interval(milliseconds) {
     self.stop()
-    interval = miliseconds
+    interval = milliseconds
     self.start()
   }
 
