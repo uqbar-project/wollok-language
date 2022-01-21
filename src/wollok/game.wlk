@@ -1,4 +1,6 @@
 import wollok.vm.runtime
+import wollok.io.io
+
 
 /**
   * Wollok Game main object 
@@ -266,6 +268,17 @@ object game {
   * @private
   */
   method doStart(isRepl) native
+
+  /*
+   * Returns an instance of Tick class, which has methods to start,
+   * stop and change the interval for a loop that executes a block of code
+   * every *interval* miliseconds.
+  */
+  
+  method createTick(miliseconds, codeBlock) {
+    return new Tick(interval = miliseconds, action = codeBlock)
+  }
+
 }
 
 class AbstractPosition {
@@ -599,3 +612,28 @@ class Sound {
   method shouldLoop() native	
 
 }
+
+class Tick {
+  const name = self.identity()
+  const action
+  var interval
+  
+  method start() {
+    game.onTick(interval, name, action)
+  }
+
+  method stop() {
+    game.removeTickEvent(name)
+  }
+
+  method interval(miliseconds) {
+    self.stop()
+    interval = miliseconds
+    self.start()
+  }
+
+  method isRunning() {
+    return io.timeHandlers().containsKey(name)
+  }
+}
+
