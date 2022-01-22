@@ -624,14 +624,18 @@ class Tick {
   }
 
   method stop() {
-    if (!self.isRunning()) {game.error("The tick you want to remove does not exist.")}
+    if (!self.isRunning()) {game.error("This tick is not running.")}
     game.removeTickEvent(name)
   }
 
   method interval(milliseconds) {
-    self.stop()
-    interval = milliseconds
-    self.start()
+    if (self.isRunning()) {
+      self.stop()
+      interval = milliseconds
+      self.start()
+    } else {
+      interval = milliseconds
+    }
   }
 
   method isRunning() {
