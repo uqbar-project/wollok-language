@@ -615,11 +615,13 @@ class Sound {
 
 class Tick {
   const name = self.identity()
+  const inmediate = false
   const action
   var interval
-  
+
   method start() {
     if (self.isRunning()) {game.error("This tick is already running.")}
+    if (inmediate) {action.apply()}
     game.onTick(interval, name, action)
   }
 
