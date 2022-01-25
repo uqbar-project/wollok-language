@@ -275,8 +275,8 @@ object game {
    * every *interval* milliseconds.
   */
   
-  method createTick(milliseconds, codeBlock) {
-    return new Tick(interval = milliseconds, action = codeBlock)
+  method createTick(milliseconds, codeBlock, execInmediately) {
+    return new Tick(interval = milliseconds, action = codeBlock, inmediate = execInmediately)
   }
 
 }
