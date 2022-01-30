@@ -614,9 +614,20 @@ class Sound {
 }
 
 class Tick {
-  var interval /** The interval for the tick event **/
-  const name = self.identity() /** The ID associated to the tick event to be created **/
-  const action /** The action to be executed when the loop starts. **/
+  /** 
+  * Milliseconds to wait between each action 
+  **/
+  var interval 
+  
+  /** 
+  * The ID associated to the tick event to be created 
+  **/
+  const name = self.identity() 
+  
+  /** 
+  * Block to execute after each interval time lapse 
+  **/
+  const action 
 
   /** 
    *  Indicates whether the action will be executed as soon
