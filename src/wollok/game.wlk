@@ -269,14 +269,14 @@ object game {
   */
   method doStart(isRepl) native
 
-  /*
-   * Returns an instance of Tick class, which has methods to start,
-   * stop and change the interval for a loop that executes a block of code
-   * every *interval* milliseconds.
+  /**
+   * Returns a tick object to be used for an action execution over interval time. 
+   * The interval is in milliseconds and action is a block without params.
   */
-  
-  method createTick(milliseconds, codeBlock, execInmediately) {
-    return new Tick(interval = milliseconds, action = codeBlock, inmediate = execInmediately)
+
+  method tick(interval, action, execInmediately) {
+    if (interval < 1) {game.error("Interval must be higher than zero.")}
+    return new Tick(interval = interval, action =  action, inmediate = execInmediately)
   }
 
 }
@@ -614,34 +614,57 @@ class Sound {
 }
 
 class Tick {
-  const name = self.identity()
-  const inmediate = false
-  const action
-  var interval
+  var interval /** The interval for the tick event **/
+  const name = self.identity() /** The ID associated to the tick event to be created **/
+  const action /** The action to be executed when the loop starts. **/
 
+  /** 
+   *  Indicates whether the action will be executed as soon
+   *  as the loop starts, or it will wait to the first time interval.
+  **/
+  const inmediate = false 
+ 
+
+  /**
+   * Starts looping the action passed in to the tick
+   * object when it was instantiated. 
+  **/
   method start() {
-    if (self.isRunning()) {game.error("This tick is already running.")}
+    if (self.isRunning()) {game.error("This tick is already started.")}
     if (inmediate) {action.apply()}
     game.onTick(interval, name, action)
   }
 
+  /**
+   * Stops looping the tick.
+  **/
   method stop() {
-    if (!self.isRunning()) {game.error("This tick is not running.")}
-    game.removeTickEvent(name)
-  }
-
-  method interval(milliseconds) {
     if (self.isRunning()) {
-      self.stop()
-      interval = milliseconds
-      self.start()
-    } else {
-      interval = milliseconds
+      game.removeTickEvent(name)
     }
   }
 
+  /**
+   * Stops and starts looping the tick.
+  **/ 
+  method reset() {
+    self.stop()
+    self.start()
+  }
+
+  /**
+   * Updates the tick's loop interval.
+  **/
+  method interval(milliseconds) {
+    interval = milliseconds
+    if (self.isRunning()) {self.reset()}
+  }
+
+  /**
+   * Indicates whether the tick is currently looped or not.
+  **/
   method isRunning() {
-    return io.timeHandlers().containsKey(name)
+    return io.containsTimeEvent(name)
   }
 }
 
