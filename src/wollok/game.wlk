@@ -275,7 +275,7 @@ object game {
   */
 
   method tick(interval, action, execInmediately) {
-    if (interval < 1) {game.error("Interval must be higher than zero.")}
+    if (interval < 1) { self.error("Interval must be higher than zero.") }
     return new Tick(interval = interval, action =  action, inmediate = execInmediately)
   }
 
