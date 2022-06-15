@@ -1,0 +1,25 @@
+object pepita {}
+
+class Golondrina {}
+
+var example = object {}
+
+test "kindName for unnamed objects"{
+    assert.equals("an Object", example.kindName())
+}
+
+test "kindName for named objects"{
+    assert.equals("pepita", pepita.kindName())
+}
+
+test "kindName for class instances"{
+    var golondrina = new Golondrina()
+    assert.equals("a/an Golondrina", golondrina.kindName())
+}
+
+test "toString() equals kindName()"{
+    var golondrina = new Golondrina()
+    assert.equals(golondrina.toString(), golondrina.kindName())
+}
+
+
