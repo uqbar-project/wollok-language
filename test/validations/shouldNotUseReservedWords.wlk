@@ -18,3 +18,6 @@ class A {
     assert.that(true)
   }
 }
+
+@Expect(code = "shouldNotUseReservedWords", value = "warning")
+const wollok =11
