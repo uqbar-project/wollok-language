@@ -385,9 +385,12 @@ describe "List tests" {
   }
   
   test "Randomized should return a new list" {
-  	const aList = [ 1, 2, 3, 4 ]
-  	const clone = aList.randomized()
-  	assert.notEquals(aList.identity(), clone.identity())
+    const list = (1..100).asList()
+    const set = list.asSet()
+    const randomized = list.randomized()
+    assert.notEquals(list, randomized)
+    assert.equals(list.size(), randomized.size())
+    assert.equals(#{}, set.difference(randomized))
   }
 
 }
