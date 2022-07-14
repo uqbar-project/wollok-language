@@ -1532,11 +1532,11 @@ class List inherits Collection {
 
   /**
   * Shuffles the order of the elements in the list.
-  *
+  * This is a side effect operation.
   *
   * Examples:
   *     const list = [1, 2 ,3]
-  *     list.randomize() => list => [2, 1, 3]
+  *     list.randomize()     => list = [2, 1, 3]
   */
   method randomize() {
     self.sortBy{_,__ => [true,false].anyOne()
