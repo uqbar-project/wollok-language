@@ -1,4 +1,5 @@
 import wollok.game.*
+import wollok.io.*
 
 /**
   * Scenario: 
@@ -152,5 +153,15 @@ describe "Game" {
 
   test "Two positions are not on the same cell" {
     assert.notThat(game.onSameCell(game.at(1.5, 2.6), game.at(1.3, 2.3)))
+  }
+
+  test 'addVisualCharacter should be moved with arrow keys' {
+    const character = new Visual()
+    game.addVisualCharacter(character)
+    // Simulate
+    io.queueEvent(["keypress", "ArrowUp"])
+    io.flushEvents(0)
+    
+    assert.equals(game.at(0, 1), character.position())
   }
 }
