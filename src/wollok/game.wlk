@@ -1,6 +1,4 @@
 import wollok.vm.runtime
-import wollok.lang.io.*
-
 
 /**
   * Wollok Game main object 
@@ -181,6 +179,10 @@ object game {
    * Returns all objects that are in same position of given object.
    */  
   method colliders(visual) native
+
+  //TODO agregar descripcion
+  method currentTime() = io.currentTime()
+  method flushEvents(time) { io.flushEvents(time) }
 
   /**
    * Returns the unique object that is in same position of given object.
