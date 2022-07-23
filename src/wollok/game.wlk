@@ -72,8 +72,7 @@ object game {
    */  
   method whenKeyPressedDo(event, action) { 
     io.addEventHandler(event, action)
-    return 1
-    }
+  }
 
 
   /**
