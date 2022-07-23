@@ -5,6 +5,8 @@ import wollok.vm.runtime
   */
 object game {
 
+  const visuals = []
+
   override method initialize() {
     super()
     
@@ -171,9 +173,12 @@ object game {
   method say(visual, message) native
 
   /**
-   * Removes all visual objects on board and configurations (colliders, keys, etc).
+   * Removes all visual objects in game and configurations (colliders, keys, etc).
    */  
-  method clear() { io.clear() }
+  method clear() { 
+    visuals.clear()
+    io.clear() 
+  }
 
   /**
    * Returns all objects that are in same position of given object.
