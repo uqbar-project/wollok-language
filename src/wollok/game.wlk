@@ -6,6 +6,7 @@ import wollok.vm.runtime
 object game {
 
   const visuals = []
+  var property running = false
 
   override method initialize() {
     super()
@@ -196,13 +197,17 @@ object game {
   /**
    * Stops render the board and finish the game.
    */  
-  method stop() native
+  method stop(){
+    self.running(false)
+  }
   
   /**
    * Starts render the board in a new windows.
    */  
   method start() {
-    self.doStart(runtime.isInteractive())
+    self.running(true)
+    io.exceptionHandler({ exception => console.println(exception)})
+    io.domainExceptionHandler({exception => self.say(exception.source(), exception.message())})
   }
   
   /**
@@ -303,10 +308,7 @@ object game {
   /** 
   * @private
   */
-  method doStart(isRepl){
-    io.exceptionHandler({ exception => console.println(exception)})
-    io.domainExceptionHandler({exception => self.say(exception.source(), exception.message())})
-  }
+  // method doStart(isRepl) native
 
   /**
    * Returns a tick object to be used for an action execution over interval time. 
