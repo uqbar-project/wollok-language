@@ -185,8 +185,14 @@ object game {
    */  
   method colliders(visual) native
 
-  //TODO agregar descripcion
+  /**
+  * Returns the current Tick.
+  */
   method currentTime() = io.currentTime()
+
+  /**
+  * Runs all time event for the given time.
+  */
   method flushEvents(time) { io.flushEvents(time) }
 
   /**
