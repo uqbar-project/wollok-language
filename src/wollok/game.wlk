@@ -305,11 +305,6 @@ object game {
    */ 
   method sound(audioFile) = new Sound(file = audioFile)
 
-  /** 
-  * @private
-  */
-  // method doStart(isRepl) native
-
   /**
    * Returns a tick object to be used for an action execution over interval time. 
    * The interval is in milliseconds and action is a block without params.
