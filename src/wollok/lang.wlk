@@ -3007,24 +3007,108 @@ class Date {
  * @since 1.9.2
  */
 object io {
-  const eventHandlers = new Dictionary()
-  var eventQueue = []
+  // TODO: merge handlers
+  const property eventHandlers = new Dictionary()
+  const property timeHandlers = new Dictionary()
+  var property eventQueue = []
+  var property currentTime = 0
+  var property exceptionHandler = { e => }
+  var property domainExceptionHandler = { e => }
 
+  /**
+  * Adds given event to the eventQueue.
+  */
   method queueEvent(event) {
     eventQueue.add(event)
   }
 
-  // TODO: removeHandler
-  method addHandler(event, callback) {
+  /**
+  *  Returns a list of callbacks for the given event.
+  *  If the given event is not in the eventHandlers, it is added.
+  */
+  method eventHandlersFor(event) {
     if (!eventHandlers.containsKey(event)) eventHandlers.put(event, [])
-    eventHandlers.get(event).add(callback)
+    return eventHandlers.get(event)
   }
 
-  method flushEvents() {
+  /**
+  * Adds given callback to the given event.
+  */
+  method addEventHandler(event, callback) {
+    self.eventHandlersFor(event).add(callback)
+  }
+
+  /*
+  * Removes given event from the eventHandlers.
+  */
+  method removeEventHandler(event) {
+    eventHandlers.remove(event)
+  }
+
+  /**
+  *  Returns a list of callbacks for the given time event.
+  *  If the given time event is not in the timeHandlers, it is added.
+  */
+  method timeHandlers(name) { 
+    if (!timeHandlers.containsKey(name)) timeHandlers.put(name, [])
+    return timeHandlers.get(name)
+  }
+
+  /**
+  * Returns if given time event it's in the timeHandlers.
+  */
+  method containsTimeEvent(name) {
+    return timeHandlers.containsKey(name)
+  }
+
+  /**
+  * Adds given callback to the given time event.
+  */
+  method addTimeHandler(name, callback) {
+    self.timeHandlers(name).add(callback)
+  }
+
+  /*
+  * Removes given event from the eventHandlers.
+  */
+  method removeTimeHandler(name) {
+    timeHandlers.remove(name)
+  }
+
+  /**
+  * Removes all events from handlers.
+  */
+  method clear() {
+    eventHandlers.clear()
+    timeHandlers.clear()
+  }
+
+  /**
+  * Runs all events in the eventQueue that are in the eventHandlers and
+  * all time events in the timeHandlers for the given time.
+  */
+  method flushEvents(time) {
     const currentEvents = eventQueue.copy()
     eventQueue = []
     currentEvents.forEach{ event =>
-      eventHandlers.getOrElse(event, { [] }).forEach{ callback => callback.apply() }
+      eventHandlers.getOrElse(event, { [] }).forEach{ callback => self.runHandler({ callback.apply() }) }
+    }
+
+    timeHandlers.values().flatten().forEach{ callback => self.runHandler({ callback.apply(time) }) }
+    currentTime = time
+  }
+
+  /**
+  * Runs the given callback.
+  */
+  method runHandler(callback) {
+    try { 
+      callback.apply()
+    } catch e: DomainException{
+      domainExceptionHandler.apply(e)
+    } catch e {
+      exceptionHandler.apply(e)
     }
   }
+
 }

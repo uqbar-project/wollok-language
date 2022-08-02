@@ -1,11 +1,12 @@
 import wollok.vm.runtime
-import wollok.io.io
-
 
 /**
   * Wollok Game main object 
   */
 object game {
+
+  const visuals = []
+  var property running = false
 
   override method initialize() {
     super()
@@ -70,7 +71,10 @@ object game {
    * Adds a block that will be executed each time a specific key is pressed
    * @see keyboard.onPressDo()
    */  
-  method whenKeyPressedDo(key, action) native
+  method whenKeyPressedDo(event, action) { 
+    io.addEventHandler(event, action)
+  }
+
 
   /**
    * Adds a block that will be executed while the given object collides with other. 
@@ -81,7 +85,11 @@ object game {
    * Example:
    *     game.whenCollideDo(pepita, { comida => pepita.comer(comida) })
    */  
-  method whenCollideDo(visual, action) native
+    method whenCollideDo(visual, action) {
+    io.addTimeHandler(visual.identity(), { time => 
+			self.colliders(visual).forEach({it => action.apply(it)})
+		})
+  }
 
   /**
    * Adds a block that will be executed exactly when the given object collides with other. 
@@ -92,7 +100,14 @@ object game {
    * Example:
    *     game.onCollideDo(pepita, { comida => pepita.comer(comida) })
    */  
-  method onCollideDo(visual, action) native
+  method onCollideDo(visual, action) {
+		var lastColliders = []
+    io.addTimeHandler(visual.identity(), { time => 
+			const colliders = self.colliders(visual)
+			colliders.forEach({ it => if (self.hasVisual(visual) and !lastColliders.contains(it)) action.apply(it) })
+			lastColliders = colliders
+		})
+  }
   
   /**
    * Adds a block with a specific name that will be executed every n milliseconds.
@@ -102,7 +117,11 @@ object game {
    * Example:
    *       game.onTick(5000, "pepitaMoving", { => pepita.position().x(0.randomUpTo(4)) })
    */
-  method onTick(milliseconds, name, action) native
+  method onTick(milliseconds, name, action) {
+    var times = 0
+    const initTime = io.currentTime()
+    io.addTimeHandler(name, { time => if (milliseconds == 0 or (time - initTime).div(milliseconds) > times) { action.apply(); times+=1 } })
+  }
   
   /**
    * Adds a block that will be executed in n milliseconds.
@@ -111,7 +130,13 @@ object game {
    * Example:
    *       game.schedule(5000, { => pepita.position().x(0.randomUpTo(4)) })
    */
-  method schedule(milliseconds, action) native
+  method schedule(milliseconds, action) {
+    const name = action.identity()
+    self.onTick(milliseconds, name, {
+      action.apply()
+      io.removeTimeHandler(name)
+    })
+  }
       
   /**
    * Remove a tick event created with onTick message
@@ -119,7 +144,7 @@ object game {
    * Example:
    *      game.removeTickEvent("pepitaMoving")
    */ 
-  method removeTickEvent(name) native
+  method removeTickEvent(event) { io.removeTimeHandler(event) }
 
   /**
    * Verifies if two positions are on the same cell of the board
@@ -148,14 +173,27 @@ object game {
   method say(visual, message) native
 
   /**
-   * Removes all visual objects on board and configurations (colliders, keys, etc).
+   * Removes all visual objects in game and configurations (colliders, keys, etc).
    */  
-  method clear() native
+  method clear() { 
+    visuals.clear()
+    io.clear() 
+  }
 
   /**
    * Returns all objects that are in same position of given object.
    */  
   method colliders(visual) native
+
+  /**
+  * Returns the current Tick.
+  */
+  method currentTime() = io.currentTime()
+
+  /**
+  * Runs all time event for the given time.
+  */
+  method flushEvents(time) { io.flushEvents(time) }
 
   /**
    * Returns the unique object that is in same position of given object.
@@ -165,13 +203,17 @@ object game {
   /**
    * Stops render the board and finish the game.
    */  
-  method stop() native
+  method stop(){
+    self.running(false)
+  }
   
   /**
    * Starts render the board in a new windows.
    */  
   method start() {
-    self.doStart(runtime.isInteractive())
+    self.running(true)
+    io.exceptionHandler({ exception => console.println(exception)})
+    io.domainExceptionHandler({exception => self.say(exception.source(), exception.message())})
   }
   
   /**
@@ -268,11 +310,6 @@ object game {
    * Returns a sound object. Audio file must be a .mp3, .ogg or .wav file.
    */ 
   method sound(audioFile) = new Sound(file = audioFile)
-
-  /** 
-  * @private
-  */
-  method doStart(isRepl) native
 
   /**
    * Returns a tick object to be used for an action execution over interval time. 
