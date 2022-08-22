@@ -21,7 +21,7 @@ const pepita = object { method position() = game.at(1,3) }
   */
 describe "Game" {
 
-  method initialize() {
+  override method initialize() {
     game.clear()
   }
 

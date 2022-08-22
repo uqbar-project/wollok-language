@@ -37,7 +37,7 @@ class Visual {
   */
 describe "position" {
 
-  method initialize() {
+  override method initialize() {
     game.clear()
   }
 

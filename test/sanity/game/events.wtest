@@ -20,7 +20,7 @@ object visual inherits Visual { }
 describe 'events' {
 
 
-  method initialize() {
+  override method initialize() {
     game.addVisual(visual)
   }
 
