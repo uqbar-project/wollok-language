@@ -1,9 +1,9 @@
 object juan {
-    var mascota = firulais
+    var property mascota = firulais
 }
 
 object firulais {
-    var duenio = juan
+    var property duenio = juan
 }
 
 class Entrenador{
