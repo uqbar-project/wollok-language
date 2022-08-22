@@ -4,7 +4,7 @@
   *
   */
 class Golondrina {
-  var energia = 100
+  const energia = 100
 
   method energia() = energia
   method capacidadDeVuelo() = 10
