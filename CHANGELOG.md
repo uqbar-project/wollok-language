@@ -4,6 +4,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Currently, the Wollok language does not adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). 
 Hopefully, we will be able to do that in the near future.
 
+## v3.1.3
+- Moving game tests from TS to lang
+
+## v3.1.2
+- Added methods in `io` object.
+- The following methods are no longer native: 
+  - whenKeyPressDo, whenCollideDo, onCollideDo, onTick, schedule, removeTickEvent, clear and stop in game object.
+- Added methods `currentTime()` and `flushEvents(time)` in game object.
+- Changes in method `start()` in game object.
+- Deprecating method `doStart` in game object.
+- Added `game` tests (see `test/sanity/game` folder).
+
+## v3.1.1
+- Minor test refactors
+
 ## v3.1.0
 - We have annotations! 🥳
 - New `@Expect` annotation used in validation tests.
