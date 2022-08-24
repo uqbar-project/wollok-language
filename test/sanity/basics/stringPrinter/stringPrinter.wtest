@@ -1,5 +1,5 @@
 const pepita = object {
-  var energia = 10
+  var property energia = 10
   override method toString() = "pepita"
 }
 
