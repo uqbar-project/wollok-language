@@ -41,7 +41,7 @@ describe "Null Test Case" {
   }
 
   test "== operator sent to null" {
-    var valorNulo
+    const valorNulo
     // Just to check if the null can be tested against a WKO
     // Cannot be performed directly because you should not use comparison over WKO
     const anotherAssert = assert
@@ -82,7 +82,7 @@ describe "Null Test Case" {
   }
 
   test "if in a null expression" {
-    var expresionNula
+    const expresionNula
     try {
       if (expresionNula) {
         assert.fail("Null Expression did not fail!")
@@ -102,7 +102,7 @@ describe "Null Test Case" {
   }
 
   test "check null by identity" {
-    var a = null
+    const a = null
     assert.that(a == null)
     assert.notThat(a != null)
     assert.that(a === null)
