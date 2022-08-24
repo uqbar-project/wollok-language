@@ -5,7 +5,7 @@
 class A {
 	var property a
 	
-	method initialize() {
+	override method initialize() {
 		a = 1
 	}
 }
@@ -13,7 +13,7 @@ class A {
 class B inherits A {
 	var property b
 	
-	method initialize() {
+	override method initialize() {
 		b = a + 1
 	}
 }
@@ -21,7 +21,7 @@ class B inherits A {
 class C inherits B {
 	var property c
 	
-	method initialize() {
+	override method initialize() {
     a = 5
 		super()
     c = b + 1

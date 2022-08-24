@@ -8,7 +8,7 @@ class Persona{
   var deseos = []
 
 
-  method initialize() {
+  override method initialize() {
     // allows local variables too
     const dobleDeEdad = 2 * edad
     edad = dobleDeEdad
