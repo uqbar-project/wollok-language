@@ -2,7 +2,7 @@
   * Scenario: a named object without attribute initialization
   * and some other classes and named objects
   */
-class Golondrina { var energia = 0 }
+class Golondrina { var property energia = 0 }
 
 object pepita {
   var energia

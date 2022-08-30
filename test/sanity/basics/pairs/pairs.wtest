@@ -1,6 +1,5 @@
 describe "pairs" {
 
-  const pair = 1->2
 
   test "smoke test" {
     const pair = new Pair(x = 1, y = 2)

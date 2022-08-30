@@ -25,7 +25,7 @@ mixin M {
 }
 
 mixin M2 {
-  var z2 = 11
+  var property z2 = 11
   method z2() = z2
 }
 

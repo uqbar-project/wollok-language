@@ -32,7 +32,7 @@ describe "singletons - using literals" {
 
   test "literal object with instance variables and a simple return method" {
     const myObject = object {
-      var a
+      var a = 0
       method a(_a){
         a = _a
       }

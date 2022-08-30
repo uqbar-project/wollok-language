@@ -5,7 +5,7 @@ describe "Assignments and fields" {
 
   test "Simple assignment" {
     const myObject = object {
-      var a 
+      var a = 0
       method assignA(b) {
         a = b
       }

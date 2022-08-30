@@ -30,7 +30,7 @@ describe "If expressions" {
 
   test "if without '{}'" {
     const o = object {
-      var t
+      var t = 5
 
       method editT() {
         t = 1
@@ -77,7 +77,7 @@ describe "If expressions" {
 
   test "if with 'then' with a multi-sentence curly-braced body" {
     const o = object {
-      var p
+      var p = 5
       method m(a){
         if (a) {
           p = 1
