@@ -59,17 +59,19 @@ describe "Null Test Case" {
   }
   
   test "equalEqualOperatorWithANullArgument" {
+      const anotherAssert = assert
       assert.notThat(8 == null)
       assert.notThat("pepe" == null)
       assert.notThat(false == null)
       assert.notThat(2.0 == null)
       assert.notThat(1..2 == null)
       assert.notThat([1,2,3] == null)
-      assert.notThat(assert == null)
+      assert.notThat(anotherAssert == null)
       assert.notThat(new Golondrina() == null)
   }
 
   test "== operator with a null argument" {
+    const anotherAssert = assert
     assert.notThat(8 == null)
     assert.notThat("pepe" == null)
     assert.notThat(false == null)
@@ -77,7 +79,7 @@ describe "Null Test Case" {
     assert.notThat(1..2 == null)
     assert.notThat([1,2,3] == null)
     assert.notThat(#{1,2,3} == null)
-    assert.notThat(assert == null)
+    assert.notThat(anotherAssert == null)
     assert.notThat(new Golondrina() == null)
   }
 
