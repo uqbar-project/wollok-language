@@ -2,7 +2,7 @@
   * Scenario: a simple initialization class with well ordered variable declarations
   */
 class A {
-  var y = 0
+  const y = 0
   var property x = y + 1
 
   method m() = y + x

@@ -9,7 +9,7 @@ class Auto {
   * Tests
   */
 test "object inheriting from a class - calling a property" {
-  var age = 33
+  const age = 33
 
   const dodge = object inherits Auto(kms = 2000) {
     method age() {

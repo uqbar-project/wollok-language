@@ -2,11 +2,11 @@
   * Scenario: a class and a wko having common attributes
   */
 class Alumno { 
-  var nombre 
+  var property nombre
 }
 
 object manuel {
-  var nombre = "ElManu"
+  var property nombre = "ElManu"
 }
 
 /**

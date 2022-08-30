@@ -19,7 +19,7 @@ object closureErrorMock {
 
 describe 'flush events' {
 
-  method initialize() {
+  override method initialize() {
     game.start()
   }
 

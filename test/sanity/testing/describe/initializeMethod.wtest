@@ -18,7 +18,7 @@ object alpiste {
 describe "testing test initialization runs before every test" {
   const pepita = new Golondrina()
 
-  method initialize() {
+  override method initialize() {
     pepita.comer(alpiste)
     pepita.comer(alpiste)
   }
@@ -38,7 +38,7 @@ describe "testing test initialization runs before every test" {
 describe "const references cannot be initially assigned in a test initialization" {
   const uno
 
-  method initialize() {
+  override method initialize() {
     assert.throwsException { => uno = 1 }
   }
 
@@ -50,7 +50,7 @@ describe "const references cannot be initially assigned in a test initialization
 describe "const references cannot be additionally assigned in a test initialization" {
   const uno = 1
 
-  method initialize() {
+  override method initialize() {
     assert.throwsException { => uno = 1 }
   }
 
@@ -62,7 +62,7 @@ describe "const references cannot be additionally assigned in a test initializat
 describe "describe can have local variables in init method" {
   var valor = 0
 
-  method initialize() {
+  override method initialize() {
     const numero = 5
     valor = numero * 2
   }

@@ -14,10 +14,10 @@ describe "number identity" {
   }
 
   test "test variables in different scopes should have the same identity" {
-    var a = 33
+    const a = 33
 
-    var o = object {
-      var b = 33
+    const o = object {
+      const b = 33
       method b() { return b }
     }
 

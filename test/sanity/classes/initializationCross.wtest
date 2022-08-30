@@ -2,8 +2,8 @@
   * Scenario: A Class with cross-referenced attributes
   */
 object abc {
-  var x = 20
-  var y = x * 2
+  const x = 20
+  const y = x * 2
 
   method getY() {
     return y
