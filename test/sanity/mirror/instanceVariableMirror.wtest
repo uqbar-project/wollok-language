@@ -2,6 +2,10 @@ import wollok.mirror.InstanceVariableMirror
 
 class Capitan {
   const nombre
+
+  method nameAndTitle(){
+    return "Capitan " + nombre
+  }
 }
 
 const mirrorCapitan = new InstanceVariableMirror(
@@ -21,7 +25,11 @@ describe "given instance variable mirror" {
 
   test "you can ask the value for an instance variable of a named object, even if it has no getter" {
     const pepita = object {
-      var energia = 30
+      const energia = 30
+
+      method volar() {
+        return energia > 20
+      }
     }
 
     const mirrorPepita = new InstanceVariableMirror(target = pepita, name = "energia")

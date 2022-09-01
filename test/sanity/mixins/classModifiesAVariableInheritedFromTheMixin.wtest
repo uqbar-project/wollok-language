@@ -3,6 +3,8 @@
   */
 mixin Energy {
   var energy = 100
+
+  method isOverPowered() { return energy > 110}
 }
 
 class Bird inherits Energy {
