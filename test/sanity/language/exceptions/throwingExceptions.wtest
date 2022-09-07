@@ -9,6 +9,7 @@ describe "throwing exceptions" {
 
   test "assert throws exception failing" {
     var a = 0
+    a += 1
     assert.throwsExceptionLike(
       new AssertionException(message = "Block { a + 1 } should have failed"),
       { assert.throwsException({ a + 1 }) }

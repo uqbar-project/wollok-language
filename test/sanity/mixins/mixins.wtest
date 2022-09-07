@@ -9,6 +9,8 @@ class Warrior {}
 mixin Energy {
   var energy = 100
   method energy() = energy
+
+  method a (e) { energy -= e }
 }
 
 mixin Flies {
