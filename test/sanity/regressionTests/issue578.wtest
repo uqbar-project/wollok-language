@@ -1,5 +1,5 @@
 object link {
-  var arma
+  const arma = null
   method atacarA(alguien) {
     arma.causarDanio(alguien)
   }

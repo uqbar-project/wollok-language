@@ -9,7 +9,7 @@ class Bird inherits Energy {
   method fly(meters) {
     energy -= meters
   }
-  method energy() = energy
+  override method energy() = energy
 }
 
 /**
