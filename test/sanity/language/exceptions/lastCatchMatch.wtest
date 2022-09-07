@@ -15,6 +15,7 @@ class A {
   */
 test "Test catch without type matching the last catch" {
   const a = new A()
+  var isCorrect = false
   try {
     a.m1()
     assert.fail("Should have thrown exception")
@@ -26,6 +27,7 @@ test "Test catch without type matching the last catch" {
     assert.fail("incorrect catch !")
   }
   catch e {
-  // OK !
+    isCorrect = true
   }
+  assert.that(isCorrect)
 }
