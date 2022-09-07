@@ -30,31 +30,37 @@ describe "testing exceptions" {
   }
 
   test "use throwsExceptionLike with different message should fail" {
+    var haveThrown = false
     try {
       assert.throwsExceptionLike(new BusinessException(message = "chau"), { => throw new BusinessException(message = "hola") })
       assert.fail("Should have thrown an exception in use throwsExceptionLike")
     } catch ex {
-      /* OK */
+      haveThrown = true
     }
+    assert.that(haveThrown)
   }
 
   test "throws special kind of exception do not catch other exceptions" {
+    var haveThrown = false
     try {
       assert.throwsExceptionLike(new BusinessException(), { => throw new OtherBusinessException() })
       assert.fail("Should have thrown error in throws special kind of exception dont catch other exception")
     }
     catch ex {
-      /* OK */
+      haveThrown = true
     }
+    assert.that(haveThrown)
   }
 
   test "throws special kind of exception fails when block does not throw an exception" {
+    var haveThrown = false
     try {
       assert.throwsExceptionLike(new BusinessException(), { => 5 })
       assert.fail("Should have thrown error in throws special kind of exception fails when block does not throw an exception")
     } catch ex {
-      /* OK */
+      haveThrown = true
     }
+    assert.that(haveThrown)
   }
 
   test "use throwsExceptionWithMessage - happy path" {
@@ -62,13 +68,15 @@ describe "testing exceptions" {
   }
 
   test "use throwsExceptionWithMessage: expecting a message but getting other, should fail" {
+    var haveThrown = false
     try {
       assert.throwsExceptionWithMessage("hola!", { => throw new BusinessException(message = "Jamaica") })
       assert.fail("Should have thrown an exception in throwsExceptionWithMessage getting other message")
     }
     catch ex {
-      /* OK */
+      haveThrown = true
     }
+    assert.that(haveThrown)
   }
 
   test "use throwsExceptionWithType - happy path" {
@@ -76,13 +84,15 @@ describe "testing exceptions" {
   }
 
   test "Use throwsExceptionWithType" {
+    var haveThrown = false
     try {
       assert.throwsExceptionWithType(new BusinessException(message = "hola!"), { => throw new OtherBusinessException(message = "hola!") })
       assert.fail("Should have thrown an exception in throwsExceptionWithType getting same message but different exception")
     }
     catch ex {
-      /* OK */
+      haveThrown = true
     }
+    assert.that(haveThrown)
   }  
 
 }
