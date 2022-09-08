@@ -1,9 +1,9 @@
 /**
-  * Scenario: classes with variables, assigned in initialize method
+  * Scenario: classes with constants, assigned in initialize method
   *
   */
 class D {
-	var property a
+	const property a
 
 	override method initialize() {
 		a = 1
@@ -11,7 +11,7 @@ class D {
 }
 
 class E {
-	var property a = 2
+	const property a = 2
 
 	override method initialize() {
 		a = 1
