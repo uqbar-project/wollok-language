@@ -35,13 +35,14 @@ describe "first catch matches" {
 
   test "first catch matches - sibling exceptions - first catch" {
     const b = new B()
+    var isCorrect = false
 
     try {
       b.m1()
       assert.fail("Should have thrown exception")
     }
     catch e : AException {
-      // OK !
+      isCorrect = true
     }
     catch e : BException {
       assert.fail("incorrect catch !")
@@ -49,10 +50,13 @@ describe "first catch matches" {
     catch e {
       assert.fail("incorrect catch !")
     }
+    assert.that(isCorrect)
   }
 
   test "first catch matches - sibling exceptions - second catch" {
     const b = new B()
+    var isCorrect = false
+
     try {
       b.m2()
       assert.fail("Should have thrown exception")
@@ -61,15 +65,18 @@ describe "first catch matches" {
       assert.fail("incorrect catch !")
     }
     catch e : BException {
-      // OK !
+      isCorrect = true
     }
     catch e {
       assert.fail("incorrect catch !")
     }
+    assert.that(isCorrect)
   }
 
   test "first catch matches - sibling exceptions - last catch" {
     const b = new B()
+    var isCorrect = false
+
     try {
       b.m3()
       assert.fail("Should have thrown exception")
@@ -81,8 +88,9 @@ describe "first catch matches" {
       assert.fail("incorrect catch !")
     }
     catch e {
-      // OK !
+      isCorrect = true
     }
+    assert.that(isCorrect)
   }
 
   test "first catch matches - exception subclass hierarchy" {

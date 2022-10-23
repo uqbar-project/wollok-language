@@ -6,7 +6,8 @@ class Arma {
 }
 
 class Unidad {
-  var nombre = "Peloton"
+  const nombre = "Peloton"
+  method nombre() = nombre
 }
 
 class UnidadArmada inherits Unidad {

@@ -2,16 +2,14 @@
   * Scenario: a class mixed with a mixin
   */
 mixin Energy {
-  var energy = 100
-
-  method isOverPowered() { return energy > 110}
+  var property energy = 100
 }
 
 class Bird inherits Energy {
   method fly(meters) {
     energy -= meters
   }
-  method energy() = energy
+  override method energy() = energy
 }
 
 /**

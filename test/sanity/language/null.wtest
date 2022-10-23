@@ -5,7 +5,7 @@
 class Golondrina { var property energia = 0 }
 
 object pepita {
-  var energia
+  var energia = null
   method energia() { return energia }
 
   method volar(metros) { energia -= metros * 10 }
@@ -36,8 +36,9 @@ describe "Null Test Case" {
   }
 
   test "boolean operators sent to null" {
-    assert.throwsException({ null || null })
-    assert.throwsException({ null && null })
+    const a = null
+    assert.throwsException({ a || a })
+    assert.throwsException({ a && a })
   }
 
   test "== operator sent to null" {

@@ -28,32 +28,36 @@ describe "booleans - tests with literals" {
     assert.notThat(not true)
   }
 
-  test "and operator used with literals true and false" {
-    assert.that(true && true)
-    assert.that(true and true)
+  test "and operator used with const assigned to literals true and false" {
+    const aTrue = true
+    const aFalse = false
+    assert.that(aTrue && aTrue)
+    assert.that(aTrue and aTrue)
 
-    assert.notThat(true && false)
-    assert.notThat(true and false)
+    assert.notThat(aTrue && aFalse)
+    assert.notThat(aTrue and aFalse)
 
-    assert.notThat(false && true)
-    assert.notThat(false and true)
+    assert.notThat(aFalse && aTrue)
+    assert.notThat(aFalse and aTrue)
 
-    assert.notThat(false && false)
-    assert.notThat(false and false)
+    assert.notThat(aFalse && aFalse)
+    assert.notThat(aFalse and aFalse)
   }
 
-  test "or operator used with literals true and false" {
-    assert.that(true || true)
-    assert.that(true or true)
+  test "or operator used with const assigned to literals true and false" {
+    const aTrue = true
+    const aFalse = false
+    assert.that(aTrue || aTrue)
+    assert.that(aTrue or aTrue)
 
-    assert.that(true || false)
-    assert.that(true or false)
+    assert.that(aTrue || aFalse)
+    assert.that(aTrue or aFalse)
 
-    assert.that(false || true)
-    assert.that(false or true)
+    assert.that(aFalse || aTrue)
+    assert.that(aFalse or aTrue)
 
-    assert.notThat(false || false)
-    assert.notThat(false or false)
+    assert.notThat(aFalse || aFalse)
+    assert.notThat(aFalse or aFalse)
   }
 
   test "using and operator with closures" {
