@@ -3,8 +3,8 @@
   * a long named parameter instantiation.
   */
 class Point {
-  var x
-  var y
+  const x
+  const y
   method total() = x + y
 }
 
