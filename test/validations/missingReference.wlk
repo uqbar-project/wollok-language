@@ -1,9 +1,11 @@
+import @Expect(code="missingReference", level="error") inexistentFile.*
+
 object pepita {
   
   method energia() = @Expect(code="missingReference", level="error") energia
   
   method comer(p) {
-    @Expect(code="missingReference", level="error", variable=true)
+    @Expect(code="missingReference", level="error", path="variable")
     energia = 100
   }
 
@@ -14,7 +16,7 @@ object pepita {
   } 
 }
 
-object o1 {
+class C inherits @Expect(code="missingReference", level="error", path="reference") InexistentClass {
   method catchingNonExistingException() {
     try {
       assert.that(true)
@@ -27,5 +29,7 @@ object o1 {
   }
 }
 
+mixin M inherits @Expect(code="missingReference", level="error", path="reference") InexistentMixin { }
+
 const a = new @Expect(code = "missingReference", level="error") InexistClass(
-  @Expect(code = "namedArgumentShouldExist", level="error")edad = 5)
+  @Expect(code = "namedArgumentShouldExist", level="error") edad = 5)
