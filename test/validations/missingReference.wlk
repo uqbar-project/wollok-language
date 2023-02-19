@@ -31,5 +31,4 @@ class C inherits @Expect(code="missingReference", level="error", path="reference
 
 mixin M inherits @Expect(code="missingReference", level="error", path="reference") InexistentMixin { }
 
-const a = new @Expect(code = "missingReference", level="error") InexistClass(
-  @Expect(code = "namedArgumentShouldExist", level="error") edad = 5)
+const a = new @Expect(code = "missingReference", level="error") InexistClass(edad = 5)
