@@ -9,7 +9,7 @@ object pepita {
     energia = 100
   }
 
-  method estaCansa() = @Expect(code="missingReference", level="error") energia < 10
+  method estaCansada() = @Expect(code="missingReference", level="error") energia < 10
 
   method methodName() {
     self.comer(@Expect(code="missingReference", level="error") energia)
