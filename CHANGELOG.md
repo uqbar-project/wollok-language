@@ -5,6 +5,9 @@ Currently, the Wollok language does not adhere to [Semantic Versioning](https://
 Hopefully, we will be able to do that in the near future.
 
 ## v3.1.4
+- Adding sanity tests for missing reference error
+
+## v3.1.4
 - More sanity tests for validations
 - Minor test refactors
 
