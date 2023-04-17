@@ -1,8 +1,9 @@
-import solucion.*
+import trenes.*
+import depositos.*
 
 describe "trenes example" {
 
-  const tren = new Tren()
+  const tren = tren1
 
   method initialize() {
     tren.agregarVagon(new VagonPasajeros(ancho = 2, largo = 10))
@@ -91,7 +92,7 @@ describe "deposito" {
   const trenNoSeMueve = new Tren()
   const vagonMasPesadoDeTren = new VagonPasajeros(ancho = 3, largo = 10)
   const vagonMasPesadoDeTrenNoSeMueve = new VagonPasajeros(ancho = 3, largo = 12)
-  const deposito = new Deposito()
+  const deposito = deposito1
 
   method initialize() {
     tren.agregarVagon(new VagonPasajeros(ancho = 2, largo = 10))
