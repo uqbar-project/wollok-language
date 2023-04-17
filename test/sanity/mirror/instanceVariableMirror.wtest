@@ -27,7 +27,7 @@ describe "given instance variable mirror" {
     const pepita = object {
       const energia = 30
 
-      method volar() {
+      method puedeVolar() {
         return energia > 20
       }
     }
