@@ -13,7 +13,7 @@ object chayanne {
 }
 
 class Presentacion {
-  var fecha
+  var property fecha
   var property cantante
   var property localidades
 }

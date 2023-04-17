@@ -9,7 +9,7 @@ object chayanne {
 object lunaPark {}
 
 class Evento {
-  var fecha
+  var property fecha
 }
 
 class EventoLocalizado inherits Evento {

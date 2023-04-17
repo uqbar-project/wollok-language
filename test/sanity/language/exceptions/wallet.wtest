@@ -2,7 +2,7 @@
   * Scenario: a wko throwing a user exception in a method
   */
 class UserException inherits Exception {
-   var valorInvalido = 0
+   var property valorInvalido = 0
 }
 
 object monedero {

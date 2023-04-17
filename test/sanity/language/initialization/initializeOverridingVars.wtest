@@ -3,9 +3,9 @@
   */
 class Persona{
   var property edad 
-  var nombre 
+  var property nombre 
   var property feliz = false
-  var deseos = []
+  var property deseos = []
 
 
   override method initialize() {

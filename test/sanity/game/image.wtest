@@ -29,7 +29,11 @@ describe "image in game" {
 
   test "image cannot be accessed via attribute" {
     const aVisual = object {
-      var image = "image.png"
+      const image = "image.png"
+
+      method imgToJpg(){
+        return image + ".jpg"
+      }
     }
     assert.throwsException {
       game.addVisual(aVisual)
