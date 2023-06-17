@@ -21,3 +21,9 @@ class A {
 
 @Expect(code = "shouldNotUseReservedWords", value = "warning")
 const wollok =11
+
+
+@Expect(code="shouldNotUseReservedWords", level="warning")
+program game {
+  console.println(game) // ok?
+}
