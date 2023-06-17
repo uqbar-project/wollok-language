@@ -1,0 +1,7 @@
+import wollok.game.*
+
+describe "game" {
+	test "collision between local test file name and global packages" { 
+		assert.equals(5, game.width())
+	}
+}

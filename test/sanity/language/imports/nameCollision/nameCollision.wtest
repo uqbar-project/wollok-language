@@ -1,6 +1,16 @@
 import foo.*
 import bar.*
+import baz.*
+import game.*
 
-	test "imports should ignore local context definitions" { 
-		assert.equals(baz, foo.baz())
-	}
+test "collision between local object and imported file name" { 
+	assert.equals(baz, foo.baz())
+}
+
+test "collision between local file name and imported object" { 
+	assert.equals(1, someBaz.x())
+}
+
+test "collision between local file name and global packages" { 
+	assert.equals(5, someGame.x())
+}
