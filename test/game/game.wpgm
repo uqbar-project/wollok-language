@@ -1,0 +1,5 @@
+import wollok.game.*
+
+program juego {
+  console.println(game.width())
+}
