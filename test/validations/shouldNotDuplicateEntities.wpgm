@@ -7,11 +7,19 @@ class SomeExistingClassInAnotherImportedFile {}
 object someExistingObjectInAnotherImportedFile {}
 
 @Expect(code = "shouldNotDuplicateEntities", level = "error")
-object someExistingConstInAnotherImportedFile {}
+const someExistingConstInAnotherImportedFile = 1
 
 @Expect(code = "shouldNotDuplicateEntities", level = "error")
 mixin SomeExistingMixinInAnotherImportedFile {}
 
+@Expect(code = "shouldNotDuplicateEntities", level = "error")
+program anotherExistingObjectInAnotherImportedFile {
+    anotherExistingObjectInAnotherImportedFile // ok?
+}
+
 class OkClass {}
 mixin OkMixin {}
 object okObject {}
+program okProgram {
+    okProgram // ok?
+}
