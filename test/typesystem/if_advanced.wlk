@@ -3,27 +3,27 @@
 object pepitac137 {
 	var energia = 1400
 	
-	method energia() { 
+	method energia1() { 
 		return energia
 	}
 	
-	method volar(km) {
+	method volar1(km) {
 		energia -= 100 + km
 	}
 
-	method comer(gramos) {
+	method comer1(gramos) {
 		energia += 4 * gramos
 	}
 	
-	method estaDebil() {
+	method estaDebil1() {
 		return energia < 50
 	}
 
-	method estaFeliz() {
+	method estaFeliz1() {
 		return energia.between(500, 1000)
 	}
 	
-	method cuantoQuiereVolar() {
+	method cuantoQuiereVolar1() {
 		var cuantoQuiereVolar = energia / 5
 		if (energia.between(300, 400)) {
 			cuantoQuiereVolar += 10
@@ -34,12 +34,12 @@ object pepitac137 {
 		return cuantoQuiereVolar
 	}
 	
-	method haceLoQueQuieras() {
-		if (self.estaDebil()) {
-			self.comer(20)
+	method haceLoQueQuieras1() {
+		if (self.estaDebil1()) {
+			self.comer1(20)
 		}
-		if (self.estaFeliz()) {
-			self.volar(self.cuantoQuiereVolar())
+		if (self.estaFeliz1()) {
+			self.volar1(self.cuantoQuiereVolar1())
 		}
 	}
 }
