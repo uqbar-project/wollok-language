@@ -1,0 +1,2 @@
+@Expect(code="shouldNotDefineEmptyDescribe", level="warning")
+describe "empty" {}

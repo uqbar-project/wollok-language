@@ -1,10 +1,32 @@
+class SomeClass {
+  method aMethod() = self
+}
+
 program main {
   const someVariable = 2
 
   @Expect(code="shouldNotUseSelf", level="error")
-  self.someVariable() + 2
+  self.println()
+
+  const a = true
+  if (a) {
+    @Expect(code="shouldNotUseSelf", level="error")
+    self.println()
+  }
 
   2 + @Expect(code="shouldNotUseSelf", level="error") self.someVariable()
+
+  const collection1 = ['a', 'b', 'c']
+   
+  collection1.contains(@Expect(code="shouldNotUseSelf", level="error") self)
+
+  const anObject = object {
+    method aMethod() {
+      // safe
+      return self
+    }
+  }
+  console.println(anObject.aMethod())
 
   console.println(@Expect(code="shouldNotUseSelf", level="error") self.someVariable())
 }

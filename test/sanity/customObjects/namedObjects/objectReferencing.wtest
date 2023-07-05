@@ -1,0 +1,14 @@
+package p {
+  object o {
+    method m() = 5
+  }
+}
+
+package tests {
+  import p.o
+
+  test "Singletons should be referenceable by fully qualified name" {
+    assert.equals(o, p.o)
+    assert.equals(o.m(), p.o.m())
+  }
+}

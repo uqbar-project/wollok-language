@@ -30,7 +30,7 @@ describe "If expressions" {
 
   test "if without '{}'" {
     const o = object {
-      var t
+      var t = 5
 
       method editT() {
         t = 1
@@ -77,7 +77,7 @@ describe "If expressions" {
 
   test "if with 'then' with a multi-sentence curly-braced body" {
     const o = object {
-      var p
+      var p = 5
       method m(a){
         if (a) {
           p = 1
@@ -139,10 +139,12 @@ describe "if should be usable as message argument" {
   }
 
   test "with multiline then clause" {
-    assert.equals(6, adder.add(1, if(true) { 0 ; 2 } else 0, 3))
+    const aTrue = true
+    assert.equals(6, adder.add(1, if(aTrue) { 0 ; 2 } else 0, 3))
   }
 
   test "with multiline else clause" {
-    assert.equals(6, adder.add(1, if(false) 0 else { 0 ; 2 }, 3))
+    const aFalse = false
+    assert.equals(6, adder.add(1, if(aFalse) 0 else { 0 ; 2 }, 3))
   }
 }

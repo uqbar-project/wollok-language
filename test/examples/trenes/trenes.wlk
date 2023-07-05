@@ -1,9 +1,4 @@
-class Deposito {
-  const formaciones = []
-
-  method agregarFormacion(unTren) { formaciones.add(unTren) }
-  method vagonesMasPesados() { return formaciones.map { tren => tren.vagonMasPesado()} }
-}
+import depositos.*
 
 class Tren {
   const vagones = []
@@ -60,3 +55,5 @@ class VagonCarga inherits Vagon {
   override method cantidadPasajeros() = 0
   override method pesoMaximo() = cargaMaxima + 160
 }
+
+const deposito1 = new Deposito()

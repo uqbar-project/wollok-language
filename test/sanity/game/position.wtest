@@ -37,7 +37,7 @@ class Visual {
   */
 describe "position" {
 
-  method initialize() {
+  override method initialize() {
     game.clear()
   }
 
@@ -75,8 +75,9 @@ describe "position" {
 
   test "position cannot be accessed via attribute" {
     const visual = object {
-      var position = new Position(x = 0, y = 0)
+      const position = new Position(x = 0, y = 0)
       method image() = "image.png"
+      method swapp() { return new Position(x = position.y(), y = position.x())}
     }
     assert.throwsException { game.addVisual(visual) }
   }

@@ -5,7 +5,7 @@ test "methods with block bodies only return when a return sentence is present" {
     method m3() = 2 + 2
   }
 
-  assert.notEquals(4, obj.m1())
+  assert.throwsException({ obj.m1() + 1 })
   assert.equals(4, obj.m2())
   assert.equals(4, obj.m3())
 }

@@ -120,8 +120,8 @@ describe "dictionary test case" {
   }
 
   test "adding several swallows in a map" {
-    var pepa = new Golondrina()
-    var s = new Dictionary()
+    const pepa = new Golondrina()
+    const s = new Dictionary()
     s.put(pepa, 0)
     (1 .. 50).forEach({ i => s.put(new Golondrina(), i)}) // all objects are not == to pepa
     assert.notEquals(pepa, new Golondrina())

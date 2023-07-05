@@ -31,7 +31,7 @@ All files follow a [standard coding convention](https://github.com/uqbar-project
 - [wollok-xtext](https://github.com/uqbar-project/wollok): our first & stable implementation, is Eclipse Xtext-based.
 - [wollok-ts](https://github.com/uqbar-project/wollok-ts): next generation interpreter Typescript-based, which has...
   - [wollok-run-client](https://github.com/uqbar-project/wollok-run-client): A proof of concept using Wollok Game, first prototype of a dynamic diagram, a new console REPL and wollok-ts interpreter
-  - [wollok-linter](https://github.com/uqbar-project/wollok-linter): A Work-in-Progress implementation of Language Server Protocol, supported for a lot of IDEs (especially Visual Studio Code)
+  - [wollok-lsp-ide](https://github.com/uqbar-project/wollok-lsp-ide): A Work-in-Progress implementation of Language Server Protocol, supported for a lot of IDEs (especially Visual Studio Code)
 - [wollok-highlight-vscode](https://github.com/uqbar-project/wollok-highlight-vscode), a highlighter plugin for Visual Studio Code which should be integrated with [Wollok-Sublime project](https://github.com/uqbar-project/wollok-sublime)
 - [wollok-cli](https://github.com/uqbar-project/wollok-cli): Wollok CLI for tasks automation (Travis integration, bash scripting, etc.)
 - [wollok-site](https://github.com/uqbar-project/wollok-site): Main content of our Wollok site (hosted in github pages with Jekyll)

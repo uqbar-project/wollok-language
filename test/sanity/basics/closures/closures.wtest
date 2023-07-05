@@ -85,4 +85,12 @@ describe "closures" {
   test "closure toString should be its source code" {
     assert.equals("{x => 5 + x}", {x => 5 + x}.toString())
   }
+
+  test "nested closures should retain object self reference" {
+    const o = object {
+      method m() = { { self } }
+    }
+
+    assert.equals(o, o.m().apply().apply())
+  }
 }

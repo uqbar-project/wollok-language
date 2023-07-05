@@ -14,11 +14,11 @@ mixin O {
 }
 
 object a inherits M and N and B {
-    method hierarchy() = "a <: " + super()  
+    override method hierarchy() = "a <: " + super()
 }
 
 class B inherits O and C {
-    method hierarchy() =  "B <: " + super()  
+    override method hierarchy() =  "B <: " + super()
 }
 
 class C {
@@ -30,8 +30,8 @@ test "linearization from a named object with mixins and classes" {
 }
 
 mixin M0 { method hierarchy() = "M0" }
-mixin M1 inherits M0 { method hierarchy() = "M1 <: " + super() }
-mixin M2 inherits M0 { method hierarchy() = "M2 <: " + super() }
+mixin M1 inherits M0 { override method hierarchy() = "M1 <: " + super() }
+mixin M2 inherits M0 { override method hierarchy() = "M2 <: " + super() }
 
 test "linearization of common mixin ancestors should be pushed backwards to enable cake pattern default" {
   assert.equals("M0", object inherits M0 {}.hierarchy())

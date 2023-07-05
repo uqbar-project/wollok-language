@@ -29,12 +29,12 @@ describe "ranges" {
   }
 
   test "sum" {
-    var range = 0 .. 9 
+    const range = 0 .. 9
     assert.equals(45, range.sum())
   }
 
   test "sumClosure" {
-    var range = 0 .. 9 
+    const range = 0 .. 9
     assert.equals(90, range.sum({ n => n * 2 }))
   }
 
@@ -106,8 +106,8 @@ describe "ranges" {
     const counter = new Dictionary()
     range.forEach({n => counter.put(n,0)})
     500.times({ i =>
-      var n = range.anyOne()
-      var c = counter.get(n) + 1
+      const n = range.anyOne()
+      const c = counter.get(n) + 1
       counter.put(n,c)
     })
     range.forEach({n => assert.that(counter.get(n) > 50)})

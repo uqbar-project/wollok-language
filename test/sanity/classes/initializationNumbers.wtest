@@ -2,8 +2,8 @@
   * Scenario: A Class with attributes pointing to numbers
   */
 class A {
-  var i = 10
-  var j = 0.10
+  const i = 10
+  const j = 0.10
 
   method getI() = i
   method getJ() = j

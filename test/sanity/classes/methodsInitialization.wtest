@@ -2,8 +2,8 @@
   * Scenario: A Class with attributes initialized in a sequence
   */
 class Subject {
-  var x = 4
-  var y = x * 2
+  const x = 4
+  const y = x * 2
 
   method getY() = y
 }
@@ -14,7 +14,7 @@ class Subject {
 describe "classes - methods - initialization of attributes" {
 
   test "attributes initialized in a sequence" {
-    var obj = new Subject()
+    const obj = new Subject()
     assert.equals(8, obj.getY())
   }
 

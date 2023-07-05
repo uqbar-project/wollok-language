@@ -2,7 +2,7 @@
   * Scenario: a wko having several references to another wko
   */
 object pepa {
-  var friend = [pepita]
+  const friend = [pepita]
   method bestFriend() {
     const bff = pepita
     return bff

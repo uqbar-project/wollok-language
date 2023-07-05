@@ -13,77 +13,98 @@ describe "message not understood" {
 
   test "sending a message not understood should fail" {
     const a = new A()
+    var hasThrown = false
+
     try {
       a.m2()
       assert.fail("Should have thrown message not understood")
     }
     catch e : MessageNotUnderstoodException {
-      // ok !
+      hasThrown = true
     }
+    assert.that(hasThrown)
   }
 
   test "message not understood - less parameters case" {
     const a = new A()
+    var hasThrown = false
+
     try {
       a.m5()
       assert.fail("Should have thrown message not understood")
     }
     catch e : MessageNotUnderstoodException {
-      // ok !
+      hasThrown = true
     }
+    assert.that(hasThrown)
   }
 
   test "message not understood - more parameters case" {
     const a = new A()
+    var hasThrown = false
+
     try {
       a.m1(2, new Date())
       assert.fail("Should have thrown message not understood")
     }
     catch e : MessageNotUnderstoodException {
-      // ok !
+      hasThrown = true
     }
+    assert.that(hasThrown)
   }
 
   test "message not understood - case sensitive" {
     const a = new A()
+    var hasThrown = false
+
     try {
       a.M1(3)
       assert.fail("Should have thrown message not understood")
     }
     catch e : MessageNotUnderstoodException {
-      // ok !
+      hasThrown = true
     }
+    assert.that(hasThrown)
   }
 
   test "message not understood with literals case sensitive" {
+    var hasThrown = false
+
     try {
       4.truncATE(2)
       assert.fail("Should have thrown message not understood")
     }
     catch e : MessageNotUnderstoodException {
-      // ok !
+      hasThrown = true
     }
+    assert.that(hasThrown)
   }
 
   test "message not understood with literals - less parameters" {
+    var hasThrown = false
+
     try {
       4.truncate()
       assert.fail("Should have thrown message not understood")
     }
     catch e : MessageNotUnderstoodException {
-      // ok !
+      hasThrown = true
     }
+    assert.that(hasThrown)
   }
 
   test "message not understood with params" {
     const a = new A()
+    var hasThrown = false
+
     try {
       a.m2(2, 4)
       assert.fail("Should have thrown message not understood")
     }
     catch e : MessageNotUnderstoodException {
-      // ok !
+      hasThrown = true
     }
+    assert.that(hasThrown)
   }
 
 }

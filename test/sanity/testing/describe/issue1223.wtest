@@ -20,7 +20,7 @@ describe "issue 1223 - NPE for const defined in test initializations" {
   var unDoctorCualquiera
   var enfermo
 
-  method initialize() {
+  override method initialize() {
     enfermo = new Enfermo()
     unDoctorCualquiera = new Doctor()
     unDoctorCualquiera.calidad(2)

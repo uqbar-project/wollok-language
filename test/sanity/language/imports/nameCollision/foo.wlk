@@ -1,1 +1,3 @@
-object baz { }
+object baz {
+    method x() = 1
+ }

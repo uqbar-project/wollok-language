@@ -383,5 +383,14 @@ describe "List tests" {
   test "Get should round prioritizing higher values" {
     assert.equals(2, numbers.get(0.5))
   }
+  
+  test "Randomized should return a new list" {
+    const list = (1..100).asList()
+    const set = list.asSet()
+    const randomized = list.randomized()
+    assert.notEquals(list, randomized)
+    assert.equals(list.size(), randomized.size())
+    assert.equals(#{}, set.difference(randomized))
+  }
 
 }

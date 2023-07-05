@@ -1,29 +1,67 @@
 class SomeClass {
-  method someMethod(param) {
-    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (param.value() == true)) {
-      return 1
-    }
-    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (param.value() == false)) {
-      return 0
-    }
-  }
+  method a() {
+    const condA = true
+    var cond = true
+    
+    // TRUE
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (condA == true))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (condA === true))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (condA != true))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (condA !== true))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (true == condA))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (true === condA))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (true != condA))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (true !== condA))
+    
+    // FALSE
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (condA == false))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (condA === false))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (condA != false))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (condA !== false))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (false == condA))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (false === condA))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (false != condA))
+    
+    cond = (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (false !== condA))
+    
+    // IF
+    
+    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (cond == true))
+      throw new Exception(message = "Blah")
 
-  method otherMethod(param) {
-    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (param.value() === true)) {
-      return 1
-    }
-    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (param.value() === false)) {
-      return 0
-    }
-  }
+    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (cond == false))
+      throw new Exception(message = "Blah")
+      
+    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (cond != true))
+      throw new Exception(message = "Blah")
 
-  method anotherMethod(param) {
-    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (param.value().equals(true))) {
-      return 1
-    }
-    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (param.value().equals(false))) {
-      return 0
-    }
+    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (cond != false))
+      throw new Exception(message = "Blah")
+      
+    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (cond !== true))
+      throw new Exception(message = "Blah")
+
+    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (cond !== false))
+      throw new Exception(message = "Blah")    
+      
+    // if as left side
+    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (true == cond))
+      throw new Exception(message = "Blah")
+
+    if (@Expect(code="shouldNotCompareAgainstBooleanLiterals", level="warning") (false == cond))
+      throw new Exception(message = "Blah")
   }
 }
-

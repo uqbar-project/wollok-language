@@ -3,12 +3,12 @@
   */
 class Persona{
   var property edad 
-  var nombre 
+  var property nombre 
   var property feliz = false
-  var deseos = []
+  var property deseos = []
 
 
-  method initialize() {
+  override method initialize() {
     // allows local variables too
     const dobleDeEdad = 2 * edad
     edad = dobleDeEdad
