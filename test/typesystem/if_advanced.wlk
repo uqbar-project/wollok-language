@@ -1,6 +1,6 @@
-/* XPECT_SETUP org.uqbar.project.wollok.tests.typesystem.xpect.TypeSystemXpectTestCase END_SETUP */
+// This file should have no problems
 
-object pepita {
+object pepitac137 {
 	var energia = 1400
 	
 	method energia() { 

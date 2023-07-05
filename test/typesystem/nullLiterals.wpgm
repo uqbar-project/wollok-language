@@ -1,4 +1,4 @@
-/* XPECT_SETUP org.uqbar.project.wollok.tests.typesystem.xpect.TypeSystemXpectTestCase END_SETUP */
+// TODO: FIXME
 
 program p {	
 	// XPECT type at comparable -->  Object

@@ -1,5 +1,3 @@
-/* XPECT_SETUP org.uqbar.project.wollok.tests.typesystem.xpect.TypeSystemXpectTestCase END_SETUP */
-
 object lobo {
 
 	var calorias = 100
@@ -81,7 +79,7 @@ object casaPaja{
 
 object casaMadera{
 	const minutos = 15
-	var visitante
+	var visitante = null
 //	var visitante = chanchito
 	
 

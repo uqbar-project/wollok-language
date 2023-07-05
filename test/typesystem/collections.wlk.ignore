@@ -1,5 +1,3 @@
-/* XPECT_SETUP org.uqbar.project.wollok.tests.typesystem.xpect.TypeSystemXpectTestCase END_SETUP */
-
 /** 
  * Tests generales a todas las collecciones
  *
@@ -7,7 +5,7 @@
  * Para testear tanto lists como sets, esta clase está duplicada, salvo por la declaración de `sample`. 
  */	
 class TestCollection {
-	// XPECT type at sample --> List<Number>
+	@Expect(type="List<Number>")
 	const sample = [1, 2, 3]
 	// XPECT type at strings --> List<String>
 	const strings = ["wo", "llok"]
@@ -35,7 +33,7 @@ class TestCollection {
 		const occurrencesOf = { e => sample.occurrencesOf(e) }
 
 		// XPECT type at size --> {() => Number}
-		const size = { sample.size()) }
+		const size = { sample.size() }
 
 		// XPECT type at anyOne --> {() => Number}
 		const anyOne = { sample.anyOne() }

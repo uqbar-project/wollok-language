@@ -1,0 +1,21 @@
+program p {
+	@Expect(type="String")
+	const unString = "Hola" 
+
+	@Expect(type="Number")
+	const largo = 1
+
+	@Expect(type="List<Any>")
+	const coleccion = [] 
+
+	@Expect(type="Any")
+	const algo
+	
+	// TOIMPLEMENT
+	// @Expect(type="{  }")
+	const obj = object { }
+
+	@Expect(type="Any")
+	const nullable = null
+}
+

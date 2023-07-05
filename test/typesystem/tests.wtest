@@ -1,0 +1,11 @@
+test "solitary number" {
+	@Expect(type="Number")
+	const x = 1
+	assert.that(true)
+}
+
+test "solitary string" {
+	@Expect(type="String")
+	const x = ""
+	assert.that(true)
+}

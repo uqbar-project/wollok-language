@@ -1,28 +1,26 @@
-/* XPECT_SETUP org.uqbar.project.wollok.tests.typesystem.xpect.TypeSystemXpectTestCase END_SETUP */
-
 describe "with initialize method" {	
-	// XPECT type at n --> Number
+	@Expect(type="Number")
 	var n
-	// XPECT type at b --> Boolean
+	@Expect(type="Boolean")
 	var b
 	
 	method initialize() {
 		b = true
 	}
 	
-	// XPECT methodType at blah --> () => Void	
+	@Expect(type="() => Void")
 	method blah() {
-		// XPECT type at m --> Number
-		var m = n
+		@Expect(type="Number")
+		const m = n
 	}
 	
-	// XPECT methodType at number --> () => Number
+	@Expect(type="() => Number")
 	method number() = 0
 	
 	
 	test "test with self" {
 		n = self.number()
-		// XPECT type at expected --> Number
+		@Expect(type="Number")
 		var expected
 		assert.equals(n, expected)
 	}

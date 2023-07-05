@@ -1787,10 +1787,14 @@ class Number {
    */
   override method ===(other) native
 
-  method +(other) native
-  method -(other) native
-  method *(other) native
-  method /(other) native
+  @Type(name="Number")
+  method +(@Type(name="Number") other) native
+  @Type(name="Number")
+  method -(@Type(name="Number") other) native
+  @Type(name="Number")
+  method *(@Type(name="Number") other) native
+  @Type(name="Number")
+  method /(@Type(name="Number") other) native
 
   /**
    * Integer division between self and other
