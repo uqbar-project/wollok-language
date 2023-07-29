@@ -2,14 +2,14 @@ import @Expect(code="missingReference", level="error") inexistentFile.*
 
 object pepita {
   
-  method energia() = @Expect(code="missingReference", level="error") energia
+  method energia() = (@Expect(code="missingReference", level="error") energia)
   
   method comer(p) {
     @Expect(code="missingReference", level="error", path="variable")
     energia = 100
   }
 
-  method estaCansada() = @Expect(code="missingReference", level="error") energia < 10
+  method estaCansada() = (@Expect(code="missingReference", level="error") energia < 10)
 
   method methodName() {
     self.comer(@Expect(code="missingReference", level="error") energia)

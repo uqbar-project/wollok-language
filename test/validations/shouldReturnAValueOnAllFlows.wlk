@@ -148,8 +148,8 @@ object joaquin {
   // =====================================================================================
 
   method testValorDevueltoConMetodoGet() =
-    @Expect(code="shouldReturnAValueOnAllFlows", level="error")
-    if (tocaEnGrupo) 5
+    (@Expect(code="shouldReturnAValueOnAllFlows", level="error")
+    if (tocaEnGrupo) 5)
 
   method validarFelicidad() {
     assert.equals(10, @Expect(code="shouldReturnAValueOnAllFlows", level="error") if (tocaEnGrupo) 5)
