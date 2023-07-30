@@ -72,7 +72,7 @@ class MethodsCalledOnWellKnowObjects inherits A {
 		return new B(a = @Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10)))
 	}
 	
-	method asExpressionOnMethodShortcut() = @Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10))
+	method asExpressionOnMethodShortcut() = (@Expect(code = "shouldNotUseVoidMethodAsValue", message = "error") (pepita.ingest(10)))
 }
 
 class B {
