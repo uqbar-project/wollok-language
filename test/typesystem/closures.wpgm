@@ -1,0 +1,45 @@
+program p {
+	@Expect(type="{() => Number}") { 1 }
+
+	@Expect(type="Boolean")
+	var bool = true
+
+	@Expect(type="{() => String}")
+	const c1 = { "Hello" }
+
+	@Expect(type="String")
+	const hello = c1.apply()
+
+	@Expect(type="{(Number) => Number}")
+	const c2 = { a => 2 + a }
+	
+	@Expect(type="Number")
+	const four = c2.apply(2)
+
+	@Expect(type="{() => Void}")
+	const c3 = { }
+	
+	@Expect(type="{() => Void}")
+	const c4 = { bool = false }
+	
+	@Expect(type="{() => Boolean}")
+	const c5 = { return true }
+	
+	@Expect(type="{() => Number}")
+	const c61 = { if (bool) 1 else 2 }
+
+	@Expect(type="{() => Number}")
+	const c62 = { if (bool) return 1 else return 2 }
+	
+	@Expect(type="{() => Number}")
+	const c7 = { 
+		if (bool) { return 1 } 
+		return 2
+	}
+	
+	@Expect(type="{() => (Number | String)}")
+	const c8 = { 
+		if (bool) { return 1 } 
+		"2"
+	}
+}
