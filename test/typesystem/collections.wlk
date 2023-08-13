@@ -8,7 +8,7 @@ class TestCollection {
 	@Expect(type="List<Number>")
 	const sample = [1, 2, 3]
 	// XPECT type at strings --> List<String>
-	const strings = ["wo", "llok"]
+	const property strings = ["wo", "llok"]
 
 	method generalCollection() {
 		// XPECT type at asList --> List<Number>
@@ -38,7 +38,7 @@ class TestCollection {
 		// XPECT type at anyOne --> {() => Number}
 		const anyOne = { sample.anyOne() }
 
-		// XPECT type at add --> {(Number) => Void}
+		@Expect(type="{(Number) => Void}")
 		const add = { e => sample.add(e) }
 
 		// XPECT type at remove --> {(Number) => Void}
@@ -97,10 +97,10 @@ class TestCollection {
 		const minComparable = { comparable => strings.min(comparable) }
 		
 		// XPECT type at minIfEmpty --> {({() => String}) => String}
-		const minIfEmpty = { IfEmpty => strings.minIfEmpty(IfEmpty) }
+		const minIfEmpty = { ifEmpty => strings.minIfEmpty(ifEmpty) }
 		
 		// XPECT type at minIfEmptyComparable --> {({(String) => (Date|Number|String)}, {() => String}) => String}
-		const minIfEmptyComparable = { comparable, IfEmpty => strings.minIfEmpty(comparable, IfEmpty) }
+		const minIfEmptyComparable = { comparable, ifEmpty => strings.minIfEmpty(comparable, ifEmpty) }
 		
 		
 		// XPECT type at max --> {() => String}
@@ -110,10 +110,10 @@ class TestCollection {
 		const maxComparable = { comparable => strings.max(comparable) }
 		
 		// XPECT type at maxIfEmpty --> {({() => String}) => String}
-		const maxIfEmpty = { IfEmpty => strings.maxIfEmpty(IfEmpty) }
+		const maxIfEmpty = { ifEmpty => strings.maxIfEmpty(ifEmpty) }
 		
 		// XPECT type at maxIfEmptyComparable --> {({(String) => (Date|Number|String)}, {() => String}) => String}
-		const maxIfEmptyComparable = { comparable, IfEmpty => strings.maxIfEmpty(comparable, IfEmpty) }
+		const maxIfEmptyComparable = { comparable, ifEmpty => strings.maxIfEmpty(comparable, ifEmpty) }
 		
 		
 		// XPECT type at sortedBy --> {({(String, String) => Boolean}) => List<String>}
@@ -121,7 +121,7 @@ class TestCollection {
 		
 		
 		// XPECT type at absolute --> {({(String) => (Date|Number|String)}, {((Date|Number|String), (Date|Number|String)) => Boolean}, {() => String}) => String}
-		const absolute = { comparable, criteria, IfEmpty => strings.absolute (comparable, criteria, IfEmpty) }
+		const absolute = { comparable, criteria, ifEmpty => strings.absolute (comparable, criteria, ifEmpty) }
 		
 	}
 	

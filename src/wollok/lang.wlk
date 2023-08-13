@@ -954,6 +954,7 @@ object collection {
  * @author jfernandes
  * @since 1.3
  */
+@Type(variable="Element")
 class Set inherits Collection {
 
   /** @private */
@@ -1104,7 +1105,8 @@ class Set inherits Collection {
    *     set.add(2)   => set = #{2, 3}
    *     set.add(2)   => set = #{2, 3}, second add produces no effect
    */
-  override method add(element) native
+  @Type(name="Void")
+  override method add(@Type(name="Element")element) native
 
   /** @private */
   method unsafeAdd(element) native
@@ -1191,6 +1193,7 @@ class Set inherits Collection {
  * @author jfernandes
  * @since 1.3
  */
+@Type(variable="Element")
 class List inherits Collection {
 
   /**
@@ -1460,7 +1463,8 @@ class List inherits Collection {
    *     list.add(2)   => list = [3, 2]
    *     list.add(2)   => list = [3, 2, 2]
    */
-  override method add(element) native
+  @Type(name="Void")
+  override method add(@Type(name="Element")element) native
 
   /**
    * Removes an element in this list, if it is present.
