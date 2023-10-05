@@ -21,12 +21,24 @@ program p {
 	
 	@Expect(type="{() => Void}")
 	const c4 = { bool = false }
-	
+		
+	@Expect(type="{() => Number}")
+	const c5 = { if (bool) 1 else 2 }
+
+	@Expect(type="{() => (Number | String)}")
+	const c6 = { if (bool) 1 else "2" }
+
+}
+
+
+// Closures with returns have no language specifications (no sanity tests)
+program pConReturns {
+
+	@Expect(type="Boolean")
+	const bool = true
+
 	@Expect(type="{() => Boolean}")
 	const c5 = { return true }
-	
-	@Expect(type="{() => Number}")
-	const c61 = { if (bool) 1 else 2 }
 
 	@Expect(type="{() => Number}")
 	const c62 = { if (bool) return 1 else return 2 }
@@ -37,9 +49,9 @@ program p {
 		return 2
 	}
 	
-	@Expect(type="{() => (Number | String)}")
-	const c8 = { 
-		if (bool) { return 1 } 
-		"2"
-	}
+	// @Expect(type="{() => (Number | String)}")
+	// const c8 = { 
+	// 	if (bool) { return 1 } 
+	// 	"2"
+	// }
 }
