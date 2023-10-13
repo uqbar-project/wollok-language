@@ -1,0 +1,4 @@
+program p {
+    @Expect(code="shouldInitializeConst", level="error")
+    const b
+}
