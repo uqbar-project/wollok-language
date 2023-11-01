@@ -1,0 +1,19 @@
+/**
+  * Scenario: a WKO
+  */
+object pepita {
+  var energy = 0
+  method energyLevel(){
+    return energy
+  }
+  
+  method addEnergy(amount){
+    energy = energy + amount
+  }
+}
+
+describe "an object" {
+  test "cound not be instantiated" {
+    assert.throwsException { new pepita() }
+  }
+}
