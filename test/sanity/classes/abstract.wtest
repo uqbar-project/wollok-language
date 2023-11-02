@@ -1,0 +1,17 @@
+/**
+  * Scenario: an abstract class
+  */
+class MyClass {
+  method a()
+}
+
+/**
+  * Tests
+  */
+describe "classes - an abstract class" {
+
+  test "cound not be instantiated" {
+    assert.throwsException { new MyClass() }
+  }
+
+}

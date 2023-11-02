@@ -48,4 +48,8 @@ describe "mixins" {
     const c = new C()
     assert.that(c !== null)
   }
+  
+  test "a mixin could not be instantiated" {
+    assert.throwsException { new Energy() }
+  }
 }
