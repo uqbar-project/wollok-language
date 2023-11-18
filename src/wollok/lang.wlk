@@ -263,6 +263,7 @@ class Pair {
  * The root class in the collection hierarchy.
  * A collection represents a group of objects, known as its elements.
  */
+@Type(variable="Element")
 class Collection {
   /**
    * Answers the element that is considered to be/have the maximum value.
@@ -678,7 +679,8 @@ class Collection {
    *      [1, 2, 3].map { number => number.odd() }  => Answers [true, false, true]
    *      [].map { number => number.odd() }         => Answers []
    */
-  method map(closure) {
+  @Type(variable="Mapped", name="List<Mapped>")
+  method map(@Type(name="{ (Element) => Mapped }") closure) {
     self.checkNotNull(closure, "map")
     return self.fold([], { newCollection, element =>
       newCollection.add(closure.apply(element))
@@ -1942,6 +1944,7 @@ class Number {
    *
    * Self must be an integer value
    */
+  @Type(name="Boolean")
   method even() = self % 2 == 0
 
   /**
