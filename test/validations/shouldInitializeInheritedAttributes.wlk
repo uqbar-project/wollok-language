@@ -16,23 +16,23 @@ class C {
   method calculate() = w + x + y + z
 }
 
-@Expect(code="shouldInitializeAllAttributes", level="error")
-object o1 inherits C {} // missing 'w' and 'y'
+@Expect(code="shouldInitializeInheritedAttributes", level="error", values=["w, y"])
+object o1 inherits C {}
 object o2 inherits C(w = 1, x = 2, y = 3, z = 4) {} // OK
-@Expect(code="shouldInitializeAllAttributes", level="error")
-object o3 inherits C(x = 2, y = 3, z = 4) {} // missing 'w'
+@Expect(code="shouldInitializeInheritedAttributes", level="error", values=["w"])
+object o3 inherits C(x = 2, y = 3, z = 4) {}
 object o4 inherits C(w = 1,        y = 3, z = 4) {}
-@Expect(code="shouldInitializeAllAttributes", level="error")
-object o5 inherits C(w = 1, x = 2, z = 4) {} // missing 'y'
-@Expect(code="shouldInitializeAllAttributes", level="error")
-object o6 inherits C(w = 1, x = 2, z = 4) {} // missing 'y'
+@Expect(code="shouldInitializeInheritedAttributes", level="error", values=["y"])
+object o5 inherits C(w = 1, x = 2, z = 4) {}
+@Expect(code="shouldInitializeInheritedAttributes", level="error", values=["y"])
+object o6 inherits C(w = 1, x = 2, z = 4) {}
 
-const p1 = @Expect(code="shouldInitializeAllAttributes", level="error") object inherits C {} // missing 'w' and 'y'
+const p1 = @Expect(code="shouldInitializeInheritedAttributes", level="error", values=["w, y"]) object inherits C {}
 const p2 = object inherits C(w = 1, x = 2, y = 3, z = 4) {} // OK
-const p3 = @Expect(code="shouldInitializeAllAttributes", level="error") object inherits C(x = 2, y = 3, z = 4) {} // missing 'w'
+const p3 = @Expect(code="shouldInitializeInheritedAttributes", level="error", values=["w"]) object inherits C(x = 2, y = 3, z = 4) {}
 const p4 = object inherits C(w = 1,        y = 3, z = 4) {} // OK
-const p5 = @Expect(code="shouldInitializeAllAttributes", level="error") object inherits C(w = 1, x = 2, z = 4) {} // missing 'y'
-const p6 = @Expect(code="shouldInitializeAllAttributes", level="error") object inherits C(w = 1, x = 2, z = 4) {} // missing 'y'
+const p5 = @Expect(code="shouldInitializeInheritedAttributes", level="error", values=["y"]) object inherits C(w = 1, x = 2, z = 4) {}
+const p6 = @Expect(code="shouldInitializeInheritedAttributes", level="error", values=["y"]) object inherits C(w = 1, x = 2, z = 4) {}
 
 /* ================================================================================
  * - using a combined hierarchy of classes
@@ -53,16 +53,16 @@ class B inherits A(x = 1) {
   method z() = z
 }
 
-@Expect(code="shouldInitializeAllAttributes", level="error") 
-object malSingleton1 inherits B(z = 3) { } // missing 'y'
+@Expect(code="shouldInitializeInheritedAttributes", level="error", values=["y"])
+object malSingleton1 inherits B(z = 3) { }
 
-@Expect(code="shouldInitializeAllAttributes", level="error") 
-object malSingleton2 inherits B(y = 2) { } // missing 'z'
+@Expect(code="shouldInitializeInheritedAttributes", level="error", values=["z"])
+object malSingleton2 inherits B(y = 2) { }
 object bienSingleton1 inherits B(y = 2, z = 3) { }		        // OK! x = 1, y = 2, z = 3
 object bienSingleton2 inherits B(x = 0, y = 2, z = 3) { }    // OK! x = 0, y = 2, z = 3
 
-const mal1 = @Expect(code="shouldInitializeAllAttributes", level="error") object inherits B(z = 3) { } // missing 'y'
-const mal2 = @Expect(code="shouldInitializeAllAttributes", level="error") object inherits B(y = 2) { } // missing 'z'
+const mal1 = @Expect(code="shouldInitializeInheritedAttributes", level="error", values=["y"]) object inherits B(z = 3) { }
+const mal2 = @Expect(code="shouldInitializeInheritedAttributes", level="error", values=["z"]) object inherits B(y = 2) { }
 const bien1 = object inherits B(y = 2, z = 3) { }        // OK! x = 1, y = 2, z = 3
 const bien2 = object inherits B(x = 0, y = 2, z = 3) { } // OK! x = 0, y = 2, z = 3
 
@@ -89,7 +89,7 @@ class A1 {
   method calculate() = a + 5
 }
 
-const a1 = @Expect(code="shouldInitializeAllAttributes", level="error") object inherits M1 and A1 {} // missing 'a', 'w' and 'y'
+const a1 = @Expect(code="shouldInitializeInheritedAttributes", level="error", values=["w, y, a"]) object inherits M1 and A1 {}
 
-@Expect(code="shouldInitializeAllAttributes", level="error")
-object mixedObject inherits M1 and A1 {} // missing 'a', 'w' and 'y'
+@Expect(code="shouldInitializeInheritedAttributes", level="error", values=["w, y, a"])
+object mixedObject inherits M1 and A1 {}
