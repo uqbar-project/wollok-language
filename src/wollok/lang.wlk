@@ -1059,7 +1059,8 @@ class Set inherits Collection {
    *           => Answers 9, the maximum of all elements
    *
    */
-  override method fold(initialValue, closure) native
+  @Type(variable="Folded", name="Folded")
+  override method fold(@Type(name="Folded") initialValue, @Type(name="{ (Folded, Element) => Folded }") closure) native
 
   /**
    * Answers a new set with the elements meeting
@@ -1237,6 +1238,7 @@ class List inherits Collection {
    *    [1, 2, 3, 4].first()  => Answers 1
    *    [].first()            => Throws error, list must not be empty
    */
+  @Type(name="Element")
   method first() = self.head()
 
   /**
@@ -1444,7 +1446,8 @@ class List inherits Collection {
    *           => Answers 9, the maximum of all elements
    *
    */
-  override method fold(initialValue, closure) native
+  @Type(variable="Folded", name="Folded")
+  override method fold(@Type(name="Folded") initialValue, @Type(name="{ (Folded, Element) => Folded }") closure) native
 
   /**
    * Finds the first element matching the boolean closure,
