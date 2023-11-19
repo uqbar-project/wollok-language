@@ -1,0 +1,20 @@
+object pepita{
+	var energia = 100
+
+	@Expect(type="() => Boolean")
+	method estaViva() = energia >= 0
+
+	@Expect(type="(Number) => Boolean")
+	method estaCansada(cuanto) = energia <= cuanto
+	
+	@Expect(type="() => Void")
+	method comer() {
+		energia++
+	}
+	
+	@Expect(type="(Number) => Void")
+	method volar(cantidad) {
+		if (cantidad > 0) energia -= cantidad else energia--
+	}
+	
+}

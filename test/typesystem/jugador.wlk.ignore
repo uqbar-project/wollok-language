@@ -1,0 +1,26 @@
+class Jugador {
+	@Expect(type="Number")
+	var edad = 20 
+	
+	@Expect(type="Number")
+	var partidosJugados = 0
+	
+	@Expect(type="String")
+	var nombre = "Juan"
+	
+	@Expect(type="() => Boolean")
+	method esBueno() = (edad % 5) == 0
+
+	@Expect(type="() => Void")
+	method jugar() {
+		assert.equals(true, false)
+		//partidosJugados = partidosJugados + 1
+		partidosJugados++
+	}
+	
+	@Expect(type="() => Void")
+	method debutar() {
+		nombre = nombre.capitalize()
+	}
+	
+}

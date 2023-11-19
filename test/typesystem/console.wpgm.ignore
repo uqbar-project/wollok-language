@@ -1,0 +1,24 @@
+object consoleTest {
+
+	@Expect(type="(Any) => Void")
+	method m1(a) {
+	 	console.println(a)
+	}
+	
+	@Expect(type="() => String")
+	method readLine() = console.readLine()
+	
+	@Expect(type="() => Number")
+	method readInt() = console.readInt()
+	
+	@Expect(type="() => String")
+	method newline() = console.newline()
+}
+
+program p {
+	@Expect(type="() => String")
+ 	console
+
+ 	console.println(@Expect(type="String") "hola") 	
+}
+

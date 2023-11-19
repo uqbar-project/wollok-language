@@ -7,143 +7,143 @@
 class TestCollection {
 	@Expect(type="List<Number>")
 	const sample = [1, 2, 3]
-	// XPECT type at strings --> List<String>
+	@Expect(type="List<String>")
 	const property strings = ["wo", "llok"]
 
 	method generalCollection() {
-		// XPECT type at asList --> List<Number>
+		// @Expect(type="List<Number>")
 		const asList = sample.asList()
 		
-		// XPECT type at asSet --> Set<Number>
+		// @Expect(type="Set<Number>")
 		const asSet = sample.asSet()
 		
-		// XPECT type at isEmpty --> Boolean
+		// @Expect(type="Boolean")
 		const isEmpty = sample.isEmpty()
 		
-		// XPECT type at toStringPrefix --> String
+		// @Expect(type="String")
 		const toStringPrefix = sample.toStringPrefix()
 		
-		// XPECT type at toStringSuffix --> String
+		// @Expect(type="String")
 		const toStringSuffix = sample.toStringSuffix()
 		
-		// XPECT type at contains --> {(Number) => Boolean}
+		// @Expect(type="{(Number) => Boolean}")
 		const contains = { e => sample.contains(e) }
 	
-		// XPECT type at occurrencesOf --> {(Number) => Number}
+		// @Expect(type="{(Number) => Number}")
 		const occurrencesOf = { e => sample.occurrencesOf(e) }
 
-		// XPECT type at size --> {() => Number}
+		// @Expect(type="{() => Number}")
 		const size = { sample.size() }
 
-		// XPECT type at anyOne --> {() => Number}
+		// @Expect(type="{() => Number}")
 		const anyOne = { sample.anyOne() }
 
-		@Expect(type="{(Number) => Void}")
+		@Expect(type="{ (Number) => Void }")
 		const add = { e => sample.add(e) }
 
-		// XPECT type at remove --> {(Number) => Void}
+		// @Expect(type="{(Number) => Void}")
 		const remove = { e => sample.remove(e) }
 
-		// XPECT type at addAll --> {(Collection<Number>) => Void}
+		// @Expect(type="{(Collection<Number>) => Void}")
 		const addAll = { l => sample.addAll(l) }
 
-		// XPECT type at removeAll --> {(Collection<Number>) => Void}
+		// @Expect(type="{(Collection<Number>) => Void}")
 		const removeAll = { l => sample.removeAll(l) }
 		
-		// XPECT type at clear --> {() => Void}
+		// @Expect(type="{() => Void}")
 		const clear = { sample.clear() }
 		
-		// XPECT type at join --> {() => String}
+		// @Expect(type="{() => String}")
 		const join = { sample.join() }
 		
-		// XPECT type at joinSeparator --> {(String) => String}
+		// @Expect(type="{(String) => String}")
 		const joinSeparator = { separator => sample.join(separator) }
 	}
 
 	method basicClosures() {
-		// XPECT type at forEach --> {({(Number) => Void}) => Void}
+		// @Expect(type="{({(Number) => Void}) => Void}")
 		const forEach = { action => sample.forEach(action) } 
 
-		// XPECT type at filter --> {({(Number) => Boolean}) => List<Number>}
+		// @Expect(type="{({(Number) => Boolean}) => List<Number>}")
 		const filter = { cond => sample.filter(cond) } 
 
-		// XPECT type at find --> {({(Number) => Boolean}) => Number}
+		// @Expect(type="{({(Number) => Boolean}) => Number}")
 		const find = { predicate => sample.find(predicate) }
 
-		// XPECT type at findOrDefault --> {({(Number) => Boolean}, Number) => Number}
+		// @Expect(type="{({(Number) => Boolean}, Number) => Number}")
 		const findOrDefault = { predicate, defaultValue => sample.findOrDefault(predicate, defaultValue) }
 
-		// XPECT type at findOrElse --> {({(Number) => Boolean}, {() => Number}) => Number}
+		// @Expect(type="{({(Number) => Boolean}, {() => Number}) => Number}")
 		const findOrElse = { predicate, actionIfAbsent => sample.findOrElse(predicate, actionIfAbsent) }
 
-		// XPECT type at removeAllSuchThat --> {({(Number) => Boolean}) => Void}
+		// @Expect(type="{({(Number) => Boolean}) => Void}")
 		const removeAllSuchThat = { closure => sample.removeAllSuchThat(closure) }
 
-		// XPECT type at all --> {({(Number) => Boolean}) => Boolean}
+		// @Expect(type="{({(Number) => Boolean}) => Boolean}")
 		const all = { predicate => sample.all(predicate) }
 
-		// XPECT type at any --> {({(Number) => Boolean}) => Boolean}
+		// @Expect(type="{({(Number) => Boolean}) => Boolean}")
 		const any = { predicate => sample.any(predicate) }
 
-		// XPECT type at count --> {({(Number) => Boolean}) => Number}
+		// @Expect(type="{({(Number) => Boolean}) => Number}")
 		const count = { predicate => sample.count(predicate)}
 	}
 	
 	method comparableCollection() {
-		// XPECT type at min --> {() => String}
+		// @Expect(type="{() => String}")
 		const min = { strings.min() }
 		
-		// XPECT type at minComparable --> {({(String) => (Date|Number|String)}) => String}
+		// @Expect(type="{({(String) => (Date|Number|String)}) => String}")
 		const minComparable = { comparable => strings.min(comparable) }
 		
-		// XPECT type at minIfEmpty --> {({() => String}) => String}
+		// @Expect(type="{({() => String}) => String}")
 		const minIfEmpty = { ifEmpty => strings.minIfEmpty(ifEmpty) }
 		
-		// XPECT type at minIfEmptyComparable --> {({(String) => (Date|Number|String)}, {() => String}) => String}
+		// @Expect(type="{({(String) => (Date|Number|String)}, {() => String}) => String}")
 		const minIfEmptyComparable = { comparable, ifEmpty => strings.minIfEmpty(comparable, ifEmpty) }
 		
 		
-		// XPECT type at max --> {() => String}
+		// @Expect(type="{() => String}")
 		const max = { strings.max() }
 		
-		// XPECT type at maxComparable --> {({(String) => (Date|Number|String)}) => String}
+		// @Expect(type="{({(String) => (Date|Number|String)}) => String}")
 		const maxComparable = { comparable => strings.max(comparable) }
 		
-		// XPECT type at maxIfEmpty --> {({() => String}) => String}
+		// @Expect(type="{({() => String}) => String}")
 		const maxIfEmpty = { ifEmpty => strings.maxIfEmpty(ifEmpty) }
 		
-		// XPECT type at maxIfEmptyComparable --> {({(String) => (Date|Number|String)}, {() => String}) => String}
+		// @Expect(type="{({(String) => (Date|Number|String)}, {() => String}) => String}")
 		const maxIfEmptyComparable = { comparable, ifEmpty => strings.maxIfEmpty(comparable, ifEmpty) }
 		
 		
-		// XPECT type at sortedBy --> {({(String, String) => Boolean}) => List<String>}
+		// @Expect(type="{({(String, String) => Boolean}) => List<String>}")
 		const sortedBy = { predicate => strings.sortedBy(predicate) }
 		
 		
-		// XPECT type at absolute --> {({(String) => (Date|Number|String)}, {((Date|Number|String), (Date|Number|String)) => Boolean}, {() => String}) => String}
+		// @Expect(type="{({(String) => (Date|Number|String)}, {((Date|Number|String), (Date|Number|String)) => Boolean}, {() => String}) => String}")
 		const absolute = { comparable, criteria, ifEmpty => strings.absolute (comparable, criteria, ifEmpty) }
 		
 	}
 	
 	method sumableCollection() { 
-		// XPECT type at sum --> {() => Number}
+		// @Expect(type="{() => Number}")
 		const sum = { sample.sum() }
 		
-		// XPECT type at sumProjection --> {({(String) => Number}) => Number}
+		// @Expect(type="{({(String) => Number}) => Number}")
 		const sumProjection = { projection => strings.sum(projection) }
 	}
 	
 	method methodScopedTypeParameters() {
-		// XPECT type at mapped --> List<Boolean>
+		@Expect(type="List<Boolean>")
 		const mapped = sample.map { number => number.even() } 
 
-		// XPECT type at flatMapped --> List<Boolean>
+		// @Expect(type="List<Boolean>")
 		const flatMapped = sample.flatMap { number => [number.even()] } 
 
-		// XPECT type at fold --> Number
+		@Expect(type="Number")
 		const fold = sample.fold(0, { accum, elem => accum + elem }) 
 
-		// XPECT type at allEven --> Boolean
+		@Expect(type="Boolean")
 		const allEven = sample.fold(true, { accum, elem => accum && elem.even() }) 
 	}
 }
@@ -153,55 +153,55 @@ class TestCollection {
  * o bien aquellos que devuelven un tipo distinto dependiendo del receptor (e.g. filter)
  */
 class TestList {
-	// XPECT type at list --> List<Number>
+	@Expect(type="List<Number>")
 	const list = [1, 2, 3]
 
 	method listSpecific() {
-		// XPECT type at first --> Number
+		// @Expect(type="Number")
 		const first = list.first()
 		
-		// XPECT type at head --> Number
+		// @Expect(type="Number")
 		const head = list.head()
 		
-		// XPECT type at last --> Number
+		// @Expect(type="Number")
 		const last = list.last()
 		
-		// XPECT type at reverse --> List<Number>
+		// @Expect(type="List<Number>")
 		const reverse = list.reverse()
 		
-		// XPECT type at withoutDuplicates --> List<Number>
+		// @Expect(type="List<Number>")
 		const withoutDuplicates = list.withoutDuplicates()
 		
-		// XPECT type at get --> { (Number) => Number }
+		// @Expect(type="{ (Number) => Number }")
 		const get = { i => list.get(i) }
 		
-		// XPECT type at take --> { (Number) => List<Number> }
+		// @Expect(type="{ (Number) => List<Number> }")
 		const take = { n => list.take(n) }
 		
-		// XPECT type at drop --> { (Number) => List<Number> }
+		// @Expect(type="{ (Number) => List<Number> }")
 		const drop = { n => list.drop(n) }
 		
-		// XPECT type at subList --> { (Number, Number) => List<Number> }
+		// @Expect(type="{ (Number, Number) => List<Number> }")
 		const subList = { start, end => list.subList(start, end) }
 		
-		// XPECT type at sortBy --> { ({(Number, Number) => Boolean}) => Void }
+		// @Expect(type="{ ({(Number, Number) => Boolean}) => Void }")
 		const sortBy = { predicate => list.sortBy(predicate) }
 	}
 
 	method selfTypedList() {
-		// XPECT type at filterList --> {({(Number) => Boolean}) => List<Number>}
+		// @Expect(type="{({(Number) => Boolean}) => List<Number>}")
 		const filterList = { cond => list.filter(cond) }
 
-		// XPECT type at plusList --> {(Collection<Number>) => List<Number>}
+		// @Expect(type="{(Collection<Number>) => List<Number>}")
 		const plusList = { c => list + c }
 		
-		// XPECT type at copyList --> List<Number>
+		// @Expect(type="List<Number>")
 		const copyList = list.copy()
 		
-		// XPECT type at newInstanceList --> List<Any>
+		// @Expect(type="List<Any>")
 		const newInstanceList = list.newInstance()
 
-		// XPECT type at flattenList --> {() => List<Number>}
+		// @Expect(type="{() => List<Number>}")
 		const flattenList = { [list].flatten() }
 	}			
 }
@@ -212,34 +212,34 @@ class TestList {
  * o bien aquellos que devuelven un tipo distinto dependiendo del receptor (e.g. filter)
  */
 class SetList {
-	// XPECT type at set --> Set<Number>
+	@Expect(type="Set<Number>")
 	const set = #{1, 2, 3}
 
 	method setSpecific() {
-		// XPECT type at union --> {(Collection<Number>) => Set<Number>}
+		// @Expect(type="{(Collection<Number>) => Set<Number>}")
 		const union = { col => set.union(col) }
 		
-		// XPECT type at intersection --> {(Collection<Number>) => Set<Number>}
+		// @Expect(type="{(Collection<Number>) => Set<Number>}")
 		const intersection = { col => set.intersection(col) }
 		
-		// XPECT type at difference --> {(Collection<Number>) => Set<Number>}
+		// @Expect(type="{(Collection<Number>) => Set<Number>}")
 		const difference = { col => set.difference(col) }
 	}
 
 	method selfTypedSet() {
-		// XPECT type at filterSet --> {({(Number) => Boolean}) => Set<Number>}
+		// @Expect(type="{({(Number) => Boolean}) => Set<Number>}")
 		const filterSet = { cond => set.filter(cond) }
 
-		// XPECT type at plusSet --> {(Collection<Number>) => Set<Number>}
+		// @Expect(type="{(Collection<Number>) => Set<Number>}")
 		const plusSet = { c => set + c }
 		
-		// XPECT type at copySet --> Set<Number>
+		// @Expect(type="Set<Number>")
 		const copySet = set.copy()
 		
-		// XPECT type at newInstanceSet --> Set<Any>
+		// @Expect(type="Set<Any>")
 		const newInstanceSet = set.newInstance()
 
-		// XPECT type at flattenSet --> {() => Set<Number>}
+		// @Expect(type="{() => Set<Number>}")
 		const flattenSet = { #{set}.flatten() }
 	}
 }

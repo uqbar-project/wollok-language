@@ -1,0 +1,15 @@
+class Empleado {
+	var property categoria = 0
+}
+
+object jefe {
+	@Expect(type="List<Empleado>")
+	var empleados = []
+
+	method algunoConCategoria(cat) {
+		return empleados.any{ 
+			@Expect(type="Empleado")
+			emp => emp.categoria() == cat
+		}
+	}
+}

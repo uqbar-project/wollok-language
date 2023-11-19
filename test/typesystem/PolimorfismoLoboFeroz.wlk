@@ -1,3 +1,5 @@
+// No errors
+
 object lobo {
 
 	var calorias = 100

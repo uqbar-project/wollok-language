@@ -1,0 +1,12 @@
+object pepita {
+	@Expect(type="String")
+	const hola = "hola"
+	@Expect(type="List<String>")
+	const list = [hola]
+
+	method generic() = [""].first() + 
+		@TODOExpect(code="typeMismatch", level="warning", values=["String", "Number"]) 1
+
+	@Expect(type="() => String")
+	method generic2() = list.first()
+}

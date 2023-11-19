@@ -1,0 +1,22 @@
+object pepita inherits Golondrina(energia = 1, nombre = "Pepita") { }
+object pepona inherits Ave(nombre = "Pepona") { }
+object pepe inherits Ave(nombre = "Pepe") { }
+
+class Golondrina inherits Ave {
+	@Expect(type="Number")
+	const energia
+	
+	@Expect(type="() => { }")
+	method hermana() = object inherits Golondrina(energia = 2) { }
+
+	@Expect(type="() => { }")
+	method amiga() = object inherits Ave(nombre = "Ami") { }
+}
+
+class Ave {
+	@Expect(type="String")
+	var nombre
+	
+	method nombreAve() = nombre
+}
+

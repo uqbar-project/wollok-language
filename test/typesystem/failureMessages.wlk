@@ -2,9 +2,9 @@ object pepona {
 	@Expect(type="Number")
 	var energia = 0
 
-	// FIXME
-	// @Expect(type="(Number) => Void")
-	method vola(kms) { energia -= kms + 10 }
+	// FIXME - Remove type annotation
+	@Expect(type="(Number) => Void")
+	method vola(@Type(name="Number") kms) { energia -= kms + 10 }
 	
 	method energiaPepona() = 100
 }
@@ -23,7 +23,7 @@ object entrenador {
 	method prueba2() = self.tomarEnergia(@Expect(code="typeMismatch", level="warning", values=["pepona", "arbol"]) arbol)
 	
 	method prueba3() {
-		// pepona.vola(@Expect(code="typeMismatch", level="warning", values=["Number", "arbol"]) arbol)	
+		pepona.vola(@Expect(code="typeMismatch", level="warning", values=["Number", "arbol"]) arbol)	
 	}
 }
 
