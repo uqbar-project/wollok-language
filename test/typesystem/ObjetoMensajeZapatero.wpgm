@@ -23,7 +23,7 @@ object pepe {
 		return 5
 	}
 	
-   @Expect(type="() => Void")
+       @Expect(type="() => Void")
 	method labura(){
 		fiona.compraZapatos()
 	}
