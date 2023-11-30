@@ -10,6 +10,15 @@ object o2 {}
 
 describe "List tests" {
 
+  test "list initialization vs. literals" {
+    assert.equals([], new List())
+    const list = new List()
+    list.add(1)
+    assert.equals([1], list)
+    list.add(2)
+    assert.equals([1, 2], list)
+  }
+
   test "subList" {
     assert.equals([22,2], numbers.subList(0,1))
     assert.equals([22,2,10], numbers.subList(0,2))
