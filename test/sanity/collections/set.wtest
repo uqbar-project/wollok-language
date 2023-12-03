@@ -19,6 +19,15 @@ describe "set tests" {
   const aSet = #{1, 2, 3}
   const anotherSet = #{3, 4, 5}
 
+  test "set initialization vs. literals" {
+    assert.equals(#{}, new Set())
+    const set = new Set()
+    set.add(1)
+    assert.equals(#{1}, set)
+    set.add(2)
+    assert.equals(#{2, 1}, set)
+  }
+
   test "union with empty set" {
     assert.equals(aSet, aSet.union(#{}))
     assert.equals(aSet, #{}.union(aSet))
