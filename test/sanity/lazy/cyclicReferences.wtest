@@ -24,7 +24,8 @@ object elEntrenador inherits Entrenador(equipo = elEquipo) { }
 
 
 test "cyclic references for wko" {
-  assert.that(juan !== null)
+  const oJuan = juan
+  assert.that(oJuan !== null)
 }
 
 test "cyclic references for named objects with inherits named params" {

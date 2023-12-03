@@ -3,30 +3,30 @@ describe "pairs" {
   const pair = 1->2
 
   test "smoke test" {
-    const pair = new Pair(x = 1, y = 2)
-    assert.equals(pair, pair)
+    const anotherPair = new Pair(x = 1, y = 2)
+    assert.equals(anotherPair, anotherPair)
   }
 
   test "new pair" {
-    const pair = new Pair(x = 1, y = 2)
-    assert.equals(1, pair.x())
-    assert.equals(2, pair.y())
+    const anotherPair = new Pair(x = 1, y = 2)
+    assert.equals(1, anotherPair.x())
+    assert.equals(2, anotherPair.y())
   }
 
   test "arrow" {
-    const pair = 1->2
-    assert.equals(1, pair.x())
-    assert.equals(2, pair.y())
+    const anotherPair = 1->2
+    assert.equals(1, anotherPair.x())
+    assert.equals(2, anotherPair.y())
   }
 
   test "x getter" {
-    const pair = "1"->2
-    assert.equals("1", pair.x())
+    const anotherPair = "1"->2
+    assert.equals("1", anotherPair.x())
   }
 
   test "y getter" {
-    const pair = 1->"2"
-    assert.equals("2", pair.y())
+    const anotherPair = 1->"2"
+    assert.equals("2", anotherPair.y())
   }
 
   test "x constant property cannot be modified" {
