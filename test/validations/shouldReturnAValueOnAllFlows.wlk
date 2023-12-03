@@ -379,3 +379,25 @@ class E inherits A {
   // OK
   override method getFoo() = if (capazQueSi) super() else pepita
 }
+
+/* ================================================================================
+ * - Closures
+ * ===============================================================================*/
+
+object closureTests {
+  var bool = true
+
+  // OK
+  const property c1 = { 
+    if (bool) { return 1 } 
+    "2"
+  }
+
+  const property c2 = { 
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error") 
+    if (bool) { return 1 } 
+    bool = false
+  }
+
+  method m1() { bool = false }
+}

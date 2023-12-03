@@ -1,0 +1,10 @@
+describe "without fixture" {
+	@Expect(type="String")
+	const s = ""
+	
+	test "test in suite" {
+		@Expect(type="String")
+		const y = s
+		assert.that(true)
+	}
+}

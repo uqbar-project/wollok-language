@@ -1,0 +1,27 @@
+describe "with initialize method" {	
+	@Expect(type="Number")
+	var n
+	@Expect(type="Boolean")
+	var b
+	
+	method initialize() {
+		b = true
+	}
+	
+	@Expect(type="() => Void")
+	method blah() {
+		@Expect(type="Number")
+		const m = n
+	}
+	
+	@Expect(type="() => Number")
+	method number() = 0
+	
+	
+	test "test with self" {
+		n = self.number()
+		@Expect(type="Number")
+		var expected
+		assert.equals(n, expected)
+	}
+}

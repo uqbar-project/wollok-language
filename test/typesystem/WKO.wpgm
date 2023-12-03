@@ -1,0 +1,32 @@
+
+object juan {
+	@Expect(type="firulais")
+    const mascota = firulais
+
+	method comoEstas() {
+		return "bien"
+	}
+
+	@Expect(type="() => firulais")
+    method mascota() = mascota
+}
+
+object pedro {
+	@Expect(type="() => juan")
+	method conQuienEstas(){
+		return juan
+	}
+}
+
+object firulais {}
+
+program p {
+	 
+	@Expect(type="String")
+	const alguien = juan.comoEstas()
+
+	@Expect(type="juan")
+	const alguien = pedro.conQuienEstas()
+	
+}
+

@@ -1,0 +1,82 @@
+class Persona {
+	
+	@Expect(type="{ cena }")
+	const hambriento = object {
+		const a = 0
+	
+		@Expect(type="() => Number")
+		method cena() {
+			return a
+		}
+	}
+	
+	@Expect(type="{ habla }")
+	const charlatan = object {
+		@Expect(type="() => String")
+		method habla() = "Hola"
+	}
+	
+	@Expect(type="{ habla; cena }")
+	const multifacetico = object {
+		@Expect(type="() => String")
+		method habla() = "Chau"
+		
+		@Expect(type="() => Number")
+		method cena() = 100
+	}
+	
+	@Expect(type="{ habla; cena }")
+	const friki = object {
+		@Expect(type="() => Number")
+		method habla() = 42
+		
+		@Expect(type="() => String")
+		method cena() = "Wollok"
+	}
+	
+	@Expect(type=" () => Number")
+	method comida() = hambriento.cena()
+	
+	@Expect(type=" () => Number")
+	method comidaMulti() = multifacetico.cena()
+	
+	@Expect(type=" () => String")
+	method comidaRara() = friki.cena()
+	
+	method comidaConLaBocaAbierta() = 
+		@Expect(code="methodNotFound", level="warning", values=["cena/0", "{ habla }"]) charlatan.cena()
+	
+	@Expect(type=" () => String")
+	method charla() = charlatan.habla()
+	
+	@Expect(type=" () => String")
+	method charlaMulti() = multifacetico.habla()
+	
+	@Expect(type=" () => Number")
+	method charlaRara() = friki.habla()
+	
+	method charlaConEstomagoVacio() = 
+		@Expect(code="methodNotFound", level="warning", values=["habla/0", "{ cena }"]) hambriento.habla()
+	
+	@Expect(type=" () => (Number|String)")
+	method hacerHablarACharlatan() = self.hacerHablar(charlatan)
+	
+	@Expect(type=" () => (Number|String)")
+	method hacerHablarAMultifacetico() = self.hacerHablar(multifacetico)
+	
+	@Expect(type=" () => (Number|String)")
+	method hacerHablarAFriki() = self.hacerHablar(friki)
+	
+	method hacerHablarAHambriento() = 
+		self.hacerHablar(@Expect(code="typeMismatch", level="warning", values=["{ habla ; cena }|{ habla ; cena }|{ habla }", "{ cena }"]) hambriento)
+
+	@Expect(type="(({ habla ; cena }|{ habla ; cena }|{ habla })) => (Number|String)")
+	method hacerHablar(personalidad) = personalidad.habla()
+
+
+	@Expect(type="(({ habla ; cena }|{ habla ; cena }|{ habla })) => (Number|String)")
+	method hacerHablarQueNuncaSeUsa(personalidad) = personalidad.habla()
+	
+	@Expect(type="() => String")
+	method charlatanString() = charlatan.toString() 
+}

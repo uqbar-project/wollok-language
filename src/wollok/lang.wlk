@@ -263,6 +263,7 @@ class Pair {
  * The root class in the collection hierarchy.
  * A collection represents a group of objects, known as its elements.
  */
+@Type(variable="Element")
 class Collection {
   /**
    * Answers the element that is considered to be/have the maximum value.
@@ -678,7 +679,8 @@ class Collection {
    *      [1, 2, 3].map { number => number.odd() }  => Answers [true, false, true]
    *      [].map { number => number.odd() }         => Answers []
    */
-  method map(closure) {
+  @Type(variable="Mapped", name="List<Mapped>")
+  method map(@Type(name="{ (Element) => Mapped }") closure) {
     self.checkNotNull(closure, "map")
     return self.fold([], { newCollection, element =>
       newCollection.add(closure.apply(element))
@@ -954,6 +956,7 @@ object collection {
  * @author jfernandes
  * @since 1.3
  */
+@Type(variable="Element")
 class Set inherits Collection {
 
   /** @private */
@@ -1056,7 +1059,8 @@ class Set inherits Collection {
    *           => Answers 9, the maximum of all elements
    *
    */
-  override method fold(initialValue, closure) native
+  @Type(variable="Folded", name="Folded")
+  override method fold(@Type(name="Folded") initialValue, @Type(name="{ (Folded, Element) => Folded }") closure) native
 
   /**
    * Answers a new set with the elements meeting
@@ -1104,7 +1108,8 @@ class Set inherits Collection {
    *     set.add(2)   => set = #{2, 3}
    *     set.add(2)   => set = #{2, 3}, second add produces no effect
    */
-  override method add(element) native
+  @Type(name="Void")
+  override method add(@Type(name="Element")element) native
 
   /** @private */
   method unsafeAdd(element) native
@@ -1191,6 +1196,7 @@ class Set inherits Collection {
  * @author jfernandes
  * @since 1.3
  */
+@Type(variable="Element")
 class List inherits Collection {
 
   /**
@@ -1232,6 +1238,7 @@ class List inherits Collection {
    *    [1, 2, 3, 4].first()  => Answers 1
    *    [].first()            => Throws error, list must not be empty
    */
+  @Type(name="Element")
   method first() = self.head()
 
   /**
@@ -1439,7 +1446,8 @@ class List inherits Collection {
    *           => Answers 9, the maximum of all elements
    *
    */
-  override method fold(initialValue, closure) native
+  @Type(variable="Folded", name="Folded")
+  override method fold(@Type(name="Folded") initialValue, @Type(name="{ (Folded, Element) => Folded }") closure) native
 
   /**
    * Finds the first element matching the boolean closure,
@@ -1460,7 +1468,8 @@ class List inherits Collection {
    *     list.add(2)   => list = [3, 2]
    *     list.add(2)   => list = [3, 2, 2]
    */
-  override method add(element) native
+  @Type(name="Void")
+  override method add(@Type(name="Element")element) native
 
   /**
    * Removes an element in this list, if it is present.
@@ -1787,10 +1796,14 @@ class Number {
    */
   override method ===(other) native
 
-  method +(other) native
-  method -(other) native
-  method *(other) native
-  method /(other) native
+  @Type(name="Number")
+  method +(@Type(name="Number") other) native
+  @Type(name="Number")
+  method -(@Type(name="Number") other) native
+  @Type(name="Number")
+  method *(@Type(name="Number") other) native
+  @Type(name="Number")
+  method /(@Type(name="Number") other) native
 
   /**
    * Integer division between self and other
@@ -1934,6 +1947,7 @@ class Number {
    *
    * Self must be an integer value
    */
+  @Type(name="Boolean")
   method even() = self % 2 == 0
 
   /**

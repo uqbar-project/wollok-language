@@ -1,0 +1,44 @@
+object advancedClosures {
+	@Expect(type="(Number) => Number")
+	method param_type(n) {
+		return { a => a + 1 }.apply(n)
+	}
+	
+	@Expect(type="() => Number")
+	method throws_error_closure() {
+		return [1,2,3].findOrElse(
+					{ n => n.even()  }, 
+					{ throw new Exception(message = "MESSAGE") }
+				)
+	}
+	
+	@Expect(type="() => Number")
+	method throws_error_closure_by_message() {
+		return [1,2,3].findOrElse(
+					{ n => n.even()  }, 
+					{ self.error("MESSAGE") }
+				)
+	}
+}
+
+object incompatibility {
+	method closure_vs_basic_type() {
+		return [1,2,3].filter(@Expect(code="typeMismatch", level="warning", values=["{ (Number) => Boolean }", "String"]) "ERROR")
+	} 
+	
+	method basic_vs_closure_type() {
+		return [1,2,3].contains(@Expect(code="typeMismatch", level="warning", values=["Number", "{ () => String }"]) {"ERROR"})
+	} 
+	
+	method closure_type_with_different_params() {
+		return [1,2,3].filter(@Expect(code="typeMismatch", level="warning", values=["{ (Number) => Boolean }", "{ () => Boolean }"]) {true})
+	}
+	 
+	method incompatible_param_closure_type() {
+		return [1,2,3].filter({n => @Expect(code="methodNotFound", level="warning", values=["startsWith/1", "Number"]) n.startsWith("ERROR")})
+	}
+
+	method incompatible_return_closure_type() {
+		return [1,2,3].any({n => @Expect(code="typeMismatch", level="warning", values=["Boolean", "String"]) "ERROR"})
+	}
+}

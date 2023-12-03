@@ -1,0 +1,18 @@
+program p {
+	@Expect(type="Number")
+	const n = 23
+	@Expect(type="Boolean")
+	const bul = true
+	
+	@Expect(type="Number")
+	const number = if (bul) 2 else 6
+
+	@Expect(type="String")
+	const string = if (bul) "a" else "b"
+
+	@Expect(type="(Number | String)")
+	const union = if (bul) 1 else "b"
+
+	@Expect(type="Number")
+	const fail = if (@Expect(code="typeMismatch", level="warning", values=["Boolean", "Number"]) n) 2 else 6
+}

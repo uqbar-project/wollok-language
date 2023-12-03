@@ -1,0 +1,87 @@
+class Golondrina { 
+	@Expect(type="Number")
+	var energia = 100
+	
+	@Expect(type="(Number) => Void")
+	method vola(kilometros) { energia = energia - kilometros * 10 }
+	
+	@Expect(type="((alpiste | manzana)) => Void")
+	method come(comida) { energia += comida.energia() * 0.10 }
+}
+
+object alpiste {
+	method energia() = 1
+}
+
+object manzana {
+	method energia() = 1
+}
+
+object pepita {
+	@Expect(type="() => String")
+	method nombreAve() = "Pepita"
+}
+
+class Entrenador {
+	@Expect(type="{ (Golondrina) => Void }")
+	const estrategia = { ave => ave.vola(5) }
+	
+	@Expect(type="(Golondrina) => Void")
+	method darAlpiste(ave) { ave.come(alpiste) }
+	
+	@Expect(type="(Golondrina) => Void")
+	method entrena(ave) { ave.vola(5) }
+	
+	@Expect(type="(pepita) => String")
+	method llama(p) = p.nombreAve()
+	
+	@Expect(type="() => { (Golondrina) => Void }")
+	method estrategia() = estrategia
+	
+	
+	@Expect(type="(Golondrina) => Any")
+	method falla(ave) { 
+		@Expect(code="methodNotFound", level="warning", values=["habla/0", "Golondrina"])
+		ave.habla()
+		
+		ave.vola(1)
+		
+		return @Expect(code="methodNotFound", level="warning", values=["come/0", "Golondrina"]) ave.come()	
+	}
+	
+	@Expect(type="(pepita) => Any")
+	method falla2(p) {
+		return @Expect(code="methodNotFound", level="warning", values=["esEstrambotico/0", "String"]) (p.nombreAve()).esEstrambotico()
+	}
+	
+	@Expect(type="(Any) => Any")
+	method falla3(ave) = ave.come() //TODO: should fail! 
+	
+	
+	@Expect(type="() => { () => Boolean }")
+	method condicion() = { true }
+	
+	@Expect(type="() => { () => Boolean }")
+	method condicion2() = { return true }
+	
+	@Expect(type="() => { () => Boolean }")
+	method condicion3() { return { return true } }
+	
+	@Expect(type="(Golondrina) => Void")
+	method entrenarConEstrategia(ave) { self.estrategia().apply(ave) }
+	
+	@Expect(type="(Golondrina, (alpiste | manzana)) => Void")
+	method alimentar(golondrina, comida) {
+		const c = { g => g.come(comida) } 
+		c.apply(golondrina)
+	}
+
+	// @Expect(type="((Golondrina | pepita)) => (Golondrina | pepita)")
+	method id(ave) = ave
+
+	// @Expect(type="() => (Golondrina | pepita)")
+	method typeIdWithPepita() = self.id(pepita)
+	
+	// @Expect(type="() => (Golondrina | pepita)")
+	method typeIdWithgolondrina() = self.id(new Golondrina())
+}

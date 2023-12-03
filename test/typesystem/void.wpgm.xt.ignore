@@ -1,0 +1,28 @@
+/* XPECT_SETUP org.uqbar.project.wollok.tests.typesystem.xpect.TypeSystemXpectTestCase END_SETUP */
+
+program p {
+	// XPECT type at [].add(1)  --> Void 
+	[].add(1)
+
+	// XPECT! warnings --> "This statement does not produce a value" at "[].add(1)"
+	// XPECT warnings --> "An expression is expected at this position." at "nada"
+	const nada = [].add(1)
+	
+	/* XPECT! warnings ---
+		"An expression is expected at this position." at "console.println(nada)"
+		"An expression is expected at this position." at "nada"
+	--- */
+	console.println(nada)
+
+	/* X-PECT errors --- 
+		"An expression is expected at this position." at "if (1 == 2) { 3 }"
+		"An expression is expected at this position." at "if (1 == 2) { 3 }"
+		"An expression is expected at this position." at "if (1 == 2) { 3 }"
+		"If-statements without else cannot be considered valid expressions as they cannot always yield a value" at "1 == 2"
+	--- */
+	// @dodain - Randomly there are one or two lines of xpect errors for If-statements without else...
+	// commenting it
+	//const invalid = if (1 == 2) { 3 };
+	//invalid
+}
+
