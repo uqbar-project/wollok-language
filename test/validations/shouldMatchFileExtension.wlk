@@ -1,5 +1,5 @@
 @Expect(code = "shouldMatchFileExtension", level="error")
-test "some test" {
+test "some incredible test" {
   assert.that(true)
 }
 

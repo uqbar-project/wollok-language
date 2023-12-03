@@ -1,0 +1,27 @@
+@Expect(code="shouldHaveDifferentName", level="error")
+test "a duplicated test" {
+  assert.that(true)
+}
+
+@Expect(code="shouldHaveDifferentName", level="error")
+test "a duplicated test" {
+  assert.equals(2, 1 + 1)
+} 
+
+describe "a group of tests" {
+
+  @Expect(code="shouldHaveDifferentName", level="error")
+  test "duplicated" {
+    assert.equals(2, 1 + 1)
+  }
+
+  @Expect(code="shouldHaveDifferentName", level="error")
+  test "duplicated" {
+    assert.notThat(false)
+  }
+
+  test "not duplicated" {
+    assert.that(true)
+  }
+  
+}
