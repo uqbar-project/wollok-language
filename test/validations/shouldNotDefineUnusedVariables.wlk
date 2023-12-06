@@ -1,5 +1,5 @@
 class SomeClass {
-  @Expect(code="shouldNotDefineUnusedVariables", level="warning")
+  @Expect(code="shouldNotDefineUnusedVariables", level="warning", expectedOn="unusedVariable")
   var unusedVariable = 0
   const usedVariable = 1000
 
@@ -7,7 +7,7 @@ class SomeClass {
 }
 
 object someObject {
-  @Expect(code="shouldNotDefineUnusedVariables", level="warning")
+  @Expect(code="shouldNotDefineUnusedVariables", level="warning", expectedOn="unusedVariable")
   var unusedVariable = object {}
   const usedVariable = 1000
 
