@@ -2,13 +2,13 @@ class Person {
   var property toBeHidden = 23
   
   method hidingFieldWithLocalVar() {
-    @Expect(code="shouldNotDuplicateLocalVariables", level="error")
+    @Expect(code="shouldNotDuplicateLocalVariables", level="error", expectedOn="toBeHidden")
     var toBeHidden = 22
     return toBeHidden
   }
   
   method hidingParameterWithLocalVar(p1) {
-    @Expect(code="shouldNotDuplicateLocalVariables", level="error")
+    @Expect(code="shouldNotDuplicateLocalVariables", level="error", expectedOn="p1")
     var p1 = 23
     return p1
   }
@@ -17,10 +17,10 @@ class Person {
 
 class DuplicatedChecksTest {
   method run() {
-    @Expect(code="shouldNotDuplicateLocalVariables", level="error")
+    @Expect(code="shouldNotDuplicateLocalVariables", level="error", expectedOn="u")
     const u = 23
   
-    @Expect(code="shouldNotDuplicateLocalVariables", level="error")
+    @Expect(code="shouldNotDuplicateLocalVariables", level="error", expectedOn="u")
     const u = 566
   }
 }
@@ -30,14 +30,14 @@ describe "pruebas generales" {
   const b = 3
 	
 	test "Max between 5 and 8 - using vars" {
-		@Expect(code="shouldNotDuplicateLocalVariables", level="error")
+		@Expect(code="shouldNotDuplicateLocalVariables", level="error", expectedOn="a")
 		const a = 3
 		const result = 5.max(a)
 		assert.equals(3, result)
 	}
 
   test "Max between 5 and 8 - using consts" {
-		@Expect(code="shouldNotDuplicateLocalVariables", level="error")
+		@Expect(code="shouldNotDuplicateLocalVariables", level="error", expectedOn="b")
 		const b = 3
 		const result = 5.max(b)
 		assert.equals(3, result)
