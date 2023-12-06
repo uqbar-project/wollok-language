@@ -1,24 +1,24 @@
-@Expect(code="nameShouldNotBeKeyword", level="error")
+@Expect(code="nameShouldNotBeKeyword", level="error", expectedOn="object")
 object object {
-  method invalidParam(@Expect(code="nameShouldNotBeKeyword", level="error") test) = true
+  method invalidParam(@Expect(code="nameShouldNotBeKeyword", level="error", expectedOn="test") test) = true
 }
 
 class SomeClass {
-  @Expect(code="nameShouldNotBeKeyword", level="error")
+  @Expect(code="nameShouldNotBeKeyword", level="error", expectedOn="var")
   var var = 11
 
-  @Expect(code="nameShouldNotBeKeyword", level="error")
+  @Expect(code="nameShouldNotBeKeyword", level="error", expectedOn="var")
   method var() = var
   
-  @Expect(code="nameShouldNotBeKeyword", level="error")
+  @Expect(code="nameShouldNotBeKeyword", level="error", expectedOn="method")
   method method() {
-    @Expect(code="nameShouldNotBeKeyword", level="error")
+    @Expect(code="nameShouldNotBeKeyword", level="error", expectedOn="const")
     const const = 1
   }
 
 }
 
-@Expect(code="nameShouldNotBeKeyword", level="error")
+@Expect(code="nameShouldNotBeKeyword", level="error", expectedOn="program")
 program program {
   console.println(new SomeClass())
 }

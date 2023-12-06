@@ -1,5 +1,5 @@
 class SomeClass {
-  @Expect(code = "shouldNotAssignToItselfInDeclaration", level="error")
+  @Expect(code = "shouldNotAssignToItselfInDeclaration", level="error", expectedOn="var attribute = attribute")
   var attribute = attribute
 
   method attribute() = attribute
@@ -9,7 +9,7 @@ class SomeClass {
   }
   
   method someMethod() {
-    @Expect(code = "shouldNotAssignToItselfInDeclaration", level="error")
+    @Expect(code = "shouldNotAssignToItselfInDeclaration", level="error", expectedOn="var localVariable = localVariable")
     var localVariable = localVariable
 
     localVariable = !localVariable
