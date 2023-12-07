@@ -3,7 +3,7 @@ class Persona {
     return "hardcodeado"
   }
   method blah() {
-    @Expect(code="methodShouldExist", level="error")
+    @Expect(code="methodShouldExist", level="error", expectedOn="self.bleh()")
     (self.bleh())
   }
   method primitiveMethod()
@@ -18,7 +18,7 @@ class Profesor inherits Persona {
   method subBlah() {
     self.getNombre()
     self.blah()
-    @Expect(code="methodShouldExist", level="error")
+    @Expect(code="methodShouldExist", level="error", expectedOn="self.bleh()")
     (self.bleh())
   }
   override method primitiveMethod() {}
@@ -30,7 +30,7 @@ object o {
   }
   method bar() {
     self.foo()
-    @Expect(code="methodShouldExist", level="error")
+    @Expect(code="methodShouldExist", level="error", expectedOn="self.foobar()")
     (self.foobar())
   }
 }
@@ -42,7 +42,7 @@ mixin M {
     self.implemented()
   }
   method implemented() {
-    @Expect(code="methodShouldExist", level="error")
+    @Expect(code="methodShouldExist", level="error", expectedOn="self.notImplemented()")
     (self.notImplemented())
   }
   method primitive()
@@ -53,32 +53,32 @@ class Personaje {
     pepita.foo()
     pepita.bar()
     
-    @Expect(code="methodShouldExist", level="error")
+    @Expect(code="methodShouldExist", level="error", expectedOn="pepita.fooBar()")
     (pepita.fooBar())
     
-    @Expect(code="methodShouldExist", level="error")
+    @Expect(code="methodShouldExist", level="error", expectedOn="pepita.fooBar(2, \"hola\")")
     (pepita.fooBar(2, "hola"))
     
-    @Expect(code="methodShouldExist", level="error")
+    @Expect(code="methodShouldExist", level="error", expectedOn="pepita.fooWithParam()")
     (pepita.fooWithParam())
 
-    @Expect(code="methodShouldExist", level="error")
+    @Expect(code="methodShouldExist", level="error", expectedOn="pepita.fooWithParam(new Date(), 2, 4)")
     (pepita.fooWithParam(new Date(), 2, 4))
 
-    @Expect(code="methodShouldExist", level="error")
+    @Expect(code="methodShouldExist", level="error", expectedOn="pepita.foO()")
     (pepita.foO())
     
-    @Expect(code="methodShouldExist", level="error")
+    @Expect(code="methodShouldExist", level="error", expectedOn="pepita.severalDef()")
     (pepita.severalDef())
     
-    @Expect(code="methodShouldExist", level="error")
+    @Expect(code="methodShouldExist", level="error", expectedOn="pepita.severalDef(1, 2, 3, 4)")
     (pepita.severalDef(1, 2, 3, 4))
   }
 }
 
 class B {
   const i = pepita.foo()
-  const x = @Expect(code="methodShouldExist", level="error") (pepita.zoo())
+  const x = @Expect(code="methodShouldExist", level="error", expectedOn="pepita.zoo()") (pepita.zoo())
   
   method a() = i + x
 }
