@@ -1,14 +1,14 @@
-@Expect(code = "shouldHaveNonEmptyName", level="warning")
+@Expect(code="shouldHaveNonEmptyName", level="warning", expectedOn="\"\"")
 describe "" {
-  @Expect(code = "shouldHaveNonEmptyName", level="warning")
+  @Expect(code="shouldHaveNonEmptyName", level="warning")
   test "" {
     assert.that(true)
   }
 }
 
-@Expect(code = "shouldHaveNonEmptyName", level="warning")
+@Expect(code="shouldHaveNonEmptyName", level="warning", expectedOn="\"    \"")
 describe "    " {
-  @Expect(code = "shouldHaveNonEmptyName", level="warning")
+  @Expect(code="shouldHaveNonEmptyName", level="warning", expectedOn="\"   \"")
   test "   " {
     assert.that(true)
   }
