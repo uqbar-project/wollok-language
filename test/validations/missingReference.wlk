@@ -1,8 +1,8 @@
-import @Expect(code="missingReference", level="error") inexistentFile.*
+import @Expect(code="missingReference", level="error", expectedOn="inexistentFile") inexistentFile.*
 
 object pepita {
   
-  method energia() = (@Expect(code="missingReference", level="error") energia)
+  method energia() = (@Expect(code="missingReference", level="error", expectedOn="energia") energia)
   
   method comer(p) {
     @Expect(code="missingReference", level="error", path="variable")
@@ -21,7 +21,7 @@ class C inherits @Expect(code="missingReference", level="error", path="reference
     try {
       assert.that(true)
     } 
-    catch e: @Expect(code = "missingReference", level="error") InexistentException
+    catch e: @Expect(code = "missingReference", level="error", expectedOn="InexistentException") InexistentException
       assert.fail("InexistentException does not exist")
     @Expect(code = "catchShouldBeReachable", level="error")
     catch e: Exception
@@ -31,4 +31,4 @@ class C inherits @Expect(code="missingReference", level="error", path="reference
 
 mixin M inherits @Expect(code="missingReference", level="error", path="reference") InexistentMixin { }
 
-const a = new @Expect(code = "missingReference", level="error") InexistClass(edad = 5)
+const a = new @Expect(code = "missingReference", level="error", expectedOn="InexistClass") InexistClass(edad = 5)
