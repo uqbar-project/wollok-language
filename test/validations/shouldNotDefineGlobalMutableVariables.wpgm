@@ -1,4 +1,4 @@
-@Expect(code="shouldNotDefineGlobalMutableVariables", level="error")
+@Expect(code="shouldNotDefineGlobalMutableVariables", level="error", expectedOn="variableGlobalNotAllowed")
 var variableGlobalNotAllowed = 1
 
 // OK
