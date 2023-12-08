@@ -9,7 +9,7 @@ class ConcreteClass inherits AbstractClass {
 
 class SomeClass {
   method something(param) {
-    const value = @Expect(code="shouldNotInstantiateAbstractClass", level="error") new AbstractClass()
+    const value = @Expect(code="shouldNotInstantiateAbstractClass", level="error", expectedOn="new AbstractClass()\n    ") new AbstractClass()
     const anotherValue = new ConcreteClass()
     return if (param) value.concreteMethod() else anotherValue.abstractMethod()
   }
