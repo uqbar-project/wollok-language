@@ -6,20 +6,34 @@ class SomeClass {
     b = 5
   }
 
-  @Expect(code="possiblyReturningBlock", level="warning")
+  @Expect(code="possiblyReturningBlock", level="warning", expectedOn="{
+    return 2
+  }
+
+  ")
   method fakeReturn() = {
     return 2
   }
 
-  @Expect(code="possiblyReturningBlock", level="warning")
+  @Expect(code="possiblyReturningBlock", level="warning", expectedOn="{ return }
+
+  ")
   method fakeReturnUsingVoidClosure() = { return }
 
-  @Expect(code="possiblyReturningBlock", level="warning")
+  @Expect(code="possiblyReturningBlock", level="warning", expectedOn="{
+    return a + b
+  }
+
+  ")
   method fakeReturnUsingVariables() = {
     return a + b
   }
 
-  @Expect(code="possiblyReturningBlock", level="warning")
+  @Expect(code="possiblyReturningBlock", level="warning", expectedOn="{
+    a = 3
+  }
+
+  ")
   method fakeReturnUsingAssignment() = {
     a = 3
   }
