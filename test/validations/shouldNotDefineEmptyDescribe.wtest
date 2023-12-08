@@ -1,2 +1,2 @@
-@Expect(code="shouldNotDefineEmptyDescribe", level="warning")
+@Expect(code="shouldNotDefineEmptyDescribe", level="warning", expectedOn="describe \"empty\" {}")
 describe "empty" {}
