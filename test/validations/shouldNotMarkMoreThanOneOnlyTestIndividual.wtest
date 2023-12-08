@@ -1,16 +1,16 @@
 import wollok.lib.assert
 
-@Expect(code="shouldNotMarkMoreThanOneOnlyTest", level="warning")
+@Expect(code="shouldNotMarkMoreThanOneOnlyTest", level="warning", expectedOn="only")
 only test "truthy test" {
 	assert.that(true)
 }
 
-@Expect(code="shouldNotMarkMoreThanOneOnlyTest", level="warning")
+@Expect(code="shouldNotMarkMoreThanOneOnlyTest", level="warning", expectedOn="only")
 only test "equality for numbers" {
 	assert.equals(1, 1.0)
 }
 
-@Expect(code="shouldNotMarkMoreThanOneOnlyTest", level="warning")
+@Expect(code="shouldNotMarkMoreThanOneOnlyTest", level="warning", expectedOn="only")
 only test "falsy test" {
 	assert.notThat(false)
 }
