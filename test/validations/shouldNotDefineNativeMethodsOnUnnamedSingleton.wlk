@@ -1,5 +1,5 @@
 const pepita = object {
-  @Expect(code="shouldNotDefineNativeMethodsOnUnnamedSingleton", level="error")
+  @Expect(code="shouldNotDefineNativeMethodsOnUnnamedSingleton", level="error", expectedOn="fly")
   method fly() native
 }
 
