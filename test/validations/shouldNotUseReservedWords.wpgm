@@ -1,25 +1,25 @@
-@Expect(code = "shouldNotUseReservedWords", value = "warning", expectedOn = "Object")
+@Expect(code = "shouldNotUseReservedWords", level = "warning", expectedOn = "Object")
 class Object { }
 
-@Expect(code = "shouldNotUseReservedWords", value = "warning", expectedOn = "List")
+@Expect(code = "shouldNotUseReservedWords", level = "warning", expectedOn = "List")
 class List { }
 
-@Expect(code = "shouldNotUseReservedWords", value = "warning", expectedOn = "assert")
+@Expect(code = "shouldNotUseReservedWords", level = "warning", expectedOn = "assert")
 object assert {}
 
-@Expect(code = "shouldNotUseReservedWords", value = "warning", expectedOn = "console")
+@Expect(code = "shouldNotUseReservedWords", level = "warning", expectedOn = "console")
 const console = object {}
 
 class A {
-  @Expect(code = "shouldNotUseReservedWords", value = "warning", expectedOn = "assert")
+  @Expect(code = "shouldNotUseReservedWords", level = "warning", expectedOn = "assert")
   var assert = 5
 
-  method someMethod(@Expect(code = "shouldNotUseReservedWords", value = "warning", expectedOn = "console") console) {
+  method someMethod(@Expect(code = "shouldNotUseReservedWords", level = "warning", expectedOn = "console") console) {
     assert.that(true)
   }
 }
 
-@Expect(code = "shouldNotUseReservedWords", value = "warning", expectedOn = "wollok")
+@Expect(code = "shouldNotUseReservedWords", level = "warning", expectedOn = "wollok")
 const wollok = 11
 
 
