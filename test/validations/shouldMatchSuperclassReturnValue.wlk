@@ -37,7 +37,7 @@ class Z {
 }
 
 class Y inherits Z {
-	@Expect(code="shouldMatchSuperclassReturnValue", level="error", expectedOn="return 23")
+	@Expect(code="shouldMatchSuperclassReturnValue", level="error", expectedOn="23")
 	override method doSomething() {
 		return 23
 	}	
