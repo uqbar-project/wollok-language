@@ -1,2 +1,2 @@
-@Expect(code = "shouldNotImportSameFile", level = "error")
+@Expect(code = "shouldNotImportSameFile", level = "error", expectedOn="import shouldNotImportSameFile.*")
 import shouldNotImportSameFile.*
