@@ -17,7 +17,7 @@ object joaquin {
   }
 
   method testValorDevuelto() {
-    @Expect(code="shouldReturnAValueOnAllFlows", level="error")
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (tocaEnGrupo) return 5")
     if (tocaEnGrupo) return 5
   }
 
@@ -148,32 +148,32 @@ object joaquin {
   // =====================================================================================
 
   method testValorDevueltoConMetodoGet() =
-    (@Expect(code="shouldReturnAValueOnAllFlows", level="error")
+    (@Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (tocaEnGrupo) 5")
     if (tocaEnGrupo) 5)
 
   method validarFelicidad() {
-    assert.equals(10, @Expect(code="shouldReturnAValueOnAllFlows", level="error") if (tocaEnGrupo) 5)
+    assert.equals(10, @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (tocaEnGrupo) 5") if (tocaEnGrupo) 5)
   }
 
-  method felicidadTotal(numero) = numero + @Expect(code="shouldReturnAValueOnAllFlows", level="error") (if (tocaEnGrupo) 5)
+  method felicidadTotal(numero) = numero + @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (tocaEnGrupo) 5") (if (tocaEnGrupo) 5)
 
   method ifInsideExpressionWithoutElseShouldFailForReturn() {
-    return @Expect(code="shouldReturnAValueOnAllFlows", level="error") (if(1 == 2) 2)
+    return @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if(1 == 2) 2") (if(1 == 2) 2)
   }
 
   method ifInsideExpressionWithoutElseShouldFailForBinaryLeftOperation() {
-    return (@Expect(code="shouldReturnAValueOnAllFlows", level="error") if(1 == 2) 2) + 3
+    return (@Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if(1 == 2) 2") if(1 == 2) 2) + 3
   }
 
   method ifInsideExpressionWithoutElseShouldFailInAssignment() {
-    var failed = @Expect(code="shouldReturnAValueOnAllFlows", level="error") if(1 == 2) 2
+    var failed = @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if(1 == 2) 2") if(1 == 2) 2
     const ok = if (1 == 2) 2 else 3
     failed = ok
     return ok == 3
   }
 
   method invokeAddOneTo() {
-    return self.felicidadTotal(@Expect(code="shouldReturnAValueOnAllFlows", level="error") if (1 == 2) 4)
+    return self.felicidadTotal(@Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (1 == 2) 4") if (1 == 2) 4)
   }
 
   method testValorDevueltoOFecha() =
@@ -186,15 +186,15 @@ object joaquin {
   }
 
   method alegria() {
-    return @Expect(code="shouldReturnAValueOnAllFlows", level="error") if (tocaEnGrupo) 22
+    return @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (tocaEnGrupo) 22") if (tocaEnGrupo) 22
   }
 
   method calcularNombre() {
-    return @Expect(code="shouldReturnAValueOnAllFlows", level="error") if (tocaEnGrupo) 22 else nombre = "Luis"
+    return @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (tocaEnGrupo) 22 else nombre = \"Luis\"") if (tocaEnGrupo) 22 else nombre = "Luis"
   }
 
   method definirNombre() {
-    return @Expect(code="shouldReturnAValueOnAllFlows", level="error") if (tocaEnGrupo) nombre = "Luis" else 22
+    return @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (tocaEnGrupo) nombre = \"Luis\" else 22") if (tocaEnGrupo) nombre = "Luis" else 22
   }
 
   // OK
@@ -242,13 +242,15 @@ class A {
   }
   
   method getZoo() { 
-    @Expect(code="shouldReturnAValueOnAllFlows", level="error")
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (self.getFoo() == \"Foo\")  
+      return \"Foo\"")
     if (self.getFoo() == "Foo")  
       return "Foo"
   }
   
   method getZoo2() {
-    @Expect(code="shouldReturnAValueOnAllFlows", level="error")
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (self.getFoo() == \"Foo\")
+      return \"Foo\"")
     if (self.getFoo() == "Foo")
       return "Foo"
     
@@ -257,7 +259,10 @@ class A {
   }
   
   method getXoo() { 
-    @Expect(code="shouldReturnAValueOnAllFlows", level="error")
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (self.getFoo() == \"Foo\")  
+      return \"Foo\"
+    else
+      \"Bar\"")
     if (self.getFoo() == "Foo")  
       return "Foo"
     else
@@ -265,7 +270,13 @@ class A {
   }
   
   method getXoo2() {
-    @Expect(code="shouldReturnAValueOnAllFlows", level="error")
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (self.getFoo() == \"Foo\") {
+      var a = 23
+      a += 2
+      return a
+    }
+    else
+      \"Bar\"")
     if (self.getFoo() == "Foo") {
       var a = 23
       a += 2
@@ -276,7 +287,13 @@ class A {
   }
   
   method getXoo3() {
-    @Expect(code="shouldReturnAValueOnAllFlows", level="error") 
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (self.getFoo() == \"Foo\") {
+      \"Foo\"
+    }
+    else {
+      return \"Bar\"
+    }
+  ") 
     if (self.getFoo() == "Foo") {
       "Foo"
     }
@@ -394,8 +411,9 @@ object closureTests {
   }
 
   const property c2 = { 
-    @Expect(code="shouldReturnAValueOnAllFlows", level="error") 
-    if (bool) { return 1 } 
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (bool) { return 1 }
+    ")
+    if (bool) { return 1 }
     bool = false
   }
 
