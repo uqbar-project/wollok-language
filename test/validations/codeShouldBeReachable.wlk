@@ -3,13 +3,13 @@ object pepita {
 
 object p {
   method testingIfWithUnreachableCode() {
-    @Expect(code="codeShouldBeReachable", level="error", expectedOn="throw new Exception(message = \"else\")\n          \n    ")
+    @Expect(code="codeShouldBeReachable", level="error", expectedOn="throw new Exception(message = \"else\")")
     if (true)
       throw new Exception(message = "asd")
     else 
       throw new Exception(message = "else")
           
-    @Expect(code="codeShouldBeReachable", level="error", expectedOn="throw new Exception(message = \"asd\")\n    ")
+    @Expect(code="codeShouldBeReachable", level="error", expectedOn="throw new Exception(message = \"asd\")")
     if (false)
       throw new Exception(message = "asd")
     else 

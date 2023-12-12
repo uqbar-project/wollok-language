@@ -18,7 +18,7 @@ class SomeClass {
       @Expect(code = "shouldNotReassignConst", level = "error", expectedOn = "a = 23")
       a = 23
     }
-    @Expect(code = "shouldNotReassignConst", level = "error", expectedOn = "aBlock = null\n  ")
+    @Expect(code = "shouldNotReassignConst", level = "error", expectedOn = "aBlock = null")
     aBlock = null
   }
   

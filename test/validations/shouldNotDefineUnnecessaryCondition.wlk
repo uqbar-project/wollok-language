@@ -4,8 +4,7 @@ object someObject {
     @Expect(code="shouldNotDefineUnnecessaryCondition", level="warning", expectedOn="if (n % 2 == 0)
       return false
     else
-      return false
-  ")
+      return false")
     if (n % 2 == 0)
       return false
     else
@@ -16,8 +15,7 @@ object someObject {
     @Expect(code="shouldNotDefineUnnecessaryCondition", level="warning", expectedOn="if (n % 2 == 0)
       return true
     else
-      return true
-  ")
+      return true")
     if (n % 2 == 0)
       return true
     else
@@ -28,8 +26,7 @@ object someObject {
     return @Expect(code="shouldNotDefineUnnecessaryCondition", level="warning", expectedOn="if (n % 2 == 0)
       { return true }
     else
-      { return true }
-  ") if (n % 2 == 0)
+      { return true }") if (n % 2 == 0)
       { return true }
     else
       { return true }

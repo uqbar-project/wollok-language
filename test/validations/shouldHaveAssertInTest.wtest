@@ -77,16 +77,14 @@ describe "asserts unificados" {
   }
 
   @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="const a = 1
-    if (a > 0) assert.equals(a, 1)
-  ")
+    if (a > 0) assert.equals(a, 1)")
   test "testNotOkIfWithAssertOnlyInThen" {
     const a = 1
     if (a > 0) assert.equals(a, 1)
   }
 
   @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="var a = 1
-    if (a > 0) { a = a + 1 } else assert.equals(a, 1)
-  ")
+    if (a > 0) { a = a + 1 } else assert.equals(a, 1)")
   test "testNotOkIfWithAssertOnlyInElse" {
     var a = 1
     if (a > 0) { a = a + 1 } else assert.equals(a, 1)
@@ -96,8 +94,7 @@ describe "asserts unificados" {
       1 / 0
     } catch e : Exception {
       1 + 1
-    }
-  ")
+    }")
   test "testTryCatchWithoutAssert" {
     try {
       1 / 0
@@ -131,8 +128,7 @@ describe "asserts unificados" {
       a = 2
     } then always {
       a = 3
-    }
-  ")
+    }")
   test "testTryCatchThenAlwaysWithoutAssert" {
     var a = 0
     try {
@@ -150,16 +146,14 @@ describe "asserts unificados" {
   }
 
   @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="const a = 1
-    if (a > 0) assert.equals(a, 1)
-  ")
+    if (a > 0) assert.equals(a, 1)")
   test "testElseWithoutAssert" {
     const a = 1
     if (a > 0) assert.equals(a, 1)
   }
 
   @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="var a = 1
-    if (a > 0) a = 2 else assert.equals(a, 1)
-  ")
+    if (a > 0) a = 2 else assert.equals(a, 1)")
   test "testIfWithoutAssert" {
     var a = 1
     if (a > 0) a = 2 else assert.equals(a, 1)

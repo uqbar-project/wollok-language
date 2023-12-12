@@ -38,8 +38,7 @@ class Entrenador {
 		pepita = new Ave(energia = 50)
 	}
 	method crearOtraAve() {
-		otraPepita = @Expect(code="shouldPassValuesToAllAttributes", level="error", expectedOn="new Golondrina(edad = 2)
-		") new Golondrina(edad = 2)
+		otraPepita = @Expect(code="shouldPassValuesToAllAttributes", level="error", expectedOn="new Golondrina(edad = 2)") new Golondrina(edad = 2)
 		otraPepita = @Expect(code="shouldPassValuesToAllAttributes", level="error", expectedOn="new Golondrina(edad = 10, peso = 5) // missing 'energia'") new Golondrina(edad = 10, peso = 5) // missing 'energia'
 		otraPepita = new Golondrina(edad = 10, peso = 5, energia = 56)
 	}

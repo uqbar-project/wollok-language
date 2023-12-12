@@ -6,39 +6,33 @@ class SomeClass {
     b = 5
   }
 
-  @Expect(code="possiblyReturningBlock", level="warning", expectedOn="{
+  @Expect(code="possiblyReturningBlock", level="warning", expectedOn="method fakeReturn() = {
     return 2
-  }
-
-  ")
+  }")
   method fakeReturn() = {
     return 2
   }
 
-  @Expect(code="possiblyReturningBlock", level="warning", expectedOn="{ return }
-
-  ")
+  @Expect(code="possiblyReturningBlock", level="warning", expectedOn="method fakeReturnUsingVoidClosure() = { return }")
   method fakeReturnUsingVoidClosure() = { return }
 
-  @Expect(code="possiblyReturningBlock", level="warning", expectedOn="{
+  @Expect(code="possiblyReturningBlock", level="warning", expectedOn="method fakeReturnUsingVariables() = {
     return a + b
-  }
-
-  ")
+  }")
   method fakeReturnUsingVariables() = {
     return a + b
   }
 
-  @Expect(code="possiblyReturningBlock", level="warning", expectedOn="{
+  @Expect(code="possiblyReturningBlock", level="warning", expectedOn="method fakeReturnUsingAssignment() = {
     a = 3
   }
 
-  ")
+  // It is ok if method is not defined as synthetic, you can return a closure with no params")
   method fakeReturnUsingAssignment() = {
     a = 3
   }
 
-  // It's ok if method is not defined as synthetic, you can return a closure with no params
+  // It is ok if method is not defined as synthetic, you can return a closure with no params
   method okReturn() {
     return {
       return 2

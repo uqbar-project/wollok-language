@@ -292,8 +292,7 @@ class A {
     }
     else {
       return \"Bar\"
-    }
-  ") 
+    }") 
     if (self.getFoo() == "Foo") {
       "Foo"
     }
@@ -411,8 +410,7 @@ object closureTests {
   }
 
   const property c2 = { 
-    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (bool) { return 1 }
-    ")
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (bool) { return 1 }")
     if (bool) { return 1 }
     bool = false
   }

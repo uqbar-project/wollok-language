@@ -13,14 +13,10 @@ mixin Volador {
   method volar() { kilometros = kilometros + 100 }
 }
 
-@Expect(code="shouldNotDuplicateVariablesInLinearization", level="error", expectedOn="object pepita inherits Caminante and Volador and Ave {}
-
-")
+@Expect(code="shouldNotDuplicateVariablesInLinearization", level="error", expectedOn="object pepita inherits Caminante and Volador and Ave {}")
 object pepita inherits Caminante and Volador and Ave {}
 
 const avecita = 
-  @Expect(code="shouldNotDuplicateVariablesInLinearization", level="error", expectedOn="object inherits Caminante and Volador and Ave {}
-
-")
+  @Expect(code="shouldNotDuplicateVariablesInLinearization", level="error", expectedOn="object inherits Caminante and Volador and Ave {}")
   object inherits Caminante and Volador and Ave {}
 
