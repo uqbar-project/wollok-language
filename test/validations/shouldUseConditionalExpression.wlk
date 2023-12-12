@@ -1,7 +1,10 @@
 object sarasita {
   
   method withTheReturnWithinTheBranches(n) {
-    @Expect(code = "shouldUseConditionalExpression", level="warning")
+    @Expect(code = "shouldUseConditionalExpression", level="warning", expectedOn="if (n % 2 == 0)
+      return true
+    else
+      return false")
     if (n % 2 == 0)
       return true
     else
@@ -9,7 +12,11 @@ object sarasita {
   }
   
   method withBlockOnThenButSimpleExpressionOnElse(n) {
-    @Expect(code = "shouldUseConditionalExpression", level="warning")
+    @Expect(code = "shouldUseConditionalExpression", level="warning", expectedOn="if (n % 2 == 0) {
+      return true
+    }
+    else
+      return false")
     if (n % 2 == 0) {
       return true
     }
@@ -18,7 +25,11 @@ object sarasita {
   }
   
   method withSimpleExpressionNoBlockOnThen(n) {
-    @Expect(code = "shouldUseConditionalExpression", level="warning")
+    @Expect(code = "shouldUseConditionalExpression", level="warning", expectedOn="if (n % 2 == 0)
+      return true
+    else {
+      return false
+    }")
     if (n % 2 == 0)
       return true
     else {
@@ -27,14 +38,21 @@ object sarasita {
   }
   
   method withSimpleExpressionNoBlockReturnOutsideOfTheIf(n) {
-    return @Expect(code = "shouldUseConditionalExpression", level="warning") if (n % 2 == 0)
+    return @Expect(code = "shouldUseConditionalExpression", level="warning", expectedOn="if (n % 2 == 0)
+      true
+    else
+      false") if (n % 2 == 0)
       true
     else
       false
   }
   
   method esPar5(n) {
-    return @Expect(code = "shouldUseConditionalExpression", level="warning") if (n % 2 == 0) {
+    return @Expect(code = "shouldUseConditionalExpression", level="warning", expectedOn="if (n % 2 == 0) {
+      true
+    }
+    else
+      false") if (n % 2 == 0) {
       true
     }
     else
@@ -42,7 +60,11 @@ object sarasita {
   }
 
   method invertedCondition(n) {
-    return @Expect(code = "shouldUseConditionalExpression", level="warning") (if (n % 2 == 0) {
+    return @Expect(code = "shouldUseConditionalExpression", level="warning", expectedOn="if (n % 2 == 0) {
+      false
+    }
+    else
+      true") (if (n % 2 == 0) {
       false
     }
     else
@@ -50,7 +72,11 @@ object sarasita {
   }
   
   method invertedConditionWithReturnWithinBranches(n) {
-    @Expect(code = "shouldUseConditionalExpression", level="warning")
+    @Expect(code = "shouldUseConditionalExpression", level="warning", expectedOn="if (n % 2 == 0) {
+      return false
+    }
+    else
+      return true")
     if (n % 2 == 0) {
       return false
     }
@@ -59,11 +85,13 @@ object sarasita {
   }
   
   method invertedWithSimpleExpressionNoBlock(n) {
-    return @Expect(code = "shouldUseConditionalExpression", level="warning") if (n % 2 == 0) false else true
+    return @Expect(code = "shouldUseConditionalExpression", level="warning", expectedOn="if (n % 2 == 0) false else true") if (n % 2 == 0) false else true
   }
 
   method esPar6(n) {
-    @Expect(code = "shouldUseConditionalExpression", level="warning")
+    @Expect(code = "shouldUseConditionalExpression", level="warning", expectedOn="if (n % 2 == 0) {
+      return true
+    }")
     if (n % 2 == 0) {
       return true
     }
@@ -71,7 +99,9 @@ object sarasita {
   }
 
   method esPar7(n) {
-    @Expect(code = "shouldUseConditionalExpression", level="warning")
+    @Expect(code = "shouldUseConditionalExpression", level="warning", expectedOn="if (n % 2 == 0) {
+      return false
+    }")
     if (n % 2 == 0) {
       return false
     }
