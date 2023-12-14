@@ -1,0 +1,23 @@
+object o {
+    @NotExpect(code="shouldUseOverrideKeyword", level="warning")
+    method initialize() { }
+}
+
+class C {
+    @NotExpect(code="shouldUseOverrideKeyword", level="warning")
+    method initialize() { }
+}
+
+mixin M {
+    @NotExpect(code="shouldUseOverrideKeyword", level="warning")
+    method initialize() { }
+}
+
+describe "Fake describe" {
+    @NotExpect(code="shouldUseOverrideKeyword", level="warning")
+    method initialize() { }
+
+    test "Fake test" {
+        assert.equals(2, 1 + 1)
+    }
+}
