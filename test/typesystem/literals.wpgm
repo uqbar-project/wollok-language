@@ -1,21 +1,21 @@
-program p {
+class C {
 	@Expect(type="String")
-	const unString = "Hola" 
+	const property unString = "Hola" 
 
 	@Expect(type="Number")
-	const largo = 1
+	const property largo = 1
 
 	@Expect(type="List<Any>")
-	const coleccion = [] 
+	const property coleccion = [] 
 
 	@Expect(type="Any")
-	const algo
+	const property algo
 	
 	// TOIMPLEMENT
 	// @Expect(type="{  }")
-	const obj = object { }
+	const property obj = object { }
 
 	@Expect(type="Any")
-	const nullable = null
+	const property nullable = null
 }
 
