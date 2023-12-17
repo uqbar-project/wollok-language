@@ -4,15 +4,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Currently, the Wollok language does not adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). 
 Hopefully, we will be able to do that in the near future.
 
-## v3.1.6
-- Adding sanity tests for circular imports
+## v3.2.0
+- New **type system** specifications (#159)
+  - Added tests for expected inference
+  - Added types to lang
+- Added more sanity tests for:
+  - Abstract class cannot be instantiated (#165)
+  - Tests with same name (#167)
+  - Support `new` to `List` and `Set` classes (#166)
+  - Ignore override on `initialize()` method (#164)
+  - and other refactors (#150)
 
-## v3.1.5
-- Adding sanity tests for missing reference error
-
-## v3.1.4
-- More sanity tests for validations
-- Minor test refactors
+## v3.1.4 - v3.1.9
+- Added more sanity tests for:
+  - circular imports
+  - missing reference error
+  - name collisions
+  - abstract methods
+  - and other validations
 
 ## v3.1.3
 - Moving game tests from TS to lang
