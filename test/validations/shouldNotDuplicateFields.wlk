@@ -5,7 +5,7 @@ class Levadura {
 }
 
 class Ale inherits Levadura {
-	@Expect(code="shouldNotDuplicateFields", level="error")
+	@Expect(code="shouldNotDuplicateFields", level="error", expectedOn="biomasa")
 	const biomasa = 200
 	
 	method algoConBiomasaParaEvitarWarning() {
@@ -21,7 +21,7 @@ class B inherits Levadura {
  * self one duplicates a var that is two levels up
  */
 class C inherits B {
-	@Expect(code="shouldNotDuplicateFields", level="error")
+	@Expect(code="shouldNotDuplicateFields", level="error", expectedOn="biomasa")
 	const biomasa = 200
 	
 		method algoConBiomasaParaEvitarWarning() {
@@ -31,7 +31,7 @@ class C inherits B {
 
 // same for objects
 object anObject inherits Levadura {
-	@Expect(code="shouldNotDuplicateFields", level="error")
+	@Expect(code="shouldNotDuplicateFields", level="error", expectedOn="biomasa")
 	const biomasa = 200
 	
 		method algoConBiomasaParaEvitarWarning() {
@@ -51,6 +51,6 @@ mixin Volador {
 
 // the singleton definition is ok since the problem will appear on the variable definition
 object pepona inherits Volador and Ave {
-  @Expect(code="shouldNotDuplicateFields", level="error")
+  @Expect(code="shouldNotDuplicateFields", level="error", expectedOn="energia")
   var property energia = 120
 }

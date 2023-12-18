@@ -1,4 +1,4 @@
-@Expect(code="shouldInitializeGlobalReference", level="error")
+@Expect(code="shouldInitializeGlobalReference", level="error", expectedOn="uninitializedVariable")
 const uninitializedVariable
 
 const initializedVariableWithNull = null

@@ -5,7 +5,7 @@ class A {
 }
 
 class B inherits A {
-	@Expect(code="shouldMatchSuperclassReturnValue", level="error")
+	@Expect(code="shouldMatchSuperclassReturnValue", level="error", expectedOn="console.println(\"blah\") ")
   override method giveMeANumber() { console.println("blah") }
 }
 
@@ -19,7 +19,7 @@ class D inherits C {
 }
 
 class E inherits D {
-	@Expect(code="shouldMatchSuperclassReturnValue", level="error")
+	@Expect(code="shouldMatchSuperclassReturnValue", level="error", expectedOn="console.println(\"blah\") ")
 	override method giveMeANumber() { console.println("blah") }
 }
 
@@ -37,7 +37,7 @@ class Z {
 }
 
 class Y inherits Z {
-	@Expect(code="shouldMatchSuperclassReturnValue", level="error")
+	@Expect(code="shouldMatchSuperclassReturnValue", level="error", expectedOn="23")
 	override method doSomething() {
 		return 23
 	}	

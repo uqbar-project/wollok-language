@@ -13,12 +13,12 @@ object foo {
 }
 
 class Bar {
-  @Expect(code = "shouldNotUseOverride", level = "error")
+  @Expect(code = "shouldNotUseOverride", level = "error", expectedOn = "override")
   override method fafafa() {}
 }
 
 object bar {
-  @Expect(code = "shouldNotUseOverride", level = "error")
+  @Expect(code = "shouldNotUseOverride", level = "error", expectedOn = "override")
   override method fafafa() {}
 }
 
@@ -33,11 +33,11 @@ class SpecialList inherits List {
   override method remove (other) {
   }
     
-  @Expect(code = "shouldNotUseOverride", level = "error")
+  @Expect(code = "shouldNotUseOverride", level = "error", expectedOn = "override")
   override method fafafa() {}
 }
 
 object barList inherits List {
-  @Expect(code = "shouldNotUseOverride", level = "error")
+  @Expect(code = "shouldNotUseOverride", level = "error", expectedOn = "override")
   override method fafafa() {}
 }

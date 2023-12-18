@@ -58,7 +58,7 @@ class GolondrinaSarasa inherits Golondrina {
         return super()
     }
 
-  @Expect(code="shouldNotOnlyCallToSuper", level="warning")
+  @Expect(code="shouldNotOnlyCallToSuper", level="warning", expectedOn="super()")
   override method estasAlegre() = super()
 
   override method estasPensativa() = !super()

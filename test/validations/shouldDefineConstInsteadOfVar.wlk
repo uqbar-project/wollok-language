@@ -1,6 +1,6 @@
 object variableShouldBeConst {
 	var variable = 123
-	@Expect(code = "shouldDefineConstInsteadOfVar", level="warning")
+	@Expect(code = "shouldDefineConstInsteadOfVar", level="warning", expectedOn="constantValue")
 	var constantValue = 321
 	
 	method doSomething() {
@@ -13,7 +13,7 @@ object localVariableInMethodShouldBeConst {
 	var variable = 123
 	
 	method doSomething() {
-		@Expect(code = "shouldDefineConstInsteadOfVar", level="warning")
+		@Expect(code = "shouldDefineConstInsteadOfVar", level="warning", expectedOn="constantValue")
 		var constantValue = 321
 		variable = 666
 		return variable + constantValue
@@ -32,7 +32,7 @@ object variableWithSingleAssignment {
 
 class VariableShouldBeConst {
 	var variable = 123
-	@Expect(code = "shouldDefineConstInsteadOfVar", level="warning")
+	@Expect(code = "shouldDefineConstInsteadOfVar", level="warning", expectedOn="constantValue")
 	var constantValue = 321
 	
 	method doSomething() {
@@ -45,7 +45,7 @@ class LocalVariableInMethodShouldBeConst {
 	var variable = 123
 	
 	method doSomething() {
-		@Expect(code = "shouldDefineConstInsteadOfVar", level="warning")
+		@Expect(code = "shouldDefineConstInsteadOfVar", level="warning", expectedOn="constantValue")
 		var constantValue = 321
 		variable = 666
 		return variable + constantValue
@@ -64,7 +64,7 @@ class VariableWithSingleAssignmentAtInitializationNotRaisesWarningIfProperty {
 
 mixin VariableShouldBeConstMixin {
 	var variable = 123
-	@Expect(code = "shouldDefineConstInsteadOfVar", level="warning")
+	@Expect(code = "shouldDefineConstInsteadOfVar", level="warning", expectedOn="constantValue")
 	var constantValue = 321
 	
 	method doSomething() {
@@ -77,7 +77,7 @@ mixin LocalVariableInMethodShouldBeConstMixin {
 	var variable = 123
 	
 	method doSomething() {
-		@Expect(code = "shouldDefineConstInsteadOfVar", level="warning")
+		@Expect(code = "shouldDefineConstInsteadOfVar", level="warning", expectedOn="constantValue")
 		var constantValue = 321
 		variable = 666
 		return variable + constantValue
@@ -150,7 +150,7 @@ object variableDefinedInLambdaWithReassignmentNotRaisesWarning {
 	
 	method fly() {
 		[ 1, 2 ].map { number =>
-			@Expect(code = "shouldDefineConstInsteadOfVar", level="warning")
+			@Expect(code = "shouldDefineConstInsteadOfVar", level="warning", expectedOn="anotherNumber")
 			var anotherNumber = number + 1
 			return anotherNumber + 2
 		}

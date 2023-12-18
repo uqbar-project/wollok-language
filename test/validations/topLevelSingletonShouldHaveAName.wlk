@@ -4,5 +4,5 @@ object namedObject {
 }
 
 // Top level objects can't be unnamed
-@Expect(code="topLevelSingletonShouldHaveAName", level="error")
+@Expect(code="topLevelSingletonShouldHaveAName", level="error", expectedOn="object { }")
 object { }

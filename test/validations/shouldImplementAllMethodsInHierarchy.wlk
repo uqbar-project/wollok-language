@@ -51,10 +51,10 @@ mixin Doctor {
 	override method name() = "Dr. " + super()
 }
 
-@Expect(code = "shouldImplementAllMethodsInHierarchy", value = "error")
+@Expect(code = "shouldImplementAllMethodsInHierarchy", level = "error")
 class Tomato inherits Doctor {}
 
-@Expect(code = "shouldImplementAllMethodsInHierarchy", value = "error")
+@Expect(code = "shouldImplementAllMethodsInHierarchy", level = "error")
 class TomatoWithNameBelowSuper inherits Doctor {
 	override method name() = "23"
 }
@@ -67,7 +67,7 @@ mixin Named {
 class Person inherits Doctor and Named {}
 
 // NOT OK ! order matters !
-@Expect(code = "shouldImplementAllMethodsInHierarchy", value = "error")
+@Expect(code = "shouldImplementAllMethodsInHierarchy", level = "error")
 class PersonBad inherits Named and Doctor {}
 
 // OK: super method comes from super class
@@ -77,7 +77,7 @@ class WithName {
 class ANamed inherits Doctor and WithName {
 }
 
-@Expect(code = "shouldImplementAllMethodsInHierarchy", value = "error")
+@Expect(code = "shouldImplementAllMethodsInHierarchy", level = "error")
 object o1 inherits Doctor {
 }
 
@@ -88,7 +88,7 @@ object o2 inherits Doctor and WithName {
 // OK
 object o3 inherits Doctor and Named {}
 
-@Expect(code = "shouldImplementAllMethodsInHierarchy", value = "error")
+@Expect(code = "shouldImplementAllMethodsInHierarchy", level = "error")
 object o4 inherits Named and Doctor {}
 
 
@@ -103,12 +103,12 @@ object mixingAtInstantiation {
 		return [
 			// OK
 			object inherits Doctor and WithName {},
-			@Expect(code = "shouldImplementAllMethodsInHierarchy", value = "error")
+			@Expect(code = "shouldImplementAllMethodsInHierarchy", level = "error")
 			object inherits Doctor {},
 			
 			// OK 
 			object inherits Doctor and Named and Pepin {},
-			@Expect(code = "shouldImplementAllMethodsInHierarchy", value = "error")
+			@Expect(code = "shouldImplementAllMethodsInHierarchy", level = "error")
 			object inherits Named and Doctor and Pepin {}
 		]
 	}

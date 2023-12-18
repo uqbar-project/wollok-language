@@ -1,18 +1,18 @@
 import shouldNotDuplicateEntitiesImport.*
 
-@Expect(code = "shouldNotDuplicateEntities", level = "error")
+@Expect(code = "shouldNotDuplicateEntities", level = "error", expectedOn="SomeExistingClassInAnotherImportedFile")
 class SomeExistingClassInAnotherImportedFile {}
 
-@Expect(code = "shouldNotDuplicateEntities", level = "error")
+@Expect(code = "shouldNotDuplicateEntities", level = "error", expectedOn="someExistingObjectInAnotherImportedFile")
 object someExistingObjectInAnotherImportedFile {}
 
-@Expect(code = "shouldNotDuplicateEntities", level = "error")
+@Expect(code = "shouldNotDuplicateEntities", level = "error", expectedOn="someExistingConstInAnotherImportedFile")
 const someExistingConstInAnotherImportedFile = 1
 
-@Expect(code = "shouldNotDuplicateEntities", level = "error")
+@Expect(code = "shouldNotDuplicateEntities", level = "error", expectedOn="SomeExistingMixinInAnotherImportedFile")
 mixin SomeExistingMixinInAnotherImportedFile {}
 
-@Expect(code = "shouldNotDuplicateEntities", level = "error")
+@Expect(code = "shouldNotDuplicateEntities", level = "error", expectedOn="anotherExistingObjectInAnotherImportedFile")
 program anotherExistingObjectInAnotherImportedFile {
     anotherExistingObjectInAnotherImportedFile // ok?
 }

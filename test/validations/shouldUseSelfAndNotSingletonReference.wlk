@@ -1,6 +1,6 @@
 object pepita {
   var energy = 100
-  var property friend = @Expect(code="shouldUseSelfAndNotSingletonReference", level="warning") (pepita)
+  var property friend = @Expect(code="shouldUseSelfAndNotSingletonReference", level="warning", expectedOn="pepita") (pepita)
 
   method fly(kilometers) {
     energy = energy - (kilometers * 2)
@@ -11,13 +11,13 @@ object pepita {
   }
 
   method enjoy() {
-    @Expect(code="shouldUseSelfAndNotSingletonReference", level="warning") 
+    @Expect(code="shouldUseSelfAndNotSingletonReference", level="warning", expectedOn="pepita")
     pepita.eat(5)
 
-    @Expect(code="shouldUseSelfAndNotSingletonReference", level="warning") (pepita)
+    @Expect(code="shouldUseSelfAndNotSingletonReference", level="warning", expectedOn="pepita") (pepita)
 
     self.eat(1)
 
-    self.friend(@Expect(code="shouldUseSelfAndNotSingletonReference", level="warning") pepita)
+    self.friend(@Expect(code="shouldUseSelfAndNotSingletonReference", level="warning", expectedOn="pepita") pepita)
   }
 }

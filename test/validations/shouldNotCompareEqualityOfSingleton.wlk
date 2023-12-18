@@ -7,13 +7,13 @@ object pepita {
   var energia = 100
   
   method comer(que) {
-    if (@Expect(code="shouldNotCompareEqualityOfSingleton", level="warning") (que == alpiste)) {
+    if (@Expect(code="shouldNotCompareEqualityOfSingleton", level="warning", expectedOn="que == alpiste") (que == alpiste)) {
       energia += 5
     }
 
-    if (@Expect(code="shouldNotCompareEqualityOfSingleton", level="warning") (mijo == que)) {
+    if (@Expect(code="shouldNotCompareEqualityOfSingleton", level="warning", expectedOn="mijo == que") (mijo == que)) {
       energia += 5
-    } else if (@Expect(code="shouldNotCompareEqualityOfSingleton", level="warning") (que === manzana))
+    } else if (@Expect(code="shouldNotCompareEqualityOfSingleton", level="warning", expectedOn="que === manzana") (que === manzana))
         energia +=80
 
     // OK

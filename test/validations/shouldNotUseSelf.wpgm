@@ -5,20 +5,20 @@ class SomeClass {
 program main {
   const someVariable = 2
 
-  @Expect(code="shouldNotUseSelf", level="error")
+  @Expect(code="shouldNotUseSelf", level="error", expectedOn="self")
   self.println()
 
   const a = true
   if (a) {
-    @Expect(code="shouldNotUseSelf", level="error")
+    @Expect(code="shouldNotUseSelf", level="error", expectedOn="self")
     self.println()
   }
 
-  2 + @Expect(code="shouldNotUseSelf", level="error") self.someVariable()
+  2 + @Expect(code="shouldNotUseSelf", level="error", expectedOn="self") self.someVariable()
 
   const collection1 = ['a', 'b', 'c']
    
-  collection1.contains(@Expect(code="shouldNotUseSelf", level="error") self)
+  collection1.contains(@Expect(code="shouldNotUseSelf", level="error", expectedOn="self") self)
 
   const anObject = object {
     method aMethod() {
@@ -28,5 +28,5 @@ program main {
   }
   console.println(anObject.aMethod())
 
-  console.println(@Expect(code="shouldNotUseSelf", level="error") self.someVariable())
+  console.println(@Expect(code="shouldNotUseSelf", level="error", expectedOn="self") self.someVariable())
 }

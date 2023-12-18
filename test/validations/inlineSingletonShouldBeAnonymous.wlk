@@ -5,6 +5,6 @@ object namedObject {
 
   method m() {
     // Inline objects must be unnamed
-    return @Expect(code="inlineSingletonShouldBeAnonymous", level="error") object otherNamedObject { }
+    return @Expect(code="inlineSingletonShouldBeAnonymous", level="error", expectedOn="otherNamedObject") object otherNamedObject { }
   }
 }

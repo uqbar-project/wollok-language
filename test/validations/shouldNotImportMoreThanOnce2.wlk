@@ -1,5 +1,5 @@
 import shouldNotImportMoreThanOnceImport.*
-@Expect(code = "shouldNotImportMoreThanOnce", level = "warning")
+@Expect(code = "shouldNotImportMoreThanOnce", level = "warning", expectedOn = "import shouldNotImportMoreThanOnceImport.AnotherClass")
 import shouldNotImportMoreThanOnceImport.AnotherClass
 
 class CallingClass {

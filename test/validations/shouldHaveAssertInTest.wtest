@@ -33,7 +33,7 @@ describe "asserts unificados" {
     assert.equals(100, energiaInicial)
   }
 
-  @Expect(code="shouldHaveAssertInTest", level="warning")
+  @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="1 + 1")
   test "testWithBinaryOperation" {
     1 + 1
   }
@@ -42,7 +42,7 @@ describe "asserts unificados" {
     assert.equals(1, 1.0)
   }
 
-  @Expect(code="shouldHaveAssertInTest", level="warning")
+  @Expect(code="shouldHaveAssertInTest", level="warning", expected="assert")
   test "testForVariable" {
     assert
   }
@@ -76,19 +76,25 @@ describe "asserts unificados" {
     }
   }
 
-  @Expect(code="shouldHaveAssertInTest", level="warning")
+  @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="const a = 1
+    if (a > 0) assert.equals(a, 1)")
   test "testNotOkIfWithAssertOnlyInThen" {
     const a = 1
     if (a > 0) assert.equals(a, 1)
   }
 
-  @Expect(code="shouldHaveAssertInTest", level="warning")
+  @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="var a = 1
+    if (a > 0) { a = a + 1 } else assert.equals(a, 1)")
   test "testNotOkIfWithAssertOnlyInElse" {
     var a = 1
     if (a > 0) { a = a + 1 } else assert.equals(a, 1)
   }
 
-  @Expect(code="shouldHaveAssertInTest", level="warning")
+  @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="try {
+      1 / 0
+    } catch e : Exception {
+      1 + 1
+    }")
   test "testTryCatchWithoutAssert" {
     try {
       1 / 0
@@ -115,7 +121,14 @@ describe "asserts unificados" {
     }
   }
 
-  @Expect(code="shouldHaveAssertInTest", level="warning")
+  @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="var a = 0
+    try {
+      a = 1
+    } catch e : Exception {
+      a = 2
+    } then always {
+      a = 3
+    }")
   test "testTryCatchThenAlwaysWithoutAssert" {
     var a = 0
     try {
@@ -132,13 +145,15 @@ describe "asserts unificados" {
     if (a > 0) assert.equals(a, 1) else assert.equals(2, 2)
   }
 
-  @Expect(code="shouldHaveAssertInTest", level="warning")
+  @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="const a = 1
+    if (a > 0) assert.equals(a, 1)")
   test "testElseWithoutAssert" {
     const a = 1
     if (a > 0) assert.equals(a, 1)
   }
 
-  @Expect(code="shouldHaveAssertInTest", level="warning")
+  @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="var a = 1
+    if (a > 0) a = 2 else assert.equals(a, 1)")
   test "testIfWithoutAssert" {
     var a = 1
     if (a > 0) a = 2 else assert.equals(a, 1)
@@ -158,12 +173,15 @@ describe "asserts unificados" {
     self.bajoEnergia()
   }
 
-  @Expect(code="shouldHaveAssertInTest", level="warning")
+  @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="ave.planear()
+  ")
   test "al planear sin asserts" {
     ave.planear()
   }
 
-  @Expect(code="shouldHaveAssertInTest", level="warning")
+  @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="ave.planear()
+    self.preguntarSiBajoEnergia()
+  ")
   test "al planear sin asserts llamando a métodos que no usan assert" {
     ave.planear()
     self.preguntarSiBajoEnergia()
