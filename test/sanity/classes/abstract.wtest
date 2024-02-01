@@ -10,7 +10,7 @@ class MyClass {
   */
 describe "classes - an abstract class" {
 
-  test "cound not be instantiated" {
+  test "should not be instantiated" {
     assert.throwsException { new MyClass() }
   }
 

@@ -1,0 +1,21 @@
+/**
+  * Scenario: an class with some attributes uninitialized
+  */
+class MyClass {
+  var property uninitialized
+  var property initialized = 2
+  const property uninitialized2 = null
+  const property initialized2 = true
+  const property uninitialized3
+}
+
+/**
+  * Tests
+  */
+describe "classes - a class with uninitialized attributes" {
+
+  test "should not be instantiated" {
+    assert.throwsException { new MyClass() }
+  }
+
+}
