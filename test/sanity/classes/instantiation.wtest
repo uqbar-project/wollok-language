@@ -18,4 +18,8 @@ describe "classes - a class with uninitialized attributes" {
     assert.throwsException { new MyClass() }
   }
 
+  test "can be instantiated if you pass values to uninitialized attributes" {
+    new MyClass(uninitialized = "Pepita", uninitialized3 = 50)
+  }
+
 }
