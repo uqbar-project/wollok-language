@@ -1,11 +1,11 @@
 /**
-  * Scenario: an class with some attributes uninitialized
+  * Scenario: a class with some attributes uninitialized
   */
-class MyClass {
+class MyFirstClass {
   var property uninitialized
   var property initialized = 2
-  const property uninitialized2 = null
-  const property initialized2 = true
+  const property initialized2 = null
+  const property initialized3 = true
   const property uninitialized3
 }
 
@@ -15,11 +15,92 @@ class MyClass {
 describe "classes - a class with uninitialized attributes" {
 
   test "should not be instantiated" {
-    assert.throwsException { new MyClass() }
+    assert.throwsException { new MyFirstClass() }
   }
 
   test "can be instantiated if you pass values to uninitialized attributes" {
-    new MyClass(uninitialized = "Pepita", uninitialized3 = 50)
+    new MyFirstClass(uninitialized = "Pepita", uninitialized3 = 50)
+  }
+
+  test "can be instantiated if you pass values to uninitialized attributes, even null" {
+    new MyFirstClass(uninitialized = "Pepita", uninitialized3 = null)
+  }
+
+}
+
+/**
+  * Scenario 2: a class with some attributes uninitialized and some assigned in initialize method
+  */
+class MySecondClass {
+  var property uninitialized
+  var property initialized
+  var property initialized2
+  const property initialized3 = true
+  const property uninitialized3
+
+  override method initialize() {
+    initialized = 2
+    initialized2 = null
+  }
+
+}
+
+describe "classes - a class with some uninitialized attributes and some initialized ones using initialize method" {
+
+  test "should not be instantiated" {
+    assert.throwsException { new MySecondClass() }
+  }
+
+  test "can be instantiated if you pass values to uninitialized attributes" {
+    new MySecondClass(uninitialized = "Pepita", uninitialized3 = 50)
+  }
+
+  test "can be instantiated if you pass values to uninitialized attributes, even null" {
+    new MySecondClass(uninitialized = "Pepita", uninitialized3 = null)
+  }
+
+}
+
+/**
+  * Scenario 3: a class with some attributes uninitialized and some assigned in initialize method inside a hierarchy
+  */
+class MyThirdClass {
+  var property uninitialized
+  var property initialized
+  var property initialized2
+  const property initialized3 = true
+  const property uninitialized3
+
+  override method initialize() {
+    initialized = 2
+  }
+
+  method value()
+}
+
+class MyConcreteClass inherits MyThirdClass {
+  var initialized4 = 10
+
+  override method initialize() {
+    super()
+    initialized2 = null
+  }
+
+  override method value() = initialized + 1
+}
+
+describe "classes - a subclass with some uninitialized attributes and some initialized ones using initialize method in the parent class" {
+
+  test "should not be instantiated" {
+    assert.throwsException { new MyConcreteClass() }
+  }
+
+  test "can be instantiated if you pass values to uninitialized attributes" {
+    new MyConcreteClass(uninitialized = "Pepita", uninitialized3 = 50)
+  }
+
+  test "can be instantiated if you pass values to uninitialized attributes, even null" {
+    new MyConcreteClass(uninitialized = "Pepita", uninitialized3 = null)
   }
 
 }
