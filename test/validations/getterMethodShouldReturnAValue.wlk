@@ -39,3 +39,13 @@ object anObject {
 	method ungetBlah() { console.println("blah") }
 	method showAge() { console.println(age) }
 }
+
+object fahrenheit451{
+	const precio = 5000
+	var property version = "Original"	
+
+	// shouldn´t complain
+	method precio(){
+		if(version == "Original") return precio else return precio + 1000
+	}
+}
