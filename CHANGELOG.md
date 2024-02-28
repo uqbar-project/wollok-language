@@ -4,6 +4,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Currently, the Wollok language does not adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). 
 Hopefully, we will be able to do that in the near future.
 
+## v3.2.1
+- New `expectedOn` attribute for validator tests.
+- Fix type system issues
+- New sanity tests for:
+  - variable-used-in-block (#176)
+  - empty-if (#175)
+  - recursive-assignment (#174)
+  - getter-should-return-a-value (#173)
+  - shouldImplementAllMethodsInHierarchy (#172)
+
 ## v3.2.0
 - New **type system** specifications (#159)
   - Added tests for expected inference
