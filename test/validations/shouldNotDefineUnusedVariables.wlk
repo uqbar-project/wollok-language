@@ -141,6 +141,22 @@ object usedByAlwaysBranch {
   }
 }
 
+// Used by closure/block
+class Tour {
+  var property fechaSalida = new Date()
+  var property montoTotal = 0
+}
+
+object reportes {
+
+	const property tours = []
+
+	const currentYear = new Date().year()
+	
+	method totalToursDelAnio() = tours.filter{ tour => tour.fechaSalida().year() == currentYear }.sum{ tour => tour.montoTotal() }
+
+}
+
 // A const property with native methods
 class ObjectMirrorStub {
   const property target
