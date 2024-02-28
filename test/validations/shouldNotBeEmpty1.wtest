@@ -25,3 +25,14 @@ object objectWithEmptyMethod {
     }
   }
 }
+
+object pepita {
+	var property energia = 100
+	method rompePepe() {
+		if (energia > 100) @Expect(code="shouldNotBeEmpty", level="warning") {
+
+		} else {
+			energia = 0
+		}
+	}
+}
