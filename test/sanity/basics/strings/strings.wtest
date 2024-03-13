@@ -28,7 +28,7 @@ describe "strings" {
     assert.throwsException( { "hola".substring(null) })
   }
 
-  test "substring in first parameter fail" {
+  test "substring in first parameter should fail" {
     assert.throwsException({ "hola".substring("a") })
   }
 
@@ -36,8 +36,12 @@ describe "strings" {
     assert.throwsException( { "hola".substring(null, null) })
   }
 
-  test "substring in second parameter fail" {
+  test "substring in second parameter should fail" {
     assert.throwsException({ "hola".substring("a", "e") })
+  }
+
+  test "substring with invalid index should fail" {
+    assert.throwsException({ "Hola, wollok!".substring(-1, 3) })
   }
 
   test "greater than using null should fail" {

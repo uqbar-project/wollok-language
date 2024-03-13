@@ -272,4 +272,9 @@ describe "Number operators" {
     assert.equals(1, +1)
   }
 
+  test "coerceToInteger" {
+    assert.equals(2, 2.coerceToInteger())
+    assert.equals(-1, -1.coerceToInteger())
+  }
+
 }

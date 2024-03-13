@@ -88,4 +88,9 @@ describe "Decimal tests"{
     assert.equals(-1, (-1.5).round())
   }
 
+  test "coerceToInteger" {
+    assert.equals(2, 2.2.coerceToInteger())
+    assert.equals(2, 2.7.coerceToInteger())
+  }
+
 }
