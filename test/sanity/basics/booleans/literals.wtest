@@ -75,4 +75,9 @@ describe "booleans - tests with literals" {
     assert.notThat({false}.apply() || {false}.apply())
   }
 
+  test "toString" {
+    assert.equals("true", true.toString())
+    assert.equals("false", false.toString())
+  }
+
 }

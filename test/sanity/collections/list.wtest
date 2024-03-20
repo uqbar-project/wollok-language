@@ -402,4 +402,22 @@ describe "List tests" {
     assert.equals(#{}, set.difference(randomized))
   }
 
+  test "findOrElse - happy path" {
+    var encontro = true
+    const valueFound = numbers.findOrElse({ elem => elem < 22 }, { encontro = false })
+    assert.that(encontro)
+  }
+  
+  test "findOrElse - not found" {
+    var encontro = true
+    const valueFound = numbers.findOrElse({ elem => elem > 100 }, { encontro = false })
+    assert.notThat(encontro)
+  }
+
+  test "join" {
+    assert.equals([1, 2, 3].join("-"), "1-2-3")
+    assert.equals([].join("-"), "")
+  }
+
+
 }

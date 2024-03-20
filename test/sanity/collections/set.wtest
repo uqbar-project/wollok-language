@@ -183,4 +183,34 @@ describe "set tests" {
     assert.equals(#{22}, numbers)  
   }
 
+  test "findOrElse - happy path" {
+    var encontro = true
+    const valueFound = #{1, 2, 3, 4}.findOrElse({ elem => elem < 3 }, { encontro = false })
+    assert.that(encontro)
+  }
+  
+  test "findOrElse - not found" {
+    var encontro = true
+    const valueFound = #{1, 2, 3, 4}.findOrElse({ elem => elem > 100 }, { encontro = false })
+    assert.notThat(encontro)
+  }
+
+  test "max" {
+    assert.equals(5, #{1, 5, 0, -8, 3}.max())
+    assert.equals(5, #{5, 1, 0, -8, 3}.max())
+    assert.equals(5, #{1, 0, -8, 3, 5}.max())
+  }
+
+  test "clear" {
+    const unSet = #{1, 2, 3}
+    assert.equals(3, unSet.size())
+    unSet.clear()
+    assert.equals(#{}, unSet)
+  }
+
+  test "join" {
+    assert.equals(#{1, 2, 3}.join("-"), "1-2-3")
+    assert.equals(#{}.join("-"), "")
+  }
+
 }

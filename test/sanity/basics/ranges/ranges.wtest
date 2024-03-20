@@ -100,6 +100,12 @@ describe "ranges" {
     assert.that(range.contains(anyOne))
   }
 
+  test "anyOne inverse range" {
+    const range = new Range(start= 10, end = -5,step = -7)
+    const anyOne = range.anyOne()
+    assert.that(range.contains(anyOne))
+  }
+
   test "anyOne probability" {
     const range = 0 .. 10
     range.step(2)
