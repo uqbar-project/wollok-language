@@ -1,0 +1,12 @@
+object pepita {
+  var property energia = null
+}
+
+describe "null" {
+
+  test "should print null as the kind name" {
+    assert.equals("null", pepita.energia().kindName())
+    assert.equals("null", null.kindName())
+  }
+
+}
