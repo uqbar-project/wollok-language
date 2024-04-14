@@ -1,0 +1,34 @@
+describe "unused variables" {
+
+  const two = 2
+  const numbersList = []
+  const simpleValue = "hi"
+  const usedNumber = 5
+  const nextNumber = usedNumber + 1
+  const anotherNumber = 19
+  const numbers = [anotherNumber]
+  const hiInGerman = "hallo"
+  const greetings = #{hiInGerman}
+  
+  @Expect(code="shouldNotDefineUnusedVariables", level="warning", expectedOn="unusedVariable")
+  const unusedVariable
+
+  method initialize() {
+    numbersList.add(two)
+  }
+
+  test "one-element list" {
+    assert.equals([2], numbersList)
+  }
+
+  test "simple value test" {
+    assert.equals("hi", simpleValue)
+  }
+
+  test "length test" {
+    assert.equals(1, numbers.size())
+    assert.equals(1, greetings.size())
+    assert.equals(nextNumber, usedNumber + 1)
+  }
+
+}
