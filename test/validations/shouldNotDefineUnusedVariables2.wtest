@@ -1,0 +1,36 @@
+describe "unused variables" {
+
+  const usedInInitialize = 2
+  const usedInTest = "hi"
+  const usedInField = 5
+  const usedInList = 19
+  const usedInSet = "hallo"
+  const usedInBlock = []
+
+  const numbersList = []
+  const nextNumber = usedInField + 1
+  const numbers = [usedInList]
+  const greetings = #{usedInSet}
+  
+  @Expect(code="shouldNotDefineUnusedVariables", level="warning", expectedOn="unusedVariable")
+  const unusedVariable
+
+  method initialize() {
+    numbersList.add(usedInInitialize)
+  }
+
+  test "used in test" {
+    assert.equals("hi", usedInTest)
+  }
+
+  test "used in block" {
+    assert.throwsException({ usedInBlock.head() })
+  }
+
+  test "initialization" {
+    assert.equals([2], numbersList)
+    assert.equals(1, numbers.size())
+    assert.equals(1, greetings.size())
+    assert.equals(6, nextNumber)
+  }
+}
