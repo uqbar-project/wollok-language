@@ -1,34 +1,36 @@
 describe "unused variables" {
 
-  const two = 2
+  const usedInInitialize = 2
+  const usedInTest = "hi"
+  const usedInField = 5
+  const usedInList = 19
+  const usedInSet = "hallo"
+  const usedInBlock = []
+
   const numbersList = []
-  const simpleValue = "hi"
-  const usedNumber = 5
-  const nextNumber = usedNumber + 1
-  const anotherNumber = 19
-  const numbers = [anotherNumber]
-  const hiInGerman = "hallo"
-  const greetings = #{hiInGerman}
+  const nextNumber = usedInField + 1
+  const numbers = [usedInList]
+  const greetings = #{usedInSet}
   
   @Expect(code="shouldNotDefineUnusedVariables", level="warning", expectedOn="unusedVariable")
   const unusedVariable
 
   method initialize() {
-    numbersList.add(two)
+    numbersList.add(usedInInitialize)
   }
 
-  test "one-element list" {
+  test "used in test" {
+    assert.equals("hi", usedInTest)
+  }
+
+  test "used in block" {
+    assert.throwsException({ usedInBlock.head() })
+  }
+
+  test "initialization" {
     assert.equals([2], numbersList)
-  }
-
-  test "simple value test" {
-    assert.equals("hi", simpleValue)
-  }
-
-  test "length test" {
     assert.equals(1, numbers.size())
     assert.equals(1, greetings.size())
-    assert.equals(nextNumber, usedNumber + 1)
+    assert.equals(6, nextNumber)
   }
-
 }
