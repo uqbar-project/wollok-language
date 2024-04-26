@@ -1,0 +1,1 @@
+@Expect(code="shouldNotUseSpecialCharactersInName", values=["not.valid.name.wlk"])
