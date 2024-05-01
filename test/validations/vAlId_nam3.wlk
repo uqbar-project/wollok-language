@@ -1,0 +1,1 @@
+@NotExpect(code="shouldNotUseSpecialCharactersInName")
