@@ -4,6 +4,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Currently, the Wollok language does not adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). 
 Hopefully, we will be able to do that in the near future.
 
+## v3.2.3
+- Uninitialized attributes in wko by @fdodino in #178
+- Fix unused variables by @fdodino in #179
+- Testing invalid file name by @PalumboN in #180
+
+## v3.2.2
+- Add lang coverage by @fdodino in #177
+
 ## v3.2.1
 - New `expectedOn` attribute for validator tests.
 - Fix type system issues
