@@ -24,17 +24,27 @@ All files follow a [standard coding convention](https://github.com/uqbar-project
 
 ## Current work
 
-- [Wollok Roadmap for 2020](https://docs.google.com/document/d/1M8suCfdetT12YIb62VzORnpesRW2DKrm8hS01dqIPlc/edit)
+- [Wollok Roadmap for 2024](https://docs.google.com/spreadsheets/d/1SAmnsdYvkrx_Yby_zP3MyGB_IPT1kzITSQGCCIwqSvc/edit#gid=0)
+
+![Roadmap 2024](./images/roadmap2024.png)
 
 ## Another useful repositories
 
-- [wollok-xtext](https://github.com/uqbar-project/wollok): our first & stable implementation, is Eclipse Xtext-based.
 - [wollok-ts](https://github.com/uqbar-project/wollok-ts): next generation interpreter Typescript-based, which has...
-  - [wollok-run-client](https://github.com/uqbar-project/wollok-run-client): A proof of concept using Wollok Game, first prototype of a dynamic diagram, a new console REPL and wollok-ts interpreter
+  - [wollok-ts-cli](https://github.com/uqbar-project/wollok-ts-cli): Wollok Command Line Interface for running programs, a REPL, tests, dynamic diagram using Wollok TS implementation
   - [wollok-lsp-ide](https://github.com/uqbar-project/wollok-lsp-ide): A Work-in-Progress implementation of Language Server Protocol, supported for a lot of IDEs (especially Visual Studio Code)
-- [wollok-highlight-vscode](https://github.com/uqbar-project/wollok-highlight-vscode), a highlighter plugin for Visual Studio Code which should be integrated with [Wollok-Sublime project](https://github.com/uqbar-project/wollok-sublime)
-- [wollok-cli](https://github.com/uqbar-project/wollok-cli): Wollok CLI for tasks automation (Travis integration, bash scripting, etc.)
-- [wollok-site](https://github.com/uqbar-project/wollok-site): Main content of our Wollok site (hosted in github pages with Jekyll)
+  - [wollok-run-client](https://github.com/uqbar-project/wollok-run-client): A proof of concept using Wollok Game, first prototype of a dynamic diagram, a new console REPL and wollok-ts interpreter. It will be deprecated hopefully for 2025.
+- [wollok-highlight-vscode](https://github.com/uqbar-project/wollok-highlight-vscode), a highlighter plugin for Visual Studio Code
+- [wollok-mobile](https://github.com/uqbar-project/wollok-mobile): Mobile implementation for Wollok
+- [official web site](https://github.com/uqbar-project/website-wollok-ts): Main content of our Wollok-TS site (developed with [Astro](https://astro.build/))
+
+## Deprecated repositories
+
+These projects are in low-maintenance mode:
+
+- [wollok-xtext](https://github.com/uqbar-project/wollok): it was our first & stable implementation (2016-2024), based on [Eclipse Xtext](https://eclipse.dev/Xtext/).
+- [wollok-cli](https://github.com/uqbar-project/wollok-cli): Wollok CLI for tasks automation (CI integration, bash scripting, etc.) using Wollok Xtext implementation
+- [old web site](https://github.com/uqbar-project/wollok-site): Main content of our Wollok Xtext site (hosted in github pages using [Jekyll](https://jekyllrb.com/))
 
 ## Experimental tools for Wollok
 
@@ -43,8 +53,9 @@ We also have several ideas currently suspended, that eventually anybody could re
 - [wollok-s](https://github.com/uqbar-project/wollok-s): Wollok Scala interpreter & parser
 - [wollok-js](https://github.com/uqbar-project/wollok-js): Wollok javascript interpreter, parser & linker
 - [wollok-blockly](https://github.com/uqbar-project/wollok-blockly): a Wollok blockly editor
-- [wollok-sublime-linter](https://github.com/uqbar-project/wollok-sublime-linter): A Linter for sublime 3
+- [wollok-sublime](https://github.com/uqbar-project/wollok-sublime): a highlighting extension for [Sublime editor](https://www.sublimetext.com/)
+- [wollok-sublime-linter](https://github.com/uqbar-project/wollok-sublime-linter): A Linter for [Sublime 3](https://www.sublimetext.com/)
 
 ## How to contribute?
 
-Open an issue here, and we will contact you!
+Open an issue [here](https://github.com/uqbar-project/wollok-language/issues), and we will contact you!
