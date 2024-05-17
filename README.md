@@ -58,4 +58,4 @@ We also have several ideas currently suspended, that eventually anybody could re
 
 ## How to contribute?
 
-Open an issue [here](), and we will contact you!
+Open an issue [here](https://github.com/uqbar-project/wollok-language/issues), and we will contact you!
