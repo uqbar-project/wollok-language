@@ -212,7 +212,7 @@ object game {
    */  
   method start() {
     self.running(true)
-    io.exceptionHandler({ exception => console.println(exception)})
+    io.exceptionHandler({ exception => exception.printStackTrace() })
     io.domainExceptionHandler({exception => self.say(exception.source(), exception.message())})
   }
   
