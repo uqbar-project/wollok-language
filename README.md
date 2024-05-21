@@ -52,7 +52,8 @@ We also have several ideas currently suspended, that eventually anybody could re
 
 - [wollok-s](https://github.com/uqbar-project/wollok-s): Wollok Scala interpreter & parser
 - [wollok-js](https://github.com/uqbar-project/wollok-js): Wollok javascript interpreter, parser & linker
-- [wollok-blockly](https://github.com/uqbar-project/wollok-blockly): a Wollok blockly editor
+- [Woblocks](https://github.com/alejandroFerrante/Woblocks): a Wollok blockly editor for Wollok Game
+- [wollok-blockly](https://github.com/uqbar-project/wollok-blockly): a first Wollok blockly editor
 - [wollok-sublime](https://github.com/uqbar-project/wollok-sublime): a highlighting extension for [Sublime editor](https://www.sublimetext.com/)
 - [wollok-sublime-linter](https://github.com/uqbar-project/wollok-sublime-linter): A Linter for [Sublime 3](https://www.sublimetext.com/)
 
