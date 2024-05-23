@@ -120,7 +120,7 @@ describe "Game" {
   test "clear remove all visuals" {
     game.addVisual(myVisual)
     game.clear()
-  	assert.that(game.allVisuals().isEmpty())
+    assert.that(game.allVisuals().isEmpty())
   }
 
   test "cell size fails when set to 0" {
