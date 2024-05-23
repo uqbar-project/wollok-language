@@ -4,21 +4,35 @@ object visual {
   method position() = game.origin()
 }
 
-program addVisual {
-  game.addVisual(visual)
-}
-
-program removeVisual {
-  game.addVisual(visual)
-  game.removeVisual(visual)
+object reporter {
+  method position() = game.origin()
 }
 
 program say {
   game.addVisual(visual)
+  game.start()
   game.say(visual, "Hi!")
 }
 
-program clear {
+program domainError {
   game.addVisual(visual)
-  game.clear()
+  new Tick(interval = 1, action = { visual.error("DOMAIN_ERROR") }).start()
+  game.start()
+  game.flushEvents(1)
+}
+
+program domainErrorWithReporter {
+  game.addVisual(visual)
+  game.addVisual(reporter)
+  game.errorReporter(reporter)
+  new Tick(interval = 1, action = { visual.error("DOMAIN_ERROR") }).start()
+  game.start()
+  game.flushEvents(1)
+}
+
+program genericError {
+  game.addVisual(visual)
+  new Tick(interval = 1, action = { throw new Exception(message = "ERROR") }).start()
+  game.start()
+  game.flushEvents(1)
 }

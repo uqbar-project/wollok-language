@@ -117,6 +117,12 @@ describe "Game" {
     assert.equals([myVisual, visual2, visual3].asSet(), game.allVisuals().asSet())
   }
 
+  test "clear remove all visuals" {
+    game.addVisual(myVisual)
+    game.clear()
+    assert.that(game.allVisuals().isEmpty())
+  }
+
   test "cell size fails when set to 0" {
     assert.throwsException { => game.cellSize(0) }
   }
@@ -160,7 +166,7 @@ describe "Game" {
     game.addVisualCharacter(character)
     // Simulate
     io.queueEvent(["keypress", "ArrowUp"])
-    io.flushEvents(0)
+    game.flushEvents(0)
     
     assert.equals(game.at(0, 1), character.position())
   }
