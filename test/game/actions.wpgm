@@ -4,6 +4,10 @@ object visual {
   method position() = game.origin()
 }
 
+object reporter {
+  method position() = game.origin()
+}
+
 program say {
   game.addVisual(visual)
   game.start()
@@ -12,16 +16,23 @@ program say {
 
 program domainError {
   game.addVisual(visual)
-  const tick = new Tick(interval = 1, action = { visual.error("DOMAIN_ERROR") })
+  new Tick(interval = 1, action = { visual.error("DOMAIN_ERROR") }).start()
   game.start()
-  tick.start()
+  game.flushEvents(1)
+}
+
+program domainErrorWithReporter {
+  game.addVisual(visual)
+  game.addVisual(reporter)
+  game.errorReporter(reporter)
+  new Tick(interval = 1, action = { visual.error("DOMAIN_ERROR") }).start()
+  game.start()
   game.flushEvents(1)
 }
 
 program genericError {
   game.addVisual(visual)
-  const tick = new Tick(interval = 1, action = { throw new Exception(message = "ERROR") })
+  new Tick(interval = 1, action = { throw new Exception(message = "ERROR") }).start()
   game.start()
-  tick.start()
   game.flushEvents(1)
 }

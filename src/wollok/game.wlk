@@ -5,8 +5,16 @@ import wollok.vm.runtime
   */
 object game {
 
+  /** Collection of visual objects in the game */
   const visuals = []
+  /** Game is running? */
   var property running = false
+  /**
+   * Allows to configure a visual component as "error reporter".
+   * Then every error in game board will be reported by this visual component,
+   * in a balloon message form.
+   */
+  var property errorReporter = null
 
   override method initialize() {
     super()
@@ -213,7 +221,9 @@ object game {
   method start() {
     self.running(true)
     io.exceptionHandler({ exception => exception.printStackTrace() })
-    io.domainExceptionHandler({exception => self.say(exception.source(), exception.message())})
+    io.domainExceptionHandler({ exception => 
+      const reporter = if (errorReporter == null) exception.source() else errorReporter
+      self.say(reporter, exception.message())})
   }
   
   /**
@@ -298,14 +308,7 @@ object game {
    * Default behavior is to show them, so this is not necessary.
    */
   method showAttributes(visual) native
-  
-  /**
-   * Allows to configure a visual component as "error reporter".
-   * Then every error in game board will be reported by this visual component,
-   * in a balloon message form.
-   */
-  method errorReporter(visual) native
-     
+       
   /**
    * Returns a sound object. Audio file must be a .mp3, .ogg or .wav file.
    */ 
