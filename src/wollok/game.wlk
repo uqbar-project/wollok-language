@@ -7,7 +7,7 @@ object game {
 
   /** Collection of visual objects in the game */
   const visuals = []
-  /** Game is running? */
+  /** Is Game running? */
   var property running = false
   /**
    * Allows to configure a visual component as "error reporter".
