@@ -4,21 +4,24 @@ object visual {
   method position() = game.origin()
 }
 
-program addVisual {
-  game.addVisual(visual)
-}
-
-program removeVisual {
-  game.addVisual(visual)
-  game.removeVisual(visual)
-}
-
 program say {
   game.addVisual(visual)
+  game.start()
   game.say(visual, "Hi!")
 }
 
-program clear {
+program domainError {
   game.addVisual(visual)
-  game.clear()
+  const tick = new Tick(interval = 1, action = { visual.error("DOMAIN_ERROR") })
+  game.start()
+  tick.start()
+  game.flushEvents(1)
+}
+
+program genericError {
+  game.addVisual(visual)
+  const tick = new Tick(interval = 1, action = { throw new Exception(message = "ERROR") })
+  game.start()
+  tick.start()
+  game.flushEvents(1)
 }
