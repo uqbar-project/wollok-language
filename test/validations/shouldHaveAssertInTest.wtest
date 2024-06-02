@@ -173,15 +173,13 @@ describe "asserts unificados" {
     self.bajoEnergia()
   }
 
-  @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="ave.planear()
-  ")
+  @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="ave.planear()")
   test "al planear sin asserts" {
     ave.planear()
   }
 
   @Expect(code="shouldHaveAssertInTest", level="warning", expectedOn="ave.planear()
-    self.preguntarSiBajoEnergia()
-  ")
+    self.preguntarSiBajoEnergia()")
   test "al planear sin asserts llamando a métodos que no usan assert" {
     ave.planear()
     self.preguntarSiBajoEnergia()

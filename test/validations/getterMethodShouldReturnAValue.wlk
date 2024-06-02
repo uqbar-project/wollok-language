@@ -4,7 +4,7 @@ class A {
 	method getFirstName() { return "John" }
 	method getLastName() = "Doe"
 	
-	@Expect(code = "getterMethodShouldReturnAValue", level = "warning", expectedOn="console.println(\"blah\") ")
+	@Expect(code = "getterMethodShouldReturnAValue", level = "warning", expectedOn="console.println(\"blah\")")
 	method ageFromAClass() { console.println("blah") }
 
 	// this are not getters	
@@ -30,7 +30,7 @@ object anObject {
 	method getFirstName() { return "John" }
 	method getLastName() = "Doe"
 	
-	@Expect(code = "getterMethodShouldReturnAValue", level = "warning", expectedOn="console.println(\"blah\") ")
+	@Expect(code = "getterMethodShouldReturnAValue", level = "warning", expectedOn="console.println(\"blah\")")
 	method age() { console.println("blah") }
 
 	// this are not getters	
