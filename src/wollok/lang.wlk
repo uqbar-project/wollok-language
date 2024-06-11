@@ -3024,6 +3024,7 @@ object io {
   // TODO: merge handlers
   const property eventHandlers = new Dictionary()
   const property timeHandlers = new Dictionary()
+  const property collitionHandlers = new Dictionary()
   var property eventQueue = []
   var property currentTime = 0
   var property exceptionHandler = { e => }
@@ -3090,11 +3091,36 @@ object io {
   }
 
   /**
+  *  Returns a list of callbacks for the given event.
+  *  If the given event is not in the collitionHandlers, it is added.
+  */
+  method collitionHandlersFor(event) {
+    if (!collitionHandlers.containsKey(event)) collitionHandlers.put(event, [])
+    return collitionHandlers.get(event)
+  }
+
+  /**
+  * Adds given callback to the given event.
+  */
+  method addCollitionHandler(event, callback) {
+    self.collitionHandlersFor(event).add(callback)
+  }
+
+  /*
+  * Removes given event from the collitionHandlers.
+  */
+  method removeCollitionHandler(event) {
+    collitionHandlers.remove(event)
+  }
+
+
+  /**
   * Removes all events from handlers.
   */
   method clear() {
     eventHandlers.clear()
     timeHandlers.clear()
+    collitionHandlers.clear()
   }
 
   /**
@@ -3109,7 +3135,12 @@ object io {
     }
 
     timeHandlers.values().flatten().forEach{ callback => self.runHandler({ callback.apply(time) }) }
+
+    // las colisiones se procesan luego del resto de los eventos.
+    // esto previene el efecto rebote de los personajes contra los muros
+    collitionHandlers.values().flatten().forEach{ callback => self.runHandler({ callback.apply() }) }
     currentTime = time
+
   }
 
   /**
