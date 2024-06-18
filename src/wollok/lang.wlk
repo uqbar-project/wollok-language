@@ -113,7 +113,7 @@ class Object {
 
   method initialize() { }
 
-  /** 
+  /**
    * Answers object identity of a Wollok object, represented by
    * a unique number in Wollok environment
    */
@@ -143,18 +143,18 @@ class Object {
    * - It is reflexive: for any non-null reference value x, x == x should return true.
    * - It is symmetric: for any non-null reference values x and y, x == y
    *   should return true if and only if y == x returns true.
-   * - It is transitive: for any non-null reference values x, y, and z, 
-   *   if x == y returns true and y == z returns true, 
+   * - It is transitive: for any non-null reference values x, y, and z,
+   *   if x == y returns true and y == z returns true,
    *   then x == z should return true.
    * - It is consistent: for any non-null reference values x and y, multiple invocations
    *   of x == y consistently return true or consistently return false,
    *   provided no information used in equals comparisons on the objects is modified.
    * - For any non-null reference value x, x == null should return false.
-   * 
+   *
    * The default behavior compares them in terms of identity (===)
    */
-  method ==(other) = self === other 
-  
+  method ==(other) = self === other
+
   /** Tells whether self object is not equal to the given one */
   method !=(other) = ! (self == other)
 
@@ -749,7 +749,7 @@ class Collection {
    * Flattens a collection of collections
    *
    * Example:
-   *     [ [1, 2], [3], [4, 0], [] ].flatten()  
+   *     [ [1, 2], [3], [4, 0], [] ].flatten()
    *       => Answers [1, 2, 3, 4, 0]
    *
    */
@@ -947,7 +947,7 @@ object collection {
  * It models the mathematical set abstraction.
  * A Set guarantees no order of elements.
  *
- * Note: Great care must be exercised if mutable objects are used as set elements. 
+ * Note: Great care must be exercised if mutable objects are used as set elements.
  * The behavior of a set is not specified if the value of an object is changed in
  * a manner that affects equals comparisons while the object is an element in the set.
  * A special case of this prohibition is that it is not permissible for a set to contain
@@ -1113,7 +1113,7 @@ class Set inherits Collection {
 
   /** @private */
   method unsafeAdd(element) native
-  
+
   /**
    * Removes the specified element from this set if it is present.
    *
@@ -1225,7 +1225,7 @@ class List inherits Collection {
    *    #[].anyOne()        => Throws error, list must not be empty
    */
   override method anyOne() {
-    self.validateNotEmpty("anyOne")    
+    self.validateNotEmpty("anyOne")
     return self.get(0.randomUpTo(self.size()).truncate(0))
   }
 
@@ -1247,7 +1247,7 @@ class List inherits Collection {
   method head() {
     self.validateNotEmpty("head")
     return self.get(0)
-  } 
+  }
 
   /**
    * Answers the last element of the non-empty list.
@@ -1261,7 +1261,7 @@ class List inherits Collection {
   method last() {
     self.validateNotEmpty("last")
     return self.get(self.size() - 1)
-  } 
+  }
 
   /** @private */
   override method toStringPrefix() = "["
@@ -1276,7 +1276,7 @@ class List inherits Collection {
    */
   override method asList() = self
 
-  /** 
+  /**
    * Converts a collection to a set (removing duplicates if necessary)
    *
    * Examples:
@@ -1556,7 +1556,7 @@ class List inherits Collection {
   * Answers a new list of the same type and with the same content in a random order
   *
   *
-  * Examples: 
+  * Examples:
   *     [1, 2, 3, 4].randomized() => Answers [2, 3, 1, 4]
   *     [1, 2, 3, 4].randomized() => Answers [2, 1 ,4 ,3]
   */
@@ -2078,7 +2078,7 @@ class Number {
    */
   method isInteger() native
 
-  /** 
+  /**
    * Answers whether self is a prime number,
    * like 2, 3, 5, 7, 11 ...
    * Self must be an integer positive value
@@ -2337,7 +2337,7 @@ class String {
     if (text == "" && expression == "") return result
     const size = text.size() - 1
     if (expression == "") {
-      return (0 .. size).fold([], { total, index => 
+      return (0 .. size).fold([], { total, index =>
         total.add(text.charAt(index))
         return total
       })
@@ -2372,7 +2372,7 @@ class String {
    */
   override method printString() = '"' + self.toString() + '"'
 
-  /** 
+  /**
    * Compares this string to the specified object.
    * The result is true if and only if the
    * argument is not null and is a String object
@@ -2456,7 +2456,7 @@ class Boolean {
   /** A synonym for and operation */
   method &&(other) native
 
-  /** 
+  /**
    * Answers the result of applying the logical OR operator
    * to the specified boolean operands self and other
    */
@@ -2468,7 +2468,7 @@ class Boolean {
   /** String representation of this boolean value. */
   override method toString() native
 
-  /** 
+  /**
    * Compares this string to the specified object.
    * The result is true if and only if the
    * argument is not null and represents same value
@@ -2594,14 +2594,14 @@ class Range {
    */
   method isEmpty() = self.size() == 0
 
-  /** 
+  /**
    * Reduce a range to a certain value, beginning with a seed or initial value.
    *
    * Examples
    *     (1..5).fold(0, {acum, each => acum + each})
    *           => Answers 15, the sum of all elements
    *
-   * @see List#fold(seed, foldClosure) 
+   * @see List#fold(seed, foldClosure)
    */
   method fold(seed, foldClosure) = self.asList().fold(seed, foldClosure)
 
@@ -2639,12 +2639,12 @@ class Range {
    *
    * Example:
    *      (1..5).all { number => number.odd() }    => Answers false
-   *  
+   *
    * @see List#all(closure)
    */
   method all(closure) = self.asList().all(closure)
 
-  /** 
+  /**
    * Answers a new list with the elements meeting
    * a given condition. The condition is a closure argument that
    * takes a single element and answers a boolean.
@@ -2652,7 +2652,7 @@ class Range {
    * Example:
    *      (1..4).filter({ number => number.even() })   => Answers [2, 4]
    *
-   * @see List#filter(closure) 
+   * @see List#filter(closure)
    */
   method filter(closure) = self.asList().filter(closure)
 
@@ -2667,14 +2667,14 @@ class Range {
    */
   method min() = self.asList().min()
 
-  /** 
+  /**
    * Answers the element that represents the maximum value in the range.
    *
    * Example:
    *       (1..15).max()                       =>  Answers 15
    *       new Range(start = 2, end = 5).max() => Answers 5
-   * 
-   * @see List#max() 
+   *
+   * @see List#max()
    */
   method max() = self.asList().max()
 
@@ -2841,7 +2841,7 @@ class Date {
   const property day = calendar.today().day()
   const property month = calendar.today().month()
   const property year = calendar.today().year()
-  
+
   /** String representation of a date */
   override method toString() = self.shortDescription()
 
@@ -3064,7 +3064,7 @@ object io {
   *  Returns a list of callbacks for the given time event.
   *  If the given time event is not in the timeHandlers, it is added.
   */
-  method timeHandlers(name) { 
+  method timeHandlers(name) {
     if (!timeHandlers.containsKey(name)) timeHandlers.put(name, [])
     return timeHandlers.get(name)
   }
@@ -3124,30 +3124,29 @@ object io {
   }
 
   /**
-  * Runs all events in the eventQueue that are in the eventHandlers and
-  * all time events in the timeHandlers for the given time.
+  * Runs all events in the eventQueue that are in the eventHandlers
+  * then all time events in the timeHandlers for the given time
+  * finally, processes all collition events
   */
   method flushEvents(time) {
     const currentEvents = eventQueue.copy()
     eventQueue = []
     currentEvents.forEach{ event =>
-      eventHandlers.getOrElse(event, { [] }).forEach{ callback => self.runHandler({ callback.apply() }) }
+      eventHandlers.getOrElse(event, { [] }).forEach{ callback => self.runHandler(callback) }
     }
 
     timeHandlers.values().flatten().forEach{ callback => self.runHandler({ callback.apply(time) }) }
 
-    // las colisiones se procesan luego del resto de los eventos.
-    // esto previene el efecto rebote de los personajes contra los muros
-    collitionHandlers.values().flatten().forEach{ callback => self.runHandler({ callback.apply() }) }
+    collitionHandlers.values().flatten().forEach{ callback => self.runHandler(callback) }
     currentTime = time
-
   }
+
 
   /**
   * Runs the given callback.
   */
   method runHandler(callback) {
-    try { 
+    try {
       callback.apply()
     } catch e: DomainException{
       domainExceptionHandler.apply(e)
