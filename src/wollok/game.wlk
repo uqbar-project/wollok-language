@@ -94,7 +94,7 @@ object game {
    *     game.whenCollideDo(pepita, { comida => pepita.comer(comida) })
    */  
     method whenCollideDo(visual, action) {
-    io.addTimeHandler(visual.identity(), { time => 
+    io.addCollitionHandler(visual.identity(), {  => 
 			self.colliders(visual).forEach({it => action.apply(it)})
 		})
   }
@@ -110,7 +110,7 @@ object game {
    */  
   method onCollideDo(visual, action) {
 		var lastColliders = []
-    io.addTimeHandler(visual.identity(), { time => 
+    io.addCollitionHandler(visual.identity(), {  => 
 			const colliders = self.colliders(visual)
 			colliders.forEach({ it => if (self.hasVisual(visual) and !lastColliders.contains(it)) action.apply(it) })
 			lastColliders = colliders
