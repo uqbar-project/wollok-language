@@ -25,9 +25,7 @@ class SomeClass {
 
   @Expect(code="possiblyReturningBlock", level="warning", expectedOn="method fakeReturnUsingAssignment() = {
     a = 3
-  }
-
-  // It is ok if method is not defined as synthetic, you can return a closure with no params")
+  }")
   method fakeReturnUsingAssignment() = {
     a = 3
   }
