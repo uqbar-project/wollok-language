@@ -13,7 +13,8 @@ test "issue 578 - stack trace for closure used in a forEach" {
   try {
     #{1}.forEach({ each => link.atacarA(captainFalcon)})
   }
-  catch e {
+  // https://github.com/uqbar-project/wollok-ts/issues/243
+  catch e: MessageNotUnderstoodException {
     // OK ! a NPE
     failed = true
   }
