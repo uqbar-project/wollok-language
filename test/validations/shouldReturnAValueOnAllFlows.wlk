@@ -345,6 +345,10 @@ class A {
       }
   }
 
+  method doSomething() {
+    c = 0
+  }
+
 }
 
 
@@ -358,6 +362,13 @@ class B inherits A {
 
   // OK
   override method getFoo() = if (noPuede) super() else throw new Exception()
+
+  // OK
+  override method doSomething() {
+    if (noPuede) super()
+    c = 2
+  }
+
 }
 
 class C inherits A {
