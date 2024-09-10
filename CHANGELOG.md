@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Currently, the Wollok language does not adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). 
 Hopefully, we will be able to do that in the near future.
 
+## v3.2.5
+- Packages with dashes by @ivojawer in #191
+- Validation for new import system by @PalumboN in #193
+
 ## v3.2.4
 - Adding roadmap & new projects by @fdodino in #181
 - Update exception handler for game by @PalumboN in #183
