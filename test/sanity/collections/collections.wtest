@@ -103,7 +103,13 @@ describe "Collection test case" {
     numbers.remove(22)
     assert.equals(2, numbers.size())
   }
-  
+
+  test "remove float" {
+    numbers.add(2.2)
+    numbers.remove(2.2)
+    assert.equals(3, numbers.size())
+  }
+
   test "clear" {
     numbers.clear()
     assert.equals(0, numbers.size())
