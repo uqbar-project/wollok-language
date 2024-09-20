@@ -18,7 +18,7 @@ It is a Wollok Project which contains
 - Wollok core libraries: strings, numbers, dates, booleans, etc. in `src` folder
 - Wollok language specification, in form of unit tests: in `test` folder you'll see our **sanity tests** where you can check how should you use Wollok objects from core libraries, and syntax definitions.
 
-All files follow a [standard coding convention](https://github.com/uqbar-project/wollok-language/wiki/Coding-Standards-for-writing-this-repository), please read them before collaborating.
+All files follow a **standard coding convention**, please refer to them in the [developers section](https://github.com/uqbar-project/wollok-language/wiki/Development-Environment).
 
 ## 🆕 Changes
 
