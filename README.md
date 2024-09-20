@@ -1,4 +1,4 @@
-![image](https://user-images.githubusercontent.com/4549002/65472817-bf01f200-de4b-11e9-94c6-433d9c037dca.png)
+<img src="./images/wollok_logo.png" height="15%" width="15%"/>
 
 # Wollok Language
 
