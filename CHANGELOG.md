@@ -1,7 +1,10 @@
 # Changelog
+
 The objective of this file is to document the changes to the Wollok language definition.
+
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Currently, the Wollok language does not adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). 
+
 Hopefully, we will be able to do that in the near future.
 
 ## v3.2.5

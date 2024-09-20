@@ -1,3 +1,8 @@
 bin
 .history
 log
+package-lock.json
+.classpath
+build.properties
+.project
+META-INF
