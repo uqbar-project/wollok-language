@@ -44,7 +44,7 @@ All files follow a **standard coding convention**, please refer to them in the [
 
 ## 🏗️ General Architecture
 
-![Wollok Architecture](./images/wollok_architecture.png)
+![Wollok Architecture](./images/wollok_general_architecture.png)
 
 ## 🕸️ Deprecated repositories
 
