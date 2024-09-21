@@ -34,7 +34,8 @@ All files follow a **standard coding convention**, please refer to them in the [
 ## ✨ Another useful repositories
 
 - [wollok-ts](https://github.com/uqbar-project/wollok-ts): next generation interpreter Typescript-based, which has...
-  - [wollok-ts-cli](https://github.com/uqbar-project/wollok-ts-cli): Wollok Command Line Interface for running programs, a REPL, tests, dynamic diagram using Wollok TS implementation
+  - [wollok-web-tools](https://github.com/uqbar-project/wollok-web-tools): Wollok common components for Web development, like Wollok Game Web, the dynamic diagram, etc.
+  - [wollok-ts-cli](https://github.com/uqbar-project/wollok-ts-cli): Wollok Command Line Interface for running programs, REPL, tests and project initializationusing Wollok TS implementation
   - [wollok-lsp-ide](https://github.com/uqbar-project/wollok-lsp-ide): A Work-in-Progress implementation of Language Server Protocol, supported for a lot of IDEs (especially Visual Studio Code)
   - [wollok-run-client](https://github.com/uqbar-project/wollok-run-client): A proof of concept using Wollok Game, first prototype of a dynamic diagram, a new console REPL and wollok-ts interpreter. It will be deprecated hopefully for 2025.
 - [wollok-highlight-vscode](https://github.com/uqbar-project/wollok-highlight-vscode), a highlighter plugin for Visual Studio Code
