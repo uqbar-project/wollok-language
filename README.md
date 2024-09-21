@@ -2,7 +2,8 @@
 
 # Wollok Language
 
-![GitHub Release](https://img.shields.io/github/v/release/uqbar-project/wollok-language)
+![GitHub Release](https://img.shields.io/github/v/release/uqbar-project/wollok-language) ![GitHub License](https://img.shields.io/github/license/uqbar-project/wollok-language)
+
 
 This is the repository for the **Wollok Language definition**, and also the main access point for all resources.
 
