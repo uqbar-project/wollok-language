@@ -41,6 +41,10 @@ All files follow a **standard coding convention**, please refer to them in the [
 - [wollok-mobile](https://github.com/uqbar-project/wollok-mobile): Mobile implementation for Wollok
 - [official web site](https://github.com/uqbar-project/website-wollok-ts): Main content of our Wollok-TS site (developed with [Astro](https://astro.build/))
 
+## 🏗️ General Architecture
+
+![Wollok Architecture](./images/wollok_architecture.png)
+
 ## 🕸️ Deprecated repositories
 
 These projects are in low-maintenance mode:
