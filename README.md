@@ -4,7 +4,6 @@
 
 ![GitHub Release](https://img.shields.io/github/v/release/uqbar-project/wollok-language) ![GitHub License](https://img.shields.io/github/license/uqbar-project/wollok-language)
 
-
 This is the repository for the **Wollok Language definition**, and also the main access point for all resources.
 
 ## ❓ What is Wollok?
@@ -29,7 +28,7 @@ All files follow a **standard coding convention**, please refer to them in the [
 
 - [Wollok Roadmap for 2024](https://docs.google.com/spreadsheets/d/1SAmnsdYvkrx_Yby_zP3MyGB_IPT1kzITSQGCCIwqSvc/edit#gid=0)
 
-![Roadmap 2024](./images/roadmap_wollok_2024.png)
+![Roadmap 2024](./images/wollok_roadmap_2024.png)
 
 ## ✨ Another useful repositories
 
@@ -44,7 +43,7 @@ All files follow a **standard coding convention**, please refer to them in the [
 
 ## 🏗️ General Architecture
 
-![Wollok Architecture](./images/wollok_general_architecture.png)
+![Wollok Architecture](./images/wollok_architecture_2024.png)
 
 ## 🕸️ Deprecated repositories
 
@@ -73,11 +72,11 @@ All contributions are welcome!
 - Open an issue [here](https://github.com/uqbar-project/wollok-language/issues), and we will contact you!
 
 If you are willing to install the developing environment,
+
 - See [installation instructions for developers](https://github.com/uqbar-project/wollok-language/wiki/Development-Environment)
 - You can also [join the Discord channel!](https://discord.gg/ZstgCPKEaa)
 - There's a list of [good first issues](https://github.com/uqbar-project/wollok-language/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) to tackle, but in case of any hesitation you can always ping @PalumboN or @fdodino
-- You can fork the project and [create a *Pull Request*](https://help.github.com/articles/creating-a-pull-request-from-a-fork/). If you've never collaborated with an open source project before, you might want to read [this guide](https://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project/)
+- You can fork the project and [create a _Pull Request_](https://help.github.com/articles/creating-a-pull-request-from-a-fork/). If you've never collaborated with an open source project before, you might want to read [this guide](https://akrabat.com/the-beginners-guide-to-contributing-to-a-github-project/)
 - Additional info is available at the [wiki](https://github.com/uqbar-project/wollok-ts-cli/wiki)
 
-__Powered by [Uqbar](https://uqbar.org/)__
-
+**Powered by [Uqbar](https://uqbar.org/)**
