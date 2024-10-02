@@ -239,9 +239,9 @@ object game {
   method origin() = self.at(0, 0)
 
   /**
-   * Returns the center board position (rounded down).
+   * Returns center board position (rounded down), is a object with lazy x and y.
    */  
-  method center() = self.at(self.width().div(2), self.height().div(2))
+  method center() = centerLazy
 
   /**
    * Sets game title.
@@ -403,19 +403,39 @@ class AbstractPosition {
 	
 }
 
+//Class to not duplicate createPosition code in Position, we only need 1 instance of this one!
+class CenterLazyPosition inherits AbstractPosition{
+ /**
+  * Returns center board x axis (rounded down) lazy.
+  */  
+  override method x() = game.width().div(2)
+
+ /**
+  * Returns center board y axis (rounded down) lazy.
+  */  
+  override method y() = game.height().div(2)
+    
+  override method createPosition(_x, _y) = new Position(x = _x, y = _y)
+}
+
+/**
+  * A Special object position that answer x and y center of the board lazy.
+  */
+object centerLazy inherits CenterLazyPosition{
+  //Is one instance, I'm not sure if we need make it a singleton so they can not instatiate another object of the CenterLazyPosition Class.
+}
+
 /**
  * Represents a position in a two-dimensional gameboard.
  * It is an immutable object since Wollok 1.8.0
  */
-class Position inherits AbstractPosition {
+class Position inherits CenterLazyPosition {
   const x = 0
   const y = 0
   
   override method x() = x
   
   override method y() = y
-  
-  override method createPosition(_x, _y) = new Position(x = _x, y = _y)
 
 }
 
