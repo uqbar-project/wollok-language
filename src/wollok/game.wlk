@@ -4,7 +4,7 @@ import wollok.vm.runtime
   * Wollok Game main object 
   */
 object game {
-
+  const center = new MutablePosition(x = self.xCenter(), y = self.yCenter())
   /** Collection of visual objects in the game */
   const visuals = []
   /** Is Game running? */
@@ -219,6 +219,7 @@ object game {
    * Starts render the board in a new windows.
    */  
   method start() {
+    self.updateCenter()
     self.running(true)
     io.exceptionHandler({ exception => exception.printStackTrace() })
     io.domainExceptionHandler({ exception => 
@@ -241,7 +242,30 @@ object game {
   /**
    * Returns the center board position (rounded down).
    */  
-  method center() = self.at(self.width().div(2), self.height().div(2))
+  method center() = center
+
+  //Subtask to use on Start.
+  method updateCenter(){
+    self.updateCenterX()
+    self.updateCenterY()
+  }
+
+  method updateCenterX(){
+    center.x(self.xCenter())
+  }
+
+  method updateCenterY(){
+    center.y(self.yCenter())
+  }
+
+  //To not duplicate in default and after defeault.
+  method xCenter() = self.midRoundDown(self.width())
+
+  //To not duplicate in default and after defeault.
+  method yCenter() = self.midRoundDown(self.height())
+ 
+  //To not duplicate div(2) on xCenter and yCenter. Can be remove and duplicated.
+  method midRoundDown(n) = n.div(2)
 
   /**
    * Sets game title.
