@@ -9,6 +9,8 @@ object game {
   const visuals = []
   /** Is Game running? */
   var property running = false
+    /** Is Game running? */
+  const center = new CenterLazy()
   /**
    * Allows to configure a visual component as "error reporter".
    * Then every error in game board will be reported by this visual component,
@@ -241,7 +243,7 @@ object game {
   /**
    * Returns center board position (rounded down), is a object with lazy x and y.
    */  
-  method center() = centerLazy
+  method center() = center
 
   /**
    * Sets game title.
@@ -403,7 +405,7 @@ class AbstractPosition {
 	
 }
 
-//Class to not duplicate createPosition code in Position, we only need 1 instance of this one!
+//Class to not duplicate createPosition code in Position, we only need 1 instance of this one! Should be native or udner the hood?
 class CenterLazyPosition inherits AbstractPosition{
  /**
   * Returns center board x axis (rounded down) lazy.
@@ -414,15 +416,16 @@ class CenterLazyPosition inherits AbstractPosition{
   * Returns center board y axis (rounded down) lazy.
   */  
   override method y() = game.height().div(2)
-    
-  override method createPosition(_x, _y) = new Position(x = _x, y = _y)
-}
 
-/**
-  * A Special object position that answer x and y center of the board lazy.
-  */
-object centerLazy inherits CenterLazyPosition{
-  //Is one instance, I'm not sure if we need make it a singleton so they can not instatiate another object of the CenterLazyPosition Class.
+ /**
+  * Returns a new position with x y coordinates.
+  */  
+  override method createPosition(_x, _y) = new Position(x = _x, y = _y)
+
+ /**
+  * Returns the center of the board position Rounded Down.
+  */  
+  override method clone() = self
 }
 
 /**
