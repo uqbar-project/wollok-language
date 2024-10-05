@@ -2585,6 +2585,7 @@ class Range {
     return self.fold([], { seed, element =>
       seed.addAll(closure.apply(element))
       seed
+    })
   }
 
   /** @private */
