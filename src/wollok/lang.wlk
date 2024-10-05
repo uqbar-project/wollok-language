@@ -212,6 +212,10 @@ class Object {
     throw new MessageNotUnderstoodException(message = aMessage)
   }
 
+  method generateEvaluationError(message) {
+    throw new EvaluationError(message = message)
+  }
+
   /**
    * @private
    *
@@ -227,9 +231,6 @@ class Object {
 
   /** @private */
   method checkNotNull(value, message) native
-
-  /** @private */
-  method checkNotVoid(value, message) native
 }
 
 /** Representation for methods that only have side effects */
@@ -685,8 +686,7 @@ class Collection {
   @Type(variable="Mapped", name="List<Mapped>")
   method map(@Type(name="{ (Element) => Mapped }") closure) {
     self.checkNotNull(closure, "map")
-    return self.fold([], { newCollection, element => 
-        self.checkNotVoid(closure.apply(element), "Message send \"closure.apply(element)\" produces no value (missing return in method?)")
+    return self.fold([], { newCollection, element =>
         newCollection.add(closure.apply(element))
         return newCollection
     })
@@ -714,7 +714,6 @@ class Collection {
   method flatMap(closure) {
     self.checkNotNull(closure, "flatMap")
     return self.fold(self.newInstance(), { flattenedList, element =>
-      self.checkNotVoid(closure.apply(element), "Message send \"closure.apply(element)\" produces no value (missing return in method?)")
       flattenedList.addAll(closure.apply(element))
       return flattenedList
     })
