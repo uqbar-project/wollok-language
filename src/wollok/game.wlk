@@ -80,7 +80,7 @@ object game {
    * @see keyboard.onPressDo()
    */  
   method whenKeyPressedDo(event, action) { 
-    io.addEventHandler(event, action)
+    io.replaceEventHandler(event, action)
   }
 
 

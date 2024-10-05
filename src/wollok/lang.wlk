@@ -3053,6 +3053,11 @@ object io {
     self.eventHandlersFor(event).add(callback)
   }
 
+  method replaceEventHandler(event, callback) {
+    self.removeEventHandler(event)
+    self.addEventHandler(event, callback)
+  }
+
   /*
   * Removes given event from the eventHandlers.
   */
