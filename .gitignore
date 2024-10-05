@@ -6,3 +6,4 @@ package-lock.json
 build.properties
 .project
 META-INF
+.DS_Store
