@@ -4,11 +4,12 @@ import wollok.vm.runtime
   * Wollok Game main object 
   */
 object game {
-  const center = new MutablePosition(x = self.xCenter(), y = self.yCenter())
   /** Collection of visual objects in the game */
   const visuals = []
   /** Is Game running? */
   var property running = false
+
+  var center = new centerBeforeStart()
   /**
    * Allows to configure a visual component as "error reporter".
    * Then every error in game board will be reported by this visual component,
@@ -219,14 +220,15 @@ object game {
    * Starts render the board in a new windows.
    */  
   method start() {
-    self.updateCenter()
+    center.updatePositions()  
+    center = new CenterRunning()
     self.running(true)
     io.exceptionHandler({ exception => exception.printStackTrace() })
     io.domainExceptionHandler({ exception => 
       const reporter = if (errorReporter == null) exception.source() else errorReporter
       self.say(reporter, exception.message())})
   }
-  
+
   /**
    * Returns a position for given coordinates.
    */  
@@ -240,32 +242,12 @@ object game {
   method origin() = self.at(0, 0)
 
   /**
-   * Returns the center board position (rounded down).
+   * Returns a center board mutable position (rounded down). 
+   * (Before game start is 0,0 then offset to current Game Board Size).
    */  
-  method center() = center
-
-  //Subtask to use on Start.
-  method updateCenter(){
-    self.updateCenterX()
-    self.updateCenterY()
+  method center() { 
+    return center.center()
   }
-
-  method updateCenterX(){
-    center.x(self.xCenter())
-  }
-
-  method updateCenterY(){
-    center.y(self.yCenter())
-  }
-
-  //To not duplicate in default and after defeault.
-  method xCenter() = self.midRoundDown(self.width())
-
-  //To not duplicate in default and after defeault.
-  method yCenter() = self.midRoundDown(self.height())
- 
-  //To not duplicate div(2) on xCenter and yCenter. Can be remove and duplicated.
-  method midRoundDown(n) = n.div(2)
 
   /**
    * Sets game title.
@@ -347,6 +329,81 @@ object game {
     if (interval < 1) { self.error("Interval must be higher than zero.") }
     return new Tick(interval = interval, action =  action, inmediate = execInmediately)
   }
+
+}
+
+/**
+   * A class to get a mutable position in the center of the board when game is running.
+   * Is used by game object.
+   */
+class CenterRunning{
+
+  /** 	
+   * @private	
+   */	
+  method center(){
+     return new MutablePosition(x = self.xCenter(), y = self.yCenter())
+  }
+  
+  /** 	
+   * @private	
+   */	
+  method xCenter() = game.width().div(2)
+  
+  /** 	
+   * @private	
+   */	
+  method yCenter() = game.height().div(2)
+  
+  //method midRoundDown(n) = n.div(2)
+
+}
+
+/**
+   * A class to get a mutable position in 0,0 until game start.
+   * The every requested mutable position get centered by the offset of the current Board Size.
+   * Don't have any other use.
+   */
+class CenterBeforeStar inherits CenterRunning{
+
+  /** 	
+   * @private	
+   */	
+  const toCenterPositions = #{}
+  
+  /** 	
+   * @private	
+   */	
+  override method center(){
+    const toCenterLater = new MutablePosition(x = 0, y = 0)
+    toCenterPositions.add(toCenterLater)
+
+    return toCenterLater
+  }
+ 
+  /** 	
+   * @private	
+   */	
+  method offsetPos(){
+    return new Position(x = self.xCenter(), y = self.yCenter())
+  }
+
+  /** 	
+   * @private	
+   */	
+  method centerPos(position, offsetPos){
+    position.goRight(offsetPos.x())
+    position.goUp(   offsetPos.y())
+  }  
+  
+  /** 	
+   * @private	
+   */	
+  method updatePositions(){
+    const offsetPos = self.offsetPos() //To not redo the offset fot every position update.
+    toCenterPositions.forEach({ position => self.centerPos(position, offsetPos)})
+    toCenterPositions.clear() //Can be omited if garbage collector take care after CenterBeforeStar instance is not referenced by game.
+  }  
 
 }
 
