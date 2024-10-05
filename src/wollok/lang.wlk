@@ -227,6 +227,9 @@ class Object {
 
   /** @private */
   method checkNotNull(value, message) native
+
+  /** @private */
+  method checkNotVoid(value, message) native
 }
 
 /** Representation for methods that only have side effects */
@@ -682,9 +685,10 @@ class Collection {
   @Type(variable="Mapped", name="List<Mapped>")
   method map(@Type(name="{ (Element) => Mapped }") closure) {
     self.checkNotNull(closure, "map")
-    return self.fold([], { newCollection, element =>
-      newCollection.add(closure.apply(element))
-      newCollection
+    return self.fold([], { newCollection, element => 
+        self.checkNotVoid(closure.apply(element), "Message send \"closure.apply(element)\" produces no value (missing return in method?)")
+        newCollection.add(closure.apply(element))
+        return newCollection
     })
   }
 
@@ -710,8 +714,9 @@ class Collection {
   method flatMap(closure) {
     self.checkNotNull(closure, "flatMap")
     return self.fold(self.newInstance(), { flattenedList, element =>
+      self.checkNotVoid(closure.apply(element), "Message send \"closure.apply(element)\" produces no value (missing return in method?)")
       flattenedList.addAll(closure.apply(element))
-      flattenedList
+      return flattenedList
     })
   }
 
@@ -2563,7 +2568,10 @@ class Range {
   method map(closure) {
     self.checkNotNull(closure, "map")
     const list = []
-    self.forEach { element => list.add(closure.apply(element)) }
+    self.forEach { element => 
+      self.checkNotVoid(closure.apply(element), "Message send \"closure.apply(element)\" produces no value (missing return in method?)")
+      list.add(closure.apply(element)) 
+    }
     return list
   }
 
@@ -2578,8 +2586,9 @@ class Range {
   method flatMap(closure) {
     self.checkNotNull(closure, "flatMap")
     return self.fold([], { seed, element =>
+      self.checkNotVoid(closure.apply(element), "Message send \"closure.apply(element)\" produces no value (missing return in method?)")
       seed.addAll(closure.apply(element))
-      seed
+      return seed 
     })
   }
 
