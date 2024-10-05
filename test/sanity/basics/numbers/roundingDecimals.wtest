@@ -25,6 +25,13 @@ describe "Decimal tests"{
     assert.equals(14.61, 14.61.truncate(3))
   }
 
+  test "floor"{
+    assert.equals(5, 5.floor())
+    assert.equals(5, 5.1.floor())
+    assert.equals(5, 5.5.floor())
+    assert.equals(5, 5.9.floor())
+  }
+
   test "roundUp negative decimals throws error"{
     assert.throwsException { 1.223445.roundUp(-3) }
   }
