@@ -2568,10 +2568,7 @@ class Range {
   method map(closure) {
     self.checkNotNull(closure, "map")
     const list = []
-    self.forEach { element => 
-      self.checkNotVoid(closure.apply(element), "Message send \"closure.apply(element)\" produces no value (missing return in method?)")
-      list.add(closure.apply(element)) 
-    }
+    self.forEach { element => list.add(closure.apply(element)) }
     return list
   }
 
@@ -2586,10 +2583,8 @@ class Range {
   method flatMap(closure) {
     self.checkNotNull(closure, "flatMap")
     return self.fold([], { seed, element =>
-      self.checkNotVoid(closure.apply(element), "Message send \"closure.apply(element)\" produces no value (missing return in method?)")
       seed.addAll(closure.apply(element))
-      return seed 
-    })
+      seed
   }
 
   /** @private */
