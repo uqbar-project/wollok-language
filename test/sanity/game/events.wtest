@@ -30,6 +30,13 @@ describe 'events' {
     keyboard.a().onPressDo(closureMock)
     assert.that(io.eventHandlersFor(event).contains(closureMock))
   }
+
+  test 'whenKeyPressedDo should replace previous event handler' {
+    const event = ["keypress", "KeyA"]
+    keyboard.a().onPressDo(closureMock)
+    keyboard.a().onPressDo(closureMock)
+    assert.equals(1, io.eventHandlersFor(event).size())
+  }
   
   test 'clear should clear event handlers' {
     const event = ["keypress"]
