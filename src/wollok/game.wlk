@@ -44,13 +44,25 @@ object game {
    * Example:
    *     game.addVisualCharacter(pepita) ==> pepita should have a position property
    */
+//   method addVisualCharacter(visual) {
+//     self.addVisual(visual)
+//     keyboard.up().onPressDo({ visual.position(visual.position().up(1)) })
+//     keyboard.down().onPressDo({ visual.position(visual.position().down(1)) })
+//     keyboard.left().onPressDo({ visual.position(visual.position().left(1)) })
+//     keyboard.right().onPressDo({ visual.position(visual.position().right(1)) })
+// }
   method addVisualCharacter(visual) {
     self.addVisual(visual)
-    keyboard.up().onPressDo({ visual.position(visual.position().up(1)) })
-    keyboard.down().onPressDo({ visual.position(visual.position().down(1)) })
-    keyboard.left().onPressDo({ visual.position(visual.position().left(1)) })
-    keyboard.right().onPressDo({ visual.position(visual.position().right(1)) })
+    keyboard.up().onPressDo({ 
+      if(visual.position().y() < game.height()-1) visual.position(visual.position().up(1)) })
+    keyboard.down().onPressDo({ 
+      if(visual.position().y() > 0) visual.position(visual.position().down(1)) })
+    keyboard.right().onPressDo({ 
+      if (visual.position().x() < game.width()-1) visual.position(visual.position().right(1)) })
+    keyboard.left().onPressDo({ 
+      if (visual.position().x() > 0) visual.position(visual.position().left(1)) })
 }
+
   /**
    * Removes an object from the board for stop drawing it.
    *
