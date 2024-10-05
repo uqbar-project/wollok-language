@@ -19,7 +19,7 @@
   "shouldNotUseOverride": "Este método no sobrescribe ningún otro método",
   "possiblyReturningBlock": "Este método devuelve un bloque, si no es la intención elimine el '=' antes de las llaves.",
   "shouldUseOverrideKeyword": "Debería marcarse el método con 'override', ya que sobrescribe el de sus superclases",
-  "shouldMatchSuperclassReturnValue": "El valor del tipo devuelto no coincide con el método definido en la superclase",
+  "shouldMatchSuperclassReturnValue": "El método ${0} que sobreescribe la subclase debe respetar el mismo tipo que el método de su superclase (sea un método que solo produce efecto o que devuelve un valor).",
   "getterMethodShouldReturnAValue": "El método getter debe retornar un valor",
   "methodShouldHaveDifferentSignature": "Método duplicado",
   "shouldNotDuplicateVariables": "Ya existe una variable con este nombre en la jerarquía",

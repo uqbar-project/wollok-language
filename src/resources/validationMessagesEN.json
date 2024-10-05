@@ -19,7 +19,7 @@
   "shouldNotUseOverride": "Method does not override anything",
   "possiblyReturningBlock": "This method is returning a block, consider removing the '=' before curly braces.",
   "shouldUseOverrideKeyword": "Method should be marked as override, since it overrides a superclass method",
-  "shouldMatchSuperclassReturnValue": "Superclass method returned value does not match current definition",
+  "shouldMatchSuperclassReturnValue": "Override method {0} does not match the returned type from its superclass (should either return a value o act as a side-effect method)",
   "getterMethodShouldReturnAValue": "Getter should return a value",
   "methodShouldHaveDifferentSignature": "Duplicated method",
   "shouldNotDuplicateVariables": "There is already a variable with this name in the hierarchy",
