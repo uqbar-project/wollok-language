@@ -170,4 +170,14 @@ describe "Game" {
     
     assert.equals(game.at(0, 1), character.position())
   }
+
+  test 'addVisualCharacter no exceed limits' {
+    const character = new Visual()
+    game.addVisualCharacter(character)
+    // Simulate
+    io.queueEvent(["keypress", "ArrowDown"])
+    game.flushEvents(0)
+    
+    assert.equals(game.at(0, 0), character.position())
+  }
 }
