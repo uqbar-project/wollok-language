@@ -2022,6 +2022,15 @@ class Number {
   method round() native
 
   /**
+   * Converts a decimal number into an integer truncating the decimal part.
+   *
+   * Example:
+   *     5.5.floor() ==> Answers 5
+   *     5.floor() ==> Answers 5
+  **/
+  method floor() = self.truncate(0)
+
+  /**
    * greater common divisor.
    * Both self and "other" parameter are coerced to be integer values.
    *
