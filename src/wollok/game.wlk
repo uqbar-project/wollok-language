@@ -4,6 +4,7 @@ import wollok.vm.runtime
   * Wollok Game main object 
   */
 object game {
+
   /** Collection of visual objects in the game */
   const visuals = []
   /** Is Game running? */
@@ -51,7 +52,7 @@ object game {
     keyboard.down().onPressDo({ visual.position(visual.position().down(1)) })
     keyboard.left().onPressDo({ visual.position(visual.position().left(1)) })
     keyboard.right().onPressDo({ visual.position(visual.position().right(1)) })
-}
+  }
   /**
    * Removes an object from the board for stop drawing it.
    *
