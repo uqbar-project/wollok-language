@@ -7,6 +7,12 @@ Currently, the Wollok language does not adhere to [Semantic Versioning](https://
 
 Hopefully, we will be able to do that in the near future.
 
+## v3.2.6
+- Test removing a float from a list by @PalumboN in #198
+- Implementacion de floor by @rodriguez-guillermo in #210
+- Visual characater no se sale de los limites  by @lspigariol in #209
+- Agregar a language las descripciones de los errores  by @fdodino in #205
+
 ## v3.2.5
 - Packages with dashes by @ivojawer in #191
 - Validation for new import system by @PalumboN in #193
