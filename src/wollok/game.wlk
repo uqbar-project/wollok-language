@@ -44,13 +44,6 @@ object game {
    * Example:
    *     game.addVisualCharacter(pepita) ==> pepita should have a position property
    */
-//   method addVisualCharacter(visual) {
-//     self.addVisual(visual)
-//     keyboard.up().onPressDo({ visual.position(visual.position().up(1)) })
-//     keyboard.down().onPressDo({ visual.position(visual.position().down(1)) })
-//     keyboard.left().onPressDo({ visual.position(visual.position().left(1)) })
-//     keyboard.right().onPressDo({ visual.position(visual.position().right(1)) })
-// }
   method addVisualCharacter(visual) {
     self.addVisual(visual)
     keyboard.up().onPressDo({ 
