@@ -47,11 +47,11 @@ object game {
   method addVisualCharacter(visual) {
     self.addVisual(visual)
     keyboard.up().onPressDo({ 
-      if(visual.position().y() < game.height()-1) visual.position(visual.position().up(1)) })
+      if(visual.position().y() < self.height()-1) visual.position(visual.position().up(1)) })
     keyboard.down().onPressDo({ 
       if(visual.position().y() > 0) visual.position(visual.position().down(1)) })
     keyboard.right().onPressDo({ 
-      if (visual.position().x() < game.width()-1) visual.position(visual.position().right(1)) })
+      if (visual.position().x() < self.width()-1) visual.position(visual.position().right(1)) })
     keyboard.left().onPressDo({ 
       if (visual.position().x() > 0) visual.position(visual.position().left(1)) })
 }
