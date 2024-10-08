@@ -159,6 +159,14 @@ describe "Collection test case" {
     const evens = #{1,2,3}.map({n => n.even()})
     assert.equals([false, true, false], evens)
   }
+
+  test "map closure with void return type" {
+    assert.throwsExceptionWithMessage("Message send \"closure.apply(element)\" produces no value (missing return in method?)", { #{1,2,3}.map({n => [].add(n)}) })
+  }
+
+  test "flatMap closure with void return type" {
+    assert.throwsExceptionWithMessage("Message send \"closure.apply(element)\" produces no value (missing return in method?)", { [[1, 2, 3], [4, 5, 6]].flatMap({ list => [].addAll(list) }) })
+  }
     
   test "shortcut avoiding parenthesis" {
     const greaterThanFiveElements = numbers.filter { n => n > 5 }

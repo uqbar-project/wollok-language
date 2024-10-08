@@ -212,6 +212,10 @@ class Object {
     throw new MessageNotUnderstoodException(message = aMessage)
   }
 
+  method generateEvaluationError(message) {
+    throw new EvaluationError(message = message)
+  }
+
   /**
    * @private
    *
@@ -683,8 +687,8 @@ class Collection {
   method map(@Type(name="{ (Element) => Mapped }") closure) {
     self.checkNotNull(closure, "map")
     return self.fold([], { newCollection, element =>
-      newCollection.add(closure.apply(element))
-      newCollection
+        newCollection.add(closure.apply(element))
+        return newCollection
     })
   }
 
@@ -711,7 +715,7 @@ class Collection {
     self.checkNotNull(closure, "flatMap")
     return self.fold(self.newInstance(), { flattenedList, element =>
       flattenedList.addAll(closure.apply(element))
-      flattenedList
+      return flattenedList
     })
   }
 
