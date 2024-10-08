@@ -9,6 +9,8 @@ object game {
   const visuals = []
   /** Is Game running? */
   var property running = false
+  /** A center manager to delegate calculate object default positionas center until game run. */
+  var centerManager = new CenterBeforeRun()
   /**
    * Allows to configure a visual component as "error reporter".
    * Then every error in game board will be reported by this visual component,
@@ -24,7 +26,7 @@ object game {
     self.height(5)
     self.cellSize(50)
     self.ground("ground.png")
-    }
+  }
   
   /**
    * Adds an object to the board for drawing it.
@@ -50,7 +52,7 @@ object game {
     keyboard.down().onPressDo({ visual.position(visual.position().down(1)) })
     keyboard.left().onPressDo({ visual.position(visual.position().left(1)) })
     keyboard.right().onPressDo({ visual.position(visual.position().right(1)) })
-}
+  }
   /**
    * Removes an object from the board for stop drawing it.
    *
@@ -83,7 +85,6 @@ object game {
     io.addEventHandler(event, action)
   }
 
-
   /**
    * Adds a block that will be executed while the given object collides with other. 
    * Two objects collide when are in the same position.
@@ -93,10 +94,10 @@ object game {
    * Example:
    *     game.whenCollideDo(pepita, { comida => pepita.comer(comida) })
    */  
-    method whenCollideDo(visual, action) {
+  method whenCollideDo(visual, action) {
     io.addCollitionHandler(visual.identity(), {  => 
-			self.colliders(visual).forEach({it => action.apply(it)})
-		})
+      self.colliders(visual).forEach({it => action.apply(it)})
+	  })
   }
 
   /**
@@ -219,13 +220,16 @@ object game {
    * Starts render the board in a new windows.
    */  
   method start() {
+    centerManager.start() 
+    centerManager = new CenterRunning()
+
     self.running(true)
     io.exceptionHandler({ exception => exception.printStackTrace() })
     io.domainExceptionHandler({ exception => 
       const reporter = if (errorReporter == null) exception.source() else errorReporter
       self.say(reporter, exception.message())})
   }
-  
+
   /**
    * Returns a position for given coordinates.
    */  
@@ -239,9 +243,12 @@ object game {
   method origin() = self.at(0, 0)
 
   /**
-   * Returns the center board position (rounded down).
+   * Returns a center board mutable position (rounded down). 
+   * (Before game start is 0,0 then offset to current Game Board Size).
    */  
-  method center() = self.at(self.width().div(2), self.height().div(2))
+  method center() { 
+    return centerMaker.center()
+  }
 
   /**
    * Sets game title.
@@ -326,6 +333,75 @@ object game {
 
 }
 
+class AbstractCenterManager{
+	
+  /** 	
+   * @private	
+   */	
+  method xCenter() = game.width().div(2)
+	
+  /** 	
+   * @private	
+   */	
+  method yCenter() = game.height().div(2)
+	
+  /** 	
+   * @private	
+   */	
+  method center()
+	
+  /** 	
+   * @private	
+   */	
+  method center(xOffset, yOffset)
+
+}
+
+class CenterRunning inherits AbstractCenterManager{
+
+	/** 	
+   * @private	
+   */	
+  override method center() = new Position(x =  self.xCenter(), y = self.yCenter())
+
+	/** 	
+   * @private	
+   */	
+  method center(xOffset, yOffset) = new Position(x =  self.xCenter() + xOffSet, y = self.yCenter() + yOffset)
+
+}
+
+class CenterBeforeRun inherits AbstractCenterManager{
+  /** Collection of centers to update to a fixed x y values when game Run. */
+  const centers = #{}
+
+	/** 	
+   * @private	
+   */	
+  method start(){
+    centers.forEach(center => center.start())
+    centers.clear()
+  }
+
+	/** 	
+   * @private	
+   */	
+  override method center(){
+    const center = new CenterPosition(centerManager = self)
+    centers.add(center)
+    return center
+  }
+
+	/** 	
+   * @private	
+   */	
+  override  method center(xOffset, yOffset){
+    const center = new CenterPosition(centerManager = self, xOffset = xOffset, yOffset = yOffset)
+    centers.add(center)
+    return center
+  }
+}
+
 class AbstractPosition {
 	
   method x()
@@ -400,7 +476,112 @@ class AbstractPosition {
    * Returns a new position with its coordinates rounded
    */
   method round() = self.createPosition(self.x().round(), self.y().round())
-	
+}
+
+class CenterPre{
+  /** to update and ask new Positions in ther center while game is Running or not. */
+  const centerManager
+  /** x and y offset values to save transformations when game Runs. */
+  const xOffset = 0
+  const yOffset = 0
+
+ 	/** 	
+   * @private	
+   */	
+  method x() = centerManager.xCenter() + xOffset
+  
+  /** 	
+   * @private	
+   */	
+  method y() = centerManager.yCenter() + yOffset
+
+  /** 	
+   * @private	
+   */	   
+  method right(n) = centerManager.center(xOffset = xOffset + n, yOffSet = yOffset) 
+    
+ 	/** 	
+   * @private	
+   */	   
+  method left(n) = centerManager.center(xOffset = xOffset - n, yOffSet = yOffset) 
+  
+  /** 	
+   * @private	
+   */	   
+  method up(n) = centerManager.center(xOffset = xOffset, yOffSet = yOffset + n)
+    
+  /** 	
+   * @private	
+   */	   
+  method down(n) = centerManager.center(xOffset = xOffset, yOffSet = yOffset - n) 
+ 	
+  /** 	
+   * @private	
+   */	  
+  method clone() = centerManager.center(xOffset, yOffSet) 
+ 	/** 	
+   * @private	
+   */	
+  method round() = centerManager.center(xOffset.round(), yOffset.round())
+}
+
+class CenterPosition inherits AbstractPosition{
+  var position = new CenterPre()
+  
+ 	/** 	
+   * @private	
+   */	
+  method start(){
+    position = new Position(x = position.x(), y = position.y())
+  }
+
+  override method x() = position.x()
+
+  override method y() = position.y()
+
+  /**
+   * Returns a new Position n steps right from this one while Running, or a lazy center with offset while idle.
+   */    
+  override method right(n) {
+    return position.right(n)
+  } 
+    
+  /**
+   * Returns a new Position n steps left from this one while Running, or a lazy center with offset while idle.
+   */    
+  override method left(n) {
+    return position.left(n)
+  } 
+  
+  /**
+   * Returns a new Position n steps up from this one while Running, or a lazy center with offset while idle.
+   */    
+  override method up(n) {
+    return position.up(n)
+  } 
+  
+  /**
+   * Returns a new Position, n steps down from this one while Running, or a lazy center with offset while idle.
+   */    
+  override method down(n) {
+    return position.down(n)
+  } 
+  
+  /**
+   * Returns a new Position is the game is Running with the same coordinates, or a lazy center with offset while idle.
+   */    
+  override method clone(){
+    return position.clone()
+  } 
+  
+  override method createPosition(_x, _y){
+    return new Position(x = _x,  y = _y) 
+  }
+  
+  /**
+   * Returns a new position with its coordinates rounded if Running, or a lazy center with rounded offset while idle.
+   */
+  method round() = position.round()
 }
 
 /**
