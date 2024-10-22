@@ -22,6 +22,9 @@ class Equipo {
 object elEquipo inherits Equipo(entrenador = elEntrenador) { }
 object elEntrenador inherits Entrenador(equipo = elEquipo) { }
 
+const elEquipoGlobal = new Equipo(entrenador = elEntrenadorGlobal)
+const elEntrenadorGlobal = new Entrenador(equipo = elEquipoGlobal)
+
 
 test "cyclic references for wko" {
   const oJuan = juan
@@ -31,4 +34,16 @@ test "cyclic references for wko" {
 test "cyclic references for named objects with inherits named params" {
   assert.that(elEntrenador.estaContento())
   assert.that(elEquipo.bienEntrenado())
+} 
+
+test "cyclic references for global const instances" {
+  assert.that(elEntrenadorGlobal.estaContento())
+  assert.that(elEquipoGlobal.bienEntrenado())
+} 
+
+test "cyclic references for body const (error)" {
+  assert.throwsException{
+    const unEquipoGlobal = new Equipo(entrenador = unEntrenadorGlobal)
+    const unEntrenadorGlobal = new Entrenador(equipo = unEquipoGlobal)
+  }
 } 
