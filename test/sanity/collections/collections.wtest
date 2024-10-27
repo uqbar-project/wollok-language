@@ -98,7 +98,7 @@ describe "Collection test case" {
   }
 
   test "contains accepts void" {
-    assert.notThat(numbers.contains(void))
+    assert.throwsException { =>  numbers.contains(void) }
   }
 
   test "uniqueElement in a list with one element should return that element" {

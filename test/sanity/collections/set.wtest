@@ -275,7 +275,7 @@ describe "set tests" {
   }
 
   test "contains accepts void" {
-    assert.notThat(numbers.contains(void))
+    assert.throwsException { =>  numbers.contains(void) }
   }
 
 }
