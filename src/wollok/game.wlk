@@ -24,7 +24,7 @@ object game {
     self.height(5)
     self.cellSize(50)
     self.ground("ground.png")
-    }
+  }
   
   /**
    * Adds an object to the board for drawing it.
@@ -99,9 +99,9 @@ object game {
    *     game.whenCollideDo(pepita, { comida => pepita.comer(comida) })
    */  
     method whenCollideDo(visual, action) {
-    io.addCollitionHandler(visual.identity(), {  => 
-			self.colliders(visual).forEach({it => action.apply(it)})
-		})
+      io.addCollitionHandler(visual.identity(), {  => 
+        self.colliders(visual).forEach({it => action.apply(it)})
+      })
   }
 
   /**

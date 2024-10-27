@@ -73,6 +73,11 @@ describe "dictionary test case" {
     assert.equals(2, mapaTelefonos.size())
   }
 
+  test "remove void element should fail" {
+    const mapaTelefonos = dictionaryFactory.mapaTelefonos()
+    assert.throwsException { => mapaTelefonos.remove(void) }
+  }
+
   test "keys" {
     const mapa = new Dictionary()
     mapa.put(4, "2142-5980")

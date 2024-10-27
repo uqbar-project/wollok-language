@@ -86,13 +86,21 @@ describe "List tests" {
     assert.equals([2], [2].reverse())
   }
    
-  test "printing duplicated elements"{
+  test "printing duplicated elements" {
     const l1 = [[3,5,2], [4,2,6]].flatten()
     assert.equals("[3, 5, 2, 4, 2, 6]", l1.toString())
     const l2 = [1,2,3].flatMap({x => [x, x * 2, x * 3]})
     assert.equals("[1, 2, 3, 2, 4, 6, 3, 6, 9]", l2.toString())
     const l3 = [1,1,1]
     assert.equals("[1, 1, 1]", l3.toString())
+  }
+ 
+  test "flatMap using null should fail" {
+    assert.throwsException { [1, 2].flatMap(null) }
+  }
+ 
+  test "flatMap using void closures should fail" {
+    assert.throwsException { [1, 2].flatMap({ number => [1, 2].add(number) }) }
   }
  
   test "equality case true" {
@@ -189,6 +197,10 @@ describe "List tests" {
 
   test "sortBy using null should fail" {
     assert.throwsException { [1, 2].sortBy(null) }
+  }
+
+  test "sortBy using void closure should fail" {
+    assert.throwsException { [1, 2].sortBy { a, b => [1, 2].add(a) } }
   }
 
   test "sortedBy" {
@@ -418,6 +430,5 @@ describe "List tests" {
     assert.equals([1, 2, 3].join("-"), "1-2-3")
     assert.equals([].join("-"), "")
   }
-
 
 }
