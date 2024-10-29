@@ -267,20 +267,6 @@ class Pair {
 class Collection {
 
   /**
-   * Checks that a closure returns a valid value.
-   * It's a basic validation for closures with one parameter.
-   *
-   * Example:
-   *       [1, 2].checkValidClosure({ n => n + 1})      // ok
-   *       [1, 2].checkValidClosure({ => 2 })           // error, closure expects 1 parameter
-   *       [1, 2].checkValidClosure({ a, b => a + b })  // error, closure expects 1 parameter
-   *       [1, 2].checkValidClosure({ n => [].add(n) }) // error, closure does not return a value (it's void)
-   *
-   * @throws an error if closure is void
-   */
-  method checkValidClosure(closure, message)
-
-  /**
    * Answers the element that is considered to be/have the maximum value.
    * The criteria is given by a closure that receives a single element
    * as input (one of the element). The closure must return a comparable
@@ -296,7 +282,6 @@ class Collection {
    */
   method max(closure) {
     self.checkNotNull(closure, "max")
-    self.checkValidClosure(closure, "max")
     return self.maxIfEmpty(closure, { throw new ElementNotFoundException(message = "collection is empty") })
   }
 
@@ -329,7 +314,6 @@ class Collection {
    */
   method maxIfEmpty(toComparableClosure, emptyCaseClosure) {
     self.checkNotNull(toComparableClosure, "maxIfEmpty")
-    self.checkValidClosure(toComparableClosure, "maxIfEmpty")
     self.checkNotNull(emptyCaseClosure, "maxIfEmpty")
     return self.absolute(toComparableClosure, { a, b => a > b }, emptyCaseClosure)
   }
@@ -362,7 +346,6 @@ class Collection {
    */
   method min(closure) {
     self.checkNotNull(closure, "min")
-    self.checkValidClosure(closure, "min")
     return self.absolute(closure, { a, b => a < b }, { throw new ElementNotFoundException(message = "collection is empty") })
   }
 
@@ -395,7 +378,6 @@ class Collection {
    */
   method minIfEmpty(toComparableClosure, emptyCaseClosure) {
     self.checkNotNull(toComparableClosure, "minIfEmpty")
-    self.checkValidClosure(toComparableClosure, "sum")
     self.checkNotNull(emptyCaseClosure, "minIfEmpty")
     return self.absolute(toComparableClosure, { a, b => a < b }, emptyCaseClosure)
   }
@@ -561,8 +543,17 @@ class Collection {
    */
   method all(predicate) {
     self.checkNotNull(predicate, "all")
-    self.checkValidClosure(predicate, "all")
-    return self.fold(true, { seed, element => if (!seed) seed else predicate.apply(element) })
+    return self.fold(true, { seed, element => 
+      if (!seed) 
+        seed
+      else {
+        const satisfies = predicate.apply(element)
+        if (satisfies === void) {
+          throw new Exception(message = "Message all: predicate produces no value. Check the return type of the closure.")
+        }
+        satisfies
+      }
+    })
   }
 
   /**
@@ -578,8 +569,17 @@ class Collection {
    */
   method any(predicate) {
     self.checkNotNull(predicate, "any")
-    self.checkValidClosure(predicate, "any")
-    return self.fold(false, { seed, element => if (seed) seed else predicate.apply(element) })
+    return self.fold(false, { seed, element => 
+      if (seed)
+        seed
+      else {
+        const satisfies = predicate.apply(element)
+        if (satisfies === void) {
+          throw new Exception(message = "Message any: predicate produces no value. Check the return type of the closure.")
+        }
+        satisfies
+      }
+    })
   }
 
   /**
@@ -598,7 +598,6 @@ class Collection {
    */
   method find(predicate) {
     self.checkNotNull(predicate, "find")
-    self.checkValidClosure(predicate, "find")
     return self.findOrElse(predicate, {
       throw new ElementNotFoundException(message = "there is no element that satisfies the predicate")
     })
@@ -648,8 +647,13 @@ class Collection {
    */
   method count(predicate) {
     self.checkNotNull(predicate, "count")
-    self.checkValidClosure(predicate, "count")
-    return self.fold(0, { total, element => if (predicate.apply(element)) total+1 else total  })
+    return self.fold(0, { total, element =>
+      const satisfies = predicate.apply(element)
+      if (satisfies === void) {
+        throw new Exception(message = "Message count: predicate produces no value. Check the return type of the closure.")
+      }
+      if (satisfies) total+1 else total
+    })
   }
 
   /**
@@ -677,8 +681,13 @@ class Collection {
    */
   method sum(closure) {
     self.checkNotNull(closure, "sum")
-    self.checkValidClosure(closure, "sum")
-    return self.fold(0, { total, element => total + closure.apply(element) })
+    return self.fold(0, { total, element => 
+      const amount = closure.apply(element)
+      if (amount === void) {
+        throw new Exception(message = "Message sum: closure produces no value. Check the return type of the closure.")
+      }
+      total + amount
+    })
   }
 
   /**
@@ -706,9 +715,12 @@ class Collection {
   @Type(variable="Mapped", name="List<Mapped>")
   method map(@Type(name="{ (Element) => Mapped }") closure) {
     self.checkNotNull(closure, "map")
-    self.checkValidClosure(closure, "map")
     return self.fold([], { newCollection, element =>
-      newCollection.add(closure.apply(element))
+      const value = closure.apply(element)
+      if (value === void) {
+        throw new Exception(message = "Message map: closure produces no value. Check the return type of the closure.")
+      }
+      newCollection.add(value)
       newCollection
     })
   }
@@ -734,8 +746,11 @@ class Collection {
    */
   method flatMap(closure) {
     self.checkNotNull(closure, "flatMap")
-    self.checkValidClosure(closure, "flatMap")
     return self.fold(self.newInstance(), { flattenedList, element =>
+      const value = closure.apply(element)
+      if (value === void) {
+        throw new Exception(message = "Message flatMap: closure produces no value. Check the return type of the closure.")
+      }
       flattenedList.addAll(closure.apply(element))
       flattenedList
     })
@@ -755,10 +770,14 @@ class Collection {
    */
   method filter(closure) {
     self.checkNotNull(closure, "filter")
-    self.checkValidClosure(closure, "filter")
     return self.fold(self.newInstance(), { newCollection, element =>
-      if (closure.apply(element))
+      const satisfies = closure.apply(element)
+      if (satisfies === void) {
+        throw new Exception(message = "Message filter: closure produces no value. Check the return type of the closure.")
+      }
+      if (satisfies) {
         newCollection.add(element)
+      }
       newCollection
     })
   }
@@ -996,20 +1015,6 @@ class Set inherits Collection {
   override method toStringSuffix() = "}"
 
   /**
-   * Checks that a closure returns a valid value.
-   * It's a basic validation for closures with one parameter.
-   *
-   * Example:
-   *       [1, 2].checkValidClosure({ n => n + 1})      // ok
-   *       [1, 2].checkValidClosure({ => 2 })           // error, closure expects 1 parameter
-   *       [1, 2].checkValidClosure({ a, b => a + b })  // error, closure expects 1 parameter
-   *       [1, 2].checkValidClosure({ n => [].add(n) }) // error, closure does not return a value (it's void)
-   *
-   * @throws an error if closure is void
-   */
-  override method checkValidClosure(closure, message) native
-
-  /**
    * Converts this set to a list.
    *
    * Examples
@@ -1239,20 +1244,6 @@ class Set inherits Collection {
  */
 @Type(variable="Element")
 class List inherits Collection {
-
-  /**
-   * Checks that a closure returns a valid value.
-   * It's a basic validation for closures with one parameter.
-   *
-   * Example:
-   *       [1, 2].checkValidClosure({ n => n + 1})      // ok
-   *       [1, 2].checkValidClosure({ => 2 })           // error, closure expects 1 parameter
-   *       [1, 2].checkValidClosure({ a, b => a + b })  // error, closure expects 1 parameter
-   *       [1, 2].checkValidClosure({ n => [].add(n) }) // error, closure does not return a value (it's void)
-   *
-   * @throws an error if closure is void
-   */
-  override method checkValidClosure(closure, message) native
 
   /**
    * Answers the element at the specified position in this non-empty list.
