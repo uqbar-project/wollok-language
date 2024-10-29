@@ -546,14 +546,10 @@ class Collection {
     return self.fold(true, { seed, element => 
       if (!seed) 
         seed
-      else {
-        const satisfies = predicate.apply(element)
-        if (satisfies === void) {
-          throw new Exception(message = "Message all: predicate produces no value. Check the return type of the closure.")
-        }
-        satisfies
+      else 
+        predicate.apply(element)
       }
-    })
+    )
   }
 
   /**
@@ -572,14 +568,10 @@ class Collection {
     return self.fold(false, { seed, element => 
       if (seed)
         seed
-      else {
-        const satisfies = predicate.apply(element)
-        if (satisfies === void) {
-          throw new Exception(message = "Message any: predicate produces no value. Check the return type of the closure.")
-        }
-        satisfies
+      else 
+        predicate.apply(element)
       }
-    })
+    )
   }
 
   /**
@@ -648,11 +640,7 @@ class Collection {
   method count(predicate) {
     self.checkNotNull(predicate, "count")
     return self.fold(0, { total, element =>
-      const satisfies = predicate.apply(element)
-      if (satisfies === void) {
-        throw new Exception(message = "Message count: predicate produces no value. Check the return type of the closure.")
-      }
-      if (satisfies) total+1 else total
+      if (predicate.apply(element)) total+1 else total
     })
   }
 
@@ -682,11 +670,7 @@ class Collection {
   method sum(closure) {
     self.checkNotNull(closure, "sum")
     return self.fold(0, { total, element => 
-      const amount = closure.apply(element)
-      if (amount === void) {
-        throw new Exception(message = "Message sum: closure produces no value. Check the return type of the closure.")
-      }
-      total + amount
+      total + closure.apply(element)
     })
   }
 
@@ -716,11 +700,7 @@ class Collection {
   method map(@Type(name="{ (Element) => Mapped }") closure) {
     self.checkNotNull(closure, "map")
     return self.fold([], { newCollection, element =>
-      const value = closure.apply(element)
-      if (value === void) {
-        throw new Exception(message = "Message map: closure produces no value. Check the return type of the closure.")
-      }
-      newCollection.add(value)
+      newCollection.add(closure.apply(element))
       newCollection
     })
   }
@@ -747,10 +727,6 @@ class Collection {
   method flatMap(closure) {
     self.checkNotNull(closure, "flatMap")
     return self.fold(self.newInstance(), { flattenedList, element =>
-      const value = closure.apply(element)
-      if (value === void) {
-        throw new Exception(message = "Message flatMap: closure produces no value. Check the return type of the closure.")
-      }
       flattenedList.addAll(closure.apply(element))
       flattenedList
     })
@@ -771,11 +747,7 @@ class Collection {
   method filter(closure) {
     self.checkNotNull(closure, "filter")
     return self.fold(self.newInstance(), { newCollection, element =>
-      const satisfies = closure.apply(element)
-      if (satisfies === void) {
-        throw new Exception(message = "Message filter: closure produces no value. Check the return type of the closure.")
-      }
-      if (satisfies) {
+      if (closure.apply(element)) {
         newCollection.add(element)
       }
       newCollection
