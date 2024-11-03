@@ -211,7 +211,7 @@ describe "ranges" {
   test "findOrElse" {
     var encontro = true
     const range = 1 .. 9
-    const valueNotFound = range.findOrElse({ elem => elem > 55 }, { encontro = false })
+    range.findOrElse({ elem => elem > 55 }, { encontro = false })
     assert.notThat(encontro)
   }
 

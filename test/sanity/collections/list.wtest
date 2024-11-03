@@ -422,7 +422,7 @@ describe "List tests" {
   
   test "findOrElse - not found" {
     var encontro = true
-    const valueFound = numbers.findOrElse({ elem => elem > 100 }, { encontro = false })
+    numbers.findOrElse({ elem => elem > 100 }, { encontro = false })
     assert.notThat(encontro)
   }
 

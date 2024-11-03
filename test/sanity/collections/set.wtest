@@ -203,7 +203,7 @@ describe "set tests" {
   
   test "findOrElse - not found" {
     var encontro = true
-    const valueFound = #{1, 2, 3, 4}.findOrElse({ elem => elem > 100 }, { encontro = false })
+    #{1, 2, 3, 4}.findOrElse({ elem => elem > 100 }, { encontro = false })
     assert.notThat(encontro)
   }
 
