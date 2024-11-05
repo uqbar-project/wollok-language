@@ -17,10 +17,12 @@ class Bird {
 mixin Growable {
   var property height = 100
 
+  method compare(anObject, anotherObject) = anObject === anotherObject
+
   method grow() {
     const originalValue = @Expect(code="shouldNotUseVoidSingleton", level="error", expectedOn="void") void
 
-    if (originalValue !== @Expect(code="shouldNotUseVoidSingleton", level="error", expectedOn="void") void) {
+    if (self.compare(originalValue, @Expect(code="shouldNotUseVoidSingleton", level="error", expectedOn="void") void)) {
       height = height + 10
     }
   }
