@@ -257,11 +257,11 @@ describe "set tests" {
   }
 
   test "add void element should fail" {
-    assert.throwsException { => #{}.add(void) }
+    assert.throwsException { => #{}.add([1].add(2)) }
   }
 
   test "remove void element should fail" {
-    assert.throwsException { => #{}.remove(void) }
+    assert.throwsException { => #{}.remove([1].add(2)) }
   }
 
   test "contains" {
@@ -274,8 +274,8 @@ describe "set tests" {
     assert.notThat(numbers.contains(null))
   }
 
-  test "contains accepts void" {
-    assert.throwsException { =>  numbers.contains(void) }
+  test "contains does not accept void" {
+    assert.throwsException { =>  numbers.contains([1].add(2)) }
   }
 
 }

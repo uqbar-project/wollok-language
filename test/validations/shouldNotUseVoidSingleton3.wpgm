@@ -2,4 +2,6 @@ program myProgram {
   const unwanted = @Expect(code="shouldNotUseVoidSingleton", level="error", expectedOn="void") void
 
   console.println(unwanted)
+
+  console.println(@Expect(code="shouldNotUseVoidSingleton", level="error", expectedOn="void") void)
 }

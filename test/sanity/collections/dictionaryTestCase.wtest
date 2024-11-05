@@ -75,7 +75,7 @@ describe "dictionary test case" {
 
   test "remove void element should fail" {
     const mapaTelefonos = dictionaryFactory.mapaTelefonos()
-    assert.throwsException { => mapaTelefonos.remove(void) }
+    assert.throwsException { => mapaTelefonos.remove([1].add(2)) }
   }
 
   test "keys" {
