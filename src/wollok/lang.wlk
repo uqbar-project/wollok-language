@@ -662,10 +662,38 @@ class Collection {
    * @returns a number
    *
    * Example:
-   *      [1, 2, 3, 4, 5].sum()  => Answers 15
+   *      [1, 2, 3, 4, 5].sum()  => Answers 3
    *      [].sum()               => Answers 0
    */
   method sum() = self.sum( {it => it} )
+
+  /**
+   * Calculates the average of the transformation of each element into a numerical value
+   * This is similar to call a map {} to transform each element into a
+   * number and calculates the average value of the resulting list.
+   * The condition is a closure argument that takes a single element and 
+   * returns a number
+   * @returns a number
+   *
+   * Example:
+*      const averageNumberOfFlowers = plants.average{ plant => plant.numberOfFlowers() }
+   *   [].average { employee => employee.salary() }         => throw an error
+   */
+  method average(closure) {
+    if (self.size() == 0)
+      throw new Exception(message = "You cannot calculate the average of an empty list")
+    return self.sum( closure ) / self.size()
+  }  
+
+  /**
+   * Calculates the average of all elements in the collection.
+   * @returns a number
+   *
+   * Example:
+   *      [1, 2, 3, 4, 5].average() => Answers 3
+   *      [].average()              => throw an error
+   */
+  method average() = self.average( {it => it} )
 
   /**
    * Answers a new collection that contains the result of transforming
