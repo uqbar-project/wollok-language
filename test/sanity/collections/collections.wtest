@@ -237,7 +237,7 @@ describe "Collection test case" {
   }
 
   test "higher order average" {
-    assert.equals(5, ["hola","manola"].average{ text => text.length()})
+    assert.equals(5, ["hola", "manola"].average{ text => text.length() })
   }
   
   test "average of an empty list should fail" {
