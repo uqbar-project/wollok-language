@@ -662,7 +662,7 @@ class Collection {
    * @returns a number
    *
    * Example:
-   *      [1, 2, 3, 4, 5].sum()  => Answers 3
+   *      [1, 2, 3, 4, 5].sum()  => Answers 15
    *      [].sum()               => Answers 0
    */
   method sum() = self.sum( {it => it} )
