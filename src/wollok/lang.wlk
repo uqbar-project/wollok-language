@@ -682,7 +682,7 @@ class Collection {
   method average(closure) {
     if (self.size() == 0)
       throw new Exception(message = "You cannot calculate the average of an empty list")
-    return self.sum( closure ) / self.size()
+    return self.sum(closure) / self.size()
   }  
 
   /**
