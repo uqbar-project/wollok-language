@@ -231,6 +231,18 @@ describe "Collection test case" {
   test "sum using null should fail" {
     assert.throwsException { numbers.sum(null) }    
   }
+  
+  test "average" {
+    assert.equals(3, [1,2,3,4,5].average())
+  }
+
+  test "higher order average" {
+    assert.equals(5, ["hola", "manola"].average{ text => text.length() })
+  }
+  
+  test "average of an empty list should fail" {
+    assert.throwsException {[].average()}
+  }
 
   test "concatenation" {
     const lista1 = [1, 4]
