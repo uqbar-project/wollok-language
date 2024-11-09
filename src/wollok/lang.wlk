@@ -677,7 +677,7 @@ class Collection {
    *
    * Example:
 *      const averageNumberOfFlowers = plants.average{ plant => plant.numberOfFlowers() }
-   *   [].average { employee => employee.salary() }         => throw an error
+   *   [].average { employee => employee.salary() }         => throws an error
    */
   method average(closure) {
     if (self.size() == 0)
