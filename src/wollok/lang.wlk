@@ -691,7 +691,7 @@ class Collection {
    *
    * Example:
    *      [1, 2, 3, 4, 5].average() => Answers 3
-   *      [].average()              => throw an error
+   *      [].average()              => throws an error
    */
   method average() = self.average( {it => it} )
 
