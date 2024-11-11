@@ -265,6 +265,7 @@ class Pair {
  */
 @Type(variable="Element")
 class Collection {
+
   /**
    * Answers the element that is considered to be/have the maximum value.
    * The criteria is given by a closure that receives a single element
@@ -542,7 +543,13 @@ class Collection {
    */
   method all(predicate) {
     self.checkNotNull(predicate, "all")
-    return self.fold(true, { seed, element => if (!seed) seed else predicate.apply(element) })
+    return self.fold(true, { seed, element => 
+      if (!seed) 
+        seed
+      else 
+        predicate.apply(element)
+      }
+    )
   }
 
   /**
@@ -558,7 +565,13 @@ class Collection {
    */
   method any(predicate) {
     self.checkNotNull(predicate, "any")
-    return self.fold(false, { seed, element => if (seed) seed else predicate.apply(element) })
+    return self.fold(false, { seed, element => 
+      if (seed)
+        seed
+      else 
+        predicate.apply(element)
+      }
+    )
   }
 
   /**
@@ -626,7 +639,9 @@ class Collection {
    */
   method count(predicate) {
     self.checkNotNull(predicate, "count")
-    return self.fold(0, { total, element => if (predicate.apply(element)) total+1 else total  })
+    return self.fold(0, { total, element =>
+      if (predicate.apply(element)) total+1 else total
+    })
   }
 
   /**
@@ -654,7 +669,9 @@ class Collection {
    */
   method sum(closure) {
     self.checkNotNull(closure, "sum")
-    return self.fold(0, { total, element => total + closure.apply(element) })
+    return self.fold(0, { total, element => 
+      total + closure.apply(element)
+    })
   }
 
   /**
@@ -666,7 +683,7 @@ class Collection {
    *      [].sum()               => Answers 0
    */
   method sum() = self.sum( {it => it} )
-
+  
   /**
    * Calculates the average of the transformation of each element into a numerical value
    * This is similar to call a map {} to transform each element into a
@@ -757,9 +774,10 @@ class Collection {
    */
   method filter(closure) {
     self.checkNotNull(closure, "filter")
-     return self.fold(self.newInstance(), { newCollection, element =>
-      if (closure.apply(element))
-         newCollection.add(element)
+    return self.fold(self.newInstance(), { newCollection, element =>
+      if (closure.apply(element)) {
+        newCollection.add(element)
+      }
       newCollection
     })
   }
@@ -2597,12 +2615,7 @@ class Range {
    * Example:
    *      (1..10).map({ n => n * 2}) ==> Answers [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
    */
-  method map(closure) {
-    self.checkNotNull(closure, "map")
-    const list = []
-    self.forEach { element => list.add(closure.apply(element)) }
-    return list
-  }
+  method map(closure) = self.asList().map(closure)
 
   /**
    * Map + flatten operation
@@ -2612,17 +2625,13 @@ class Range {
    * Example:
    *      (1..4).flatMap({ n => 1 .. n }) ==> Answers [1, 1, 2, 1, 2, 3, 1, 2, 3, 4]
    */
-  method flatMap(closure) {
-    self.checkNotNull(closure, "flatMap")
-    return self.fold([], { seed, element =>
-      seed.addAll(closure.apply(element))
-      seed
-    })
-  }
+  method flatMap(closure) = self.asList().flatMap(closure)
 
   /** @private */
   method asList() {
-    return self.map({ elem => elem })
+    const list = []
+    self.forEach { element => list.add(element) }
+    return list
   }
 
   /**

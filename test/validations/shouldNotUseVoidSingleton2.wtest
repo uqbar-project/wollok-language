@@ -1,0 +1,14 @@
+describe "a group of tests" {
+  const unwanted = @Expect(code="shouldNotUseVoidSingleton", level="error", expectedOn="void") void
+
+  method fly() {
+    return @Expect(code="shouldNotUseVoidSingleton", level="error", expectedOn="void") void
+  }
+
+  test "some test" {
+    const someVariable = @Expect(code="shouldNotUseVoidSingleton", level="error", expectedOn="void") void
+
+    assert.equals(someVariable, @Expect(code="shouldNotUseVoidSingleton", level="error", expectedOn="void") void)
+    assert.equals(someVariable, unwanted)
+  }
+}
