@@ -22,6 +22,15 @@ class Equipo {
 object elEquipo inherits Equipo(entrenador = elEntrenador) { }
 object elEntrenador inherits Entrenador(equipo = elEquipo) { }
 
+const elEquipoGlobal = new Equipo(entrenador = elEntrenadorGlobal)
+const elEntrenadorGlobal = new Entrenador(equipo = elEquipoGlobal)
+
+class Zona {
+  const property zonasLimitrofes
+}
+
+const edoras = new Zona(zonasLimitrofes = [bosqueDeFangorn])
+const bosqueDeFangorn = new Zona(zonasLimitrofes = [edoras])
 
 test "cyclic references for wko" {
   const oJuan = juan
@@ -31,4 +40,21 @@ test "cyclic references for wko" {
 test "cyclic references for named objects with inherits named params" {
   assert.that(elEntrenador.estaContento())
   assert.that(elEquipo.bienEntrenado())
+} 
+
+test "cyclic references for global const instances (direct)" {
+  assert.that(elEntrenadorGlobal.estaContento())
+  assert.that(elEquipoGlobal.bienEntrenado())
+} 
+
+test "cyclic references for global const instances (indirect)" {
+  assert.equals(edoras.zonasLimitrofes().first(), bosqueDeFangorn)
+  assert.equals(bosqueDeFangorn.zonasLimitrofes().first(), edoras)
+} 
+
+test "cyclic references for body const (error)" {
+  assert.throwsException{
+    const unEquipoGlobal = new Equipo(entrenador = unEntrenadorGlobal)
+    const unEntrenadorGlobal = new Entrenador(equipo = unEquipoGlobal)
+  }
 } 
