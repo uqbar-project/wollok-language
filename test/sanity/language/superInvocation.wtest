@@ -9,17 +9,25 @@ class Golondrina {
   }
 
   method volar(kms) {
-    energia = energia - self.gastoParaVolar(kms) // Invocacion a método que se va a sobreescribir
+    energia = energia - self.gastoParaVolar(kms)
   }
 
   method gastoParaVolar(kms) {
     return kms
+  }
+
+  method comer() {
+    energia = energia + 10
   }
 }
 
 class SeCansaMucho inherits Golondrina {
   override method gastoParaVolar(kms) {
     return 2 * super(kms)
+  }
+
+  override method comer() {
+    2.times { vez => super() }
   }
 }
 
@@ -29,5 +37,11 @@ class SeCansaMucho inherits Golondrina {
 test "super invocation" {
   const pepona = new SeCansaMucho()
   pepona.volar(50)
-  assert.equals(0, pepona.energia()) // Gastó el doble de energia
+  assert.equals(0, pepona.energia())
+}
+
+test "super invocation inside closure" {
+  const pepona = new SeCansaMucho()
+  pepona.comer()
+  assert.equals(120, pepona.energia())
 }
