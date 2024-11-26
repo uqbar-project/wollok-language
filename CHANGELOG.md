@@ -7,6 +7,14 @@ Currently, the Wollok language does not adhere to [Semantic Versioning](https://
 
 Hopefully, we will be able to do that in the near future.
 
+## v3.2.7
+- New `average()` method for collections by @Juancete in #221
+- Better use of `void` methods by @fdodino in #218
+- Fix `shouldUseOverrideKeyword` validation for properties by @fdodino in #223
+- More sanity tests
+  - Cyclic const instance references by @PalumboN in #217
+  - Super call inside closures by @fdodino in #224
+
 ## v3.2.6
 - Test removing a float from a list by @PalumboN in #198
 - Implementacion de floor by @rodriguez-guillermo in #210
