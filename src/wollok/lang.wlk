@@ -754,7 +754,7 @@ class Collection {
    */
   method flatMap(closure) {
     self.checkNotNull(closure, "flatMap")
-    return self.fold(self.newInstance(), { flattenedList, element =>
+    return self.fold([], { flattenedList, element =>
       flattenedList.addAll(closure.apply(element))
       flattenedList
     })
