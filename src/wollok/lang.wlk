@@ -734,7 +734,10 @@ class Collection {
   }
 
   /**
-   * Flattens a collection of collections: Map + flatten operation
+   * Flattens a collection of collections: Map + flatten operation.
+   *
+   * It always returns a list, because the elements in the resulting list could be duplicated.
+   * If you need to remove the duplicates, you can nest the result with an asSet message.
    *
    * @see map
    * @see flatten
@@ -751,6 +754,10 @@ class Collection {
    *
    *     [klaus, fritz].flatMap({ person => person.languages() })
    *       => Answers ["c", "cobol", "pascal", "java", "perl"]
+   *
+   *     #{klaus, fritz}.flatMap({ person => person.languages() })
+   *       => Answers ["c", "cobol", "pascal", "java", "perl"]
+   *
    */
   method flatMap(closure) {
     self.checkNotNull(closure, "flatMap")
