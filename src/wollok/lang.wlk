@@ -2951,11 +2951,11 @@ class Date {
    */
   method isLeapYear() native
 
-  /** Answers the day of the week of the Date with an object representation.
-   * There is a wko (well known object) for every day of the week.
+  /** Answers the day of the week of the Date with a string representation.
+   * There is a string for every day of the week.
    *
    * Example:
-   *     new Date(day = 24, month = 2, year = 2018).dayOfWeek() ==> Answers saturday object
+   *     new Date(day = 24, month = 2, year = 2018).dayOfWeek() ==> Answers "saturday"
    */
   method dayOfWeek() = calendar.daysOfWeek().get(self.internalDayOfWeek() - 1)
 
