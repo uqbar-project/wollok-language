@@ -21,6 +21,10 @@ class Golondrina {
   method enojarse() {
     energia = energia - 3
   }
+
+  method disfrutar() {
+    energia = energia + 5
+  }
   
   method estasCurada() = energia > 10
   
@@ -66,6 +70,13 @@ class GolondrinaSarasa inherits Golondrina {
   override method enojarse() {
     super()
     super()
+  }
+
+  @NotExpect(code="shouldNotOnlyCallToSuper")
+  override method disfrutar() {
+    if (energia > 50) {
+      super()
+    }
   }
 
   @Expect(code="shouldNotOnlyCallToSuper", level="warning", expectedOn="super()")
