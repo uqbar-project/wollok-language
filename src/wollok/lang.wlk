@@ -737,7 +737,7 @@ class Collection {
    * Flattens a collection of collections: Map + flatten operation.
    *
    * It always returns a list, because the elements in the resulting list could be duplicated.
-   * If you need to remove the duplicates, you can nest the result with an asSet message.
+   * If you need to remove the duplicates, you can take the result and send asSet() message to it.
    *
    * @see map
    * @see flatten
