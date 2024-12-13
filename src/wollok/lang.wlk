@@ -2948,7 +2948,7 @@ class Date {
    * There is a string for every day of the week.
    *
    * Example:
-   *     new Date(day = 24, month = 2, year = 2018).dayOfWeek() ==> Answers saturday string
+   *     new Date(day = 24, month = 2, year = 2018).dayOfWeek() ==> Answers "saturday"
    */
   method dayOfWeek() = calendar.daysOfWeek().get(self.internalDayOfWeek() - 1)
 
