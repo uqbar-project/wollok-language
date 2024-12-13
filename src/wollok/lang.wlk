@@ -799,11 +799,18 @@ class Collection {
   method contains(element) = self.any {one => element == one }
 
   /**
-   * Flattens a collection of collections
+   * Flattens a collection of collections. 
+   *
+   * It always returns a list, because the elements in the resulting list could be duplicated.
+   * If you need to remove the duplicates, you can take the result and send asSet() message to it.
    *
    * Example:
    *     [ [1, 2], [3], [4, 0], [] ].flatten()
    *       => Answers [1, 2, 3, 4, 0]
+   *
+   *     #{ [1, 2], [1], [2, 3], [] }.flatten()
+   *       => Answers [1, 2, 1, 2, 3]
+   
    *
    */
   method flatten() = self.flatMap { it => it }
