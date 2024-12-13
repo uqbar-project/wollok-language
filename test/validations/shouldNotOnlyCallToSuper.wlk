@@ -17,6 +17,14 @@ class Golondrina {
   method jugar(tiempo) {
     energia += tiempo / 2
   }
+
+  method enojarse() {
+    energia = energia - 3
+  }
+
+  method disfrutar() {
+    energia = energia + 5
+  }
   
   method estasCurada() = energia > 10
   
@@ -55,8 +63,21 @@ class GolondrinaSarasa inherits Golondrina {
   
   @Expect(code="shouldNotOnlyCallToSuper", level="warning")
   override method estasCurada() {
-        return super()
+    return super()
+  }
+
+  @NotExpect(code="shouldNotOnlyCallToSuper")
+  override method enojarse() {
+    super()
+    super()
+  }
+
+  @NotExpect(code="shouldNotOnlyCallToSuper")
+  override method disfrutar() {
+    if (energia > 50) {
+      super()
     }
+  }
 
   @Expect(code="shouldNotOnlyCallToSuper", level="warning", expectedOn="super()")
   override method estasAlegre() = super()
