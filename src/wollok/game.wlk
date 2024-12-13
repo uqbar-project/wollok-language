@@ -100,7 +100,7 @@ object game {
    */  
     method whenCollideDo(visual, action) {
       io.addCollitionHandler(visual.identity(), {  => 
-        self.colliders(visual).forEach({it => action.apply(it)})
+        self.colliders(visual).forEach({it => io.runHandler({action.apply(it)})})
       })
   }
 
@@ -117,7 +117,7 @@ object game {
 		var lastColliders = []
     io.addCollitionHandler(visual.identity(), {  => 
 			const colliders = self.colliders(visual)
-			colliders.forEach({ it => if (self.hasVisual(visual) and !lastColliders.contains(it)) action.apply(it) })
+			colliders.forEach({ it => if (self.hasVisual(visual) and !lastColliders.contains(it)) io.runHandler{action.apply(it)} })
 			lastColliders = colliders
 		})
   }
@@ -133,7 +133,7 @@ object game {
   method onTick(milliseconds, name, action) {
     var times = 0
     const initTime = io.currentTime()
-    io.addTimeHandler(name, { time => if (milliseconds == 0 or (time - initTime).div(milliseconds) > times) { action.apply(); times+=1 } })
+    io.addTimeHandler(name, { time => if (milliseconds == 0 or (time - initTime).div(milliseconds) > times) { io.runHandler(action); times+=1 } })
   }
   
   /**
@@ -146,7 +146,7 @@ object game {
   method schedule(milliseconds, action) {
     const name = action.identity()
     self.onTick(milliseconds, name, {
-      action.apply()
+      io.runHandler(action)
       io.removeTimeHandler(name)
     })
   }
@@ -692,7 +692,7 @@ class Tick {
   **/
   method start() {
     if (self.isRunning()) {game.error("This tick is already started.")}
-    if (inmediate) {action.apply()}
+    if (inmediate) {io.runHandler(action)}
     game.onTick(interval, name, action)
   }
 

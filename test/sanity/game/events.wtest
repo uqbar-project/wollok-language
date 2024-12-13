@@ -1,14 +1,16 @@
 import wollok.game.*
 import wollok.lang.io.*
 
-object closureMock {
+class CallCountingClosureMock {
   var property calledCount = 0
   method called() = calledCount > 0
   method apply(args...) { calledCount += 1 }
 }
 
-object closureErrorMock {
-  method apply(args...) { self.error('FAIL') }
+object closureMock inherits  CallCountingClosureMock { }
+
+object closureErrorMock inherits  CallCountingClosureMock {
+  method apply(args...) { super(args) ; self.error('FAIL') }
 }
 
 class Visual {
@@ -37,7 +39,6 @@ describe 'events' {
     game.clear()
     assert.notThat(io.eventHandlersFor(event).contains(closureMock))
   }
-  
 
   test 'whenCollideDo never called' {
     game.whenCollideDo(visual, closureMock)
@@ -52,6 +53,7 @@ describe 'events' {
     assert.that(closureMock.called())
   }
 
+
   test 'whenCollideDo many times called' {
     game.whenCollideDo(visual, closureMock)
     game.addVisual(new Visual())
@@ -59,7 +61,6 @@ describe 'events' {
     io.flushEvents(1)
     assert.equals(2, closureMock.calledCount()) 
   }
-
 
   test 'onCollideDo never called' {
     game.onCollideDo(visual, closureMock)
@@ -71,8 +72,20 @@ describe 'events' {
     game.onCollideDo(visual, closureMock)
     game.addVisual(new Visual())
     io.flushEvents(0)
-    assert.that(closureMock.called())  
+    io.flushEvents(1)
+    io.flushEvents(2)
+    assert.equals(1, closureMock.calledCount())  
   }
+  
+  test 'onCollideDo once called when a user error occurs' {
+    game.onCollideDo(visual, closureErrorMock)
+    game.addVisual(new Visual())
+    io.flushEvents(0)
+    io.flushEvents(1)
+    io.flushEvents(2)
+    assert.equals(1, closureErrorMock.calledCount())  
+  }
+
 
   test 'onCollideDo only once called in same collision' {
     game.onCollideDo(visual, closureMock)
@@ -94,6 +107,19 @@ describe 'events' {
     assert.equals(2, closureMock.calledCount())  
   }
 
+  test 'onCollideDo many times called in many collisions when a user error occurs' {
+    game.onCollideDo(visual, closureErrorMock)
+    const collider = new Visual()
+    game.addVisual(collider)
+    io.flushEvents(0) // First collision
+    collider.position(game.at(1, 1))
+    io.flushEvents(1) // No collision, different positions
+    collider.position(game.origin())
+    io.flushEvents(2) // Second collision
+    assert.equals(2, closureErrorMock.calledCount())  
+  }
+
+
   test 'onCollideDo never called when visual is not in the game' {
     game.onCollideDo(visual, closureMock)
     game.addVisual(new Visual())
@@ -111,6 +137,8 @@ describe 'events' {
 
   test 'onTick once called' {
     game.onTick(1000, "", closureMock)
+    io.flushEvents(500)
+    assert.notThat(closureMock.called())
     io.flushEvents(1000)
     assert.that(closureMock.called())
   }
@@ -118,8 +146,17 @@ describe 'events' {
   test 'onTick many times called' {
     game.onTick(1000, "", closureMock)
     io.flushEvents(1000)
+    io.flushEvents(1500)
     io.flushEvents(2000)
     assert.equals(2, closureMock.calledCount())
+  }
+
+  test 'onTick many times called when a user error occurs' {
+    game.onTick(1000, "", closureErrorMock)
+    io.flushEvents(1000)
+    io.flushEvents(1500)
+    io.flushEvents(2000)
+    assert.equals(2, closureErrorMock.calledCount())
   }
 
   test 'onTick gets executed as many times as expected' {
@@ -148,6 +185,12 @@ describe 'events' {
     const newTickObject = new Tick(interval = 1000, inmediate = true, action = closureMock)
     newTickObject.start()
     assert.that(closureMock.called())
+  }
+
+  test 'tickEvent executes action when started if inmediate set to true when a user error occurs' {
+    const newTickObject = new Tick(interval = 1000, inmediate = true, action = closureErrorMock)
+    newTickObject.start()
+    assert.that(closureErrorMock.called())
   }
 
   test 'tickEvent does not execute action when started if not specified' {
@@ -198,6 +241,24 @@ describe 'events' {
     assert.equals(4, closureMock.calledCount())  // ""  ""  ""  "" , proving interval got updated
   }
 
+  test "update interval of an existent tick when a user error occurs" {
+    const newTickObject = new Tick(interval = 1000, action = closureErrorMock)
+    assert.equals(0, closureErrorMock.calledCount())  // hasn't counted yet
+    newTickObject.start()            // starts tick event with an interval of 1sec
+    io.flushEvents(1000)
+    assert.equals(1, closureErrorMock.calledCount())  // 1 sec after, counter increments
+    io.flushEvents(2000)
+    assert.equals(2, closureErrorMock.calledCount())  // 1 sec after, it increments again
+    io.flushEvents(2500)
+    assert.equals(2, closureErrorMock.calledCount())  // despite being 0.5sec later, counter doesn't increment
+    newTickObject.interval(500)      // restarts the tick with an interval of 0.5sec
+    assert.equals(2, closureErrorMock.calledCount())  // counter doesn't change since currentTime's still the same
+    io.flushEvents(3000)          
+    assert.equals(3, closureErrorMock.calledCount())  // 0.5sec later, it increments again  
+    io.flushEvents(3500)          
+    assert.equals(4, closureErrorMock.calledCount())  // ""  ""  ""  "" , proving interval got updated
+  }
+
   test "a running tick throws exception if started again" {
     const newTickObject = new Tick(interval = 1000, action = closureMock)
     newTickObject.start()
@@ -230,6 +291,13 @@ describe 'events' {
     io.flushEvents(1000)
     io.flushEvents(2000)
     assert.equals(1, closureMock.calledCount())
+  }
+
+  test 'schedule only once called when a user error occurs' {
+    game.schedule(1000, closureErrorMock)
+    io.flushEvents(1000)
+    io.flushEvents(2000)
+    assert.equals(1, closureErrorMock.calledCount())
   }
 
   test 'schedule on 0 ms should not throws exception' {
