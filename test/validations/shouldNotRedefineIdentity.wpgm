@@ -7,3 +7,15 @@ class SomeClass {
   @Expect(code="shouldNotRedefineIdentity", level="error", expectedOn="===")
   override method === (otherClass) = false
 }
+
+class NativeImplementationClass {
+  //"you are allowed to redefine === operator if it is a native method")
+  @NotExpect(code="shouldNotRedefineIdentity") 
+  override method === (other) native
+}
+
+object nativeImplementationObject {
+  //"you are allowed to redefine === operator if it is a native method")
+  @NotExpect(code="shouldNotRedefineIdentity") 
+  override method === (other) native
+}
