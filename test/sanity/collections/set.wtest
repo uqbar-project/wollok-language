@@ -178,12 +178,20 @@ describe "set tests" {
 
   test "flatten" {
     assert.equals(#{1,2,3,4}, #{#{1, 2}, #{1, 3, 4}}.flatten())
-    assert.equals(#{1,2, 3}, #{#{1, 2}, #{}, #{1, 2, 3}}.flatten())
+    assert.equals(#{1, 2, 3}, #{#{1, 2}, #{}, #{1, 2, 3}}.flatten())
   }
 
   test "flatten for empty sets" {
     assert.equals(#{}, #{}.flatten())
     assert.equals(#{}, #{#{}}.flatten())
+  }
+
+  test "flatMap" {
+    assert.equals([1, 1, 2, 2, 3, 3], #{1, 2, 3}.flatMap(numero => [numero, numero]))
+  }
+
+  test "flatMap for empty sets" {
+    assert.equals([], #{1, 2, 3}.flatMap(numero => [numero, numero]))
   }
 
   test "set converted as list" {
