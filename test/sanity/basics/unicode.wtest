@@ -1,0 +1,25 @@
+class Niño {
+  var nombre = ""
+  var años = 5
+  method cumplirAños() {
+    años = años + 1
+  }
+  method amó(animal) = animal.esBueno()
+}
+
+object pingũino {
+  method esBueno() = true
+}
+
+object ñandú {
+  const ñoño = false
+  method esBueno() = !ñoño
+}
+
+describe "pingüinos y ñandúes" {
+  test "serán amados por Jorge" {
+    const animales = [pingũino, ñandú]
+    const jorgelín = new Niño(nombre = "Jorge")
+    assert.equals(animales, animales.filter { animal => jorgelín.amó(animal) })
+  }
+}
