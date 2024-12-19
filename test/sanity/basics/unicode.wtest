@@ -19,7 +19,7 @@ object ñandú {
 describe "pingüinos y ñandúes" {
   test "serán amados por Jorge" {
     const animales = [pingũino, ñandú]
-    const jorgelín = new Niño(nombre = "Jorge")
+    const jorgelín = new Niño(nombre = "Jorgelín Viñas")
     assert.equals(animales, animales.filter { animal => jorgelín.amó(animal) })
   }
 }
