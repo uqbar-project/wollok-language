@@ -1,10 +1,14 @@
 class Niño {
-  var nombre = ""
+  var property nombre = ""
   var años = 5
   method cumplirAños() {
     años = años + 1
   }
   method amó(animal) = animal.esBueno()
+}
+
+class Ñoqui {
+  var property pasta = true
 }
 
 object pingũino {
@@ -21,5 +25,7 @@ describe "pingüinos y ñandúes" {
     const animales = [pingũino, ñandú]
     const jorgelín = new Niño(nombre = "Jorgelín Viñas", años = 10)
     assert.equals(animales, animales.filter { animal => jorgelín.amó(animal) })
+    assert.equals("Jorgelín Viñas", jorgelín.nombre())
+    assert.that(new Ñoqui().pasta())
   }
 }

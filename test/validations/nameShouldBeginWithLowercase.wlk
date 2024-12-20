@@ -32,4 +32,4 @@ object pepitaArgenta {
 }
 
 @NotExpect(code="nameShouldBeginWithLowercase", level="warning")
-object área {}
+object ñoquis {}
