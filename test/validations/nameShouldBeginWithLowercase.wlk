@@ -21,3 +21,15 @@ object pepita {
   }
 }
 
+object pepitaArgenta {
+  @NotExpect(code="nameShouldBeginWithLowercase", level="warning")
+  var property éxtasis = false
+  @NotExpect(code="nameShouldBeginWithLowercase", level="warning")
+  var property ñoña = false
+
+  @NotExpect(code="nameShouldBeginWithLowercase", level="warning")
+  method últimaVezEstabaBien() = !ñoña && !éxtasis
+}
+
+@NotExpect(code="nameShouldBeginWithLowercase", level="warning")
+object ñoquis {}
