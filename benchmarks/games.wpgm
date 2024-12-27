@@ -1,0 +1,69 @@
+object o {
+  var property position = game.origin()
+}
+
+// GAME-LOOP: 3.20 ms
+program empty {
+  game.start()
+}
+
+// GAME-LOOP: ???
+program visuals_1 {
+  game.addVisual(o)
+  game.start()
+}
+
+// GAME-LOOP: 15.57 ms
+program visuals_100 {
+  game.width(10)
+  game.height(10)
+  10.times({ x => 
+    10.times({ y =>
+      game.addVisual(object { const property position = game.at(x, y) })
+    })
+  })
+  game.start()
+}
+
+// GAME-LOOP: ???
+program ticks_1 {
+  new Tick(interval = 100, action = { }).start()
+  game.start()
+}
+
+// GAME-LOOP: 60.20 ms
+program ticks_100 {
+  100.times({ _ =>
+    new Tick(interval = 100, action = { }).start()
+  })
+  game.start()
+}
+
+// GAME-LOOP: 15.20 ms
+program onCollide_1 {
+  game.width(10)
+  game.height(10)
+  10.times({ x => 
+    10.times({ y =>
+      game.addVisual(object { const property position = game.at(x, y) })
+    })
+  })
+  game.addVisualCharacter(o)
+  game.onCollideDo(o, { _ => })
+  game.start()
+}
+
+// GAME-LOOP: 69.57 ms
+program onCollide_100 {
+  game.width(10)
+  game.height(10)
+  10.times({ x => 
+    10.times({ y =>
+      const obj = object { const property position = game.at(x, y) }
+      game.addVisual(obj)
+      game.onCollideDo(obj, { _ => })
+    })
+  })
+  game.addVisualCharacter(o)
+  game.start()
+}
