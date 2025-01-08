@@ -27,14 +27,14 @@ program visuals_100 {
 
 // GAME-LOOP: ???
 program ticks_1 {
-  new Tick(interval = 100, action = { }).start()
+  new Tick(interval = 1, action = { }).start()
   game.start()
 }
 
 // GAME-LOOP: 60.20 ms
 program ticks_100 {
   100.times({ _ =>
-    new Tick(interval = 100, action = { }).start()
+    new Tick(interval = 1, action = { }).start()
   })
   game.start()
 }
@@ -53,8 +53,18 @@ program onCollide_1 {
   game.start()
 }
 
+program onCollide_10_same_position {
+  10.times({ x => 
+    const obj = object { const property position = game.origin() }
+    game.addVisual(obj)
+    game.onCollideDo(obj, { _ => })
+  })
+  game.addVisualCharacter(o)
+  game.start()
+}
+
 // GAME-LOOP: 69.57 ms
-program onCollide_100 {
+program onCollide_100_diff_positions {
   game.width(10)
   game.height(10)
   10.times({ x => 
