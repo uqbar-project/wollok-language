@@ -503,15 +503,14 @@ class CenterOffset inherits AbstractPosition{
   
   override method createPosition(_x, _y) = new Position(x = _x, y = _y)
   
-  //ISSUE! rounding can't change center, so it have to calculate in the added offset with current center.a()
-  /* ISSUE EXAMPLE: 
-    xCenter 5.5 and xOffset 3.2 = 8.7, rounded is 9. So 3.2 = 3.5.
-
-    xCenter 5.5 and xOffset 3.6 = 9.1, rounded is 9. So 3.2 = 3.5.
-    
-    xCenter 5.5 and xOffset -5 = 0.5, rounded is  1 or 0... so = -5  = -4.5 or -5.5.
-
-    x and y center are always >= 0, xOffset and yOffset can be any number.
+  
+  /* 
+    ISSUE! rounding can't change the center, so it have to calculate in the added offset with current center.x() and y().
+    EXAMPLE: 
+      -xCenter 5.5 and xOffset 3.2 = 8.7, rounded is 9. So 3.2 = 3.5.
+      -xCenter 5.5 and xOffset 3.6 = 9.1, rounded is 9. So 3.2 = 3.5.
+      -xCenter 5.5 and xOffset -5 = 0.5, rounded is  1 or 0... so = -5  = -4.5 or -5.5.
+    X and Y center are always >= 0, xOffset and yOffset can be any number.
   */
  
   /**
