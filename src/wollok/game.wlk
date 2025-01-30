@@ -229,6 +229,7 @@ object game {
     io.domainExceptionHandler({ exception => 
       const reporter = if (errorReporter == null) exception.source() else errorReporter
       self.say(reporter, exception.message())})
+    return io.serve()
   }
   
   /**

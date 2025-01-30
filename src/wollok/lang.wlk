@@ -3215,4 +3215,5 @@ object io {
     }
   }
 
+  method serve() native
 }

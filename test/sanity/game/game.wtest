@@ -1,5 +1,5 @@
 import wollok.game.*
-import wollok.lang.io.*
+import wollok.lang.io
 
 /**
   * Scenario: 
@@ -23,6 +23,24 @@ describe "Game" {
 
   override method initialize() {
     game.clear()
+  }
+
+  test "start to running" {
+    game.start()
+    assert.that(game.running())
+  }
+
+  test "on start configure io" {
+    const oldExceptionHandler = io.exceptionHandler()
+    const oldDomainExceptionHandler = io.domainExceptionHandler()
+    game.start()
+    assert.notEquals(oldExceptionHandler, io.exceptionHandler())
+    assert.notEquals(oldDomainExceptionHandler, io.domainExceptionHandler())
+  }
+
+  test "on start should init a server on tests" {
+    const serve = game.start()
+    assert.notThat(serve)
   }
 
   test "can instance new position" {
