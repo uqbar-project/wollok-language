@@ -414,12 +414,8 @@ class AbstractPosition {
  * It is an immutable object since Wollok 1.8.0
  */
 class Position inherits AbstractPosition {
-  const x = 0
-  const y = 0
-  
-  override method x() = x
-  
-  override method y() = y
+  const property x = 0
+  const property y = 0
   
   override method createPosition(_x, _y) = new Position(x = _x, y = _y)
 
@@ -427,12 +423,8 @@ class Position inherits AbstractPosition {
 
 class MutablePosition inherits AbstractPosition {
 	
-  var x = 0
-  var y = 0
-  
-  override method x() = x
-  
-  override method y() = y
+  var property x = 0
+  var property y = 0
   
   override method createPosition(_x, _y) = new MutablePosition(x = _x, y = _y)
   

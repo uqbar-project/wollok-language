@@ -159,6 +159,20 @@ describe "Game" {
     assert.equals(5, game.height())
   }
 
+  test "Object is on its position" {
+    game.addVisual(pepita)
+    assert.that(game.getObjectsIn(pepita.position()).contains(pepita))
+  }
+
+  test "Other position is polymorphic" {
+    game.addVisual(pepita)
+    const position = object {
+      method x() = pepita.position().x()
+      method y() = pepita.position().y()
+    }
+    assert.that(game.getObjectsIn(position).contains(pepita))
+  }
+
   test "A floating point position contains an object in an integer position" {
     game.addVisual(pepita)
     const floatingPosition = game.at(1.3, 3.2)
