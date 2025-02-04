@@ -1,19 +1,24 @@
+/*
+Measured by @palumbon on mac M1 on Feb 2024
+Using CLI v0.3.0 - TS v4.2.0
+*/
+
 object o {
   var property position = game.origin()
 }
 
-// GAME-LOOP: 3.20 ms
+// GAME-LOOP: 2.13 ms
 program empty {
   game.start()
 }
 
-// GAME-LOOP: ???
+// GAME-LOOP: 2.50 ms
 program visuals_1 {
   game.addVisual(o)
   game.start()
 }
 
-// GAME-LOOP: 15.57 ms
+// GAME-LOOP: 11.10 ms
 program visuals_100 {
   game.width(10)
   game.height(10)
@@ -25,13 +30,13 @@ program visuals_100 {
   game.start()
 }
 
-// GAME-LOOP: ???
+// GAME-LOOP: 2.89 ms
 program ticks_1 {
   new Tick(interval = 1, action = { }).start()
   game.start()
 }
 
-// GAME-LOOP: 60.20 ms
+// GAME-LOOP: 52.97 ms
 program ticks_100 {
   100.times({ _ =>
     new Tick(interval = 1, action = { }).start()
@@ -39,7 +44,7 @@ program ticks_100 {
   game.start()
 }
 
-// GAME-LOOP: 15.20 ms
+// GAME-LOOP: 12.00 ms
 program onCollide_1 {
   game.width(10)
   game.height(10)
@@ -53,6 +58,7 @@ program onCollide_1 {
   game.start()
 }
 
+// GAME-LOOP: 435.70 ms
 program onCollide_10_same_position {
   10.times({ x => 
     const obj = object { const property position = game.origin() }
@@ -63,7 +69,7 @@ program onCollide_10_same_position {
   game.start()
 }
 
-// GAME-LOOP: 69.57 ms
+// GAME-LOOP: 59.20 ms
 program onCollide_100_diff_positions {
   game.width(10)
   game.height(10)
