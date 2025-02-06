@@ -1,0 +1,155 @@
+import wollok.game.*
+
+/*
+class CenterOffset inherits AbstractPosition{
+  const xOffset = 0
+  const yOffset = 0
+  override method x() = game.xCenter() + xOffset
+  override method y() = game.yCenter() + yOffset
+  override method right(n) = if (game.running()) { new Position(x = self.x() + n, y = self.y()) } else { new CenterOffset(xOffset = xOffset + n, yOffset = yOffset) }
+  override method left(n) = if (game.running()) { new Position(x = self.x() - n, y = self.y()) } else { new CenterOffset(xOffset = xOffset - n, yOffset = yOffset) }
+  override method up(n) = if (game.running()) { new Position(x = self.x(), y = self.y() + n) } else { new CenterOffset(xOffset = xOffset, yOffset = yOffset + n)} 
+  override method down(n) = if (game.running()) { new Position(x = self.x(), y = self.y() - n) } else { new CenterOffset(xOffset = xOffset, yOffset = yOffset - n) }
+  override method clone() = if (game.running()) { new Position(x = self.x(), y = self.y()) } else { new CenterOffset(xOffset = xOffset, yOffset = yOffset) }
+  override method createPosition(_x, _y) = new Position(x = _x, y = _y)
+    
+    DELETE COMMENT
+    ISSUE! rounding can't change the center, so it have to calculate in the added offset with current center.x() and y().
+    EXAMPLE: 
+      -xCenter 5.5 and xOffset 3.2 = 8.7, rounded is 9. So 3.2 = 3.5.
+      -xCenter 5.5 and xOffset 3.6 = 9.1, rounded is 9. So 3.2 = 3.5.
+      -xCenter 5.5 and xOffset -5 = 0.5, rounded is  1 or 0... so = -5  = -4.5 or -5.5.
+    X and Y center are always >= 0, xOffset and yOffset can be any number.
+ 
+  override method round(){
+    const xRound = self.x().round() 
+    const yRound = self.y().round()
+    
+    return if(game.running()){ new Position(x = xRound, y = yRound) } 
+           else { new CenterOffset(xOffset = xRound - game.xCenter(), yOffset = yRound - game.yCenter()) }
+
+  }
+
+*/
+/**
+  * Scenario: 
+  * - a CenterOffset with 0 xOffset and 0 yOffset.
+  */
+const centerOffset = new CenterOffset()
+
+/**
+  * Tests
+  */
+describe "position" {
+
+  override method initialize() {
+    game.width(2)
+    game.height(5)
+  }
+
+  test "x is 1 and y is 2 if the board width is 2 and height is 5 and default offsets for CenterOffset are 0" {
+    assert.equals(1, centerOffset.x())
+    assert.equals(2, centerOffset.y())
+  }
+
+  test "CenterOffsets are not rounded at instantiation" {
+    const x = 1.4
+    const y = 2.3
+    
+    centerOffset.up(0.4)
+    centerOffset.right(0.3)
+    
+    assert.equals(x, centerOffset.x())
+    assert.equals(y, centerOffset.y())
+  }
+  
+  //Keep going from here!!! test variants game.running and idle.
+  test "move right should create a new position while game is running" {
+    game.running(true)
+    const right = centerOffset.right(2)
+    game.width(10)
+  	assert.equals(new Position(x = 4, y = 2), right)  	
+  }
+  
+  test "move left should create a new position while game is running" {
+  	game.running(true)
+    const left = centerOffset.left(2)
+    game.width(10)
+  	assert.equals(new Position(x = 0, y = 2), left)   	
+  }
+  
+  test "move up should create a new position while game is running" {
+  	game.running(true)
+    const up = centerOffset.up(2)
+    game.height(10)
+  	assert.equals(new Position(x = 2, y = 4), up)  
+  }
+  
+  test "move down should create a new position while game is running" {
+  	game.running(true)
+    const down = centerOffset.down(2)
+    game.height(10)
+  	assert.equals(new Position(x = 2, y = 0), down)  	
+  }
+
+  test "move right should create a new center offset while game is idle" {
+    const center2Right = centerOffset.right(2)
+    assert.equals(new Position(x = 4, y = 2), center2Right)  	
+    game.width(10)
+    assert.equals(new Position(x = 4, y = 2), center2Right)  	
+  }
+  
+  test "move left should create a new center offset while game is idle" {
+  	const center2Left = centerOffset.left(2)
+    assert.equals(new Position(x = 0, y = 2), center2Left)  	
+    game.width(10)
+    assert.equals(new Position(x = 0, y = 2), center2Left)  		
+  }
+  
+  test "move up should create a new center offset while game is idle" {
+  	const center2Up = centerOffset.up(2)
+    assert.equals(new Position(x = 2, y = 4), center2Up)  	
+    game.width(10)
+    assert.equals(new Position(x = 2, y = 4), center2Up)  	 	
+  }
+  
+  test "move down should create a new center offset while game is idle" {
+  	const center2Down = centerOffset.down(2)
+    assert.equals(new Position(x = 2, y = 0), center2Down)  	
+    
+    game.width(10)
+    assert.equals(new Position(x = 2, y = 0), center2Down)  	 	
+  }
+  
+  test "clone should create a new center offset while game is idle" {
+  	const clonedCenter = centerOffset.clone()
+    
+    assert.equals(new Position(x = 1, y = 2), clonedCenter)  	
+    
+    game.width(6)
+    game.height(8)
+    assert.equals(new Position(x = 3, y = 4), clonedCenter)  	
+  }
+
+  test "clone should create a new position while game is running" {
+  	game.running(true)
+    const clonedCenter = centerOffset.clone()
+    
+    assert.equals(new Position(x = 1, y = 2), clonedCenter)  	
+    
+    game.width(6)
+    game.height(8)
+    assert.equals(new Position(x = 1, y = 2), clonedCenter)  	
+  }
+
+  test "center offset should be rounded while game is idle" {
+  	const unroundedCenterOffset = centerOffset.right(1.6)
+  	assert.equals(new Position(x = 1, y = 2), unroundedCenterOffset.round())
+  }
+
+  test "center offset should create a rounded position" {
+  	const unroundedPosition = new Position(x = 1.2, y = 1.7)
+  	assert.equals(new Position(x = 1, y = 2), unroundedPosition.round())
+  }
+
+}

@@ -9,6 +9,7 @@ object game {
   const visuals = []
   /** Is Game running? */
   var property running = false
+    
   /**
    * Allows to configure a visual component as "error reporter".
    * Then every error in game board will be reported by this visual component,
@@ -46,15 +47,11 @@ object game {
    */
   method addVisualCharacter(visual) {
     self.addVisual(visual)
-    keyboard.up().onPressDo({ 
-      if(visual.position().y() < self.height()-1) visual.position(visual.position().up(1)) })
-    keyboard.down().onPressDo({ 
-      if(visual.position().y() > 0) visual.position(visual.position().down(1)) })
-    keyboard.right().onPressDo({ 
-      if (visual.position().x() < self.width()-1) visual.position(visual.position().right(1)) })
-    keyboard.left().onPressDo({ 
-      if (visual.position().x() > 0) visual.position(visual.position().left(1)) })
-}
+    keyboard.up().onPressDo({ visual.position(visual.position().up(1)) })
+    keyboard.down().onPressDo({ visual.position(visual.position().down(1)) })
+    keyboard.left().onPressDo({ visual.position(visual.position().left(1)) })
+    keyboard.right().onPressDo({ visual.position(visual.position().right(1)) })
+  }
 
   /**
    * Removes an object from the board for stop drawing it.
@@ -87,7 +84,6 @@ object game {
   method whenKeyPressedDo(event, action) { 
     io.addEventHandler(event, action)
   }
-
 
   /**
    * Adds a block that will be executed while the given object collides with other. 
@@ -230,7 +226,7 @@ object game {
       const reporter = if (errorReporter == null) exception.source() else errorReporter
       self.say(reporter, exception.message())})
   }
-  
+
   /**
    * Returns a position for given coordinates.
    */  
@@ -244,10 +240,27 @@ object game {
   method origin() = self.at(0, 0)
 
   /**
-   * Returns the center board position (rounded down).
+   * Returns the x coordinate of the center of the board.
    */  
-  method center() = self.at(self.width().div(2), self.height().div(2))
+  method xCenter(){ //DELETE COMMENT To not duplicade code, could be duplicated. Is also used by CenterOffset, could be implemented there and duplicated in center method.
+    return self.width().div(2)
+  }
 
+  /**
+   * Returns the y coordinate of the center of the board.
+   */  
+  method yCenter(){ //DELETE COMMENT To not duplicade code, could be duplicated. Is also used by CenterOffset.
+    return self.height().div(2)
+  }
+  
+  /**
+   * Returns a center board position (rounded down). 
+   * ////DELETE COMMENT (Before game start is 0,0 then offset to current Game Board Size).
+   */  
+  method center() { 
+    return if (running) { new Position(x = self.xCenter(), y = self.yCenter()) }  else { new CenterOffset() }
+  }
+	
   /**
    * Sets game title.
    */    
@@ -405,7 +418,6 @@ class AbstractPosition {
    * Returns a new position with its coordinates rounded
    */
   method round() = self.createPosition(self.x().round(), self.y().round())
-	
 }
 
 /**
@@ -453,6 +465,74 @@ class MutablePosition inherits AbstractPosition {
   
 }
 
+class CenterOffset inherits AbstractPosition{
+
+  /** x and y offset values to save transformations before the game Runs. */
+  const xOffset = 0
+  const yOffset = 0
+
+  /** x taking the offset into account. */
+  override method x() = game.xCenter() + xOffset
+
+  /** y taking the offset into account. */
+  override method y() = game.yCenter() + yOffset
+
+  /**
+   * Returns a new Position n steps right from this one while Running, or a lazy center with offset while idle.
+   */    
+  override method right(n) = if (game.running()) { new Position(x = self.x() + n, y = self.y()) } else { new CenterOffset(xOffset = xOffset + n, yOffset = yOffset) }
+     
+  /**
+   * Returns a new Position n steps left from this one while Running, or a lazy center with offset while idle.
+   */    
+  override method left(n) = if (game.running()) { new Position(x = self.x() - n, y = self.y()) } else { new CenterOffset(xOffset = xOffset - n, yOffset = yOffset) }
+  
+  /**
+   * Returns a new Position n steps up from this one while Running, or a lazy center with offset while idle.
+   */    
+  override method up(n) = if (game.running()) { new Position(x = self.x(), y = self.y() + n) } else { new CenterOffset(xOffset = xOffset, yOffset = yOffset + n)} 
+  
+  /**
+   * Returns a new Position, n steps down from this one while Running, or a lazy center with offset while idle.
+   */    
+  override method down(n) = if (game.running()) { new Position(x = self.x(), y = self.y() - n) } else { new CenterOffset(xOffset = xOffset, yOffset = yOffset - n) }
+  
+  /**
+   * Returns a new Position is the game is Running with the same coordinates, or a lazy center with offset while idle.
+   */    
+  override method clone() = if (game.running()) { new Position(x = self.x(), y = self.y()) } else { new CenterOffset(xOffset = xOffset, yOffset = yOffset) }
+  
+  override method createPosition(_x, _y) = new Position(x = _x, y = _y)
+    
+  /* 
+    DELETE COMMENT
+    ISSUE! rounding can't change the center, so it have to calculate in the added offset with current center.x() and y().
+    EXAMPLE: 
+      -xCenter 5.5 and xOffset 3.2 = 8.7, rounded is 9. So 3.2 = 3.5.
+      -xCenter 5.5 and xOffset 3.6 = 9.1, rounded is 9. So 3.2 = 3.5.
+      -xCenter 5.5 and xOffset -5 = 0.5, rounded is  1 or 0... so = -5  = -4.5 or -5.5.
+    X and Y center are always >= 0, xOffset and yOffset can be any number.
+  */
+ 
+  /**
+   * Returns a new position with its coordinates rounded if Running, or a lazy center with rounded offset while idle.
+   */
+  override method round(){
+    //DELETE COMMENT To not duplicate códe.
+    const xRound = self.x().round() 
+    const yRound = self.y().round()
+    
+    return if(game.running()){ new Position(x = xRound, y = yRound) } 
+           else { new CenterOffset(xOffset = xRound - game.xCenter(), yOffset = yRound - game.yCenter()) }
+    
+    /* 
+    //DELETE COMMENT 
+    //Version with duplication.
+    return if(game.running()){ new Position(x = self.x().round() , y = self.y().round()) } 
+           else { new CenterOffset(xOffset = self.x().round() - game.xCenter(), yOffset = self.y().round() - game.yCenter()) }
+    */
+  }
+}
 
 /**
  * Keyboard object handles all keys movements. There is a method for each key.

@@ -39,6 +39,42 @@ describe "Game" {
     assert.equals(new Position(x = 1, y = 2), game.center())
   }
 
+  test "xCenter should be 1" {
+    game.width(2)
+    assert.equals(1, game.xCenter())
+  }
+
+  test "yCenter should be 2" {
+    game.height(5)
+    assert.equals(2, game.yCenter())
+  }
+
+  test "While game in idle center is lazy" {
+    game.width(2)
+    game.width(5)
+    var offsetCenter = game.center()
+    assert.notThat(game.running())
+    assert.equals(new Position(x = 1, y = 2), offsetCenter)
+    
+    game.width(5)
+    game.height(6)
+    assert.equals(new Position(x = 2, y = 3), offsetCenter)
+  }
+
+  test "While game is running center is a inmmutable position" {
+    game.width(2)
+    game.width(5)
+    game.running(true)
+    var center = game.center()
+    
+    assert.that(game.running())
+    assert.equals(new Position(x = 1, y = 2), center)
+    
+    game.width(5)
+    game.height(6)
+    assert.equals(new Position(x = 1, y = 2), center)
+  }
+ 
   test "visual colliders" {
     game.addVisual(myVisual)
     2.times { i => game.addVisual(new Visual()) }
