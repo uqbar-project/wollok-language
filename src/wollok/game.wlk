@@ -504,33 +504,16 @@ class CenterOffset inherits AbstractPosition{
   
   override method createPosition(_x, _y) = new Position(x = _x, y = _y)
     
-  /* 
-    DELETE COMMENT
-    ISSUE! rounding can't change the center, so it have to calculate in the added offset with current center.x() and y().
-    EXAMPLE: 
-      -xCenter 5.5 and xOffset 3.2 = 8.7, rounded is 9. So 3.2 = 3.5.
-      -xCenter 5.5 and xOffset 3.6 = 9.1, rounded is 9. So 3.2 = 3.5.
-      -xCenter 5.5 and xOffset -5 = 0.5, rounded is  1 or 0... so = -5  = -4.5 or -5.5.
-    X and Y center are always >= 0, xOffset and yOffset can be any number.
-  */
- 
   /**
    * Returns a new position with its coordinates rounded if Running, or a lazy center with rounded offset while idle.
    */
   override method round(){
-    //DELETE COMMENT To not duplicate códe.
-    const xRound = self.x().round() 
-    const yRound = self.y().round()
+    //DELETE COMMENT To not duplicate code.
+    xOffsetRounded = xOffset.round() 
+    yOffsetRounded = yOffset.round()
     
-    return if(game.running()){ new Position(x = xRound, y = yRound) } 
-           else { new CenterOffset(xOffset = xRound - game.xCenter(), yOffset = yRound - game.yCenter()) }
-    
-    /* 
-    //DELETE COMMENT 
-    //Version with duplication.
-    return if(game.running()){ new Position(x = self.x().round() , y = self.y().round()) } 
-           else { new CenterOffset(xOffset = self.x().round() - game.xCenter(), yOffset = self.y().round() - game.yCenter()) }
-    */
+    return if(game.running()){ new Position(x = game.xCenter() + xOffsetRounded, y =  game.yCenter() + yOffsetRounded) } 
+           else { new CenterOffset(xOffset = xOffsetRounded, yOffset = yOffsetRounded) }
   }
 }
 
