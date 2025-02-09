@@ -3,10 +3,17 @@ class Empleado{
 }
 
 object jefe {
-	method m(@Expect(type="Empleado") empl){
+	method messageNotExist(@Expect(type="Empleado") empl){
 		empl.categoria()
 		
 		@Expect(code="methodNotFound", level="warning", values=["chau/0", "Empleado"])
 		empl.chau()
+	}
+
+	method messageExistButIsNotCompatible(@Expect(type="Empleado") empl){
+		empl.categoria()
+		
+		@Expect(code="methodNotFound", level="warning", values=["even/0", "Empleado"])
+		empl.even()
 	}
 }
