@@ -52,7 +52,7 @@ describe "Game" {
   test "While game in idle center is lazy" {
     game.width(2)
     game.width(5)
-    var offsetCenter = game.center()
+    const offsetCenter = game.center()
     assert.notThat(game.running())
     assert.equals(new Position(x = 1, y = 2), offsetCenter)
     
