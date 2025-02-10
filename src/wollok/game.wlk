@@ -509,8 +509,8 @@ class CenterOffset inherits AbstractPosition{
    */
   override method round(){
     //DELETE COMMENT To not duplicate code.
-    xOffsetRounded = xOffset.round() 
-    yOffsetRounded = yOffset.round()
+    const xOffsetRounded = xOffset.round() 
+    const yOffsetRounded = yOffset.round()
     
     return if(game.running()){ new Position(x = game.xCenter() + xOffsetRounded, y =  game.yCenter() + yOffsetRounded) } 
            else { new CenterOffset(xOffset = xOffsetRounded, yOffset = yOffsetRounded) }
