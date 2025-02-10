@@ -51,7 +51,7 @@ describe "Game" {
 
   test "While game in idle center is lazy" {
     game.width(2)
-    game.width(5)
+    game.height(5)
     const offsetCenter = game.center()
     assert.notThat(game.running())
     assert.equals(new Position(x = 1, y = 2), offsetCenter)
@@ -61,11 +61,11 @@ describe "Game" {
     assert.equals(new Position(x = 2, y = 3), offsetCenter)
   }
 
-  test "While game is running center is a inmmutable position" {
+  test "While game is running center is an inmmutable position" {
     game.width(2)
-    game.width(5)
+    game.height(5)
     game.running(true)
-    var center = game.center()
+    const center = game.center()
     
     assert.that(game.running())
     assert.equals(new Position(x = 1, y = 2), center)
