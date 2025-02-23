@@ -3195,9 +3195,14 @@ object io {
       eventHandlers.getOrElse(event, { [] }).forEach{ callback => self.runHandler(callback) }
     }
 
-    timeHandlers.values().flatten().forEach{ callback => self.runHandler({ callback.apply(time) }) }
+    timeHandlers.forEach{ _, handlers => 
+      handlers.forEach{ callback => self.runHandler({ callback.apply(time) }) }
+    }
 
-    collitionHandlers.values().flatten().forEach{ callback => self.runHandler(callback) }
+    collitionHandlers.forEach{ _, handlers => 
+      handlers.forEach{ callback => self.runHandler(callback) }
+    }
+
     currentTime = time
   }
 
@@ -3215,4 +3220,5 @@ object io {
     }
   }
 
+  method serve() native
 }
