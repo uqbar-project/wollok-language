@@ -245,26 +245,19 @@ object game {
   method origin() = self.at(0, 0)
 
   /**
-   * Returns the x coordinate of the center of the board.
+   * Returns the x coordinate of the center of the board (rounded down).
    */  
-  method xCenter(){ //DELETE COMMENT To not duplicade code, could be duplicated. Is also used by CenterOffset, could be implemented there and duplicated in center method.
-    return self.width().div(2)
-  }
+  method xCenter() = self.width().div(2)
 
   /**
-   * Returns the y coordinate of the center of the board.
+   * Returns the y coordinate of the center of the board (rounded down).
    */  
-  method yCenter(){ //DELETE COMMENT To not duplicade code, could be duplicated. Is also used by CenterOffset.
-    return self.height().div(2)
-  }
+  method yCenter() = self.height().div(2)
   
   /**
    * Returns a center board position (rounded down). 
-   * ////DELETE COMMENT (Before game start is 0,0 then offset to current Game Board Size).
    */  
-  method center() { 
-    return if (running) { new Position(x = self.xCenter(), y = self.yCenter()) }  else { new CenterOffset() }
-  }
+  method center() = if (running) new Position(x = self.xCenter(), y = self.yCenter())  else new CenterOffset()
 	
   /**
    * Sets game title.

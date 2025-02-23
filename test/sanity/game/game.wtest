@@ -67,7 +67,7 @@ describe "Game" {
     assert.equals(2, game.yCenter())
   }
 
-  test "While game in idle center is lazy" {
+  test "game's center position should be update after changing the game dimensions" {
     game.width(2)
     game.height(5)
     const offsetCenter = game.center()

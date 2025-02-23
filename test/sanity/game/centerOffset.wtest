@@ -1,7 +1,7 @@
 import wollok.game.*
 import wollok.lang.io.*
 
-describe "position" {
+describe "CenterOffset position" {
   /**
     * Scenario: 
     * - A CenterOffset with 0 xOffset and 0 yOffset.
@@ -11,12 +11,9 @@ describe "position" {
   override method initialize() {
     game.width(2)
     game.height(5)
-    centerOffset = game.center()
+    centerOffset = new CenterOffset()
   }
 
-  /**
-    * Tests
-    */
   test "x is 1 and y is 2 if the board width is 2 and height is 5 and default offsets for CenterOffset are 0" {
     assert.equals(1, centerOffset.x())
     assert.equals(2, centerOffset.y())
