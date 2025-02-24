@@ -14,6 +14,50 @@ describe "CenterOffset position" {
     centerOffset = new CenterOffset()
   }
 
+  test "x is 1 and y is 2 if the board width is 2 and height is 5 and offsets for centerOffset offsetted at 0,0 are 0 while games is idle" {
+    assert.notThat(game.running())
+    centerOffset = centerOffset.centerOffsetted(0,0)
+        
+    assert.equals(1, centerOffset.x())
+    assert.equals(2, centerOffset.y())
+  }
+
+  test "x is 1 and y is 2 if the board width is 2 and height is 5 when the game is running, even after changing game width or height" {
+    game.running(true)
+    const position = centerOffset.centerOffsetted(0,0)
+    
+    assert.equals(1, position.x())
+    assert.equals(2, position.y())
+
+    game.width(10)
+    game.height(10)
+
+    assert.equals(1, position.x())
+    assert.equals(2, position.y())
+  }
+
+  test "x is 2 and y is 3 if the board width is 2 and height is 5 and offsets for centerOffset offsetted at (1,1) are 1 while games is idle" {
+    assert.notThat(game.running())
+    centerOffset = centerOffset.centerOffsetted(1,1)
+        
+    assert.equals(2, centerOffset.x())
+    assert.equals(3, centerOffset.y())
+  }
+
+  test "x is 2 and y is 3 if the board width is 2 and height is 5 when the game is running, even after changing game width or height" {
+    game.running(true)
+    const position = centerOffset.centerOffsetted(1,1)
+    
+    assert.equals(2, position.x())
+    assert.equals(3, position.y())
+
+    game.width(10)
+    game.height(10)
+
+    assert.equals(2, position.x())
+    assert.equals(3, position.y())
+  }
+
   test "x is 1 and y is 2 if the board width is 2 and height is 5 and default offsets for CenterOffset are 0" {
     assert.equals(1, centerOffset.x())
     assert.equals(2, centerOffset.y())
@@ -27,7 +71,6 @@ describe "CenterOffset position" {
     assert.equals(2.4, centerOffset.y())
   }
   
-  //Keep going from here!!! test variants game.running and idle.
   test "move right should create a new position while game is running" {
     game.running(true)
     const right = centerOffset.right(2)
