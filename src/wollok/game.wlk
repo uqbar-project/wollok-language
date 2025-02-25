@@ -471,7 +471,7 @@ class CenterOffset inherits AbstractPosition{
    * Returns a new Position at the center of the board offsetted xOffset and yOffset when game is running 
    * or a CenterOffset while is idle with the given xOffset and yOffset.
    */    
-  method centerOffsetted(xOffset, yOffset) = if (game.running()) { new Position(x = game.xCenter() + xOffset, y = game.yCenter() + yOffset) } else { new CenterOffset(xOffset = xOffset, yOffset = yOffset) }
+  method centerOffsetted(_xOffset, _yOffset) = if (game.running()) { new Position(x = game.xCenter() + _xOffset, y = game.yCenter() + _yOffset) } else { new CenterOffset(xOffset = _xOffset, yOffset = _yOffset) }
  
   /**
    * Returns a new Position n steps right from this one while Running, or a centerOffset with offsets while idle.

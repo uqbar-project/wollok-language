@@ -26,14 +26,8 @@ describe "CenterOffset position" {
     game.running(true)
     const position = centerOffset.centerOffsetted(0,0)
     
-    assert.equals(1, position.x())
-    assert.equals(2, position.y())
-
-    game.width(10)
-    game.height(10)
-
-    assert.equals(1, position.x())
-    assert.equals(2, position.y())
+    assert.throwsException({ position.centerOffsetted(0,0)})
+    assert.equals(game.at(1,2), position)
   }
 
   test "x is 2 and y is 3 if the board width is 2 and height is 5 and offsets for centerOffset offsetted at (1,1) are 1 while games is idle" {
@@ -44,59 +38,52 @@ describe "CenterOffset position" {
     assert.equals(3, centerOffset.y())
   }
 
-  test "x is 2 and y is 3 if the board width is 2 and height is 5 when the game is running, even after changing game width or height" {
+  test "centerOffseted give a Position where x is 2 and y is 3 when the game is running" {
     game.running(true)
     const position = centerOffset.centerOffsetted(1,1)
     
-    assert.equals(2, position.x())
-    assert.equals(3, position.y())
-
-    game.width(10)
-    game.height(10)
-
-    assert.equals(2, position.x())
-    assert.equals(3, position.y())
+    assert.throwsException({ position.centerOffsetted(0,0)})
+    assert.equals(new Position(x = 2, y = 3), position)
   }
 
   test "x is 1 and y is 2 if the board width is 2 and height is 5 and default offsets for CenterOffset are 0" {
-    assert.equals(1, centerOffset.x())
-    assert.equals(2, centerOffset.y())
+    assert.equals(new Position(x = 1, y = 2), centerOffset)
   }
 
   test "CenterOffsets are not rounded at instantiation" {
     centerOffset = centerOffset.right(0.3)
     centerOffset = centerOffset.up(0.4)
 
-    assert.equals(1.3, centerOffset.x())
-    assert.equals(2.4, centerOffset.y())
+    assert.equals(new Position(x = 1.3, y = 2.4), centerOffset)
   }
   
   test "move right should create a new position while game is running" {
     game.running(true)
     const right = centerOffset.right(2)
-    game.width(10)
-  	assert.equals(new Position(x = 3, y = 2), right)  	
+    
+    assert.throwsException({ right.centerOffsetted(0,0)})
+    assert.equals(new Position(x = 3, y = 2), right)
   }
   
   test "move left should create a new position while game is running" {
   	game.running(true)
     const left = centerOffset.left(1)
-    game.width(10)
-  	assert.equals(new Position(x = 0, y = 2), left)   	
+    assert.throwsException({ left.centerOffsetted(0,0)})
+    assert.equals(new Position(x = 0, y = 2), left)
   }
   
   test "move up should create a new position while game is running" {
   	game.running(true)
     const up = centerOffset.up(2)
-    game.height(10)
-  	assert.equals(new Position(x = 1, y = 4), up)  
+    assert.throwsException({ up.centerOffsetted(0,0)})
+    assert.equals(new Position(x = 1, y = 4), up)
   }
   
   test "move down should create a new position while game is running" {
   	game.running(true)
     const down = centerOffset.down(2)
-    game.height(10)
-  	assert.equals(new Position(x = 1, y = 0), down)  	
+    assert.throwsException({ down.centerOffsetted(0,0)})
+    assert.equals(new Position(x = 1, y = 0), down)
   }
 
   test "move right should create a new center offset while game is idle" {
@@ -147,11 +134,8 @@ describe "CenterOffset position" {
   	game.running(true)
     const clonedCenter = centerOffset.clone()
     
-    assert.equals(new Position(x = 1, y = 2), clonedCenter)  	
-    
-    game.width(6)
-    game.height(8)
-    assert.equals(new Position(x = 1, y = 2), clonedCenter)  	
+    assert.throwsException({ clonedCenter.centerOffsetted(0,0)})
+    assert.equals(new Position(x = 1, y = 2), clonedCenter)
   }
 
   test "center offset round should be rounded as a new CenterOffset while game is idle" {
@@ -165,16 +149,14 @@ describe "CenterOffset position" {
     assert.equals(new Position(x = 6, y = 5), centerOffset.round())
   }
 
-  test "center offset round should create a rounded position when game is running" {
+  test "center offset round should create a Position with rounded x and y when game is running" {
     centerOffset = centerOffset.right(0.3)
     centerOffset = centerOffset.up(0.6)
     game.running(true)
   	
     const position = centerOffset.round()
-    game.width(10)
-    game.height(10)
-    
-  	assert.equals(new Position(x = 1, y = 3), position)
+    assert.throwsException({ position.centerOffsetted(0,0)})
+    assert.equals(new Position(x = 1, y = 3), position)
   }
 
   test "center offset should create a position when createPosition is called" {
