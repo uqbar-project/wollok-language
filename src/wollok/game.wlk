@@ -27,7 +27,7 @@ object game {
   }
 
   /*
-  * Indicates if games is running or idle
+  * Indicates if game is running or idle.
   */
   method running() = running
 
