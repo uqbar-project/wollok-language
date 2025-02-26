@@ -9,6 +9,7 @@ object game {
   const visuals = []
   /** Is Game running? */
   var property running = false
+    
   /**
    * Allows to configure a visual component as "error reporter".
    * Then every error in game board will be reported by this visual component,
@@ -87,7 +88,6 @@ object game {
   method whenKeyPressedDo(event, action) { 
     io.addEventHandler(event, action)
   }
-
 
   /**
    * Adds a block that will be executed while the given object collides with other. 
@@ -231,7 +231,7 @@ object game {
       self.say(reporter, exception.message())})
     return io.serve()
   }
-  
+
   /**
    * Returns a position for given coordinates.
    */  
@@ -245,10 +245,20 @@ object game {
   method origin() = self.at(0, 0)
 
   /**
-   * Returns the center board position (rounded down).
+   * Returns the x coordinate of the center of the board (rounded down).
    */  
-  method center() = self.at(self.width().div(2), self.height().div(2))
+  method xCenter() = self.width().div(2)
 
+  /**
+   * Returns the y coordinate of the center of the board (rounded down).
+   */  
+  method yCenter() = self.height().div(2)
+  
+  /**
+   * Returns a center board position (rounded down). 
+   */  
+  method center() = if (running) new Position(x = self.xCenter(), y = self.yCenter())  else new CenterOffset()
+	
   /**
    * Sets game title.
    */    
@@ -406,7 +416,6 @@ class AbstractPosition {
    * Returns a new position with its coordinates rounded
    */
   method round() = self.createPosition(self.x().round(), self.y().round())
-	
 }
 
 /**
@@ -446,6 +455,54 @@ class MutablePosition inherits AbstractPosition {
   
 }
 
+class CenterOffset inherits AbstractPosition{
+
+  /** x and y offset values to save transformations before the game Runs. */
+  const xOffset = 0
+  const yOffset = 0
+
+  /** x taking the offset into account. */
+  override method x() = game.xCenter() + xOffset
+
+  /** y taking the offset into account. */
+  override method y() = game.yCenter() + yOffset
+
+  /**
+   * Returns a new Position n steps right from this one while Running, or a centerOffset with offsets while idle.
+   */    
+  override method right(n) = self.createPosition(self.x() + n, self.y())
+     
+  /**
+   * Returns a new Position n steps left from this one while Running, or a centerOffset with offsets while idle.
+   */    
+  override method left(n) = self.createPosition(self.x() - n, self.y())
+
+  /**
+   * Returns a new Position n steps up from this one while Running, or a centerOffset with offsets while idle.
+   */    
+  override method up(n) = self.createPosition(self.x(), self.y() + n) 
+  
+  /**
+   * Returns a new Position, n steps down from this one while Running, or a centerOffset with offsets while idle.
+   */    
+  override method down(n) = self.createPosition(self.x(), self.y() - n)
+
+  /**
+   * Returns a new Position is the game is Running with the same coordinates, or a centerOffset with offsets while idle.
+   */    
+  override method clone() = self.createPosition(self.x(), self.y())
+  
+  /**
+   * Returns a new position with its coordinates if game is idle, else a centerOffset with x and y relative to the current center.
+   */
+  override method createPosition(x, y) = if (game.running()) new Position(x = x, y = y)  else new CenterOffset(xOffset = x - game.xCenter(), yOffset = y - game.yCenter())
+
+  /**
+   * Returns a new position with its coordinates rounded if Running, or a centerOffset with offsets while idle.
+   */
+  override method round() = self.createPosition(self.x().round(), self.y().round())
+
+}
 
 /**
  * Keyboard object handles all keys movements. There is a method for each key.
