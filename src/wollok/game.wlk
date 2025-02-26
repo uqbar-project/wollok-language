@@ -477,33 +477,39 @@ class CenterOffset inherits AbstractPosition{
    * Returns a new Position n steps right from this one while Running, or a centerOffset with offsets while idle.
    */    
   override method right(n) = self.centerOffsetted(xOffset + n, yOffset)
+  //= self.createPosition(self.x + n, self.y()) //Code without using centerOffsetted.
      
   /**
    * Returns a new Position n steps left from this one while Running, or a centerOffset with offsets while idle.
    */    
   override method left(n) = self.centerOffsetted(xOffset - n, yOffset)
-  
+  //= self.createPosition(self.x() - n, self.y()) //Code without using centerOffsetted.
+
   /**
    * Returns a new Position n steps up from this one while Running, or a centerOffset with offsets while idle.
    */    
   override method up(n) = self.centerOffsetted(xOffset, yOffset + n)
+  //= self.createPosition(self.x(), self.y() + n) //Code without using centerOffsetted.
   
   /**
    * Returns a new Position, n steps down from this one while Running, or a centerOffset with offsets while idle.
    */    
   override method down(n) = self.centerOffsetted(xOffset, yOffset - n)
-  
+  //= self.createPosition(self.x(), self.y() - n) //Code without using centerOffsetted.
+
   /**
    * Returns a new Position is the game is Running with the same coordinates, or a centerOffset with offsets while idle.
    */    
   override method clone() = self.centerOffsetted(xOffset, yOffset)
   
-  override method createPosition(_x, _y) = new Position(x = _x, y = _y)
-    
+  override method createPosition(x, y) = new Position(x = x, y = y)
+  //= if (game.running()) { new Position(x = x, y = y) } else { new CenterOffset(xOffset = x - game.xCenter(), yOffset = y - game.yCenter()) } //Create version using class itself.
+
   /**
    * Returns a new position with its coordinates rounded if Running, or a centerOffset with offsets while idle.
    */
   override method round() =  self.centerOffsetted(xOffset.round(), yOffset.round())
+  //= self.createPosition(self.x().round(), self.y().round()) //Code without using centerOffsetted. //Could produce issues in certain numbers?
 
 }
 
