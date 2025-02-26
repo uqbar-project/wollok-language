@@ -467,49 +467,40 @@ class CenterOffset inherits AbstractPosition{
   /** y taking the offset into account. */
   override method y() = game.yCenter() + yOffset
 
- /**
-   * Returns a new Position at the center of the board offsetted xOffset and yOffset when game is running 
-   * or a CenterOffset while is idle with the given xOffset and yOffset.
-   */    
-  method centerOffsetted(_xOffset, _yOffset) = if (game.running()) { new Position(x = game.xCenter() + _xOffset, y = game.yCenter() + _yOffset) } else { new CenterOffset(xOffset = _xOffset, yOffset = _yOffset) }
- 
   /**
    * Returns a new Position n steps right from this one while Running, or a centerOffset with offsets while idle.
    */    
-  override method right(n) = self.centerOffsetted(xOffset + n, yOffset)
-  //= self.createPosition(self.x + n, self.y()) //Code without using centerOffsetted.
+  override method right(n) = self.createPosition(self.x() + n, self.y())
      
   /**
    * Returns a new Position n steps left from this one while Running, or a centerOffset with offsets while idle.
    */    
-  override method left(n) = self.centerOffsetted(xOffset - n, yOffset)
-  //= self.createPosition(self.x() - n, self.y()) //Code without using centerOffsetted.
+  override method left(n) = self.createPosition(self.x() - n, self.y())
 
   /**
    * Returns a new Position n steps up from this one while Running, or a centerOffset with offsets while idle.
    */    
-  override method up(n) = self.centerOffsetted(xOffset, yOffset + n)
-  //= self.createPosition(self.x(), self.y() + n) //Code without using centerOffsetted.
+  override method up(n) = self.createPosition(self.x(), self.y() + n) 
   
   /**
    * Returns a new Position, n steps down from this one while Running, or a centerOffset with offsets while idle.
    */    
-  override method down(n) = self.centerOffsetted(xOffset, yOffset - n)
-  //= self.createPosition(self.x(), self.y() - n) //Code without using centerOffsetted.
+  override method down(n) = self.createPosition(self.x(), self.y() - n)
 
   /**
    * Returns a new Position is the game is Running with the same coordinates, or a centerOffset with offsets while idle.
    */    
-  override method clone() = self.centerOffsetted(xOffset, yOffset)
+  override method clone() = self.createPosition(self.x(), self.y())
   
-  override method createPosition(x, y) = new Position(x = x, y = y)
-  //= if (game.running()) { new Position(x = x, y = y) } else { new CenterOffset(xOffset = x - game.xCenter(), yOffset = y - game.yCenter()) } //Create version using class itself.
+  /**
+   * Returns a new position with its coordinates if game is idle, else a centerOffset with x and y relative to the current center.
+   */
+  override method createPosition(x, y) = if (game.running()) new Position(x = x, y = y)  else new CenterOffset(xOffset = x - game.xCenter(), yOffset = y - game.yCenter())
 
   /**
    * Returns a new position with its coordinates rounded if Running, or a centerOffset with offsets while idle.
    */
-  override method round() =  self.centerOffsetted(xOffset.round(), yOffset.round())
-  //= self.createPosition(self.x().round(), self.y().round()) //Code without using centerOffsetted. //Could produce issues in certain numbers?
+  override method round() = self.createPosition(self.x().round(), self.y().round())
 
 }
 
