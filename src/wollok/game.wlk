@@ -93,7 +93,6 @@ object game {
     io.addEventHandler(event, action)
   }
 
-
   /**
    * Adds a block that will be executed while the given object collides with other. 
    * Two objects collide when are in the same position.
