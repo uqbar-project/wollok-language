@@ -16,7 +16,7 @@ object consoleTest {
 }
 
 program p {
-	@Expect(type="() => String")
+	@Expect(type="console")
  	console
 
  	console.println(@Expect(type="String") "hola") 	

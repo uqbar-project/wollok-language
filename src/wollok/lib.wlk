@@ -5,18 +5,22 @@
 object console {
 
   /** Prints a String with end-of-line character */
+  @Type(name="Void") 
   method println(obj) native
   
   /** Reads a line from input stream */
+  @Type(name="String") 
   method readLine() native
   
   /** Reads an int character from input stream */
+  @Type(name="Number") 
   method readInt() native
   
   /** Returns the system's representation of a new line:
    * - \n in Unix systems
    * - \r\n in Windows systems
    */
+   @Type(name="String") 
   method newline() native
 }
 
