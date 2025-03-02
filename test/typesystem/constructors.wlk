@@ -1,9 +1,9 @@
 object constructorTests {
 	@Expect(type="(Number, Dog) => C")
-	method m3(n, dog) = new C(n = n, dog = dog)
+	method m3(n, dog) = new C(number = n, dog = dog)
 
 	@Expect(type="(Dog) => D")
-	method m4(dog) = new D(n = 2, dog = dog)
+	method m4(dog) = new D(number = 2, dog = dog)
 }
 
 class C {
