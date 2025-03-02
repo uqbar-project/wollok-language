@@ -2904,8 +2904,11 @@ object calendar {
  */
 class Date {
 
+  @Type(name="Number") 
   const property day = calendar.today().day()
+  @Type(name="Number") 
   const property month = calendar.today().month()
+  @Type(name="Number") 
   const property year = calendar.today().year()
 
   /** String representation of a date */
@@ -2926,7 +2929,8 @@ class Date {
    *     new Date(day = 12, month = 5, year = 2018).plusDays(-1)
    *        ==> Answers 11/5/2018, a day back
    */
-  method plusDays(_days) native
+  @Type(name="Date") 
+  method plusDays(@Type(name="Number") _days) native
 
   /**
    * Answers a copy of this Date with the specified number of months added.
@@ -2940,7 +2944,8 @@ class Date {
    *     new Date(day = 12, month = 5, year = 2018).plusMonths(-1)
    *        ==> Answers 12/4/2018, a month back
    */
-  method plusMonths(_months) native
+  @Type(name="Date") 
+  method plusMonths(@Type(name="Number") _months) native
 
   /**
    * Answers a copy of this Date with the specified number of years added.
@@ -2954,7 +2959,8 @@ class Date {
    *     new Date(day = 12, month = 5, year = 2018).plusYears(-1)
    *        ==> Answers 12/5/2017, a year back
    */
-  method plusYears(_years) native
+  @Type(name="Date") 
+  method plusYears(@Type(name="Number") _years) native
 
   /**
    * Checks if the year is a leap year, like 2000, 2004, 2008...
@@ -2962,6 +2968,7 @@ class Date {
    * Example:
    *     new Date(day = 12, month = 5, year = 2018).isLeapYear() ==> Answers false
    */
+  @Type(name="Boolean") 
   method isLeapYear() native
 
   /** Answers the day of the week of the Date with a string representation.
@@ -2970,6 +2977,7 @@ class Date {
    * Example:
    *     new Date(day = 24, month = 2, year = 2018).dayOfWeek() ==> Answers "saturday"
    */
+  @Type(name="String") 
   method dayOfWeek() = calendar.daysOfWeek().get(self.internalDayOfWeek() - 1)
 
   /** Answers the day of week of the Date, where
@@ -2982,6 +2990,7 @@ class Date {
    * Example:
    *     new Date(day = 24, month = 2, year = 2018).internalDayOfWeek() ==> Answers 6 (SATURDAY)
    */
+  @Type(name="Number") 
   method internalDayOfWeek() native
 
   /**
@@ -2991,7 +3000,8 @@ class Date {
    *     new Date().plusDays(4) - new Date() ==> Answers 4
    *     new Date() - new Date().plusDays(2) ==> Answers -2
    */
-  method -(_aDate) native
+  @Type(name="Number") 
+  method -(@Type(name="Date") _aDate) native
 
   /**
    * Answers a copy of this date with the specified number of days subtracted.
@@ -3006,7 +3016,8 @@ class Date {
    *     new Date(day = 1, month = 1, year = 2009).minusDays(-1)
    *          ==> Answers 2/1/2009, a day forward
    */
-  method minusDays(_days) native
+  @Type(name="Date") 
+  method minusDays(@Type(name="Number") _days) native
 
   /**
    * Answers a copy of this date with the specified number of months subtracted.
@@ -3020,7 +3031,8 @@ class Date {
    *     new Date(day = 1, month = 1, year = 2009).minusMonths(-1)
    *             ==> Answers 1/2/2009, a month forward
    */
-  method minusMonths(_months) native
+  @Type(name="Date") 
+  method minusMonths(@Type(name="Number") _months) native
 
   /**
    * Answers a copy of this date with the specified number of years subtracted.
@@ -3034,12 +3046,17 @@ class Date {
    *     new Date(day = 1, month = 1, year = 2009).minusYears(-1)
    *             ==> Answers 1/1/2010, a year forward
    */
-  method minusYears(_years) native
+  @Type(name="Date") 
+  method minusYears(@Type(name="Number") _years) native
 
-  method <(_aDate) native
-  method >(_aDate) native
-  method <=(_aDate) = self == _aDate || self < _aDate
-  method >=(_aDate) = self == _aDate || self > _aDate
+  @Type(name="Boolean") 
+  method <(@Type(name="Date") _aDate) native
+  @Type(name="Boolean") 
+  method >(@Type(name="Date") _aDate) native
+  @Type(name="Boolean") 
+  method <=(@Type(name="Date") _aDate) = self == _aDate || self < _aDate
+  @Type(name="Boolean") 
+  method >=(@Type(name="Date") _aDate) = self == _aDate || self > _aDate
 
   /**
    * Answers whether self is between two dates (both inclusive comparison)
@@ -3048,7 +3065,8 @@ class Date {
    *     new Date(day = 2, month = 4, year = 2018).between(new Date(day = 1, month = 4, year = 2018), new Date(day = 2, month = 4, year = 2018))
    *         ==> Answers true
    */
-  method between(_startDate, _endDate) = (self >= _startDate) && (self <= _endDate)
+  @Type(name="Boolean") 
+  method between(@Type(name="Date") _startDate, @Type(name="Boolean") _endDate) = (self >= _startDate) && (self <= _endDate)
 
   /**
    * Shows a short, internal representation of a date
@@ -3066,6 +3084,7 @@ class Date {
    *     new Date(day = 13, month = 7, year = 2020).isWorkDay()
    *         ==> Answers true
    */
+  @Type(name="Boolean") 
   method isWorkDay() = self.internalDayOfWeek() < 6
 
   /**
@@ -3074,8 +3093,8 @@ class Date {
    *     new Date(day = 13, month = 7, year = 2020).isWorkDay()
    *         ==> Answers true
    */
+  @Type(name="Boolean") 
   method isWeekendDay() = self.internalDayOfWeek() >= 6
-
 
 }
 
