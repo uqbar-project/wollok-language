@@ -186,6 +186,7 @@ class Object {
   /**
    * String representation of Wollok object
    */
+  @Type(name="String") 
   method toString() {
     return self.kindName()
   }
@@ -2520,19 +2521,23 @@ class Boolean {
    * Answers the result of applying the logical AND operator
    * to the specified boolean operands self and other
    */
-  method and(other) native
+  @Type(name="Boolean") 
+  method and(@Type(name="Boolean") other) native
 
   /** A synonym for and operation */
-  method &&(other) native
+  @Type(name="Boolean") 
+  method &&(@Type(name="Boolean") other) native
 
   /**
    * Answers the result of applying the logical OR operator
    * to the specified boolean operands self and other
    */
-  method or(other) native
+  @Type(name="Boolean") 
+  method or(@Type(name="Boolean") other) native
 
   /** A synonym for or operation */
-  method ||(other) native
+  @Type(name="Boolean") 
+  method ||(@Type(name="Boolean") other) native
 
   /** String representation of this boolean value. */
   override method toString() native
@@ -2546,6 +2551,7 @@ class Boolean {
   override method ==(other) native
 
   /** NOT logical operation */
+  @Type(name="Boolean") 
   method negate() native
 }
 
