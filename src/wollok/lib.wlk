@@ -271,10 +271,12 @@ object assert {
 class StringPrinter {
   var buffer = ""
   
+  @Type(name="Void") 
   method println(obj) {
     const objAsString = if (obj === null) "null" else obj.toString()
     buffer += objAsString + console.newline()
   }
   
+  @Type(name="String") 
   method getBuffer() = buffer
 }  

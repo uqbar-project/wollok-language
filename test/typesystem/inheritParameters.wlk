@@ -30,8 +30,11 @@ object entrenador {
 	}
 }
 
-object wollok {
-	method testEntrenador() {
+object testEntrenador {
+	method alimentarAve() {
 		entrenador.alimentar(new Ave(energia = 0))
+	}
+	method volarGolondrina() {
+		entrenador.queVuele(new Golondrina(energia = 10))
 	}
 }
