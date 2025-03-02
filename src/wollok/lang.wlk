@@ -7,17 +7,21 @@
  */
 class Exception {
   /** specified detail message. */
+  @Type(name="String") 
   const property message = null
 
   /** specified cause */
+  @Type(name="Exception") 
   const property cause = null
 
   override method initialize() native
 
   /** Prints this exception and its backtrace to the console */
+  @Type(name="Void") 
   method printStackTrace() { self.printStackTrace(console) }
 
   /** Prints this exception and its backtrace as a string value */
+  @Type(name="String") 
   method getStackTraceAsString() {
     const printer = new StringPrinter()
     self.printStackTrace(printer)
@@ -28,10 +32,12 @@ class Exception {
    * @private
    * Prints this exception and its backtrace to the specified printer
    */
-  method printStackTrace(printer) { self.printStackTraceWithPrefix("", printer) }
+  @Type(name="Void") 
+  method printStackTrace(@Type(name="console | StringPrinter") printer) { self.printStackTraceWithPrefix("", printer) }
 
   /** @private */
-  method printStackTraceWithPrefix(prefix, printer) {
+  @Type(name="Void") 
+  method printStackTraceWithPrefix(@Type(name="String") prefix, @Type(name="console | StringPrinter") printer) {
     printer.println(prefix + self.className() + (if (message != null) (": " + message.toString()) else ""))
 
     // TODO: eventually we will need a stringbuffer or something to avoid memory consumption
@@ -44,16 +50,19 @@ class Exception {
   }
 
   /** @private */
-  method createStackTraceElement(contextDescription, location) = new StackTraceElement(contextDescription = contextDescription, location = location)
+  @Type(name="StackTraceElement") 
+  method createStackTraceElement(@Type(name="String") contextDescription, @Type(name="String") location) = new StackTraceElement(contextDescription = contextDescription, location = location)
 
   /** Provides programmatic access to the stack trace information
    * printed by printStackTrace() with full path files for linking
    */
+  @Type(name="List<String>") 
   method getFullStackTrace() native
 
   /** Provides programmatic access to the stack trace information
    * printed by printStackTrace().
    */
+  @Type(name="List<String>") 
   method getStackTrace() native
 
   /** Overrides the behavior to compare exceptions */
@@ -95,7 +104,9 @@ class MessageNotUnderstoodException inherits Exception {}
  * of a method where a message was sent
  */
 class StackTraceElement {
+  @Type(name="String") 
   const property contextDescription
+  @Type(name="String") 
   const property location
 }
 

@@ -21,10 +21,10 @@ object exceptionTest {
 	@Expect(type="(Exception) => Void")
 	method printStackTrace1(e) = e.printStackTrace()
 
-	@Expect(type="(Exception, (StringPrinter|console)) => Void")
+	@Expect(type="(Exception, (console | StringPrinter)) => Void")
 	method printStackTrace2(e, printer) = e.printStackTrace(printer)
 	
-	@Expect(type="(Exception, String, (StringPrinter|console)) => Void")
+	@Expect(type="(Exception, String, (console | StringPrinter)) => Void")
 	method printStackTraceWithPrefix(e, prefix, printer) = e.printStackTraceWithPrefix(prefix, printer)
 	
 	@Expect(type="(Exception, String, String) => StackTraceElement")
