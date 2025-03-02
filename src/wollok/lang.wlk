@@ -1633,6 +1633,7 @@ class List inherits Collection {
  * Represents a set of key -> values
  *
  */
+@Type(variables="Key,Value")
 class Dictionary {
 
   override method initialize() native
@@ -1648,7 +1649,8 @@ class Dictionary {
    *     phones.put("4004-4004", rolo)
    *         => phones == a Dictionary ["4004-4004" -> rolo]
    */
-  method put(_key, _value) native
+  @Type(name="Void") 
+  method put(@Type(name="Key") _key, @Type(name="Value") _value) native
 
   /**
    * Answers the value to which the specified key is mapped,
@@ -1658,7 +1660,8 @@ class Dictionary {
    *     phones.basicGet("4004-4004")  => Answers rolo
    *     phones.basicGet("4004-4005")  => Answers null
    */
-  method basicGet(_key) native
+  @Type(name="Value") 
+  method basicGet(@Type(name="Key") _key) native
 
   /**
    * Answers the value to which the specified key is mapped,
@@ -1668,7 +1671,8 @@ class Dictionary {
    *     phones.getOrElse("4004-4004", { 0 })  => Answers rolo
    *     phones.getOrElse("4004-4005", { 0 })  => Answers 0
    */
-  method getOrElse(_key, _closure) {
+  @Type(name="Value") 
+  method getOrElse(@Type(name="Key") _key, @Type(name="{ () => Value }") _closure) {
     const value = self.basicGet(_key)
     if (value == null)
       return _closure.apply()
@@ -1684,7 +1688,8 @@ class Dictionary {
    *     phones.get("4004-4004")  => Answers rolo
    *     phones.get("4004-4005")  => Throws ElementNotFoundException
    */
-  method get(_key) = self.getOrElse(_key,{ => throw new ElementNotFoundException(message = "there is no element associated with key " + _key) })
+  @Type(name="Value") 
+  method get(@Type(name="Key") _key) = self.getOrElse(_key,{ => throw new ElementNotFoundException(message = "there is no element associated with key " + _key) })
 
   /**
    * Answers the number of key-value mappings in this Dictionary.
@@ -1693,6 +1698,7 @@ class Dictionary {
    *     phones.size()           => Answers 1
    *     new Dictionary().size() => Answers 0
    */
+  @Type(name="Number") 
   method size() = self.values().size()
 
   /**
@@ -1702,6 +1708,7 @@ class Dictionary {
    *     phones.isEmpty()           => Answers false
    *     new Dictionary().isEmpty() => Answers true
    */
+  @Type(name="Boolean") 
   method isEmpty() = self.size() == 0
 
   /**
@@ -1712,7 +1719,8 @@ class Dictionary {
    *     phones.containsKey("4004-4005")  => Answers false
    *     new Dictionary().containsKey(1)  => Answers false
    */
-  method containsKey(_key) = self.keys().contains(_key)
+  @Type(name="Boolean") 
+  method containsKey(@Type(name="Key") _key) = self.keys().contains(_key)
 
   /**
    * Answers whether if this Dictionary maps one or more keys to the specified value.
@@ -1725,7 +1733,8 @@ class Dictionary {
    *     numbers.containsValue(5)          => Answers false
    *     new Dictionary().containsValue(3) => Answers false
    */
-  method containsValue(_value) = self.values().contains(_value)
+  @Type(name="Boolean") 
+  method containsValue(@Type(name="Value") _value) = self.values().contains(_value)
 
   /**
    * Removes the mapping for a key from this Dictionary if it is present.
@@ -1739,7 +1748,8 @@ class Dictionary {
    *     numbers.remove("one")   => numbers is a dictionary ("two" -> 2)
    *     numbers.remove("three") => nothing happens
    */
-  method remove(_key) native
+  @Type(name="Void") 
+  method remove(@Type(name="Key") _key) native
 
   /**
    * Answers a list of the keys contained in this Dictionary.
@@ -1750,6 +1760,7 @@ class Dictionary {
    *     numbers.put("two", 2)
    *     numbers.keys()   => ["one", "two"]
    */
+  @Type(name="List<Key>") 
   method keys() native
 
   /**
@@ -1761,6 +1772,7 @@ class Dictionary {
    *     numbers.put("two", 2)
    *     numbers.values()   => [1, 2]
    */
+  @Type(name="List<Value>") 
   method values() native
 
   /**
@@ -1774,7 +1786,8 @@ class Dictionary {
    *     mapaTelefonos.forEach({ k, v => result += k.size() + v.size() })
    *
    */
-  method forEach(closure) native
+  @Type(name="Void") 
+  method forEach(@Type(name="{ (Key, Value) => Void }") closure) native
 
   /**
    * Removes all of the mappings from this Dictionary.
@@ -1786,6 +1799,7 @@ class Dictionary {
    *     numbers.put("two", 2)
    *     numbers.clear()  => phones == empty dictionary
    */
+  @Type(name="Void") 
   method clear() native
 
   /**

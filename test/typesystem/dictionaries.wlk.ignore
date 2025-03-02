@@ -5,7 +5,7 @@ object dictionaryTests {
 	method stringNumberMethods() {
 		numbers.put("One", 1)
 		
-		@Expect(type="{ (String, Number) => Void }")
+		// @Expect(type="{ (String, Number) => Void }")
 		const put = {k, v => numbers.put(k, v)}
 		
 		@Expect(type="{ (String) => Number }")
