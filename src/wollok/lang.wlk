@@ -33,11 +33,11 @@ class Exception {
    * Prints this exception and its backtrace to the specified printer
    */
   @Type(name="Void") 
-  method printStackTrace(@Type(name="console | StringPrinter") printer) { self.printStackTraceWithPrefix("", printer) }
+  method printStackTrace(@Type(name="(console | StringPrinter)") printer) { self.printStackTraceWithPrefix("", printer) }
 
   /** @private */
   @Type(name="Void") 
-  method printStackTraceWithPrefix(@Type(name="String") prefix, @Type(name="console | StringPrinter") printer) {
+  method printStackTraceWithPrefix(@Type(name="String") prefix, @Type(name="(console | StringPrinter)") printer) {
     printer.println(prefix + self.className() + (if (message != null) (": " + message.toString()) else ""))
 
     // TODO: eventually we will need a stringbuffer or something to avoid memory consumption
@@ -292,7 +292,8 @@ class Collection {
    *       [].max({ e => e.length() })
    *            => Throws error, list must not be empty
    */
-  method max(closure) {
+  @Type(name="Element")
+  method max(@Type(name="{ (Element) => (Date | Number | String) }") closure) {
     self.checkNotNull(closure, "max")
     return self.maxIfEmpty(closure, { throw new ElementNotFoundException(message = "collection is empty") })
   }
@@ -306,6 +307,7 @@ class Collection {
    *       [11, 1, 4, 8, 3, 15, 6].max() =>  Answers 15
    *       [].max()                      =>  Throws error, list must not be empty
    */
+  @Type(name="Element")
   method max() = self.max({it => it})
 
   /**
@@ -324,7 +326,8 @@ class Collection {
    *       [].maxIfEmpty({ e => e.length() }, { "default" })
    *            => Answers "default"
    */
-  method maxIfEmpty(toComparableClosure, emptyCaseClosure) {
+  @Type(name="Element")
+  method maxIfEmpty(@Type(name="{ (Element) => (Date | Number | String) }") toComparableClosure, @Type(name="{ () => Element }") emptyCaseClosure) {
     self.checkNotNull(toComparableClosure, "maxIfEmpty")
     self.checkNotNull(emptyCaseClosure, "maxIfEmpty")
     return self.absolute(toComparableClosure, { a, b => a > b }, emptyCaseClosure)
@@ -341,7 +344,8 @@ class Collection {
    *       [11, 1, 4, 8, 3, 15, 6].maxIfEmpty({ 99 }) =>  Answers 15
    *       [].maxIfEmpty({ 99 })                      =>  Answers 99
    */
-  method maxIfEmpty(emptyCaseClosure) = self.maxIfEmpty({it => it}, emptyCaseClosure)
+  @Type(name="Element")
+  method maxIfEmpty(@Type(name="{ () => Element }") emptyCaseClosure) = self.maxIfEmpty({it => it}, emptyCaseClosure)
 
   /**
    * Answers the element that is considered to be/have the minimum value.
@@ -356,7 +360,8 @@ class Collection {
    *       [].min({ e => e.length() })
    *             => Throws error, list must not be empty
    */
-  method min(closure) {
+  @Type(name="Element")
+  method min(@Type(name="{ (Element) => (Date | Number | String) }") closure) {
     self.checkNotNull(closure, "min")
     return self.absolute(closure, { a, b => a < b }, { throw new ElementNotFoundException(message = "collection is empty") })
   }
@@ -370,6 +375,7 @@ class Collection {
    *       [11, 1, 4, 8, 3, 15, 6].min()  => Answers 1
    *       [].min()                       => Throws error, list must not be empty
    */
+  @Type(name="Element")
   method min() = self.min({it => it})
 
   /**
@@ -388,7 +394,8 @@ class Collection {
    *       [].minIfEmpty({ e => e.length() }, { "default" })
    *             => Answers "default"
    */
-  method minIfEmpty(toComparableClosure, emptyCaseClosure) {
+  @Type(name="Element")
+  method minIfEmpty(@Type(name="{ (Element) => (Date | Number | String) }") toComparableClosure, @Type(name="{ () => Element }") emptyCaseClosure) {
     self.checkNotNull(toComparableClosure, "minIfEmpty")
     self.checkNotNull(emptyCaseClosure, "minIfEmpty")
     return self.absolute(toComparableClosure, { a, b => a < b }, emptyCaseClosure)
@@ -405,13 +412,15 @@ class Collection {
    *       [11, 1, 4, 8, 3, 15, 6].minIfEmpty({ 99 })  => Answers 1
    *       [].minIfEmpty({ 99 })                       => Answers 99
    */
-  method minIfEmpty(emptyCaseClosure) {
+  @Type(name="Element")
+  method minIfEmpty(@Type(name="{ () => Element }") emptyCaseClosure) {
     self.checkNotNull(emptyCaseClosure, "minIfEmpty")
     return self.minIfEmpty({it => it}, emptyCaseClosure)
   }
 
   /** @private */
-  method absolute(closure, criteria, emptyCaseClosure) {
+  @Type(name="Element")
+  method absolute(@Type(name="{ (Element) => (Date | Number | String) }") closure, @Type(name="{ ((Date | Number | String), (Date | Number | String)) => Boolean }") criteria, @Type(name="{ () => Element }") emptyCaseClosure) {
     self.checkNotNull(closure, "absolute")
     self.checkNotNull(criteria, "absolute")
     self.checkNotNull(emptyCaseClosure, "absolute")
@@ -442,6 +451,7 @@ class Collection {
    *       [].uniqueElement()     => Throws error, list must not be empty
    *       [1, 2].uniqueElement() => Throws error, list must have one element
    */
+  @Type(name="Element")
   method uniqueElement() {
     self.validateNotEmpty("uniqueElement")
     const size = self.size()
@@ -460,7 +470,7 @@ class Collection {
    *    [1, 2] + #{3}  => supports concatenation between lists and sets, answers [1, 2, 3]
    *    #{} + []       => Answers #{}
    */
-  method +(elements) {
+  method +(@Type(name="Collection<Element>") elements) {
     const newCol = self.copy()
     newCol.addAll(elements)
     return newCol
@@ -474,7 +484,8 @@ class Collection {
    *    const list = []
    *    list.addAll(#{2, 4})  => list == [2, 4], always pointing to a list
    */
-  method addAll(elements) {
+  @Type(name="Void")
+  method addAll(@Type(name="Collection<Element>") elements) {
     self.checkNotNull(elements, "addAll")
     elements.forEach { element => self.add(element) }
   }
@@ -487,7 +498,8 @@ class Collection {
    *    const list = [1, 6, 5]
    *    list.removeAll([6]) => list == [1, 5]
    */
-  method removeAll(elements) {
+  @Type(name="Void")
+  method removeAll(@Type(name="Collection<Element>") elements) {
     self.checkNotNull(elements, "removeAll")
     elements.forEach { element => self.remove(element) }
   }
@@ -501,7 +513,8 @@ class Collection {
   *    const list = [1, 6, 5]
   *    list.removeAllSuchThat { e => e.even() } => list == [1, 5]
   */
-  method removeAllSuchThat(closure) {
+  @Type(name="Void")
+  method removeAllSuchThat(@Type(name="{ (Element) => Boolean }") closure) {
     self.checkNotNull(closure, "removeAllSuchThat")
     self.removeAll( self.filter(closure) )
   }
@@ -513,13 +526,15 @@ class Collection {
    *    [1, 6, 5].isEmpty() => Answers false
    *    [].isEmpty()        => Answers true
    */
+  @Type(name="Boolean")
   method isEmpty() = self.size() == 0
 
   /**
    * @private
    * Throws error if self collection is empty
    */
-  method validateNotEmpty(operation) {
+  @Type(name="Void")
+  method validateNotEmpty(@Type(name="String") operation) {
     if (self.isEmpty())
       throw new Exception(message = "Illegal operation '" + operation + "' on empty collection")
   }
@@ -533,7 +548,8 @@ class Collection {
    * Example:
    *      plants.forEach { plant => plant.takeSomeWater() }
    */
-  method forEach(closure) {
+  @Type(name="Void")
+  method forEach(@Type(name="{ (Element) => Void }") closure) {
     self.checkNotNull(closure, "forEach")
     self.fold(null, { seed, element =>
       closure.apply(element)
@@ -553,7 +569,8 @@ class Collection {
    *      [1, 3, 5].all { number => number.odd() }    => Answers true
    *      [].all { number => number.odd() }           => Answers true
    */
-  method all(predicate) {
+  @Type(name="Boolean")
+  method all(@Type(name="{ (Element) => Boolean }") predicate) {
     self.checkNotNull(predicate, "all")
     return self.fold(true, { seed, element => 
       if (!seed) 
@@ -575,7 +592,8 @@ class Collection {
    *      [1, 2, 3].any { number => number.even() }   ==> Answers true
    *      [].any { number => number.even() }          ==> Answers false
    */
-  method any(predicate) {
+  @Type(name="Boolean")
+  method any(@Type(name="{ (Element) => Boolean }") predicate) {
     self.checkNotNull(predicate, "any")
     return self.fold(false, { seed, element => 
       if (seed)
@@ -600,7 +618,8 @@ class Collection {
    *      #{1, 3}.find { number => number.even() }     => Throws ElementNotFoundException
    *      #{}.find { number => number.even() }         => Throws ElementNotFoundException
    */
-  method find(predicate) {
+  @Type(name="Element")
+  method find(@Type(name="{ (Element) => Boolean }") predicate) {
     self.checkNotNull(predicate, "find")
     return self.findOrElse(predicate, {
       throw new ElementNotFoundException(message = "there is no element that satisfies the predicate")
@@ -620,7 +639,8 @@ class Collection {
    *      [1, 3, 5].findOrDefault({ number => number.even() }, 0)  => Answers 0
    *      [].findOrDefault({ number => number.even() }, 0)         => Answers 0
    */
-  method findOrDefault(predicate, value) =  self.findOrElse(predicate, { value })
+  @Type(name="Element")
+  method findOrDefault(@Type(name="{ (Element) => Boolean }") predicate, @Type(name="Element") value) =  self.findOrElse(predicate, { value })
 
   /**
    * Answers the element of self collection that satisfies a given condition,
@@ -636,7 +656,8 @@ class Collection {
    *      [1, 3, 5].findOrElse({ number => number.even() }, { 6.max(4) }) => Answers 6
    *      [].findOrElse({ number => number.even() }, { false })           => Answers false
    */
-  method findOrElse(predicate, continuation) native
+  @Type(name="Element")
+  method findOrElse(@Type(name="{ (Element) => Boolean }") predicate, @Type(name="{ () => Element }") continuation) native
 
   /**
    * Counts all elements of self collection that satisfies a given condition
@@ -649,7 +670,8 @@ class Collection {
    *      #{1, 2, 3, 4, 5}.count { number => number.odd() }  => Answers 3
    *      #{}.count { number => number.odd() }               => Answers 0
    */
-  method count(predicate) {
+  @Type(name="Number")
+  method count(@Type(name="{ (Element) => Boolean }") predicate) {
     self.checkNotNull(predicate, "count")
     return self.fold(0, { total, element =>
       if (predicate.apply(element)) total+1 else total
@@ -664,7 +686,8 @@ class Collection {
    *      [1, 8, 4, 1].occurrencesOf(1)  => Answers 2
    *      [].occurrencesOf(2)            => Answers 0
    */
-  method occurrencesOf(element) = self.count({it => it == element})
+  @Type(name="Number")
+  method occurrencesOf(@Type(name="Element") element) = self.count({it => it == element})
 
   /**
    * Collects the sum of each value for all elements.
@@ -679,7 +702,8 @@ class Collection {
    *      const totalNumberOfFlowers = plants.sum{ plant => plant.numberOfFlowers() }
    *      [].sum { employee => employee.salary() }   => Answers 0
    */
-  method sum(closure) {
+  @Type(name="Number")
+  method sum(@Type(name="{ (Element) => Number }") closure) {
     self.checkNotNull(closure, "sum")
     return self.fold(0, { total, element => 
       total + closure.apply(element)
@@ -694,6 +718,7 @@ class Collection {
    *      [1, 2, 3, 4, 5].sum()  => Answers 15
    *      [].sum()               => Answers 0
    */
+  @Type(name="Number")
   method sum() = self.sum( {it => it} )
   
   /**
@@ -705,10 +730,11 @@ class Collection {
    * @returns a number
    *
    * Example:
-*      const averageNumberOfFlowers = plants.average{ plant => plant.numberOfFlowers() }
+   *   const averageNumberOfFlowers = plants.average{ plant => plant.numberOfFlowers() }
    *   [].average { employee => employee.salary() }         => throws an error
    */
-  method average(closure) {
+  @Type(name="Number")
+  method average(@Type(name="{ (Element) => Number }") closure) {
     if (self.size() == 0)
       throw new Exception(message = "You cannot calculate the average of an empty list")
     return self.sum(closure) / self.size()
@@ -722,6 +748,7 @@ class Collection {
    *      [1, 2, 3, 4, 5].average() => Answers 3
    *      [].average()              => throws an error
    */
+  @Type(name="Number")
   method average() = self.average( {it => it} )
 
   /**
@@ -771,7 +798,8 @@ class Collection {
    *       => Answers ["c", "cobol", "pascal", "java", "perl"]
    *
    */
-  method flatMap(closure) {
+  @Type(variable="Mapped", name="List<Mapped>")  
+  method flatMap(@Type(name="{ (Element) => Collection<Mapped> }") closure) {
     self.checkNotNull(closure, "flatMap")
     return self.fold([], { flattenedList, element =>
       flattenedList.addAll(closure.apply(element))
@@ -791,7 +819,8 @@ class Collection {
    *      [1, 2, 3].filter { number => number.even() }          => Answers [2]
    *      #{}.filter { number => number.even() }                => Answers #{}
    */
-  method filter(closure) {
+  // @Type(name="Self") 
+  method filter(/* @Type(name="{ (Element) => Boolean }") */ closure) {
     self.checkNotNull(closure, "filter")
     return self.fold(self.newInstance(), { newCollection, element =>
       if (closure.apply(element)) {
@@ -808,7 +837,8 @@ class Collection {
    *      [].contains(3)        => Answers false
    *      [1, 2, 3].contains(2) => Answers true
    */
-  method contains(element) = self.any {one => element == one }
+  @Type(name="Boolean")
+  method contains(@Type(name="Element") element) = self.any {one => element == one }
 
   /**
    * Flattens a collection of collections. 
@@ -841,9 +871,11 @@ class Collection {
   }
 
   /** @private */
+  @Type(name="String")
   method toStringPrefix()
 
   /** @private */
+  @Type(name="String")
   method toStringSuffix()
 
   /**
@@ -854,6 +886,7 @@ class Collection {
   }
 
   /** Converts a collection to a list */
+  @Type(name="List<Element>")
   method asList()
 
   /** Converts a collection to a set (removing duplicates if necessary)
@@ -868,6 +901,7 @@ class Collection {
    *
    * @see Set
    */
+  @Type(name="Set<Element>")
   method asSet()
 
   /**
@@ -897,7 +931,7 @@ class Collection {
    *      [1, 5, 9, 2, 9].copyWithout(9) => Answers [1, 5, 2]
    *
    */
-  method copyWithout(elementToRemove) {
+  method copyWithout(@Type(name="Element") elementToRemove) {
     return self.filter{ element => element != elementToRemove }
   }
 
@@ -910,7 +944,7 @@ class Collection {
    *      [1, 5, 9, 2, 4].copyWith(9) => Answers [1, 5, 2, 4, 9]
    *
    */
-  method copyWith(elementToAdd) {
+  method copyWith(@Type(name="Element") elementToAdd) {
     const copy = self.copy()
     copy.add(elementToAdd)
     return copy
@@ -932,7 +966,7 @@ class Collection {
    *      [].sortedBy { a, b => a > b }              => Answers []
    *
    */
-  method sortedBy(closure) {
+  method sortedBy(@Type(name="{ (Element, Element) => Boolean }") closure) {
     const copy = self.copy().asList()
     copy.sortBy(closure)
     return copy
@@ -951,17 +985,20 @@ class Collection {
   /**
   * @see subclasses implementations
   */
+  @Type(name="Element")
   method anyOne() = throw new Exception(message = "Should be implemented by the subclasses")
 
   /**
   * @see subclasses implementations
   */
-  method add(element) = throw new Exception(message = "Should be implemented by the subclasses")
+  @Type(name="Void")
+  method add(@Type(name="Element") element) = throw new Exception(message = "Should be implemented by the subclasses")
 
   /**
   * @see subclasses implementations
   */
-  method remove(element) = throw new Exception(message = "Should be implemented by the subclasses")
+  @Type(name="Void")
+  method remove(@Type(name="Element") element) = throw new Exception(message = "Should be implemented by the subclasses")
 
   /**
   * @see subclasses implementations
@@ -971,6 +1008,7 @@ class Collection {
   /**
    * @see subclasses implementations
    */
+  @Type(name="Number")
   method size() = throw new Exception(message = "Should be implemented by the subclasses")
 
   /**
@@ -978,6 +1016,7 @@ class Collection {
    *
    * @see subclasses implementations
    */
+  @Type(name="Void")
   method clear()
 
   /**
@@ -987,7 +1026,8 @@ class Collection {
    * Example:
    *      ["hola", "como", "estas"].join(" ") ==> Answers "hola como estas"
    */
-  method join(separator) {
+  @Type(name="String")
+  method join(@Type(name="String") separator) {
     if (self.isEmpty()) return ""
     const newList = self.asList()
     return newList.subList(1).fold(newList.first().toString(), { string, element => string + separator + element.toString() })
@@ -1000,6 +1040,7 @@ class Collection {
    * Example:
    *      ["hola", "como", "estas"].join()    ==> Answers "hola,como,estas"
    */
+  @Type(name="String")
   method join() = self.join(",")
 
 }
@@ -1090,7 +1131,8 @@ class Set inherits Collection {
    *
    * @returns a Set
    */
-  method union(another) = self + another
+  @Type(name="Set<Element>")
+  method union(@Type(name="Collection<Element>") another) = self + another
 
   /**
    * Answers a new Set with the elements of self that exist in another collection
@@ -1101,7 +1143,8 @@ class Set inherits Collection {
    *
    * @returns a Set
    */
-  method intersection(another) =
+  @Type(name="Set<Element>")
+  method intersection(@Type(name="Collection<Element>") another) =
     self.filter({it => another.contains(it)})
 
   /**
@@ -1113,7 +1156,8 @@ class Set inherits Collection {
    *
    * @returns a Set
    */
-  method difference(another) =
+  @Type(name="Set<Element>")
+  method difference(@Type(name="Collection<Element>") another) =
     self.filter({it => !another.contains(it)})
 
   /**
@@ -1145,6 +1189,7 @@ class Set inherits Collection {
    *
    * @see Collection#filter(closure)
    */
+  // @Type(name="Set<Element>") 
   override method filter(closure) native
 
 
@@ -1184,7 +1229,8 @@ class Set inherits Collection {
   override method add(@Type(name="Element")element) native
 
   /** @private */
-  method unsafeAdd(element) native
+  @Type(name="Void")
+  method unsafeAdd(@Type(name="Element") element) native
 
   /**
    * Removes the specified element from this set if it is present.
@@ -1284,7 +1330,8 @@ class List inherits Collection {
    *     [1, 2, 3].get(3) => Throws error, index exceeds list size
    *     [5, 2, 7].get(0) => Answers 5
    */
-  method get(index) native
+  @Type(name="Element")
+  method get(@Type(name="Number") index) native
 
   /** Creates a new list */
   override method newInstance() = []
@@ -1296,6 +1343,7 @@ class List inherits Collection {
    *    #[1, 2, 3].anyOne() => Answers 3, for example
    *    #[].anyOne()        => Throws error, list must not be empty
    */
+  @Type(name="Element")
   override method anyOne() {
     self.validateNotEmpty("anyOne")
     return self.get(0.randomUpTo(self.size()).truncate(0))
@@ -1316,6 +1364,7 @@ class List inherits Collection {
   /**
    * Synonym for first method
    */
+  @Type(name="Element")
   method head() {
     self.validateNotEmpty("head")
     return self.get(0)
@@ -1330,6 +1379,7 @@ class List inherits Collection {
    *    [1, 2, 3, 4].last()  => Answers 4
    *    [].last()            => Throws error, list must not be empty
    */
+  @Type(name="Element")
   method last() {
     self.validateNotEmpty("last")
     return self.get(self.size() - 1)
@@ -1378,7 +1428,8 @@ class List inherits Collection {
    *    [1, 5, 3, 2, 7, 9].subList(4) => Answers [7, 9]
    *    [].subList(1)                 => Answers []
    */
-  method subList(start) {
+  @Type(name="List<Element>")
+  method subList(@Type(name="Number") start) {
     if (self.isEmpty()) return []
     if (start >= self.size()) return []
     return self.subList(start, self.size() - 1)
@@ -1395,7 +1446,8 @@ class List inherits Collection {
    *    [1, 5, 3, 2, 7, 9].subList(4, 6) => Answers [7, 9]
    *    [].subList(1, 2)                 => Answers []
    */
-  method subList(start, end) {
+  @Type(name="List<Element>")
+  method subList(@Type(name="Number") start, @Type(name="Number") end) {
     self.checkNotNull(start, "subList")
     self.checkNotNull(end, "subList")
     if (self.isEmpty() || start >= self.size())
@@ -1420,7 +1472,8 @@ class List inherits Collection {
    *
    * @see List#sortedBy
    */
-  method sortBy(closure) native
+  @Type(name="Void")
+  method sortBy(@Type(name="{ (Element, Element) => Boolean }") closure) native
 
   /**
    * Takes first n elements of a list.
@@ -1431,7 +1484,8 @@ class List inherits Collection {
    *    [1,9,2,3].take(-2) ==> Answers []
    *    [].take(2)         ==> Answers []
    */
-  method take(n) {
+  @Type(name="List<Element>")
+  method take(@Type(name="Number") n) {
     self.checkNotNull(n, "take")
     return if (n <= 0) self.newInstance() else self.subList(0, n - 1)
   }
@@ -1446,7 +1500,8 @@ class List inherits Collection {
    *     [1, 9, 2, 3].drop(-2) ==> Answers [1, 9, 2, 3]
    *     [].drop(2)            ==> Answers []
    */
-  method drop(n) {
+  @Type(name="List<Element>")
+  method drop(@Type(name="Number") n) {
     self.checkNotNull(n, "drop")
     return if (n >= self.size()) self.newInstance() else self.subList(n, self.size() - 1)
   }
@@ -1462,6 +1517,7 @@ class List inherits Collection {
    *    [].reverse()            ==> Answers []
    *
    */
+  @Type(name="List<Element>")
   method reverse() = self.subList(self.size() - 1, 0)
 
   /**
@@ -1476,6 +1532,7 @@ class List inherits Collection {
    *
    * @see Collection#filter(closure)
    */
+  // @Type(name="List<Element>") 
   override method filter(closure) native
 
   /**
@@ -1541,7 +1598,7 @@ class List inherits Collection {
    *     list.add(2)   => list = [3, 2, 2]
    */
   @Type(name="Void")
-  override method add(@Type(name="Element")element) native
+  override method add(@Type(name="Element") element) native
 
   /**
    * Removes an element in this list, if it is present.
@@ -1609,6 +1666,7 @@ class List inherits Collection {
    * [1, 3, 1, 5, 1, 3, 2, 5].withoutDuplicates() => Answers [1, 3, 5, 2]
    * [].withoutDuplicates()                       => Answers []
    */
+  @Type(name="List<Element>")
   method withoutDuplicates() native
 
   /**
@@ -1619,6 +1677,7 @@ class List inherits Collection {
   *     const list = [1, 2 ,3]
   *     list.randomize()     => list = [2, 1, 3]
   */
+  @Type(name="Void")
   method randomize() {
     self.sortBy{_,__ => [true,false].anyOne()
     }
@@ -1632,6 +1691,7 @@ class List inherits Collection {
   *     [1, 2, 3, 4].randomized() => Answers [2, 3, 1, 4]
   *     [1, 2, 3, 4].randomized() => Answers [2, 1 ,4 ,3]
   */
+  @Type(name="List<Element>")
   method randomized() {
     const copy = self.copy().asList()
     copy.randomize()
@@ -1641,7 +1701,7 @@ class List inherits Collection {
 }
 
 /**
- * Represents a set of key -> values
+ * Represents a set of key -> value
  *
  */
 @Type(variables="Key,Value")
@@ -2218,6 +2278,7 @@ class Number {
  */
 class String {
   /** Answers the number of elements */
+  @Type(name="Number")
   method length() native
 
   /**
@@ -2226,7 +2287,8 @@ class String {
    * at index 0, the next at index 1, and so on, as for array indexing.
    * Parameter index must be a positive integer value.
    */
-  method charAt(index) {
+  @Type(name="String")
+  method charAt(@Type(name="Number") index) {
     self.checkNotNull(index, "charAt")
     if (!index.isInteger()) throw new DomainException(message = "charAt expects an integer instead of " + index)
     return self.substring(index, index + 1)
@@ -2237,14 +2299,16 @@ class String {
    * Example:
    *     "cares" + "s" => Answers "caress"
    */
-  method +(other) = self.concat(other.toString())
+  @Type(name="String")
+  method +(@Type(name="String") other) = self.concat(other.toString())
 
   /**
    * Concatenates the specified string to the end of this string. Same as +.
    * Example:
    *     "cares".concat("s") => Answers "caress"
    */
-  method concat(other) native
+  @Type(name="String")
+  method concat(@Type(name="String") other) native
 
   /**
    * Tests if this string starts with the specified prefix.
@@ -2254,14 +2318,16 @@ class String {
    *     "mother".startsWith("moth")  ==> Answers true
    *     "mother".startsWith("Moth")  ==> Answers false
    */
-  method startsWith(prefix) native
+  @Type(name="Boolean")
+  method startsWith(@Type(name="String") prefix) native
 
   /**
    * Tests if this string ends with the specified suffix.
    * It is case sensitive.
    * @see startsWith
    */
-  method endsWith(suffix) native
+  @Type(name="Boolean")
+  method endsWith(@Type(name="String") suffix) native
 
   /**
    * Answers the index within this string of the first occurrence
@@ -2272,7 +2338,8 @@ class String {
    *     "pototo".indexOf("o")         ==> Answers 1
    *     "unpredictable".indexOf("o")  ==> Answers -1
    */
-  method indexOf(other) native
+  @Type(name="Number")
+  method indexOf(@Type(name="String") other) native
 
   /**
    * Answers the index within this string of the last
@@ -2283,7 +2350,8 @@ class String {
    *     "pototo".lastIndexOf("o")         ==> Answers 5
    *     "unpredictable".lastIndexOf("o")  ==> Answers -1
    */
-  method lastIndexOf(other) native
+  @Type(name="Number")
+  method lastIndexOf(@Type(name="String") other) native
 
   /**
    * Converts all of the characters in this String to lower case
@@ -2292,6 +2360,7 @@ class String {
    *     "Fer".toLowerCase()  ==> Answers "fer"
    *     "".toLowerCase()     ==> Answers ""
    */
+  @Type(name="String")
   method toLowerCase() native
 
   /**
@@ -2301,6 +2370,7 @@ class String {
    *     "Fer".toUpperCase()  ==> Answers "FER"
    *     "".toUpperCase()     ==> Answers ""
    */
+  @Type(name="String")
   method toUpperCase() native
 
   /**
@@ -2310,6 +2380,7 @@ class String {
    * Example:
    *     "   emptySpace  ".trim()  ==> "emptySpace"
    */
+  @Type(name="String")
   method trim() native
 
   /**
@@ -2319,6 +2390,7 @@ class String {
    * Example:
    *     "hola".reverse()  ==> "aloh"
    */
+  @Type(name="String")
   method reverse() native
 
   /**
@@ -2330,7 +2402,8 @@ class String {
    *     "word".takeLeft(-1) ==> Throws error
    *     "".takeLeft(2)      ==> Answers ""
    */
-  method takeLeft(length) = self.take(length)
+  @Type(name="String")
+  method takeLeft(@Type(name="Number") length) = self.take(length)
 
   /**
    * Takes last n characters of this string.
@@ -2342,17 +2415,22 @@ class String {
    *     "word".takeRight(-1) ==> Throws error
    *     "".takeRight(2)      ==> Answers ""
    */
-  method takeRight(_length) {
+  @Type(name="String")
+  method takeRight(@Type(name="Number") _length) {
     const length = _length.coerceToPositiveInteger().min(self.size())
     return self.drop(self.size() - length)
   }
 
-  method <(aString) native
-  method <=(aString) {
+  @Type(name="Boolean")
+  method <(@Type(name="String") aString) native
+  @Type(name="Boolean")
+  method <=(@Type(name="String") aString) {
     return self == aString || self < aString
   }
-  method >(aString) native
-  method >=(aString) {
+  @Type(name="Boolean")
+  method >(@Type(name="String") aString) native
+  @Type(name="Boolean")
+  method >=(@Type(name="String") aString) {
     return self == aString || self > aString
   }
 
@@ -2364,9 +2442,11 @@ class String {
    *     "unusual".contains("usual")  ==> Answers true
    *     "become".contains("CO")      ==> Answers false
    */
-  method contains(element) native
+  @Type(name="Boolean")
+  method contains(@Type(name="String") element) native
 
   /** Answers whether this string has no characters */
+  @Type(name="Boolean")
   method isEmpty() = self.size() == 0
 
   /**
@@ -2375,7 +2455,8 @@ class String {
    * Example:
    *    "WoRD".equalsIgnoreCase("Word")  ==> Answers true
    */
-  method equalsIgnoreCase(aString) {
+  @Type(name="Boolean")
+  method equalsIgnoreCase(@Type(name="String") aString) {
     self.checkNotNull(aString, "equalsIgnoreCase")
     return self.toUpperCase() == aString.toUpperCase()
   }
@@ -2389,7 +2470,8 @@ class String {
    *     "substitute".substring(6)  ==> Answers "tute", second "t" is in position 6
    *     "effect".substring(0)      ==> Answers "effect", has no effect at all
    */
-  method substring(index) native
+  @Type(name="String") 
+  method substring(@Type(name="Number") index) native
 
   /**
    * Answers a substring of this string beginning
@@ -2401,7 +2483,8 @@ class String {
    *     "walking".substring(0, 5)   ==> Answers "walki"
    *     "walking".substring(0, 45)  ==> throws an out of range exception
    */
-  method substring(startIndex, endIndex) native
+  @Type(name="String")
+  method substring(@Type(name="Number") startIndex, @Type(name="Number") endIndex) native
 
   /**
    * Splits this string around matches of the given string.
@@ -2425,7 +2508,8 @@ class String {
    *     "aaaa".split("aa")
    *          ==> Answers ["", "", ""]
    */
-  method split(expression) {
+  @Type(name="List<String>")
+  method split(@Type(name="String") expression) {
     self.checkNotNull(expression, "split")
     var text = self
     const result = []
@@ -2457,7 +2541,8 @@ class String {
    *     "stupid is what stupid does".replace("stupid", "genius")
    *           ==> Answers "genius is what genius does"
    */
-  method replace(expression, replacement) native
+  @Type(name="String")
+  method replace(@Type(name="String") expression, @Type(name="String") replacement) native
 
   /** This object (which is already a string!) is itself returned */
   override method toString() native
@@ -2476,6 +2561,7 @@ class String {
   override method ==(other) native
 
   /** A synonym for length */
+  @Type(name="Number")
   method size() = self.length()
 
   /**
@@ -2488,7 +2574,8 @@ class String {
    *     "lowercase".take(-1) ==> Throws error
    *     "".take(2)           ==> Answers ""
    */
-  method take(n) {
+  @Type(name="String")
+  method take(@Type(name="Number") n) {
     self.checkNotNull(n, "take")
     return self.substring(0, n.min(self.size()))
   }
@@ -2504,7 +2591,8 @@ class String {
    *      "caption".drop(-1)   ==> Throws error
    *      "".drop(2)           ==> Answers ""
    */
-  method drop(n) {
+  @Type(name="String")
+  method drop(@Type(name="Number") n) {
     self.checkNotNull(n, "drop")
     return self.substring(n.min(self.size()), self.size())
   }
@@ -2518,6 +2606,7 @@ class String {
    *
    *      "".words() ==> Answers []
    */
+  @Type(name="List<String>")
   method words() = self.split(" ")
 
   /**
@@ -2527,6 +2616,7 @@ class String {
    * Example:
    *      "javier fernandes".capitalize() ==> Answers "Javier Fernandes"
    */
+  @Type(name="String")
   method capitalize() {
     const capitalizedPhrase = self.words().fold("", { words, word => words + word.take(1).toUpperCase() + word.drop(1).toLowerCase() + " " })
     return capitalizedPhrase.take(capitalizedPhrase.size() - 1)
@@ -2646,7 +2736,8 @@ class Range {
    *     new Range(start = 1, end = 3).forEach { value => console.println(value) }
    *         => prints 1, 2, 3
    */
-  method forEach(closure) native
+  @Type(name="Void") 
+  method forEach(@Type(name="{ (Number) => Void }") closure) native
 
   /**
    * Answers a new collection that contains the result of
@@ -2745,7 +2836,8 @@ class Range {
    *
    * @see List#filter(closure)
    */
-  method filter(closure) = self.asList().filter(closure)
+  @Type(name="List<Number>") 
+  method filter(@Type(name="{ (Number) => Boolean }") closure) = self.asList().filter(closure)
 
   /**
    * Answers the element that represents the minimum value in the range.
@@ -2784,7 +2876,8 @@ class Range {
    *     new Range(start = 2, end = 5).contains(4) ==> Answers true
    *     (new Range(start = 2, end = 5)).contains(0) ==> Answers false
    */
-  method contains(element) = self.asList().contains(element)
+  @Type(name="Boolean")
+  method contains(@Type(name="Number") element) = self.asList().contains(element)
 
   /**
    * Sums all elements in the collection.
@@ -3091,7 +3184,7 @@ class Date {
    *         ==> Answers true
    */
   @Type(name="Boolean") 
-  method between(@Type(name="Date") _startDate, @Type(name="Boolean") _endDate) = (self >= _startDate) && (self <= _endDate)
+  method between(@Type(name="Date") _startDate, @Type(name="Date") _endDate) = (self >= _startDate) && (self <= _endDate)
 
   /**
    * Shows a short, internal representation of a date

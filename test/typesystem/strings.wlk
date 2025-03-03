@@ -1,7 +1,7 @@
 object stringsTests {
 	
 	@Expect(type="(String) => Number")
-	method m1(s) = s.length() + 1
+	method m1(s) = s.length() + s.size()
 
 	@Expect(type="(Number) => String")
 	method m2(n) = ("hola".charAt(n) + "e").toUpperCase()
@@ -18,17 +18,17 @@ object stringsTests {
 	@Expect(type="() => String")
 	method m6() = "hola".trim()
 
-	@Expect(type="(String) => Number")
-	method m7(a) = if (a >= "hello") 0 else 1
+	@Expect(type="(String) => Boolean")
+	method m7(a) = "hello" >= a
 
 	@Expect(type="(String) => Boolean")
-	method m8(a) = a > (a.trim())
+	method m8(a) = (a.trim()) > a
 
 	@Expect(type="(String) => Boolean")
-	method m9(a) = a < (a.toLowerCase())
+	method m9(a) = (a.toLowerCase()) < a
 
 	@Expect(type="(String) => Boolean")
-	method m10(a) = a <= (a.trim())
+	method m10(a) = (a.trim()) <= a
 
 	@Expect(type="(String) => Boolean")
 	method m11(s) = "hello".contains(s)
@@ -45,17 +45,17 @@ object stringsTests {
 	@Expect(type="(Object, String) => String")
 	method m15(s, s2) {
 		@Expect(type="String")
-		var value = s.printString()
+		const value = s.printString()
 		@Expect(type="String")
 		const value2 = value.toString()
 		return value.replace("h", s2)
 	}
 
 	@Expect(type="(String) => String")
-	method m16(s) = (s + "").take(s.size() - 1)
+	method m16(s) = ("" + s).take(1)
 
 	@Expect(type="(Any) => Boolean")
-	method m17(s) = "hola" == s
+	method m17(_s) = "hola" == _s
 
 	@Expect(type="(String, Number) => List<String>")
 	method m18(s, n) {

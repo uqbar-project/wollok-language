@@ -188,7 +188,7 @@ object game {
    * Example:
    *     game.getObjectsIn(game.origin())
    */  
-  @Type(name="List<Any>") 
+  @Type(variable="Visual", name="List<Visual>") 
   method getObjectsIn(@Type(name="Position") position) native
 
   /**
@@ -212,7 +212,7 @@ object game {
   /**
    * Returns all objects that are in same position of given object.
    */  
-  @Type(name="List<Any>") 
+  @Type(variable="Visual", name="List<Visual>") 
   method colliders(visual) native
 
   /**
@@ -328,7 +328,7 @@ object game {
 	/** 	
    * @private	
    */	
-  
+  @Type(name="Void") 
 	method doCellSize(@Type(name="Number") size) native
 
   /**
