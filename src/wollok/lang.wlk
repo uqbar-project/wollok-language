@@ -122,12 +122,17 @@ class StackTraceElement {
  */
 class Object {
 
+  /**
+   * This method is called when any object is instanciated
+   */
+  @Type(name="Void")
   method initialize() { }
 
   /**
    * Answers object identity of a Wollok object, represented by
    * a unique number in Wollok environment
    */
+  @Type(name="String")
   method identity() native
 
   /** Object description in english/spanish/... (depending on i18n configuration)
@@ -138,12 +143,14 @@ class Object {
    *
    * @private
    */
+  @Type(name="String")
   method kindName() native
 
   /**
    * Full name of Wollok object class
    * @private
    */
+  @Type(name="String")
   method className() native
 
   /**
@@ -164,28 +171,33 @@ class Object {
    *
    * The default behavior compares them in terms of identity (===)
    */
-  method ==(other) = self === other
+  @Type(name="Boolean")
+  method ==(@Type(name="Object") other) = self === other
 
   /** Tells whether self object is not equal to the given one */
-  method !=(other) = ! (self == other)
+  @Type(name="Boolean")
+  method !=(@Type(name="Object") other) = ! (self == other)
 
   /**
    * Tells whether self object is identical (the same) to the given one.
    * It does it by comparing their identities.
    * So self basically relies on the wollok.lang.Integer equality (which is native)
    */
-  method ===(other) = self.identity() == other.identity()
+  @Type(name="Boolean")
+  method ===(@Type(name="Object") other) = self.identity() == other.identity()
 
   /**
    * Tells whether self object is not identical (the same) to the given one.
    * @See === message.
    */
-  method !==(other) = ! (self === other)
+  @Type(name="Boolean")
+  method !==(@Type(name="Object") other) = ! (self === other)
 
   /**
    * o1.equals(o2) is a synonym for o1 == o2
    */
-  method equals(other) = self == other
+  @Type(name="Boolean")
+  method equals(@Type(name="Object") other) = self == other
 
   /**
    * Generates a Pair key-value association. @see Pair.
@@ -205,6 +217,7 @@ class Object {
   /**
    * Shows a short, internal representation
    */
+  @Type(name="String")
   method shortDescription() = self.toString()
 
   /**
@@ -212,10 +225,14 @@ class Object {
    * By default, same as toString but can be overridden
    * like in String
    */
+  @Type(name="String")
   method printString() = self.toString()
 
-  /** @private */
-  method messageNotUnderstood(messageName, parameters) {
+  /** 
+   * Throws MessageNotUnderstoodException using self as target object
+   * @private 
+   */
+  method messageNotUnderstood(@Type(name="String") messageName, @Type(name="List<Object>") parameters) {
     const target = if (messageName != "toString")
           self.toString()
          else
@@ -225,28 +242,28 @@ class Object {
   }
 
   /**
-   * @private
-   *
-   * internal method: generates a does not understand message
+   * Generates a does not understand message
    * parametersSize must be an integer value
+   * @private
    */
-  method generateDoesNotUnderstandMessage(target, messageName, parametersSize) native
+  @Type(name="String")
+  method generateDoesNotUnderstandMessage(@Type(name="String") target, @Type(name="String") messageName, @Type(name="Number") parametersSize) native
 
-  /** Builds an exception with a message */
-  method error(aMessage) {
+  /** Throws a DomainException with a message */
+  method error(@Type(name="String") aMessage) {
     throw new DomainException(message = aMessage, source = self)
   }
 
   /** @private */
-  method checkNotNull(value, message) native
+  @Type(name="Void")
+  method checkNotNull(value, @Type(name="String") message) native
 }
 
 /** Representation for methods that only have side effects */
 object void { }
 
 /**
- * Representation of a Key/Value Association.
- * It is also useful if you want to model a Point.
+ * Representation of a Key -> Value Association.
  */
 class Pair {
   const property x
@@ -1927,6 +1944,7 @@ class Number {
    * Otherwise, if it is a decimal, defined coercing algorithm is applied
    * (see definition of class Number)
    */
+  @Type(name="Number")
   method coerceToInteger() native
 
   /**
@@ -1935,6 +1953,7 @@ class Number {
    *
    * Applies coercing strategy to integer. And throws exception if it is negative.
    */
+  @Type(name="Number")
   method coerceToPositiveInteger() native
 
   /**
@@ -1959,7 +1978,8 @@ class Number {
    *    15.div(5)     ==> Answers 3
    *    8.2.div(3.3)  ==> Answers 2
    */
-  method div(other) {
+  @Type(name="Number")
+  method div(@Type(name="Number") other) {
     self.checkNotNull(other, "div")
     return (self / other).truncate(0)
   }
@@ -1971,12 +1991,14 @@ class Number {
    *     3.2 ** 2 ==> Answers 10.24
    *     3 ** 2   ==> Answers 9
    */
-  method **(other) native
+  @Type(name="Number")
+  method **(@Type(name="Number") other) native
 
   /**
    * Answers remainder of division between self and other
    */
-  method %(other) native
+  @Type(name="Number")
+  method %(@Type(name="Number") other) native
 
   /** String representation of self number */
   override method toString() native
@@ -1987,16 +2009,21 @@ class Number {
    * Example:
    *     1..4       Answers ==> a new Range object from 1 to 4
    */
-  method ..(end) {
+  @Type(name="Range")
+  method ..(@Type(name="Number") end) {
     self.checkNotNull(end, "..")
     return new Range(start = self, end = end)
   }
 
-  method >(other) native
-  method <(other) native
+  @Type(name="Boolean")
+  method >(@Type(name="Number") other) native
+  @Type(name="Boolean")
+  method <(@Type(name="Number") other) native
 
-  method >=(other) = self > other || self == other
-  method <=(other) = self < other || self == other
+  @Type(name="Boolean")
+  method >=(@Type(name="Number") other) = self > other || self == other
+  @Type(name="Boolean")
+  method <=(@Type(name="Number") other) = self < other || self == other
 
   /**
    * Answers absolute value of self
@@ -2007,6 +2034,7 @@ class Number {
    *     2.7.abs()    ==> Answers 2.7
    *     (-3.2).abs() ==> Answers 3.2 (be careful with parentheses)
    */
+  @Type(name="Number")
   method abs() native
 
   /**
@@ -2018,6 +2046,7 @@ class Number {
    *     3.2.invert()    ==> -3.2
    *     (-2.4).invert() ==> 2.4 (be careful with parentheses)
    */
+  @Type(name="Number")
   method invert() native
 
   /**
@@ -2026,7 +2055,8 @@ class Number {
    * Example:
    *     5.max(8)    ==> Answers 8
    */
-  method max(other) {
+  @Type(name="Number")
+  method max(@Type(name="Number") other) {
     self.checkNotNull(other, "max")
     return if (self >= other) self else other
   }
@@ -2037,7 +2067,8 @@ class Number {
     * Example:
     *     5.min(8)    ==> Answers 5
     */
-  method min(other) {
+  @Type(name="Number")
+  method min(@Type(name="Number") other) {
     self.checkNotNull(other, "min")
     return if (self <= other) self else other
   }
@@ -2053,7 +2084,8 @@ class Number {
    * 4.limitBetween(1, 2)  ==> Answers 2, because 4 is not in range 1..2, but 2 is nearest value to 4
    *
    */
-  method limitBetween(limitA, limitB) {
+  @Type(name="Number")
+  method limitBetween(@Type(name="Number") limitA, @Type(name="Number") limitB) {
     self.checkNotNull(limitA, "limitBetween")
     self.checkNotNull(limitB, "limitBetween")
     return
@@ -2071,13 +2103,15 @@ class Number {
    *     6.between(4, 6) ==> Answers true
    *     3.between(4, 6) ==> Answers false
    */
-  method between(min, max) = (self >= min) && (self <= max)
+  @Type(name="Boolean")
+  method between(@Type(name="Number") min, @Type(name="Number") max) = (self >= min) && (self <= max)
 
   /** Answers squareRoot of self
    *
    * Example:
    *     9.squareRoot() => Answers 3
    */
+  @Type(name="Number")
   method squareRoot() = self ** 0.5
 
   /** Answers square of self
@@ -2085,6 +2119,7 @@ class Number {
    * Example:
    *     3.square() => Answers 9
    */
+  @Type(name="Number")
   method square() = self * self
 
   /**
@@ -2102,6 +2137,7 @@ class Number {
    *
    * Self must be an integer value
    */
+  @Type(name="Boolean")
   method odd() {
     if (!self.isInteger()) return false
     return !self.even()
@@ -2113,7 +2149,8 @@ class Number {
    *     5.rem(3)   ==> Answers 2
    *     5.5.rem(3) ==> Answers 2
    */
-  method rem(other) {
+  @Type(name="Number")
+  method rem(@Type(name="Number") other) {
     self.checkNotNull(other, "rem")
     return self % other
   }
@@ -2121,6 +2158,7 @@ class Number {
   /*
    * Self as String value. Equivalent: toString()
    */
+  @Type(name="String")
   method stringValue() = self.toString()
 
   /**
@@ -2133,7 +2171,8 @@ class Number {
    *     14.6165.roundUp(3)   ==> 14.617
    *     5.roundUp(3)         ==> 5
    */
-   method roundUp(_decimals) native
+  @Type(name="Number")
+  method roundUp(@Type(name="Number") _decimals) native
 
   /**
    * Truncates self up to a certain amount of decimals.
@@ -2145,12 +2184,14 @@ class Number {
    *     -14.6165.truncate(3) ==> -14.616
    *     5.truncate(3)        ==> 5
    */
-  method truncate(_decimals) native
+  @Type(name="Number")
+  method truncate(@Type(name="Number")_decimals) native
 
   /**
    * Answers a random number between self and max
    */
-  method randomUpTo(max) native
+  @Type(name="Number")
+  method randomUpTo(@Type(name="Number")max) native
 
   /**
    * Answers the next integer greater than self
@@ -2160,11 +2201,13 @@ class Number {
    *     -13.224.roundUp() ==> -14
    *     15.942.roundUp()  ==> 16
    */
+  @Type(name="Number")
   method roundUp() = self.roundUp(0)
 
   /**
    * Returns the value of a number rounded to the nearest integer.
   **/
+  @Type(name="Number")
   method round() native
 
   /**
@@ -2174,6 +2217,7 @@ class Number {
    *     5.5.floor() ==> Answers 5
    *     5.floor() ==> Answers 5
   **/
+  @Type(name="Number")
   method floor() = self.truncate(0)
 
   /**
@@ -2184,7 +2228,8 @@ class Number {
    *     8.gcd(12) ==> Answers 4
    *     5.gcd(10) ==> Answers 5
    */
-  method gcd(other) native
+  @Type(name="Number")
+  method gcd(@Type(name="Number") other) native
 
   /**
    * least common multiple.
@@ -2194,7 +2239,8 @@ class Number {
    *     3.lcm(4)  ==> Answers 12
    *     6.lcm(12) ==> Answers 12
    */
-  method lcm(other) {
+  @Type(name="Number")
+  method lcm(@Type(name="Number") other) {
     self.checkNotNull(other, "lcm")
     const mcd = self.gcd(other)
     return self * (other / mcd)
@@ -2208,6 +2254,7 @@ class Number {
    *     6.00012.digits() ==> Answers 6
    *     -100.digits()    ==> Answers -3
    */
+  @Type(name="Number")
   method digits() {
     var digits = self.toString().size()
     if (self < 0) {
@@ -2231,6 +2278,7 @@ class Number {
    *     (2.0001).isInteger() ==> Answers false if rounding strategy is set to 5 decimal places (default)
    *     (2.0001).isInteger() ==> Answers true if rounding strategy is set to 3 decimal places
    */
+  @Type(name="Boolean")
   method isInteger() native
 
   /**
@@ -2238,6 +2286,7 @@ class Number {
    * like 2, 3, 5, 7, 11 ...
    * Self must be an integer positive value
    */
+  @Type(name="Boolean")
   method isPrime() {
     const intValue = self.coerceToInteger()
     if (intValue == 1) return false
@@ -2258,7 +2307,8 @@ class Number {
    *       3
    *       4
    */
-  method times(action) {
+  @Type(name="Void")
+  method times(@Type(name="{ (Number) => Void }") action) {
     self.checkNotNull(action, "times")
     const intValue = self.coerceToInteger()
     if (intValue < 0) self.error("times requires a positive integer number")
@@ -2266,6 +2316,7 @@ class Number {
   }
 
   /** Allows users to define a positive number with 1 or +1 */
+  @Type(name="Number")
   method plus() = self
 }
 

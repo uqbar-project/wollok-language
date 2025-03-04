@@ -3,7 +3,6 @@ object numberTest {
 	@Expect(type="(Any) => Void")
 	method m0(_a) {
 		2.checkNotNull(_a, "m0")
-		console.println("end")
 	}
 
 	@Expect(type="(Number) => Number")
@@ -53,7 +52,7 @@ object numberTest {
 	method m13(a) {
 		@Expect(type="Number")
 		const value = a.invert()
-		return a.max(value)
+		return value.max(a)
 	}
 
 	@Expect(type="(Number) => Number")
