@@ -26,9 +26,10 @@ All files follow a **standard coding convention**, please refer to them in the [
 
 ## 🔨 Current work
 
-- [Wollok Roadmap for 2024](https://docs.google.com/spreadsheets/d/1SAmnsdYvkrx_Yby_zP3MyGB_IPT1kzITSQGCCIwqSvc/edit#gid=0)
+- [Wollok Roadmap for 2025](https://docs.google.com/spreadsheets/d/e/2PACX-1vTs5yO__2UHv-4SOh8NgOLinl4i2FxLrSnJHVCqjHNVl0QX5oNOWHAILGiq9AOx9BX0JQcd96iWX4cs/pubhtml?gid=1825384426&single=true)
 
-![Roadmap 2024](./images/wollok_roadmap_2024.png)
+<img width="1183" alt="image" src="https://github.com/user-attachments/assets/3c7f25e1-19f2-4609-bafc-ec3a06a0c50c" />
+
 
 ## ✨ Another useful repositories
 
