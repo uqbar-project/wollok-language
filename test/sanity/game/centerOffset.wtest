@@ -1,0 +1,164 @@
+import wollok.game.*
+import wollok.lang.io.*
+
+describe "CenterOffset position" {
+  /**
+    * Scenario: 
+    * - A CenterOffset with 0 xOffset and 0 yOffset.
+    */
+  var centerOffset
+  
+  override method initialize() {
+    game.width(2)
+    game.height(5)
+    centerOffset = new CenterOffset()
+  }
+ 
+  test "x is 1 and y is 2 if the board width is 2 and height is 5 and default offsets for CenterOffset are 0" {
+    assert.equals(new Position(x = 1, y = 2), centerOffset)
+  }
+
+  test "CenterOffsets are not rounded at instantiation" {
+    centerOffset = centerOffset.right(0.3)
+    centerOffset = centerOffset.up(0.4)
+
+    assert.equals(new Position(x = 1.3, y = 2.4), centerOffset)
+  }
+  
+  test "move right should create a new position while game is running" {
+    game.start()
+    const right = centerOffset.right(2)
+    const expectedPosition = new Position(x = 3, y = 2)
+    
+    assert.equals(expectedPosition.className(), right.className())
+    assert.equals(expectedPosition, right)
+  }
+  
+  test "move left should create a new position while game is running" {
+  	game.start()
+    
+    const left = centerOffset.left(1)
+    const expectedPosition = new Position(x = 0, y = 2)
+
+    assert.equals(expectedPosition.className(), left.className())
+    assert.equals(expectedPosition, left)
+  }
+  
+  test "move up should create a new position while game is running" {
+  	game.start()
+    const up = centerOffset.up(2)
+    const expectedPosition = new Position(x = 1, y = 4)
+
+    assert.equals(expectedPosition.className(), up.className())
+    assert.equals(expectedPosition, up)
+  }
+  
+  test "move down should create a new position while game is running" {
+  	game.start()
+    
+    const down = centerOffset.down(2)
+    const expectedPosition = new Position(x = 1, y = 0)
+
+    assert.equals(expectedPosition.className(), down.className())
+    assert.equals(expectedPosition, down)
+  }
+
+  test "move right should create a new center offset while game is idle" {
+    assert.notThat(game.running())
+    centerOffset = centerOffset.right(2)
+    assert.equals(new Position(x = 3, y = 2), centerOffset)  	
+    
+    game.width(10)
+    assert.equals(new Position(x = 7, y = 2), centerOffset)  	
+  }
+  
+  test "move left should create a new center offset while game is idle" {
+    assert.notThat(game.running())
+
+  	centerOffset = centerOffset.left(1)
+    assert.equals(new Position(x = 0, y = 2), centerOffset)  
+
+    game.width(10)
+    assert.equals(new Position(x = 4, y = 2), centerOffset)  		
+  }
+  
+  test "move up should create a new center offset while game is idle" {
+    assert.notThat(game.running())
+
+  	centerOffset = centerOffset.up(2)
+    assert.equals(new Position(x = 1, y = 4), centerOffset)  	
+
+    game.height(10)
+    assert.equals(new Position(x = 1, y = 7), centerOffset)  	 	
+  }
+  
+  test "move down should create a new center offset while game is idle" {
+    assert.notThat(game.running())
+  	centerOffset = centerOffset.down(2)
+    assert.equals(new Position(x = 1, y = 0), centerOffset)  	
+    
+    game.height(10)
+    assert.equals(new Position(x = 1, y = 3), centerOffset)  	 	
+  }
+  
+  test "clone should create a new center offset while game is idle" {
+    assert.notThat(game.running())
+  	const clonedCenter = centerOffset.clone()
+    
+    assert.equals(new Position(x = 1, y = 2), clonedCenter)  	
+    
+    game.width(6)
+    game.height(8)
+    assert.equals(new Position(x = 3, y = 4), clonedCenter)  	
+  }
+
+  test "clone should create a new position while game is running" {
+  	game.start()
+    const clonedCenter = centerOffset.clone()
+    const expectedPosition = new Position(x = 1, y = 2)
+
+    assert.equals(expectedPosition.className(), clonedCenter.className())
+    assert.equals(expectedPosition, clonedCenter)
+  }
+
+  test "center offset round should be rounded as a new CenterOffset while game is idle" {
+    centerOffset = centerOffset.right(0.6)
+    centerOffset = centerOffset.up(0.3)
+
+  	assert.equals(new Position(x = 2, y = 2), centerOffset.round())
+    
+    game.width(10)
+    game.height(10)
+
+    assert.equals(new Position(x = 6, y = 5), centerOffset.round())
+  }
+
+  test "center offset round should create a Position with rounded x and y when game is running" {
+    centerOffset = centerOffset.right(0.3)
+    centerOffset = centerOffset.up(0.6)
+    game.start()
+  	
+    const roundedPosition = centerOffset.round()
+    const expectedPosition = new Position(x = 1, y = 3)
+
+    assert.equals(expectedPosition.className(), roundedPosition.className())
+    assert.equals(expectedPosition, roundedPosition)
+  }
+
+  test "center offset should create a position when createPosition is called while game is running" {
+    game.start()
+    const position = centerOffset.createPosition(0, 0)
+    const expectedPosition = new Position(x = 0, y = 0)
+
+    assert.equals(expectedPosition.className(), position.className())
+  	assert.equals(expectedPosition, position)
+  }
+
+  test "center offset should create a CenterOffset when createPosition is called while game is idle" {
+    centerOffset = centerOffset.createPosition(0, 0)
+  	const expectedPosition = new CenterOffset(xOffset = -(game.xCenter()), yOffset = -(game.yCenter()))
+
+    assert.equals(expectedPosition.className(), centerOffset.className())
+    assert.equals(expectedPosition, centerOffset)
+  }
+}
