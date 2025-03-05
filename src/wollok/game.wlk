@@ -8,8 +8,8 @@ object game {
   /** Collection of visual objects in the game */
   const visuals = []
   /** Is Game running? */
-  var property running = false
-    
+  var running = false
+
   /**
    * Allows to configure a visual component as "error reporter".
    * Then every error in game board will be reported by this visual component,
@@ -26,7 +26,12 @@ object game {
     self.cellSize(50)
     self.ground("ground.png")
   }
-  
+
+  /*
+  * Indicates if game is running or idle.
+  */
+  method running() = running
+
   /**
    * Adds an object to the board for drawing it.
    * Object should understand a position property 
@@ -217,14 +222,14 @@ object game {
    * Stops render the board and finish the game.
    */  
   method stop(){
-    self.running(false)
+    running = false
   }
   
   /**
    * Starts render the board in a new windows.
    */  
   method start() {
-    self.running(true)
+    running = true
     io.exceptionHandler({ exception => exception.printStackTrace() })
     io.domainExceptionHandler({ exception => 
       const reporter = if (errorReporter == null) exception.source() else errorReporter
