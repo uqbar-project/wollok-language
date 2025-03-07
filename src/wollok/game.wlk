@@ -9,6 +9,10 @@ object game {
   const visuals = []
   /** Is Game running? */
   var running = false
+  /** Board width */
+  var width = 5
+  /** Board height */
+  var height = 5
 
   /**
    * Allows to configure a visual component as "error reporter".
@@ -21,8 +25,6 @@ object game {
     super()
     
     self.title("Wollok Game")
-    self.width(5)
-    self.height(5)
     self.cellSize(50)
     self.ground("ground.png")
   }
@@ -229,6 +231,8 @@ object game {
    * Starts render the board in a new windows.
    */  
   method start() {
+    if (running)
+      throw new Exception(message = "Game is already running")
     running = true
     io.exceptionHandler({ exception => exception.printStackTrace() })
     io.domainExceptionHandler({ exception => 
@@ -277,22 +281,28 @@ object game {
   /**
    * Sets board width (in cells).
    */      
-  method width(width) native
+  method width(_width){
+    self.validateSize(_width)
+    width = _width
+  }
 
   /**
    * Returns board width (in cells).
    */    
-  method width() native
+  method width() = width
 
   /**
    * Sets board height (in cells).
    */      
-  method height(height) native
+  method height(_height){
+    self.validateSize(_height)
+    height = _height
+  }
 
   /**
    * Returns board height (in cells).
    */    
-  method height() native
+  method height() = height
 
   /**
    * Sets cells background image.
@@ -345,6 +355,12 @@ object game {
     return new Tick(interval = interval, action =  action, inmediate = execInmediately)
   }
 
+  method validateSize(size){
+    if (running)
+      throw new Exception(message = "Width and Height cannot be changed while game is running")
+    if (size <= 0 or !size.isInteger())
+      throw new Exception(message = "Width and Height must be natural numbers")
+  }
 }
 
 class AbstractPosition {
