@@ -82,7 +82,7 @@ describe "Game" {
   test "While game is running center is an inmmutable position" {
     game.width(2)
     game.height(5)
-    game.running(true) //Check refactor is game var running remove setter method.
+    game.start()
    
     const center = game.center()
    
@@ -226,7 +226,7 @@ describe "Game" {
     assert.notThat(game.onSameCell(game.at(1.5, 2.6), game.at(1.3, 2.3)))
   }
 
-  test 'addVisualCharacter should be moved with arrow keys' {
+  test 'addVisualCharacter should be moved with Up arrow key' {
     const character = new Visual()
     game.addVisualCharacter(character)
     // Simulate
@@ -236,7 +236,37 @@ describe "Game" {
     assert.equals(game.at(0, 1), character.position())
   }
 
-  test 'addVisualCharacter no exceed limits' {
+   test 'addVisualCharacter should be moved with Down arrow key' {
+    const character = new Visual(position = game.at(0,1))
+    game.addVisualCharacter(character)
+    // Simulate
+    io.queueEvent(["keypress", "ArrowDown"])
+    game.flushEvents(0)
+    
+    assert.equals(game.at(0, 0), character.position())
+  }
+
+   test 'addVisualCharacter should be moved with Right arrow key' {
+    const character = new Visual()
+    game.addVisualCharacter(character)
+    // Simulate
+    io.queueEvent(["keypress", "ArrowRight"])
+    game.flushEvents(0)
+    
+    assert.equals(game.at(1, 0), character.position())
+  }
+
+   test 'addVisualCharacter should be moved with Left arrow key' {
+    const character = new Visual(position = game.at(1,0))
+    game.addVisualCharacter(character)
+    // Simulate
+    io.queueEvent(["keypress", "ArrowLeft"])
+    game.flushEvents(0)
+    
+    assert.equals(game.at(0, 0), character.position())
+  }
+
+  test 'addVisualCharacter no exceed bottom limit' {
     const character = new Visual()
     game.addVisualCharacter(character)
     // Simulate
@@ -244,5 +274,37 @@ describe "Game" {
     game.flushEvents(0)
     
     assert.equals(game.at(0, 0), character.position())
+  }
+
+   test 'addVisualCharacter no exceed top limit' {
+   const topPosition = game.at(0,game.height()-1)
+   const character = new Visual(position = topPosition))
+    game.addVisualCharacter(character)
+    // Simulate
+    io.queueEvent(["keypress", "ArrowUp"])
+    game.flushEvents(0)
+    
+    assert.equals(topPosition, character.position())
+  }
+
+  test 'addVisualCharacter no exceed left limit' {
+    const character = new Visual()
+    game.addVisualCharacter(character)
+    // Simulate
+    io.queueEvent(["keypress", "ArrowLeft"])
+    game.flushEvents(0)
+    
+    assert.equals(game.at(0, 0), character.position())
+  }
+
+  test 'addVisualCharacter no exceed right limit' {
+    const rightLimitPosition = game.at(game.width()-1, 0)
+    const character = new Visual(position = rightLimitPosition))
+    game.addVisualCharacter(character)
+    // Simulate
+    io.queueEvent(["keypress", "ArrowRight"])
+    game.flushEvents(0)
+    
+    assert.equals(rightLimitPosition, character.position())
   }
 }
