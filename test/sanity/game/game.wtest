@@ -30,6 +30,11 @@ describe "Game" {
     assert.that(game.running())
   }
 
+ test "start while running should fail" {
+    game.start()
+    assert.throwsExceptionWithMessage("Game is already running", {game.start()})
+  }
+
   test "on start configure io" {
     const oldExceptionHandler = io.exceptionHandler()
     const oldDomainExceptionHandler = io.domainExceptionHandler()
@@ -41,6 +46,21 @@ describe "Game" {
   test "on start should init a server on tests" {
     const serve = game.start()
     assert.notThat(serve)
+  }
+
+  test "set width and height while running should fail" {
+    game.start()
+
+    assert.throwsExceptionWithMessage("Width and Height cannot be changed while game is running", {game.width(1)})
+    assert.throwsExceptionWithMessage("Width and Height cannot be changed while game is running", {game.height(1)})
+  }
+
+  test "set width and height not to integer numbers greater than 0 should fail" {
+    assert.throwsExceptionWithMessage("Width and Height must be natural numbers", {game.width(0)})
+    assert.throwsExceptionWithMessage("Width and Height must be natural numbers", {game.height(0)})
+    
+    assert.throwsExceptionWithMessage("Width and Height must be natural numbers", {game.width(1.5)})
+    assert.throwsExceptionWithMessage("Width and Height must be natural numbers", {game.height(1.5)})
   }
 
   test "can instance new position" {
@@ -82,7 +102,7 @@ describe "Game" {
   test "While game is running center is an inmmutable position" {
     game.width(2)
     game.height(5)
-    game.running(true) //Check refactor is game var running remove setter method.
+    game.start()
    
     const center = game.center()
    
