@@ -23,9 +23,6 @@ object game {
 
   override method initialize() {
     super()
-    
-    self.width(5)
-    self.height(5)
     self.title("Wollok Game")
     self.cellSize(50)
     self.ground("ground.png")
