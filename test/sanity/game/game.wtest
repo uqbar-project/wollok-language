@@ -276,7 +276,7 @@ describe "Game" {
     assert.equals(game.at(0, 0), character.position())
   }
 
-   test 'addVisualCharacter no exceed top limit' {
+   test 'addVisualCharacter should not exceed top limit' {
    const topPosition = game.at(0,game.height()-1)
    const character = new Visual(position = topPosition))
     game.addVisualCharacter(character)
