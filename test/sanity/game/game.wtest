@@ -287,7 +287,7 @@ describe "Game" {
     assert.equals(topPosition, character.position())
   }
 
-  test 'addVisualCharacter no exceed left limit' {
+  test 'addVisualCharacter should not exceed left limit' {
     const character = new Visual()
     game.addVisualCharacter(character)
     // Simulate
@@ -297,7 +297,7 @@ describe "Game" {
     assert.equals(game.at(0, 0), character.position())
   }
 
-  test 'addVisualCharacter no exceed right limit' {
+  test 'addVisualCharacter should not exceed right limit' {
     const rightLimitPosition = game.at(game.width()-1, 0)
     const character = new Visual(position = rightLimitPosition))
     game.addVisualCharacter(character)
