@@ -27,7 +27,7 @@ object game {
     self.ground("ground.png")
   }
 
-  /*
+  /**
   * Indicates if game is running or idle.
   */
   method running() = running
