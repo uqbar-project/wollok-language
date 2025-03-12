@@ -2,14 +2,13 @@ program p {
 	@Expect(type="Object")
 	var comparable
 	
-	if (comparable == @Expect(type="Any") null) {
+	if (comparable == @Expect(type="Object") null) {
 		comparable = @Expect(type="Object") null
 	}
 	
 	@Expect(type="Number")
 	var num1 = 1
 	
-	@Expect(type="Number")
-	num1 = null
+	num1 = @Expect(type="Number") null
 }
 

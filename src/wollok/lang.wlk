@@ -265,11 +265,16 @@ object void { }
 /**
  * Representation of a Key -> Value Association.
  */
+@Type(variables="Key,Value")
 class Pair {
+  @Type(name="Key")
   const property x
+  @Type(name="Value")
   const property y
 
+  @Type(name="Key")
   method key() = x
+  @Type(name="Value")
   method value() = y
 
   /**

@@ -8,11 +8,9 @@ class Direccion {
 	const calle = "Medrano"
 	const numero = 951
 
-	// Esto garantiza los tipos de calle y número
 	method tipar() = calle.charAt(numero)
 }
 
-// Instanciación directa usando variables de superclase
 class DireccionRemota inherits Direccion {
 	const ciudad = new Ciudad(km = 0)
 	
