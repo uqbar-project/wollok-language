@@ -32,6 +32,11 @@ describe "Game" {
     assert.that(game.running())
   }
 
+ test "start while running should fail" {
+    game.start()
+    assert.throwsExceptionWithMessage("Game is already running", {game.start()})
+  }
+
   test "on start configure io" {
     const oldExceptionHandler = io.exceptionHandler()
     const oldDomainExceptionHandler = io.domainExceptionHandler()
@@ -43,6 +48,27 @@ describe "Game" {
   test "on start should init a server on tests" {
     const serve = game.start()
     assert.notThat(serve)
+  }
+
+  test "set width, height or cell size while running should fail" {
+    game.start()
+    const errorMessage = "Width, height and cell size cannot be changed while game is running"
+
+    assert.throwsExceptionWithMessage(errorMessage, {game.width(1)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.height(1)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.cellSize(1)})
+  }
+
+  test "set width, height or cell size not to natural numbers should fail" {
+    const errorMessage = "Width, height and cell size must be natural numbers"
+
+    assert.throwsExceptionWithMessage(errorMessage, {game.width(0)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.height(0)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.cellSize(0)})
+    
+    assert.throwsExceptionWithMessage(errorMessage, {game.width(1.5)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.height(1.5)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.cellSize(1.5)})
   }
 
   test "can instance new position" {
