@@ -50,19 +50,25 @@ describe "Game" {
     assert.notThat(serve)
   }
 
-  test "set width and height while running should fail" {
+  test "set width, height or cell size while running should fail" {
     game.start()
+    const errorMessage = "Width, height and cell size cannot be changed while game is running"
 
-    assert.throwsExceptionWithMessage("Width and Height cannot be changed while game is running", {game.width(1)})
-    assert.throwsExceptionWithMessage("Width and Height cannot be changed while game is running", {game.height(1)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.width(1)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.height(1)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.cellSize(1)})
   }
 
-  test "set width and height not to integer numbers greater than 0 should fail" {
-    assert.throwsExceptionWithMessage("Width and Height must be natural numbers", {game.width(0)})
-    assert.throwsExceptionWithMessage("Width and Height must be natural numbers", {game.height(0)})
+  test "set width, height or cell size not to natural numbers should fail" {
+    const errorMessage = "Width, height and cell size must be natural numbers"
+
+    assert.throwsExceptionWithMessage(errorMessage, {game.width(0)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.height(0)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.cellSize(0)})
     
-    assert.throwsExceptionWithMessage("Width and Height must be natural numbers", {game.width(1.5)})
-    assert.throwsExceptionWithMessage("Width and Height must be natural numbers", {game.height(1.5)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.width(1.5)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.height(1.5)})
+    assert.throwsExceptionWithMessage(errorMessage, {game.cellSize(1.5)})
   }
 
   test "can instance new position" {

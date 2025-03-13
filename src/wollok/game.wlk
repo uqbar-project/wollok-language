@@ -13,6 +13,12 @@ object game {
   var width = 5
   /** Board height */
   var height = 5
+  /** Game title */
+  var property title = "Wollok Game"
+  /** Game ground */
+  var ground = "ground.png"
+  /** Board cell size */
+  var cellSize = 50
 
   /**
    * Allows to configure a visual component as "error reporter".
@@ -20,13 +26,6 @@ object game {
    * in a balloon message form.
    */
   var property errorReporter = null
-
-  override method initialize() {
-    super()
-    self.title("Wollok Game")
-    self.cellSize(50)
-    self.ground("ground.png")
-  }
 
   /**
   * Indicates if game is running or idle.
@@ -267,17 +266,7 @@ object game {
    */  
   method center() = if (running) new Position(x = self.xCenter(), y = self.yCenter())  else new CenterOffset()
 	
-  /**
-   * Sets game title.
-   */    
-  method title(title) native
-
-  /**
-   * Returns game title.
-   */    
-  method title() native
-  
-  /**
+   /**
    * Sets board width (in cells).
    */      
   method width(_width){
@@ -306,23 +295,19 @@ object game {
   /**
    * Sets cells background image.
    */      
-  method ground(image) native
+  method ground(image) {
+    ground = image
+  }
   
   /**
-   * Sets cells size.	
+   * Sets cells size (in cells).	
    */				
   method cellSize(size) {
-    if (size <= 0)
-      throw new Exception(message = "Cell size cannot be 0 or lower")
-    self.doCellSize(size)
+    self.validateSize(size)
+    cellSize = size
   }
 
-	/** 	
-   * @private	
-   */	
-	method doCellSize(size) native
-
-  /**
+	/**
    * Sets full background image.
    */      
   method boardGround(image) native
@@ -348,17 +333,19 @@ object game {
    * Returns a tick object to be used for an action execution over interval time. 
    * The interval is in milliseconds and action is a block without params.
   */
-
   method tick(interval, action, execInmediately) {
     if (interval < 1) { self.error("Interval must be higher than zero.") }
     return new Tick(interval = interval, action =  action, inmediate = execInmediately)
   }
 
+  /** 	
+   * @private	
+   */	
   method validateSize(size){
     if (running)
-      throw new Exception(message = "Width and Height cannot be changed while game is running")
+      throw new Exception(message = "Width, height and cell size cannot be changed while game is running")
     if (size <= 0 or !size.isInteger())
-      throw new Exception(message = "Width and Height must be natural numbers")
+      throw new Exception(message = "Width, height and cell size must be natural numbers")
   }
 }
 
