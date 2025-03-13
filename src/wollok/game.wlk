@@ -307,7 +307,7 @@ object game {
     cellSize = size
   }
 
-	/**
+  /**
    * Sets full background image.
    */      
   method boardGround(image) native
