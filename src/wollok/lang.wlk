@@ -2071,10 +2071,20 @@ class Number {
    *
    * Example:
    *     13.224.roundUp()  ==> 14
-   *     -13.224.roundUp() ==> -14
+   *     -13.224.roundUp() ==> -14 //SHOULD BE -12!
    *     15.942.roundUp()  ==> 16
    */
   method roundUp() = self.roundUp(0)
+
+  /**
+   * Answers the next integer smaller than self
+   *
+   * Example:
+   *     13.224.roundDown()  ==> 13
+   *     -13.224.roundDown() ==> -14
+   *     15.942.roundDown()  ==> 15
+   */
+  method roundDown() = self.floor() //self.roundDown(0)
 
   /**
    * Returns the value of a number rounded to the nearest integer.
@@ -2082,13 +2092,26 @@ class Number {
   method round() native
 
   /**
-   * Converts a decimal number into an integer truncating the decimal part.
+   * Converts a decimal number into an integer truncating the decimal part to the same or lower value.
    *
    * Example:
    *     5.5.floor() ==> Answers 5
    *     5.floor() ==> Answers 5
+   *     (-5).floor() ==> Answers -5
+   *     (-5.5).floor() ==> Answers -6
   **/
-  method floor() = self.truncate(0)
+  method floor() = if(self.isInteger()) self else { self.truncate(0) - if(self < 0) 1 else 0 } //Fix negative flooring, is like roundDown, roundUp is like ceiling.
+
+  /**
+   * Converts a decimal number into an integer truncating the decimal part to the same or grater value.
+   *
+   * Example:
+   *     5.5.ceiling() ==> Answers 6
+   *     5.ceiling() ==> Answers 5
+   *     (-5).ceiling() ==> Answers -5
+   *     (-5.5).ceiling() ==> Answers -5
+  **/
+  method ceiling() = if(self.isInteger()) self else { self.truncate(0) + if(self < 0) 0 else 1 } //Logic to fix negative ceiling. Is like roundUp
 
   /**
    * greater common divisor.

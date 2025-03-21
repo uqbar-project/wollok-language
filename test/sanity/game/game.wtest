@@ -82,7 +82,7 @@ describe "Game" {
   test "While game is running center is an inmmutable position" {
     game.width(2)
     game.height(5)
-    game.running(true) //Check refactor is game var running remove setter method.
+    game.start()
    
     const center = game.center()
    
