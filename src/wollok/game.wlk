@@ -17,6 +17,8 @@ object game {
   var property title = "Wollok Game"
   /** Game ground */
   var ground = "ground.png"
+  /** Game cell ground */
+  var boardGround = false
   /** Board cell size */
   var cellSize = 50
 
@@ -310,8 +312,10 @@ object game {
   /**
    * Sets full background image.
    */      
-  method boardGround(image) native
-  
+  method boardGround(image){
+    boardGround = image
+  } 
+    
   /**
    * Attributes will not show when user mouse over a visual component.
    * Default behavior is to show them.
