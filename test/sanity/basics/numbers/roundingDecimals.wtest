@@ -5,7 +5,7 @@ describe "Decimal tests"{
 
   test "roundUp" {
     assert.equals(14, 13.224.roundUp())
-    assert.equals(-14, -13.224.roundUp())
+    assert.equals(-14, -13.224.roundUp()) //Should be -12
     assert.equals(16, 15.942.roundUp())
     assert.equals(15, 15.0.roundUp())
     assert.equals(-15, -15.0.roundUp())
@@ -30,6 +30,17 @@ describe "Decimal tests"{
     assert.equals(5, 5.1.floor())
     assert.equals(5, 5.5.floor())
     assert.equals(5, 5.9.floor())
+    assert.equals(-6, (-5.8).floor())
+    assert.equals(-5, -5.floor())
+  }
+
+  test "ceiling"{
+    assert.equals(5, 5.ceiling())
+    assert.equals(6, 5.1.ceiling())
+    assert.equals(6, 5.5.ceiling())
+    assert.equals(6, 5.9.ceiling())
+    assert.equals(-5, (-5.8).ceiling())
+    assert.equals(-5, -5.ceiling())
   }
 
   test "roundUp negative decimals throws error"{
