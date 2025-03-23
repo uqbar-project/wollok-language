@@ -177,3 +177,9 @@ class ObjectMirrorStub {
   method instanceVariables() native
     
 }
+
+object o {
+  const a = 1
+  // a is used in assignment
+  const property b = a
+}
