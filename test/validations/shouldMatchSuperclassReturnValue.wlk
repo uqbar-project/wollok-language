@@ -90,3 +90,45 @@ class WithReturnMethod inherits WithoutReturnMethod {
     throw new Exception()
   }
 }
+
+// Issue 307
+class Filosofo {
+  method iluminacion() = 4
+}
+
+class FilosofoRotoOk inherits Filosofo {
+	@Expect(code="shouldMatchSuperclassReturnValue", level="error", expectedOn="if (1 > 0) 3 else 5")
+  override method iluminacion() {
+    if (1 > 0) 3 else 5
+  }
+}
+
+class FilosofoFeliz inherits Filosofo {
+  override method iluminacion() {
+    if (1 > 0) {
+      return 3
+    }
+
+    return 5
+  }
+}
+
+class FilosofoFeliz2 inherits Filosofo {
+  override method iluminacion() = if (1 > 0) 3 else 5
+}
+
+class FilosofoFeliz3 inherits Filosofo {
+  override method iluminacion() {
+    return if (1 > 0) 3 else 5
+  }
+}
+
+class FilosofoFeliz4 inherits Filosofo {
+  override method iluminacion() {
+    if (1 > 0) {
+      return 3
+    } else {
+      return 5
+    }
+  }
+}
