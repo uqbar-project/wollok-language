@@ -18,7 +18,7 @@ object game {
   /** Game ground */
   var ground = "ground.png"
   /** Game cell ground */
-  var boardGround = false
+  var boardGround = null
   /** Board cell size */
   var cellSize = 50
 
