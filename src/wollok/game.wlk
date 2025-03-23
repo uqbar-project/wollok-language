@@ -268,7 +268,7 @@ object game {
    */  
   method center() = if (running) new Position(x = self.xCenter(), y = self.yCenter())  else new CenterOffset()
 	
-   /**
+  /**
    * Sets board width (in cells).
    */      
   method width(_width){
