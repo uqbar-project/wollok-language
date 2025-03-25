@@ -26,5 +26,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
+    - run: npm ci        
     - name: run tests
       run: npm run build && npm run test
