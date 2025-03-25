@@ -15,10 +15,11 @@ jobs:
     - uses: actions/checkout@v4
       with:
         repository: uqbar-project/wollok-ts
+    - name: copy nvm
+      run: cp wollok-ts/.nvmrc .
     - name: Read .nvmrc
       run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
       id: nvm
-      working-directory: ../wollok-ts
     - name: Use Node.js (.nvmrc)
       uses: actions/setup-node@v4
       with:
