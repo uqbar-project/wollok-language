@@ -15,7 +15,8 @@ jobs:
       with:
         repository: uqbar-project/wollok-ts
     - uses: actions/checkout@v4
-      path: language
+      with:
+        path: language
     - name: list folders
       run: ls -lR
     - name: Read .nvmrc
