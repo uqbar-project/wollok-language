@@ -18,11 +18,11 @@ jobs:
     - name: Read .nvmrc
       run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
       id: nvm
-      working-directory: wollok-ts
+      working-directory: ../wollok-ts
     - name: Use Node.js (.nvmrc)
       uses: actions/setup-node@v4
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - name: run tests
-      run: npm run build && npm run test
+      run: ls -la .. && npm run build && npm run test
       working-directory: wollok-ts
