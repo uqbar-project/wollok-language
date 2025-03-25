@@ -16,7 +16,7 @@ jobs:
       with:
         repository: uqbar-project/wollok-ts
     - name: copy nvm
-      run: cp wollok-ts/.nvmrc .
+      run: ls -lR . && cp wollok-ts/.nvmrc .
     - name: Read .nvmrc
       run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
       id: nvm
@@ -25,5 +25,5 @@ jobs:
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - name: run tests
-      run: ls -la .. && npm run build && npm run test
+      run: npm run build && npm run test
       working-directory: wollok-ts
