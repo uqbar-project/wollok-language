@@ -12,11 +12,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/checkout@v4
       with:
         repository: uqbar-project/wollok-ts
-    - name: copy nvm
-      run: ls -lR . && cp wollok-ts/.nvmrc .
+    - uses: actions/checkout@v4
+      path: language
+    - name: list folders
+      run: ls -lR
     - name: Read .nvmrc
       run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
       id: nvm
@@ -26,4 +27,3 @@ jobs:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - name: run tests
       run: npm run build && npm run test
-      working-directory: wollok-ts
