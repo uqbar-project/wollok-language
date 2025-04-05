@@ -428,3 +428,19 @@ object closureTests {
 
   method m1() { bool = false }
 }
+
+// Issue 121
+class A121 {
+    method a121(){}
+}
+
+class B121 inherits A121 {
+    var cumple = false
+    override method a121(){
+        if (cumple){
+            cumple = false
+        } else {
+            super()
+        }   
+    }
+}
