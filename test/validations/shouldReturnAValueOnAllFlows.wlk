@@ -429,7 +429,7 @@ object closureTests {
   method m1() { bool = false }
 }
 
-// Issue 121
+// Issue 121 - https://github.com/uqbar-project/wollok-ts/issues/314
 class A121 {
     method a121(){}
 }
@@ -443,4 +443,31 @@ class B121 inherits A121 {
             super()
         }   
     }
+}
+
+// Issue 314 - https://github.com/uqbar-project/wollok-ts/issues/314
+class NoSePuedeSacrificarException inherits DomainException {}
+class NoPuedeRecorrerException inherits DomainException {}
+
+class Guerrero {
+  var property poder = 100
+}
+
+class Grupo {
+  const guerreros = []
+  method sacrificarMiembro() {
+  }
+
+  method puedeRecorrerZona(zona) = true
+
+  method intentarRecorrerZona(zona) {
+    if (not self.puedeRecorrerZona(zona)) {
+        try {
+            self.sacrificarMiembro()
+        } catch e : NoSePuedeSacrificarException {
+            throw new NoPuedeRecorrerException(message = "El grupo no puede recorrer la zona")
+        }
+    }
+    guerreros.forEach({ guerrero => zona.aplicarEfectos(guerrero) })
+  }
 }
