@@ -471,3 +471,112 @@ class Grupo {
     guerreros.forEach({ guerrero => zona.aplicarEfectos(guerrero) })
   }
 }
+
+/* ================================================================================
+ * - try/catch/then always examples
+ * ===============================================================================*/
+class TryCatchAlways {
+  var someVariable = 1
+
+  method tryWithReturnAndCatchWithAssignmentShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      return 2
+    } catch e {
+      someVariable = 2
+    }") 
+    try {
+      return 2
+    } catch e {
+      someVariable = 2
+    }
+  }
+
+  method tryWithAssignmentAndCatchWithReturnShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      someVariable = 2
+    } catch e {
+      return 2
+    }") 
+    try {
+      someVariable = 2
+    } catch e {
+      return 2
+    }
+  }
+
+  method tryWithThenAlwaysWithAssignmentAndCatchWithReturnShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      return 1
+    } catch e {
+      return 2
+    } then always {
+      someVariable = 3
+    }") 
+    try {
+      return 1
+    } catch e {
+      return 2
+    } then always {
+      someVariable = 3
+    }
+  }
+
+  method tryWithAssignmentAndThenAlwaysWithReturnAndCatchWithReturnShouldPass() {
+    try {
+      someVariable = 3
+    } catch e {
+      return 2
+    } then always {
+      return 1
+    }
+  }
+
+  method tryWithIfWithReturnAndAssignmentAndCatchWithReturnShouldFail() {
+    try {
+      @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (someVariable > 1) return 1 else { someVariable = 2 }")
+      if (someVariable > 1) return 1 else { someVariable = 2 }
+    } catch e {
+      return 2
+    }
+  }
+
+  method tryWithAssignmentAndThenAlwaysWithReturnAndCatchWithThrowShouldPass() {
+    try {
+      someVariable = 3
+    } catch e {
+      throw new DomainException()
+    } then always {
+      return 1
+    }
+  }
+
+  method tryWithAssignmentAndThenAlwaysWithThrowAndCatchWithThrowShouldPass() {
+    try {
+      someVariable = 3
+    } catch e {
+      throw new DomainException(message = "Catch failed")
+    } then always {
+      throw new DomainException(message = "It failed!")
+    }
+  }
+
+  method tryWithLiteralAndCatchWithThrowShouldPass() =
+    try {
+      3
+    } catch e {
+      throw new DomainException(message = "Catch failed")
+    }
+
+  method tryWithLiteralAndCatchWithAssignmentShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      3
+    } catch e {
+      someVariable = 3
+    }")
+    try {
+      3
+    } catch e {
+      someVariable = 3
+    }    
+  }
+}
