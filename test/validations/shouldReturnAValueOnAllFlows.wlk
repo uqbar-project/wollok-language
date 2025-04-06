@@ -475,7 +475,16 @@ class Grupo {
 /* ================================================================================
  * - try/catch/then always examples
  * ===============================================================================*/
-class TryCatchAlways {
+class AbstractTryCatch {
+  method tryWithAssignmentAndCatchWithSuperShouldPass() {
+  }
+
+  method tryWithSuperAndCatchWithAssignmentShouldPass() {
+  }
+
+}
+
+class TryCatchAlways inherits AbstractTryCatch {
   var someVariable = 1
 
   method tryWithReturnAndCatchWithAssignmentShouldFail() {
@@ -579,4 +588,121 @@ class TryCatchAlways {
       someVariable = 3
     }    
   }
+
+  method tryWithAssignmentAndCatchWithNewShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      someVariable = 3
+    } catch e {
+      new Date()
+    }")
+    try {
+      someVariable = 3
+    } catch e {
+      new Date()
+    }
+  }
+
+  method tryWithNewAndCatchWithAssignmentShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      new Date()
+    } catch e {
+      someVariable = 3
+    }")
+    try {
+      new Date()
+    } catch e {
+      someVariable = 3
+    }
+  }
+
+  method tryWithAssignmentAndCatchWithReferenceShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      someVariable = 3
+    } catch e {
+      someVariable
+    }")
+    try {
+      someVariable = 3
+    } catch e {
+      someVariable
+    }
+  }
+
+  method tryWithReferenceAndCatchWithAssignmentShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      someVariable
+    } catch e {
+      someVariable = 3
+    }")
+    try {
+      someVariable
+    } catch e {
+      someVariable = 3
+    }
+  }
+
+  method tryWithAssignmentAndCatchWithSendShouldPass() {
+    try {
+      someVariable = 3
+    } catch e {
+      // until we have a Type System this will pass
+      2.even()
+    }
+  }
+
+  method tryWithSendAndCatchWithSendShouldPass() {
+    try {
+      // until we have a Type System this will pass
+      2.even()
+    } catch e {
+      someVariable = 3
+    }
+  }
+
+  override method tryWithAssignmentAndCatchWithSuperShouldPass() {
+    try {
+      someVariable = 3
+    } catch e {
+      // until we have a Type System this will pass
+      super()
+    }
+  }
+
+  override method tryWithSuperAndCatchWithAssignmentShouldPass() {
+    try {
+      // until we have a Type System this will pass
+      super()
+    } catch e {
+      someVariable = 3
+    }
+  }
+
+  method tryWithAssignmentAndCatchWithVariableShouldPass() {
+    const local = 12
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      someVariable = 3
+    } catch e {
+      local
+    }")
+    try {
+      someVariable = 3
+    } catch e {
+      local
+    }
+  }
+
+  method tryWithVariableAndCatchWithAssignmentShouldPass() {
+    const local = 13
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      local
+    } catch e {
+      someVariable = 3
+    }")
+    try {
+      local
+    } catch e {
+      someVariable = 3
+    }
+  }
+
 }
