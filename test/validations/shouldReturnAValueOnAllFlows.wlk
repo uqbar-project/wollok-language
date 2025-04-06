@@ -706,3 +706,20 @@ class TryCatchAlways inherits AbstractTryCatch {
   }
 
 }
+
+// Regression test from LSP-IDE issue 175 - https://github.com/uqbar-project/wollok-lsp-ide/issues/175
+class Antivirus {
+  const baseConocimiento
+  method esMalware(unPrograma) = baseConocimiento.any({ programa => programa == unPrograma.nombre() })
+}
+
+class AntivirusGratuito inherits Antivirus {
+  const fechaExpiracion
+
+  override method esMalware(unPrograma) {
+    if (new Date() > fechaExpiracion)
+      return false
+    else
+      return super(unPrograma)
+  }
+}
