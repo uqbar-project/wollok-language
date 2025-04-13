@@ -126,6 +126,10 @@ describe "Decimal tests"{
     assert.throwsException { 1.223445.truncate("A") }
   }
 
+  test "truncate not integer decimals throws error"{
+    assert.throwsException { 1.223445.truncate(1.2) }
+  }
+
   test "integerTruncate" {
     assert.equals(5, (10/2).truncate(2))
   }
