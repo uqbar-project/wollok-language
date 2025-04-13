@@ -5,7 +5,7 @@ describe "Decimal tests"{
 
   test "roundUp" {
     assert.equals(14, 13.224.roundUp())
-    assert.equals(-13, -13.224.roundUp()) //FAIL, but in Typescript Playground (oldest to newest verison 3.3.3 5.8.3) return the expected value!!! I'm goung bananas!
+    assert.equals(-13, -13.224.roundUp()) //FAIL, but in Typescript Playground (oldest to newest verison 3.3.3 5.8.3) return the expected value!!! I'm going bananas!
     assert.equals(16, 15.942.roundUp())
     assert.equals(15, 15.0.roundUp())
     assert.equals(-15, -15.0.roundUp())
@@ -13,14 +13,14 @@ describe "Decimal tests"{
 
   test "roundUp Decimals"{
     assert.equals(1.224, 1.223445.roundUp(3))
-    assert.equals(-1.223, -1.223445.roundUp(3)) //FAIL, but in Typescript Playground (oldest to newest verison 3.3.3 5.8.3) return the expected value!!! I'm goung bananas!
+    assert.equals(-1.223, -1.223445.roundUp(3)) //FAIL, but in Typescript Playground (oldest to newest verison 3.3.3 5.8.3) return the expected value!!! I'm going bananas!
     assert.equals(14.617, 14.6165.roundUp(3))
     assert.equals(14.6165, 14.6165.roundUp(6))
   }
 
   test "roundDown" {
     assert.equals(13, 13.224.roundDown())
-    assert.equals(-14, -13.224.roundDown()) //FAIL, but in Typescript Playground (oldest to newest verison 3.3.3 5.8.3) return the expected value!!! I'm goung bananas!
+    assert.equals(-14, -13.224.roundDown()) //FAIL, but in Typescript Playground (oldest to newest verison 3.3.3 5.8.3) return the expected value!!! I'm going bananas!
     assert.equals(15, 15.942.roundDown())
     assert.equals(15, 15.0.roundDown())
     assert.equals(-15, -15.0.roundDown())
@@ -28,7 +28,7 @@ describe "Decimal tests"{
 
   test "roundDown Decimals"{
     assert.equals(1.223, 1.223445.roundDown(3))
-    assert.equals(-1.224, -1.223445.roundDown(3)) //FAIL, but in Typescript Playground (oldest to newest verison 3.3.3 5.8.3) return the expected value!!! I'm goung bananas!
+    assert.equals(-1.224, -1.223445.roundDown(3)) //FAIL, but in Typescript Playground (oldest to newest verison 3.3.3 5.8.3) return the expected value!!! I'm going bananas!
     assert.equals(14.616, 14.6165.roundDown(3))
     assert.equals(14.6165, 14.6165.roundDown(6))
   }
