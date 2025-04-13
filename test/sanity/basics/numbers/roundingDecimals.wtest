@@ -62,12 +62,12 @@ describe "Decimal tests"{
     assert.throwsException { 1.223445.roundUp(-3) }
   }
 
-  test "roundUp alphabetic decimals throws error"{
-    assert.throwsException { 1.223445.roundUp("B") }
-  }
-
   test "roundUp not integer decimals throws error"{
     assert.throwsException { 1.223445.roundUp(1.2) }
+  }
+
+  test "roundUp alphabetic decimals throws error"{
+    assert.throwsException { 1.223445.roundUp("B") }
   }
   
   test "integerRoundUp" {
@@ -87,7 +87,7 @@ describe "Decimal tests"{
   }
 
  test "roundDown negative decimals throws error"{
-    assert.throwsException { 1.223445.roundUp(-3) }
+    assert.throwsException { 1.223445.roundDown(-3) }
   }
 
   test "roundDown alphabetic decimals throws error"{
