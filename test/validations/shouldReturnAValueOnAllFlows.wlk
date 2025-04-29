@@ -428,3 +428,298 @@ object closureTests {
 
   method m1() { bool = false }
 }
+
+// Issue 121 - https://github.com/uqbar-project/wollok-ts/issues/314
+class A121 {
+    method a121(){}
+}
+
+class B121 inherits A121 {
+    var cumple = false
+    override method a121(){
+        if (cumple){
+            cumple = false
+        } else {
+            super()
+        }   
+    }
+}
+
+// Issue 314 - https://github.com/uqbar-project/wollok-ts/issues/314
+class NoSePuedeSacrificarException inherits DomainException {}
+class NoPuedeRecorrerException inherits DomainException {}
+
+class Guerrero {
+  var property poder = 100
+}
+
+class Grupo {
+  const guerreros = []
+  method sacrificarMiembro() {
+  }
+
+  method puedeRecorrerZona(zona) = true
+
+  method intentarRecorrerZona(zona) {
+    if (not self.puedeRecorrerZona(zona)) {
+        try {
+            self.sacrificarMiembro()
+        } catch e : NoSePuedeSacrificarException {
+            throw new NoPuedeRecorrerException(message = "El grupo no puede recorrer la zona")
+        }
+    }
+    guerreros.forEach({ guerrero => zona.aplicarEfectos(guerrero) })
+  }
+}
+
+/* ================================================================================
+ * - try/catch/then always examples
+ * ===============================================================================*/
+class AbstractTryCatch {
+  method tryWithAssignmentAndCatchWithSuperShouldPass() {
+  }
+
+  method tryWithSuperAndCatchWithAssignmentShouldPass() {
+  }
+
+}
+
+class TryCatchAlways inherits AbstractTryCatch {
+  var someVariable = 1
+
+  method tryWithReturnAndCatchWithAssignmentShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      return 2
+    } catch e {
+      someVariable = 2
+    }") 
+    try {
+      return 2
+    } catch e {
+      someVariable = 2
+    }
+  }
+
+  method tryWithAssignmentAndCatchWithReturnShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      someVariable = 2
+    } catch e {
+      return 2
+    }") 
+    try {
+      someVariable = 2
+    } catch e {
+      return 2
+    }
+  }
+
+  method tryWithThenAlwaysWithAssignmentAndCatchWithReturnShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      return 1
+    } catch e {
+      return 2
+    } then always {
+      someVariable = 3
+    }") 
+    try {
+      return 1
+    } catch e {
+      return 2
+    } then always {
+      someVariable = 3
+    }
+  }
+
+  method tryWithAssignmentAndThenAlwaysWithReturnAndCatchWithReturnShouldPass() {
+    try {
+      someVariable = 3
+    } catch e {
+      return 2
+    } then always {
+      return 1
+    }
+  }
+
+  method tryWithIfWithReturnAndAssignmentAndCatchWithReturnShouldFail() {
+    try {
+      @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="if (someVariable > 1) return 1 else { someVariable = 2 }")
+      if (someVariable > 1) return 1 else { someVariable = 2 }
+    } catch e {
+      return 2
+    }
+  }
+
+  method tryWithAssignmentAndThenAlwaysWithReturnAndCatchWithThrowShouldPass() {
+    try {
+      someVariable = 3
+    } catch e {
+      throw new DomainException()
+    } then always {
+      return 1
+    }
+  }
+
+  method tryWithAssignmentAndThenAlwaysWithThrowAndCatchWithThrowShouldPass() {
+    try {
+      someVariable = 3
+    } catch e {
+      throw new DomainException(message = "Catch failed")
+    } then always {
+      throw new DomainException(message = "It failed!")
+    }
+  }
+
+  method tryWithLiteralAndCatchWithThrowShouldPass() =
+    try {
+      3
+    } catch e {
+      throw new DomainException(message = "Catch failed")
+    }
+
+  method tryWithLiteralAndCatchWithAssignmentShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      3
+    } catch e {
+      someVariable = 3
+    }")
+    try {
+      3
+    } catch e {
+      someVariable = 3
+    }    
+  }
+
+  method tryWithAssignmentAndCatchWithNewShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      someVariable = 3
+    } catch e {
+      new Date()
+    }")
+    try {
+      someVariable = 3
+    } catch e {
+      new Date()
+    }
+  }
+
+  method tryWithNewAndCatchWithAssignmentShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      new Date()
+    } catch e {
+      someVariable = 3
+    }")
+    try {
+      new Date()
+    } catch e {
+      someVariable = 3
+    }
+  }
+
+  method tryWithAssignmentAndCatchWithReferenceShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      someVariable = 3
+    } catch e {
+      someVariable
+    }")
+    try {
+      someVariable = 3
+    } catch e {
+      someVariable
+    }
+  }
+
+  method tryWithReferenceAndCatchWithAssignmentShouldFail() {
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      someVariable
+    } catch e {
+      someVariable = 3
+    }")
+    try {
+      someVariable
+    } catch e {
+      someVariable = 3
+    }
+  }
+
+  method tryWithAssignmentAndCatchWithSendShouldPass() {
+    try {
+      someVariable = 3
+    } catch e {
+      // until we have a Type System this will pass
+      2.even()
+    }
+  }
+
+  method tryWithSendAndCatchWithSendShouldPass() {
+    try {
+      // until we have a Type System this will pass
+      2.even()
+    } catch e {
+      someVariable = 3
+    }
+  }
+
+  override method tryWithAssignmentAndCatchWithSuperShouldPass() {
+    try {
+      someVariable = 3
+    } catch e {
+      // until we have a Type System this will pass
+      super()
+    }
+  }
+
+  override method tryWithSuperAndCatchWithAssignmentShouldPass() {
+    try {
+      // until we have a Type System this will pass
+      super()
+    } catch e {
+      someVariable = 3
+    }
+  }
+
+  method tryWithAssignmentAndCatchWithVariableShouldPass() {
+    const local = 12
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      someVariable = 3
+    } catch e {
+      local
+    }")
+    try {
+      someVariable = 3
+    } catch e {
+      local
+    }
+  }
+
+  method tryWithVariableAndCatchWithAssignmentShouldPass() {
+    const local = 13
+    @Expect(code="shouldReturnAValueOnAllFlows", level="error", expectedOn="try {
+      local
+    } catch e {
+      someVariable = 3
+    }")
+    try {
+      local
+    } catch e {
+      someVariable = 3
+    }
+  }
+
+}
+
+// Regression test from LSP-IDE issue 175 - https://github.com/uqbar-project/wollok-lsp-ide/issues/175
+class Antivirus {
+  const baseConocimiento
+  method esMalware(unPrograma) = baseConocimiento.any({ programa => programa == unPrograma.nombre() })
+}
+
+class AntivirusGratuito inherits Antivirus {
+  const fechaExpiracion
+
+  override method esMalware(unPrograma) {
+    if (new Date() > fechaExpiracion)
+      return false
+    else
+      return super(unPrograma)
+  }
+}
