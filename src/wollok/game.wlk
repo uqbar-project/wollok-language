@@ -302,7 +302,7 @@ object game {
   }
   
   /**
-   * Sets cells size (in cells).	
+   * Sets cells size (in pixels).	
    */				
   method cellSize(size) {
     self.validateSize(size)
