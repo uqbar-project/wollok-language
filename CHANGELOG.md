@@ -7,11 +7,20 @@ Currently, the Wollok language does not adhere to [Semantic Versioning](https://
 
 Hopefully, we will be able to do that in the near future.
 
+## v3.3.1
+- New native `io.serve()` by @PalumboN in #237
+- New `CenteredPosition` class by @isaiaslafon in #211
+- More sanity tests
+    - Benchmarks de Wollok Game by @PalumboN in #236
+    - Type system v2 by @PalumboN in #238
+    - Missing cases about visual character by @isaiaslafon in #240
+    - Improving Wollok Game tests by @isaiaslafon in #239
+
 ## v3.3.0
 - Support unicode identifiers by @fdodino in #234
-- Wrap game actions using io.runHandler by @lgassman in #230
+- Wrap game actions using `io.runHandler` by @lgassman in #230
 - Documentation for string days representation by @alymarquez in #227
-- Fix flatten return by @fdodino in #233
+- Fix `flatten` return by @fdodino in #233
 - Fix `flatmap` return by @Nalens10 in #228
 - More sanity tests: redefine identity by @MVitelli in #231
 

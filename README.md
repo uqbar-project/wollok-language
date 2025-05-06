@@ -40,6 +40,7 @@ All files follow a **standard coding convention**, please refer to them in the [
   - [wollok-run-client](https://github.com/uqbar-project/wollok-run-client): A proof of concept using Wollok Game, first prototype of a dynamic diagram, a new console REPL and wollok-ts interpreter. It will be deprecated hopefully for 2025.
 - [wollok-highlight-vscode](https://github.com/uqbar-project/wollok-highlight-vscode), a highlighter plugin for Visual Studio Code
 - [wollok-mobile](https://github.com/uqbar-project/wollok-mobile): Mobile implementation for Wollok
+- [wollok-jupyter-kernel](https://github.com/uqbar-project/wollok-jupyter-kernel): Jupyter Notebook Kernel implementation in Python (in Progress)
 - [official web site](https://github.com/uqbar-project/website-wollok-ts): Main content of our Wollok-TS site (developed with [Astro](https://astro.build/))
 
 ## 🏗️ General Architecture
