@@ -2043,11 +2043,23 @@ class Number {
    *
    * Example:
    *     1.223445.roundUp(3)  ==> 1.224
-   *     -1.223445.roundUp(3) ==> -1.224
+   *     (-1.223445).roundUp(3) ==> -1.223
    *     14.6165.roundUp(3)   ==> 14.617
    *     5.roundUp(3)         ==> 5
    */
    method roundUp(_decimals) native
+
+ /**
+   * Rounds up self down to a certain amount of decimals.
+   * Amount of decimals must be a positive and integer value.
+   *
+   * Example:
+   *     1.223445.roundDown(3)  ==> 1.223
+   *     (-1.223445).roundDown(3) ==> -1.224
+   *     14.6165.roundDown(3)   ==> 14.616
+   *     5.roundDown(3)         ==> 5
+   */
+   method roundDown(_decimals) native
 
   /**
    * Truncates self up to a certain amount of decimals.
@@ -2071,24 +2083,47 @@ class Number {
    *
    * Example:
    *     13.224.roundUp()  ==> 14
-   *     -13.224.roundUp() ==> -14
+   *     (-13.224).roundUp() ==> -12
    *     15.942.roundUp()  ==> 16
    */
   method roundUp() = self.roundUp(0)
+
+ /**
+   * Answers the previous integer greater than self
+   *
+   * Example:
+   *     13.224.roundDown()  ==> 13
+   *     (-13.224).roundDown() ==> -14
+   *     15.942.roundDown()  ==> 15
+   */
+  method roundDown() = self.roundDown(0)
 
   /**
    * Returns the value of a number rounded to the nearest integer.
   **/
   method round() native
 
-  /**
-   * Converts a decimal number into an integer truncating the decimal part.
+  /** 
+   * Converts a decimal number into an integer truncating the decimal part to the same or lower value.
    *
    * Example:
    *     5.5.floor() ==> Answers 5
    *     5.floor() ==> Answers 5
+   *     (-5).floor() ==> Answers -5
+   *     (-5.5).floor() ==> Answers -6
   **/
-  method floor() = self.truncate(0)
+  method floor() = self.roundDown() //native
+
+  /**
+   * Converts a decimal number into an integer truncating the decimal part to the same or grater value.
+   *
+   * Example:
+   *     5.5.ceiling() ==> Answers 6
+   *     5.ceiling() ==> Answers 5
+   *     (-5).ceiling() ==> Answers -5
+   *     (-5.5).ceiling() ==> Answers -5
+  **/
+  method ceil() = self.roundUp()
 
   /**
    * greater common divisor.
