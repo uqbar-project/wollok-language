@@ -23,7 +23,7 @@ describe "Decimal tests"{
     assert.equals(-14, (-13.224).roundDown())
     assert.equals(15, 15.942.roundDown())
     assert.equals(15, 15.0.roundDown())
-    assert.equals(-15, -15.0.roundDown())
+    assert.equals(-15, (-15.0).roundDown())
   }
 
   test "roundDown Decimals"{
