@@ -1,48 +1,48 @@
 object rangeTest {
 	@Expect(type="Range")
-	const range = new Range(0, 0)
-	
+	const range = new Range(start = 2, end = 5)
+
 	method rangeDeclarations() {
-		@Expect(type="{(Number) => Void}")
+		@Expect(type="{ (Number) => Void }")
 		const step = {n => range.step(n)}
 		
-		@Expect(type="{() => Number}")
+		@Expect(type="{ () => Number }")
 		const size = {range.size()}
 		
-		@Expect(type="{() => Boolean}")
+		@Expect(type="{ () => Boolean }")
 		const isEmpty = {range.isEmpty()}
 		
-		@Expect(type="{() => List<Number>}")
+		@Expect(type="{ () => List<Number> }")
 		const asList = {range.asList()}
 		
-		@Expect(type="{() => Number}")
+		@Expect(type="{ () => Number }")
 		const anyOne = {range.anyOne()}
 		
-		@Expect(type="{(Number) => Boolean}")
+		@Expect(type="{ (Number) => Boolean }")
 		const contains = {n => range.contains(n)}
 		
-		@Expect(type="{({(Number) => Void}) => Void}")
+		@Expect(type="{ ({ (Number) => Void }) => Void }")
 		const forEach = {c => range.forEach(c)}
 		
-		@Expect(type="{({(Number) => Boolean}) => Boolean}")
+		@Expect(type="{ ({ (Number) => Boolean }) => Boolean }")
 		const all = {pred => range.all(pred)}
 		
-		@Expect(type="{({(Number) => Boolean}) => Boolean}")
+		@Expect(type="{ ({ (Number) => Boolean }) => Boolean }")
 		const any = {pred => range.any(pred)}
 		
-		@Expect(type="{({(Number) => Boolean}) => Number}")
+		@Expect(type="{ ({ (Number) => Boolean }) => Number }")
 		const find = {pred => range.find(pred)}
 		
-		@Expect(type="{({(Number) => Boolean}, Number) => Number}")
+		@Expect(type="{ ({ (Number) => Boolean }, Number) => Number }")
 		const findOrDefault = {pred, n => range.findOrDefault(pred, n)}
 		
-		@Expect(type="{({(Number) => Boolean}, {() => Number}) => Number}")
+		@Expect(type="{ ({ (Number) => Boolean }, { () => Number }) => Number }")
 		const findOrElse = {pred, c => range.findOrElse(pred, c)}
 		
-		@Expect(type="{({(Number) => Boolean}) => Number}")
+		@Expect(type="{ ({ (Number) => Boolean }) => Number }")
 		const count = {pred => range.count(pred)}
 		
-		@Expect(type="{({(Number) => Boolean}) => List<Number>}")
+		@Expect(type="{ ({ (Number) => Boolean }) => List<Number> }")
 		const filter = {pred => range.filter(pred)}
 		
 		@Expect(type="List<String>")
@@ -54,19 +54,19 @@ object rangeTest {
 		@Expect(type="String")
 		const fold = range.fold("", {acum, n => n.toString()})
 		
-		@Expect(type="{() => Number}")
+		@Expect(type="{ () => Number }")
 		const sum = {range.sum()}
 		
-		@Expect(type="{({(Number) => Number}) => Number}")
-		const sum = {c => range.sum(c)}
+		@Expect(type="{ ({ (Number) => Number }) => Number }")
+		const sumC = {c => range.sum(c)}
 		
-		@Expect(type="{() => Number}")
+		@Expect(type="{ () => Number }")
 		const min = {range.min()}
 		
-		@Expect(type="{() => Number}")
+		@Expect(type="{ () => Number }")
 		const max = {range.max()}
 		
-		@Expect(type="{({(Number, Number) => Boolean}) => List<Number>}")
+		@Expect(type="{ ({ (Number, Number) => Boolean }) => List<Number> }")
 		const sortedBy = {pred => range.sortedBy(pred)}
 	}
 }

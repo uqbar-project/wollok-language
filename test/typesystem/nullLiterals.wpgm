@@ -1,6 +1,6 @@
 program p {	
 	@Expect(type="Object")
-	var comparable
+	var comparable = null
 	
 	if (comparable == @Expect(type="Object") null) {
 		comparable = @Expect(type="Object") null

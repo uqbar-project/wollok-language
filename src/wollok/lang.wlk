@@ -2724,7 +2724,7 @@ class Boolean {
   override method ==(other) native
 
   /** NOT logical operation */
-  @Type(name="Boolean") 
+  @Type(name="Boolean")
   method negate() native
 }
 
@@ -2738,8 +2738,24 @@ class Boolean {
  * @since 1.3
  */
 class Range {
+  /**
+   * The start of the range. It is inclusive.
+   * If start = 1, end = 8, Range will represent [1, 2, 3, 4, 5, 6, 7, 8]
+   */
+  @Type(name="Number")
   var start
+  /**
+   * The end of the range. It is inclusive.
+   * If start = 1, end = 8, Range will represent [1, 2, 3, 4, 5, 6, 7, 8]
+   */
+  @Type(name="Number")
   var end
+  /**
+   * The step of the range. It is optional.
+   * If start = 1, end = 8, step = 3, Range will represent [1, 4, 7]
+   * If step is not specified, it defaults to 1 if start < end or -1 if start > end
+   */
+  @Type(name="Number")
   var property step = null
 
   /**
@@ -2772,17 +2788,20 @@ class Range {
   /**
    * Getter for start attribute
    */
+  @Type(name="Number")
   method start() = start
 
   /**
    * Getter for end attribute
    */
+  @Type(name="Number")
   method end() = end
 
   /**
    * Setter for step attribute.
    */
-  method step(_step) {
+  @Type(name="Void")
+  method step(@Type(name="Number") _step) {
     self.checkNotNull(_step, "step")
     step = _step.coerceToInteger()
   }
@@ -2809,7 +2828,8 @@ class Range {
    * Example:
    *      (1..10).map({ n => n * 2}) ==> Answers [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
    */
-  method map(closure) = self.asList().map(closure)
+  // @Type(variable="Map", name="List<Map>")
+  method map(/*@Type(name="{ (Number) => Map }")*/ closure) = self.asList().map(closure)
 
   /**
    * Map + flatten operation
@@ -2819,9 +2839,11 @@ class Range {
    * Example:
    *      (1..4).flatMap({ n => 1 .. n }) ==> Answers [1, 1, 2, 1, 2, 3, 1, 2, 3, 4]
    */
-  method flatMap(closure) = self.asList().flatMap(closure)
+  // @Type(variable="Map", name="List<Map>")
+  method flatMap(/*@Type(name="{ (Number) => Collection<Map> }")*/ closure) = self.asList().flatMap(closure)
 
   /** @private */
+  @Type(name="List<Number>")
   method asList() {
     const list = []
     self.forEach { element => list.add(element) }
@@ -2832,6 +2854,7 @@ class Range {
    * Answers whether this range contains no elements
    * @see Collection#isEmpty()
    */
+  @Type(name="Boolean")
   method isEmpty() = self.size() == 0
 
   /**
@@ -2852,6 +2875,7 @@ class Range {
    *     new Range(start = 0, end = 2).size()  ==> Answers 3
    *     new Range(start = -2, end = 2).size() ==> Answers 5
    */
+  @Type(name="Number")
   method size()  {
       const base = (end - start) / step
       return if (base >= 0) base.truncate(0) + 1 else 0
@@ -2868,7 +2892,8 @@ class Range {
    *
    * @see List#any(closure)
    */
-  method any(closure) = self.asList().any(closure)
+  @Type(name="Boolean")
+  method any(@Type(name="{ (Number) => Boolean }") closure) = self.asList().any(closure)
 
   /**
    * Answers whether all the elements of range satisfy a given
@@ -2882,7 +2907,8 @@ class Range {
    *
    * @see List#all(closure)
    */
-  method all(closure) = self.asList().all(closure)
+  @Type(name="Boolean")
+  method all(@Type(name="{ (Number) => Boolean }") closure) = self.asList().all(closure)
 
   /**
    * Answers a new list with the elements meeting
@@ -2906,6 +2932,7 @@ class Range {
    *
    * @see List#min()
    */
+  @Type(name="Number")
   method min() = self.asList().min()
 
   /**
@@ -2917,6 +2944,7 @@ class Range {
    *
    * @see List#max()
    */
+  @Type(name="Number")
   method max() = self.asList().max()
 
   /**
@@ -2925,6 +2953,7 @@ class Range {
    * Example:
    *     new Range(start = 1, end = 3).anyOne() ==> Answers 1 or 2 or 3
    */
+  @Type(name="Number")
   method anyOne() native
 
   /**
@@ -2946,6 +2975,7 @@ class Range {
    *
    * @see List#sum()
    */
+  @Type(name="Number")
   method sum() = self.asList().sum()
 
   /**
@@ -2954,7 +2984,8 @@ class Range {
    * Example:
    *     (1..9).sum({ i => if (i.even()) i else 0 }) ==> Answers 20
    */
-  method sum(closure) = self.asList().sum(closure)
+  @Type(name="Number")
+  method sum(@Type(name="{ (Number) => Number }") closure) = self.asList().sum(closure)
 
   /**
    * Counts how many elements match the boolean closure
@@ -2962,7 +2993,8 @@ class Range {
    * Example:
    *     (1..9).count({ i => i.even() }) ==> Answers 4 (2, 4, 6 and 8 are even)
    */
-  method count(closure) = self.asList().count(closure)
+  @Type(name="Number")
+  method count(@Type(name="{ (Number) => Boolean }") closure) = self.asList().count(closure)
 
   /**
    * Answers the number of the range that satisfies a given condition.
@@ -2974,7 +3006,8 @@ class Range {
    *
    * @see List#find(closure)
    */
-  method find(closure) = self.asList().find(closure)
+  @Type(name="Number")
+  method find(@Type(name="{ (Number) => Boolean }") closure) = self.asList().find(closure)
 
   /**
    * Finds the first number matching the boolean closure,
@@ -2986,7 +3019,8 @@ class Range {
    *
    * @see List#findOrElse(predicate, continuation)
    */
-  method findOrElse(closure, continuation) = self.asList().findOrElse(closure, continuation)
+  @Type(name="Number")
+  method findOrElse(@Type(name="{ (Number) => Boolean }") closure, @Type(name="{ () => Number }") continuation) = self.asList().findOrElse(closure, continuation)
 
   /**
    * Answers the number of the range that satisfies a given condition,
@@ -2998,7 +3032,8 @@ class Range {
    *
    * @see List#findOrDefault(predicate, value)
    */
-  method findOrDefault(predicate, value) = self.asList().findOrDefault(predicate, value)
+  @Type(name="Number")
+  method findOrDefault(@Type(name="{ (Number) => Boolean }") predicate, @Type(name="Number") value) = self.asList().findOrDefault(predicate, value)
 
   /**
    * Answers a new List that contains the elements of self collection
@@ -3013,7 +3048,8 @@ class Range {
    *
    * @see List#sortBy
    */
-  method sortedBy(closure) = self.asList().sortedBy(closure)
+  @Type(name="List<Number>")
+  method sortedBy(@Type(name="{ (Number, Number) => Boolean }") closure) = self.asList().sortedBy(closure)
 
   /** String representation of this range object */
   override method toString() {
