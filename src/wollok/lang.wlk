@@ -202,7 +202,8 @@ class Object {
   /**
    * Generates a Pair key-value association. @see Pair.
    */
-  method ->(other) {
+  @Type(variable="Other", name="Pair<Object,Other>")
+  method ->(@Type(name="Other") other) {
     return new Pair(x = self, y = other)
   }
 
@@ -841,8 +842,9 @@ class Collection {
    *      [1, 2, 3].filter { number => number.even() }          => Answers [2]
    *      #{}.filter { number => number.even() }                => Answers #{}
    */
-  // @Type(name="Self") 
-  method filter(/* @Type(name="{ (Element) => Boolean }") */ closure) {
+  // @Type(name="Self<Element>") 
+  @Type(name="Collection<Element>") 
+  method filter(@Type(name="{ (Element) => Boolean }") closure) {
     self.checkNotNull(closure, "filter")
     return self.fold(self.newInstance(), { newCollection, element =>
       if (closure.apply(element)) {
