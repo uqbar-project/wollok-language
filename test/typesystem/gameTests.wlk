@@ -68,6 +68,10 @@ object gameTest {
 	method m11(obj) {
 		return game.colliders(obj)
 	}
+	@Expect(type="(Any) => Any")
+	method m111(obj) {
+		return game.uniqueCollider(obj)
+	}
 	
 	@Expect(type="(Any) => List<String>")
 	method m112(obj) {

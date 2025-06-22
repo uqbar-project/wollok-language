@@ -230,6 +230,7 @@ object game {
   /**
    * Returns the unique object that is in same position of given object.
    */  
+  @Type(variable="Visual", name="Visual") 
   method uniqueCollider(visual) = self.colliders(visual).uniqueElement()
 
   /**
@@ -369,51 +370,68 @@ object game {
 
 class AbstractPosition {
 	
+  @Type(name="Number")
   method x()
 	
+  @Type(name="Number")
   method y()
   
-  method createPosition(x, y)
+  @Type(name="AbstractPosition")
+  method createPosition(@Type(name="Number") x, @Type(name="Number") y)
 	
   /**
    * Returns a new Position n steps right from this one.
    */    
-  method right(n) = self.createPosition(self.x() + n, self.y())
+  @Type(name="AbstractPosition")
+  method right(@Type(name="Number") n) = self.createPosition(self.x() + n, self.y())
   
   /**
    * Returns a new Position n steps left from this one.
    */    
-  method left(n) = self.createPosition(self.x() - n, self.y())
+  @Type(name="AbstractPosition")
+  method left(@Type(name="Number") n) = self.createPosition(self.x() - n, self.y())
   
   /**
    * Returns a new Position n steps up from this one.
    */    
-  method up(n) = self.createPosition(self.x(), self.y() + n)
+  @Type(name="AbstractPosition")
+  method up(@Type(name="Number") n) = self.createPosition(self.x(), self.y() + n)
   
   /**
    * Returns a new Position, n steps down from this one.
-   */    
-  method down(n) = self.createPosition(self.x(), self.y() - n) 
+   */
+  @Type(name="AbstractPosition")
+  method down(@Type(name="Number") n) = self.createPosition(self.x(), self.y() - n) 
   
   /**
    * Draw a dialog balloon with given message in given visual object position.
    */  
-  method say(element, message) { game.say(element, message) } //TODO: Implement native
+  @Type(name="Void")
+  method say(element, @Type(name="String") message) { game.say(element, message) } //TODO: Implement native
 
   /**
    * Returns all objects in self.
    */  
+  @Type(variable="Visual", name="List<Visual>") 
   method allElements() = game.getObjectsIn(self) //TODO: Implement native
   
   /**
    * Returns a new position with same coordinates.
    */  
+  @Type(name="AbstractPosition")
   method clone() = self.createPosition(self.x(), self.y())
   
   /**
+   * Returns a new position with its coordinates rounded
+   */
+  @Type(name="AbstractPosition")
+  method round() = self.createPosition(self.x().round(), self.y().round())
+	
+  /**
    * Returns the distance between given position and self.
    */  
-  method distance(position) {
+  @Type(name="Number")
+  method distance(@Type(name="AbstractPosition") position) {
     self.checkNotNull(position, "distance")
     const deltaX = self.x() - position.x()
     const deltaY = self.y() - position.y()
@@ -423,6 +441,7 @@ class AbstractPosition {
   /**
    * Removes all objects in self from the board for stop drawing it.
    */
+  @Type(name="Void")
   method clear() {
     self.allElements().forEach{it => game.removeVisual(it)}
   }
@@ -437,11 +456,6 @@ class AbstractPosition {
    */
   override method toString() = self.x().toString() + "@" + self.y().toString()
 
-  /**
-   * Returns a new position with its coordinates rounded
-   */
-  method round() = self.createPosition(self.x().round(), self.y().round())
-	
 }
 
 /**
@@ -463,18 +477,22 @@ class MutablePosition inherits AbstractPosition {
   
   override method createPosition(_x, _y) = new MutablePosition(x = _x, y = _y)
   
+  @Type(name="Void")
   method goRight(n){
   	x += n
   }
   
+  @Type(name="Void")
   method goLeft(n){
   	x -= n
   }
   
+  @Type(name="Void")
   method goUp(n){
   	y += n
   }
   
+  @Type(name="Void")
   method goDown(n){
   	y -= n
   }
@@ -691,33 +709,39 @@ class Sound {
    * Plays the file's sound. 	
    * A sound can only be played once.	
    */	
+  @Type(name="Void")
   method play() native
 
 	/**	
    * Answers whether the sound has been played or not.	
    */	
+  @Type(name="Boolean")
 	method played() native
 
 	/** 	
    * Stops playing the sound and disposes resources.	
    */	
+  @Type(name="Void")
   method stop() native
 
   /** 	
    * Pauses the sound.
    * Throws error if the sound is already paused or if the sound hasn't been played yet.
    */	
+  @Type(name="Void")
   method pause() native
 
   /** 	
    * Resumes playing the sound. 	
    * Throws error if the sound is not paused.
    */	
+  @Type(name="Void")
   method resume() native
 
   /** 	
    * Answers whether the sound is paused or not.
    */	
+  @Type(name="Boolean")
   method paused() native
 
   /**
@@ -728,21 +752,25 @@ class Sound {
    *		mySound.volume(0.5)  => New volume is half of the original sound's volume
    *		mySound.volume(mySound.volume()*0.5) => New volume is half of the current volume
    */	
+  @Type(name="Void")
   method volume(newVolume) native
 
   /**
    * Answers the volume of the sound.
    */	
+  @Type(name="Number")
   method volume() native
 
   /**	
    * Sets whether the sound should loop or not.	
    */	
+  @Type(name="Void")
   method shouldLoop(looping) native	
 
   /** 	
    * Answers whether the sound is set to loop or not. 	
    */	
+  @Type(name="Boolean")
   method shouldLoop() native	
 
 }
@@ -751,29 +779,33 @@ class Tick {
   /** 
   * Milliseconds to wait between each action 
   **/
-  var interval 
+  @Type(name="Number")
+  var interval
   
   /** 
   * The ID associated to the tick event to be created 
   **/
+  @Type(name="String")
   const name = self.identity() 
   
   /** 
   * Block to execute after each interval time lapse 
   **/
+  @Type(name="{ () => Void }")
   const action 
 
   /** 
    *  Indicates whether the action will be executed as soon
    *  as the loop starts, or it will wait to the first time interval.
   **/
-  const inmediate = false 
- 
+  @Type(name="Boolean")
+  const property inmediate = false 
 
   /**
    * Starts looping the action passed in to the tick
    * object when it was instantiated. 
   **/
+  @Type(name="Void")
   method start() {
     if (self.isRunning()) {game.error("This tick is already started.")}
     if (inmediate) {io.runHandler(action)}
@@ -783,6 +815,7 @@ class Tick {
   /**
    * Stops looping the tick.
   **/
+  @Type(name="Void")
   method stop() {
     if (self.isRunning()) {
       game.removeTickEvent(name)
@@ -792,6 +825,7 @@ class Tick {
   /**
    * Stops and starts looping the tick.
   **/ 
+  @Type(name="Void")
   method reset() {
     self.stop()
     self.start()
@@ -800,14 +834,16 @@ class Tick {
   /**
    * Updates the tick's loop interval.
   **/
-  method interval(milliseconds) {
+  @Type(name="Void")
+  method interval(@Type(name="Number") milliseconds) {
     interval = milliseconds
-    if (self.isRunning()) {self.reset()}
+    if (self.isRunning()) { self.reset() }
   }
 
   /**
    * Indicates whether the tick is currently looped or not.
   **/
+  @Type(name="Boolean")
   method isRunning() {
     return io.containsTimeEvent(name)
   }

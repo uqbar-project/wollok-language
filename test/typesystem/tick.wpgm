@@ -1,0 +1,36 @@
+import wollok.game.*
+
+program tickTest {
+
+	const tick = new Tick(interval = 1, action = { })
+
+	@Expect(type="{ () => Void }")
+	const m1 = {
+		tick.start() 
+	}
+
+	@Expect(type="{ () => Void }")
+	const m2 = {
+		tick.stop() 
+	}
+
+	@Expect(type="{ () => Void }")
+	const m3 = {
+		tick.reset() 
+	}
+
+	@Expect(type="{ (Number) => Void }")
+	const m4 = { n =>
+		tick.interval(n) 
+	}
+
+	@Expect(type="{ () => Boolean }")
+	const m5 = {
+		tick.inmediate()
+	}
+
+	@Expect(type="{ () => Boolean }")
+	const m6 = {
+		tick.isRunning()
+	}
+}
