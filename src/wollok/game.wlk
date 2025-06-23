@@ -1,5 +1,3 @@
-import wollok.vm.runtime
-
 /**
   * Wollok Game main object 
   */
