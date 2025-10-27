@@ -3,11 +3,38 @@
   */
 object game {
 
-  /** Collection of visual objects in the game */
+  /** Current visuals in the game */
+  @Type(name="List<Any>")
   const visuals = []
+
   /** Is Game running? */
-  @Type(name="Boolean") 
-  var property running = false
+  @Type(name="Boolean")
+  var running = false
+
+  /** Board width (in cells) */
+  @Type(name="Number")
+  var property width = 5
+
+  /** Board height (in cells) */
+  @Type(name="Number")
+  var property height = 5
+
+  /** Game title */
+  @Type(name="String")
+  var property title = "Wollok Game"
+
+  /** Cell ground */
+  @Type(name="String")
+  var property ground = "ground.png"
+
+  /** Game ground (invalidates cell ground) */
+  @Type(name="String")
+  var property boardGround = null
+
+  /** Cell size (in pixels) */
+  @Type(name="Number")
+  var cellSize = 50
+
   /**
    * Allows to configure a visual component as "error reporter".
    * Then every error in game board will be reported by this visual component,
@@ -15,16 +42,12 @@ object game {
    */
   var property errorReporter = null
 
-  override method initialize() {
-    super()
-    
-    self.title("Wollok Game")
-    self.width(5)
-    self.height(5)
-    self.cellSize(50)
-    self.ground("ground.png")
-  }
-  
+  /**
+  * Indicates if game is running or idle.
+  */
+  @Type(name="Boolean")
+  method running() = running
+
   /**
    * Adds an object to the board for drawing it.
    * Object should understand a position property 
@@ -81,7 +104,7 @@ object game {
    * Example:
    *     game.allVisuals()
    */
-  @Type(name="List<Any>") 
+  @Type(name="List<Any>")
   method allVisuals() native
 
   /**
@@ -92,7 +115,6 @@ object game {
   method whenKeyPressedDo(@Type(name="String") event, @Type(name="{ () => Void }") action) { 
     io.addEventHandler(['keypress', event], action)
   }
-
 
   /**
    * Adds a block that will be executed while the given object collides with other. 
@@ -236,7 +258,7 @@ object game {
    */  
   @Type(name="Void") 
   method stop(){
-    self.running(false)
+    running = false
   }
   
   /**
@@ -244,14 +266,16 @@ object game {
    */  
   @Type(name="Void") 
   method start() {
-    self.running(true)
+    if (running)
+      throw new Exception(message = "Game is already running")
+    running = true
     io.exceptionHandler({ exception => exception.printStackTrace() })
     io.domainExceptionHandler({ exception => 
       const reporter = if (errorReporter == null) exception.source() else errorReporter
       self.say(reporter, exception.message())})
     return io.serve()
   }
-  
+
   /**
    * Returns a position for given coordinates.
    */  
@@ -267,75 +291,50 @@ object game {
   method origin() = self.at(0, 0)
 
   /**
-   * Returns the center board position (rounded down).
-   */  
-  @Type(name="Position") 
-  method center() = self.at(self.width().div(2), self.height().div(2))
+   * Returns the x coordinate of the center of the board (rounded down).
+   */ 
+  @Type(name="Number")
+  method xCenter() = self.width().div(2)
 
   /**
-   * Sets game title.
-   */    
-  @Type(name="Void") 
-  method title(@Type(name="String") title) native
-
-  /**
-   * Returns game title.
-   */    
-  @Type(name="String") 
-  method title() native
+   * Returns the y coordinate of the center of the board (rounded down).
+   */ 
+  @Type(name="Number")
+  method yCenter() = self.height().div(2)
   
   /**
-   * Sets board width (in cells).
-   */      
-  @Type(name="Void") 
-  method width(@Type(name="Number") width) native
-
+   * Returns a center board position (rounded down). 
+   */ 
+  @Type(name="Position")
+  method center() = if (running) new Position(x = self.xCenter(), y = self.yCenter())  else new CenterOffset()
+	
   /**
-   * Returns board width (in cells).
-   */    
-  @Type(name="Number") 
-  method width() native
+   * Sets board width (in cells).
+   */ 
+  @Type(name="Void")
+  method width(@Type(name="Number") _width){
+    self.validateSize(_width)
+    width = _width
+  }
 
   /**
    * Sets board height (in cells).
-   */      
-  @Type(name="Void") 
-  method height(@Type(name="Number") height) native
-
-  /**
-   * Returns board height (in cells).
    */ 
-  @Type(name="Number") 
-  method height() native
-
-  /**
-   * Sets cells background image.
-   */      
-  @Type(name="Void") 
-  method ground(@Type(name="String") image) native
-  
-  /**
-   * Sets cells size.	
-   */				
-  @Type(name="Void") 
-  method cellSize(@Type(name="Number") size) {
-    if (size <= 0)
-      throw new Exception(message = "Cell size cannot be 0 or lower")
-    self.doCellSize(size)
+  @Type(name="Void")
+  method height(_height){
+    self.validateSize(_height)
+    height = _height
   }
 
-	/** 	
-   * @private	
-   */	
-  @Type(name="Void") 
-	method doCellSize(@Type(name="Number") size) native
-
   /**
-   * Sets full background image.
-   */      
-  @Type(name="Void") 
-  method boardGround(@Type(name="String") image) native
-  
+   * Sets cells size (in pixels).	
+   */
+  @Type(name="Void")
+  method cellSize(size) {
+    self.validateSize(size)
+    cellSize = size
+  }
+    
   /**
    * Attributes will not show when user mouse over a visual component.
    */
@@ -358,12 +357,21 @@ object game {
    * Returns a tick object to be used for an action execution over interval time. 
    * The interval is in milliseconds and action is a block without params.
   */
-  @Type(name="Tick") 
-  method tick(@Type(name="Number") interval, @Type(name="{ () => Any }") action, @Type(name="Boolean") execInmediately) {
+  @Type(name="Tick")
+  method tick(interval, action, execInmediately) {
     if (interval < 1) { self.error("Interval must be higher than zero.") }
     return new Tick(interval = interval, action =  action, inmediate = execInmediately)
   }
 
+  /** 	
+   * @private	
+   */	
+  method validateSize(size){
+    if (running)
+      throw new Exception(message = "Width, height and cell size cannot be changed while game is running")
+    if (size <= 0 or !size.isInteger())
+      throw new Exception(message = "Width, height and cell size must be natural numbers")
+  }
 }
 
 class AbstractPosition {
@@ -374,31 +382,31 @@ class AbstractPosition {
   @Type(name="Number")
   method y()
   
-  @Type(name="AbstractPosition")
+  @Type(name="Self")
   method createPosition(@Type(name="Number") x, @Type(name="Number") y)
 	
   /**
    * Returns a new Position n steps right from this one.
    */    
-  @Type(name="AbstractPosition")
+  @Type(name="Self")
   method right(@Type(name="Number") n) = self.createPosition(self.x() + n, self.y())
   
   /**
    * Returns a new Position n steps left from this one.
    */    
-  @Type(name="AbstractPosition")
+  @Type(name="Self")
   method left(@Type(name="Number") n) = self.createPosition(self.x() - n, self.y())
   
   /**
    * Returns a new Position n steps up from this one.
    */    
-  @Type(name="AbstractPosition")
+  @Type(name="Self")
   method up(@Type(name="Number") n) = self.createPosition(self.x(), self.y() + n)
   
   /**
    * Returns a new Position, n steps down from this one.
    */
-  @Type(name="AbstractPosition")
+  @Type(name="Self")
   method down(@Type(name="Number") n) = self.createPosition(self.x(), self.y() - n) 
   
   /**
@@ -422,7 +430,7 @@ class AbstractPosition {
   /**
    * Returns a new position with its coordinates rounded
    */
-  @Type(name="AbstractPosition")
+  @Type(name="Self")
   method round() = self.createPosition(self.x().round(), self.y().round())
 	
   /**
@@ -453,7 +461,6 @@ class AbstractPosition {
    * String representation of a position
    */
   override method toString() = self.x().toString() + "@" + self.y().toString()
-
 }
 
 /**
@@ -497,6 +504,54 @@ class MutablePosition inherits AbstractPosition {
   
 }
 
+class CenterOffset inherits AbstractPosition {
+
+  /** x and y offset values to save transformations before the game Runs. */
+  const xOffset = 0
+  const yOffset = 0
+
+  /** x taking the offset into account. */
+  override method x() = game.xCenter() + xOffset
+
+  /** y taking the offset into account. */
+  override method y() = game.yCenter() + yOffset
+
+  /**
+   * Returns a new Position n steps right from this one while Running, or a centerOffset with offsets while idle.
+   */    
+  override method right(n) = self.createPosition(self.x() + n, self.y())
+     
+  /**
+   * Returns a new Position n steps left from this one while Running, or a centerOffset with offsets while idle.
+   */    
+  override method left(n) = self.createPosition(self.x() - n, self.y())
+
+  /**
+   * Returns a new Position n steps up from this one while Running, or a centerOffset with offsets while idle.
+   */    
+  override method up(n) = self.createPosition(self.x(), self.y() + n) 
+  
+  /**
+   * Returns a new Position, n steps down from this one while Running, or a centerOffset with offsets while idle.
+   */    
+  override method down(n) = self.createPosition(self.x(), self.y() - n)
+
+  /**
+   * Returns a new Position is the game is Running with the same coordinates, or a centerOffset with offsets while idle.
+   */    
+  override method clone() = self.createPosition(self.x(), self.y())
+  
+  /**
+   * Returns a new position with its coordinates if game is idle, else a centerOffset with x and y relative to the current center.
+   */
+  override method createPosition(x, y) = if (game.running()) new Position(x = x, y = y)  else new CenterOffset(xOffset = x - game.xCenter(), yOffset = y - game.yCenter())
+
+  /**
+   * Returns a new position with its coordinates rounded if Running, or a centerOffset with offsets while idle.
+   */
+  override method round() = self.createPosition(self.x().round(), self.y().round())
+
+}
 
 /**
  * Keyboard object handles all keys movements. There is a method for each key.

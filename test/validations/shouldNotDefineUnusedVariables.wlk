@@ -132,11 +132,12 @@ object usedByAlwaysBranch {
   var usedVariable = 5
   method methodUsingVariable() {
     try {
-      return 1
+      usedVariable = 7
     } catch e: Exception {
       return 2
     } then always {
       usedVariable = 6
+      return 1
     }
   }
 }
@@ -176,4 +177,10 @@ class ObjectMirrorStub {
    */
   method instanceVariables() native
     
+}
+
+object o {
+  const a = 1
+  // a is used in assignment
+  const property b = a
 }

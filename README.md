@@ -26,9 +26,10 @@ All files follow a **standard coding convention**, please refer to them in the [
 
 ## 🔨 Current work
 
-- [Wollok Roadmap for 2024](https://docs.google.com/spreadsheets/d/1SAmnsdYvkrx_Yby_zP3MyGB_IPT1kzITSQGCCIwqSvc/edit#gid=0)
+- [Wollok Roadmap for 2025](https://docs.google.com/spreadsheets/d/e/2PACX-1vTs5yO__2UHv-4SOh8NgOLinl4i2FxLrSnJHVCqjHNVl0QX5oNOWHAILGiq9AOx9BX0JQcd96iWX4cs/pubhtml?gid=1825384426&single=true)
 
-![Roadmap 2024](./images/wollok_roadmap_2024.png)
+<img width="1183" alt="image" src="https://github.com/user-attachments/assets/3c7f25e1-19f2-4609-bafc-ec3a06a0c50c" />
+
 
 ## ✨ Another useful repositories
 
@@ -39,11 +40,12 @@ All files follow a **standard coding convention**, please refer to them in the [
   - [wollok-run-client](https://github.com/uqbar-project/wollok-run-client): A proof of concept using Wollok Game, first prototype of a dynamic diagram, a new console REPL and wollok-ts interpreter. It will be deprecated hopefully for 2025.
 - [wollok-highlight-vscode](https://github.com/uqbar-project/wollok-highlight-vscode), a highlighter plugin for Visual Studio Code
 - [wollok-mobile](https://github.com/uqbar-project/wollok-mobile): Mobile implementation for Wollok
+- [wollok-jupyter-kernel](https://github.com/uqbar-project/wollok-jupyter-kernel): Jupyter Notebook Kernel implementation in Python (in Progress)
 - [official web site](https://github.com/uqbar-project/website-wollok-ts): Main content of our Wollok-TS site (developed with [Astro](https://astro.build/))
 
 ## 🏗️ General Architecture
 
-![Wollok Architecture](./images/wollok_architecture_2024.png)
+![Wollok Architecture](./images/Wollok-Architecture.png)
 
 ## 🕸️ Deprecated repositories
 

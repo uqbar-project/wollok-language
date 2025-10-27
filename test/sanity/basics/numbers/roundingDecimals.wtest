@@ -5,7 +5,7 @@ describe "Decimal tests"{
 
   test "roundUp" {
     assert.equals(14, 13.224.roundUp())
-    assert.equals(-14, -13.224.roundUp())
+    assert.equals(-13, (-13.224).roundUp())
     assert.equals(16, 15.942.roundUp())
     assert.equals(15, 15.0.roundUp())
     assert.equals(-15, -15.0.roundUp())
@@ -13,9 +13,24 @@ describe "Decimal tests"{
 
   test "roundUp Decimals"{
     assert.equals(1.224, 1.223445.roundUp(3))
-    assert.equals(-1.224, -1.223445.roundUp(3))
+    assert.equals(-1.223, (-1.223445).roundUp(3))
     assert.equals(14.617, 14.6165.roundUp(3))
     assert.equals(14.6165, 14.6165.roundUp(6))
+  }
+
+  test "roundDown" {
+    assert.equals(13, 13.224.roundDown())
+    assert.equals(-14, (-13.224).roundDown())
+    assert.equals(15, 15.942.roundDown())
+    assert.equals(15, 15.0.roundDown())
+    assert.equals(-15, (-15.0).roundDown())
+  }
+
+  test "roundDown Decimals"{
+    assert.equals(1.223, 1.223445.roundDown(3))
+    assert.equals(-1.224, (-1.223445).roundDown(3))
+    assert.equals(14.616, 14.6165.roundDown(3))
+    assert.equals(14.6165, 14.6165.roundDown(6))
   }
 
   test "truncate"{
@@ -30,16 +45,33 @@ describe "Decimal tests"{
     assert.equals(5, 5.1.floor())
     assert.equals(5, 5.5.floor())
     assert.equals(5, 5.9.floor())
+    assert.equals(-6, (-5.8).floor())
+    assert.equals(-14, (-13.224).floor())
+    assert.equals(-5, (-5).floor())
+  }
+
+  test "ceil"{
+    assert.equals(5, 5.ceil())
+    assert.equals(6, 5.1.ceil())
+    assert.equals(6, 5.5.ceil())
+    assert.equals(6, 5.9.ceil())
+    assert.equals(-5, (-5.8).ceil())
+    assert.equals(-13, (-13.224).ceil())
+    assert.equals(-5, (-5).ceil())
   }
 
   test "roundUp negative decimals throws error"{
     assert.throwsException { 1.223445.roundUp(-3) }
   }
 
+  test "roundUp not integer decimals throws error"{
+    assert.throwsException { 1.223445.roundUp(1.2) }
+  }
+
   test "roundUp alphabetic decimals throws error"{
     assert.throwsException { 1.223445.roundUp("B") }
   }
-
+  
   test "integerRoundUp" {
     assert.equals(5, (10/2).roundUp(2))
   }
@@ -56,12 +88,48 @@ describe "Decimal tests"{
     assert.equals(1.3, (5/4).roundUp(1))
   }
 
+ test "roundDown negative decimals throws error"{
+    assert.throwsException { 1.223445.roundDown(-3) }
+  }
+
+  test "roundDown alphabetic decimals throws error"{
+    assert.throwsException { 1.223445.roundDown("B") }
+  }
+
+  test "roundDown not integer decimals throws error"{
+    assert.throwsException { 1.223445.roundDown(1.2) }
+  }
+
+  test "integerRoundDown" {
+    assert.equals(5, (10/2).roundDown(2))
+  }
+
+  test "roundDownUsingNull" {
+    assert.throwsException({ (10/2).roundDown(null) })
+  }
+
+  test "roundDownFail" {
+    assert.throwsException({ (10/2).roundDown("a") })
+  }
+
+  test "doubleRoundDown" {
+    assert.equals(1.2, (5/4).roundDown(1))
+  }
+
+  test "truncate negative decimals throws error"{
+    assert.throwsException { 1.223445.truncate(-3) }
+  }
+
   test "truncate negative decimals throws error"{
     assert.throwsException { 1.223445.truncate(-3) }
   }
 
   test "truncate alphabetic decimals throws error"{
     assert.throwsException { 1.223445.truncate("A") }
+  }
+
+  test "truncate not integer decimals throws error"{
+    assert.throwsException { 1.223445.truncate(1.2) }
   }
 
   test "integerTruncate" {
