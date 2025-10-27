@@ -41,10 +41,12 @@ object positionTest {
 	}
 
 	@Expect(type="() => Postion")
-	method m15() {
+	method selfType() {
 		@Expect(type="Position")
 		const p = new Position()
-		return p.left(1)
+		@Expect(type="Position")
+		const p2 = p.left(1)
+		returnp.clone()
 	}
 
 }

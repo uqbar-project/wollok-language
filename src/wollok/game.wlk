@@ -416,7 +416,7 @@ class AbstractPosition {
   /**
    * Returns a new position with same coordinates.
    */  
-  @Type(name="AbstractPosition")
+  @Type(name="Self")
   method clone() = self.createPosition(self.x(), self.y())
   
   /**
