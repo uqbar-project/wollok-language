@@ -172,11 +172,11 @@ class Object {
    * The default behavior compares them in terms of identity (===)
    */
   @Type(name="Boolean")
-  method ==(@Type(name="Object") other) = self === other
+  method ==(other) = self === other
 
   /** Tells whether self object is not equal to the given one */
   @Type(name="Boolean")
-  method !=(@Type(name="Object") other) = ! (self == other)
+  method !=(other) = ! (self == other)
 
   /**
    * Tells whether self object is identical (the same) to the given one.
@@ -184,20 +184,20 @@ class Object {
    * So self basically relies on the wollok.lang.Integer equality (which is native)
    */
   @Type(name="Boolean")
-  method ===(@Type(name="Object") other) = self.identity() == other.identity()
+  method ===(other) = self.identity() == other.identity()
 
   /**
    * Tells whether self object is not identical (the same) to the given one.
    * @See === message.
    */
   @Type(name="Boolean")
-  method !==(@Type(name="Object") other) = ! (self === other)
+  method !==(other) = ! (self === other)
 
   /**
    * o1.equals(o2) is a synonym for o1 == o2
    */
   @Type(name="Boolean")
-  method equals(@Type(name="Object") other) = self == other
+  method equals(other) = self == other
 
   /**
    * Generates a Pair key-value association. @see Pair.
@@ -493,6 +493,7 @@ class Collection {
    *    [1, 2] + #{3}  => supports concatenation between lists and sets, answers [1, 2, 3]
    *    #{} + []       => Answers #{}
    */
+  @Type(name="Self")
   method +(@Type(name="Collection<Element>") elements) {
     const newCol = self.copy()
     newCol.addAll(elements)
@@ -843,7 +844,7 @@ class Collection {
    *      #{}.filter { number => number.even() }                => Answers #{}
    */
   // @Type(name="Self<Element>") 
-  @Type(name="Collection<Element>") 
+  @Type(name="Self") 
   method filter(@Type(name="{ (Element) => Boolean }") closure) {
     self.checkNotNull(closure, "filter")
     return self.fold(self.newInstance(), { newCollection, element =>
@@ -937,6 +938,7 @@ class Collection {
    * Example:
    *      const usersCopy = users.copy()
    */
+  @Type(name="Self")
   method copy() {
     const copy = self.newInstance()
     copy.addAll(self)
@@ -955,6 +957,7 @@ class Collection {
    *      [1, 5, 9, 2, 9].copyWithout(9) => Answers [1, 5, 2]
    *
    */
+  @Type(name="Self")
   method copyWithout(@Type(name="Element") elementToRemove) {
     return self.filter{ element => element != elementToRemove }
   }
@@ -968,6 +971,7 @@ class Collection {
    *      [1, 5, 9, 2, 4].copyWith(9) => Answers [1, 5, 2, 4, 9]
    *
    */
+  @Type(name="Self")
   method copyWith(@Type(name="Element") elementToAdd) {
     const copy = self.copy()
     copy.add(elementToAdd)
@@ -990,6 +994,7 @@ class Collection {
    *      [].sortedBy { a, b => a > b }              => Answers []
    *
    */
+  @Type(name="List<Element>")
   method sortedBy(@Type(name="{ (Element, Element) => Boolean }") closure) {
     const copy = self.copy().asList()
     copy.sortBy(closure)
@@ -1097,6 +1102,7 @@ object collection {
 class Set inherits Collection {
 
   /** @private */
+  @Type(name="Set<Any>")
   override method newInstance() = #{}
 
   /** @private */
@@ -1358,6 +1364,7 @@ class List inherits Collection {
   method get(@Type(name="Number") index) native
 
   /** Creates a new list */
+  @Type(name="List<Any>")
   override method newInstance() = []
 
   /**
@@ -2866,8 +2873,8 @@ class Range {
    * Example:
    *      (1..10).map({ n => n * 2}) ==> Answers [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
    */
-  // @Type(variable="Map", name="List<Map>")
-  method map(/*@Type(name="{ (Number) => Map }")*/ closure) = self.asList().map(closure)
+  @Type(variable="Map", name="List<Map>")
+  method map(@Type(name="{ (Number) => Map }") closure) = self.asList().map(closure)
 
   /**
    * Map + flatten operation
@@ -2877,8 +2884,8 @@ class Range {
    * Example:
    *      (1..4).flatMap({ n => 1 .. n }) ==> Answers [1, 1, 2, 1, 2, 3, 1, 2, 3, 4]
    */
-  // @Type(variable="Map", name="List<Map>")
-  method flatMap(/*@Type(name="{ (Number) => Collection<Map> }")*/ closure) = self.asList().flatMap(closure)
+  @Type(variable="Map", name="List<Map>")
+  method flatMap(@Type(name="{ (Number) => Collection<Map> }") closure) = self.asList().flatMap(closure)
 
   /** @private */
   @Type(name="List<Number>")
@@ -2904,7 +2911,8 @@ class Range {
    *
    * @see List#fold(seed, foldClosure)
    */
-  method fold(seed, foldClosure) = self.asList().fold(seed, foldClosure)
+  @Type(variable="Folded", name="Folded")
+  method fold(@Type(name="Folded") seed, @Type(name="{ (Folded, Number) => Folded }") foldClosure) = self.asList().fold(seed, foldClosure)
 
   /**
    * Answers the number of elements

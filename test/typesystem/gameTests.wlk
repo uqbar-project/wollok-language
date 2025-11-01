@@ -75,7 +75,9 @@ object gameTest {
 	
 	@Expect(type="(Any) => List<String>")
 	method m112(obj) {
-		return game.colliders(obj).filter{s => s.startsWith("asd")}
+		@Expect(type="List<String>")
+		const cs = game.colliders(obj)
+		return cs.filter{s => s.startsWith("asd")}
 	}
 		
 	@Expect(type="() => Void")
@@ -118,17 +120,19 @@ object gameTest {
 	@Expect(type="(Number) => Number")
 	method m19(n) {
 		game.height(n)
-		return game.height() 
+		return game.height()
 	}
 			
-	@Expect(type="(String) => Void")
+	@Expect(type="(String) => String")
 	method m20(path) {
 		game.ground(path) 
+		return game.ground()
 	}
 			
-	@Expect(type="(String) => Void")
+	@Expect(type="(String) => String")
 	method m21(path) {
-		game.boardGround(path) 
+		game.boardGround(path)
+		return game.boardGround()
 	}
 			
 	@Expect(type="(Any) => Void")
@@ -149,4 +153,9 @@ object gameTest {
 	@Expect(type="(String) => Sound")
 	method m25(file) = game.sound(file) 
 
+	@Expect(type="(Number) => Void")
+	method m26(size) {
+		game.cellSize(size)
+	}
+			
 }	

@@ -42,7 +42,7 @@ object stringsTests {
 	@Expect(type="(String, Number) => List<String>")
 	method m14(s, n) = s.substring(0, n).split("s")
 
-	@Expect(type="(Object, String) => String")
+	@Expect(type="(Any, String) => String")
 	method m15(s, s2) {
 		@Expect(type="String")
 		const value = s.printString()
@@ -54,7 +54,7 @@ object stringsTests {
 	@Expect(type="(String) => String")
 	method m16(s) = ("" + s).take(1)
 
-	@Expect(type="(Any) => Boolean")
+	@Expect(type="(String) => Boolean")
 	method m17(_s) = "hola" == _s
 
 	@Expect(type="(String, Number) => List<String>")

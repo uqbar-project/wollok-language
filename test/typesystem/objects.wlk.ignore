@@ -1,3 +1,5 @@
+// Add a pass to transform Any to Object and bind messages
+
 object objectTests {
 	
 	@Expect(type="(Object, Object) => Boolean")

@@ -40,13 +40,13 @@ object positionTest {
 		return pos1.distance(pos2)
 	}
 
-	@Expect(type="() => Postion")
+	@Expect(type="() => Position")
 	method selfType() {
 		@Expect(type="Position")
 		const p = new Position()
 		@Expect(type="Position")
 		const p2 = p.left(1)
-		returnp.clone()
+		return p.clone()
 	}
 
 }

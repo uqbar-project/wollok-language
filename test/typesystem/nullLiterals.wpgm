@@ -1,9 +1,9 @@
 program p {	
-	@Expect(type="Object")
+	@Expect(type="Any")
 	var comparable = null
 	
-	if (comparable == @Expect(type="Object") null) {
-		comparable = @Expect(type="Object") null
+	if (comparable == @Expect(type="Any") null) {
+		comparable = @Expect(type="Any") null
 	}
 	
 	@Expect(type="Number")

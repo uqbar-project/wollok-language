@@ -27,9 +27,9 @@ object pairTest {
 		return _pair.key()
 	}
 	
-	@Expect(type="(Object) => Pair<String, String>")
+	@Expect(type="(Number) => Pair<Boolean, Boolean>")
 	method m5(n) {
-		return new Pair(x = n.toString(), y = n.toString())
+		return new Pair(x = n.even(), y = n.even())
 	}
 
 	method m6() {
@@ -40,10 +40,10 @@ object pairTest {
 		const s = new Pair(x = 2, y = "").value()
 	}
 
-	@Expect(type="(Object) => String")
+	@Expect(type="(Number) => Boolean")
 	method m7(n) {
-		@Expect(type="Pair<String, String>")
-		const p = new Pair(x = n.toString(), y = n.toString())
+		@Expect(type="Pair<Boolean, Boolean>")
+		const p = new Pair(x = n.even(), y = n.even())
 		return p.value()
 	}
 }

@@ -37,7 +37,7 @@ class EntrenadorChanta inherits EntrenadorDeGolondrinas {
 		super(new GolondrinaMentirosa(nombre = "Claudia", energia = 1))
 	}
 	
-	// @Expect(type="(Golondrina) => Void")
+	@Expect(type="(Golondrina) => Void")
 	override method hacerQueVuele(golondrina) {
 		golondrina.come(1)
 		super(golondrina)

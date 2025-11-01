@@ -321,7 +321,7 @@ object game {
    * Sets board height (in cells).
    */ 
   @Type(name="Void")
-  method height(_height){
+  method height(@Type(name="Number") _height){
     self.validateSize(_height)
     height = _height
   }
@@ -330,11 +330,35 @@ object game {
    * Sets cells size (in pixels).	
    */
   @Type(name="Void")
-  method cellSize(size) {
+  method cellSize(@Type(name="Number") size) {
     self.validateSize(size)
     cellSize = size
   }
+
+  /**
+   * Sets title.	
+   */
+  @Type(name="Void")
+  method title(@Type(name="String") name) {
+    title = name
+  }
     
+  /**
+   * Sets cell ground.	
+   */
+  @Type(name="Void")
+  method ground(@Type(name="String") file) {
+    ground = file
+  }
+
+  /**
+   * Sets game ground (invalidates cell ground).
+   */
+  @Type(name="Void")
+  method boardGround(@Type(name="String") file) {
+    boardGround = file
+  }
+
   /**
    * Attributes will not show when user mouse over a visual component.
    */
