@@ -787,8 +787,8 @@ class Collection {
    *      [1, 2, 3].map { number => number.odd() }  => Answers [true, false, true]
    *      [].map { number => number.odd() }         => Answers []
    */
-  @Type(variable="Mapped", name="List<Mapped>")
-  method map(@Type(name="{ (Element) => Mapped }") closure) {
+  @Type(variable="Map", name="List<Map>")
+  method map(@Type(name="{ (Element) => Map }") closure) {
     self.checkNotNull(closure, "map")
     return self.fold([], { newCollection, element =>
       newCollection.add(closure.apply(element))
@@ -822,8 +822,8 @@ class Collection {
    *       => Answers ["c", "cobol", "pascal", "java", "perl"]
    *
    */
-  @Type(variable="Mapped", name="List<Mapped>")  
-  method flatMap(@Type(name="{ (Element) => Collection<Mapped> }") closure) {
+  @Type(variable="Map", name="List<Map>")  
+  method flatMap(@Type(name="{ (Element) => Collection<Map> }") closure) {
     self.checkNotNull(closure, "flatMap")
     return self.fold([], { flattenedList, element =>
       flattenedList.addAll(closure.apply(element))
