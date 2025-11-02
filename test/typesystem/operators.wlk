@@ -9,12 +9,12 @@ object pepita{
 	
 	@Expect(type="() => Void")
 	method comer() {
-		energia++
+		energia += 1
 	}
 	
 	@Expect(type="(Number) => Void")
 	method volar(cantidad) {
-		if (cantidad > 0) energia -= cantidad else energia--
+		if (cantidad > 0) energia -= cantidad // else energia
 	}
 	
 }
