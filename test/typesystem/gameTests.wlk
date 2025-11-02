@@ -49,9 +49,9 @@ object gameTest {
 		return game.getObjectsIn(pos)
 	}
 	
-	// @Expect(type="(Position) => List<Number>")
+	@Expect(type="(Position) => List<Number>")
 	method m82(pos) {
-		// return game.getObjectsIn(pos).map{n => n + 1}
+		return game.getObjectsIn(pos).map{n => n + 1}
 	}
 	
 	@Expect(type="(Any, String) => Void")

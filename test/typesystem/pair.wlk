@@ -2,10 +2,10 @@ object pairTest {
 	@Expect(type="Pair<Number, String>")
 	const pair = new Pair(x=2, y="")
 	
-	// @Expect(type="() => Pair<Number, String>")
-	// method arrow() {
-	// 	return 2 -> ""
-	// }
+	@Expect(type="() => Pair<Number, String>")
+	method arrow() {
+		return 2 -> ""
+	}
 	
 	@Expect(type="() => Pair<Number, String>")
 	method m0() {

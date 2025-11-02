@@ -202,7 +202,7 @@ class Object {
   /**
    * Generates a Pair key-value association. @see Pair.
    */
-  @Type(variable="Other", name="Pair<Object,Other>")
+  @Type(variable="Other", name="Pair<Self,Other>")
   method ->(@Type(name="Other") other) {
     return new Pair(x = self, y = other)
   }

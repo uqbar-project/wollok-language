@@ -78,7 +78,7 @@ object game {
       if (visual.position().x() < self.width()-1) visual.position(visual.position().right(1)) })
     keyboard.left().onPressDo({ 
       if (visual.position().x() > 0) visual.position(visual.position().left(1)) })
-}
+  }
 
   /**
    * Removes an object from the board for stop drawing it.
