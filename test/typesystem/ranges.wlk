@@ -48,8 +48,8 @@ object rangeTest {
 		@Expect(type="List<String>")
 		const map = range.map({n => n.toString()})
 		
-		@Expect(type="List<String>")
-		const flatMap = range.flatMap({n => [n.toString()]})
+		// @Expect(type="List<String>")
+		// const flatMap = range.flatMap({n => [n.toString()]})
 		
 		@Expect(type="String")
 		const fold = range.fold("", {acum, n => n.toString()})

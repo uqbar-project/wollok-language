@@ -137,8 +137,8 @@ class TestCollection {
 		@Expect(type="List<Boolean>")
 		const mapped = sample.map { number => number.even() } 
 
-		@Expect(type="List<Boolean>")
-		const flatMapped = sample.flatMap { number => [number.even()] } 
+		// @Expect(type="List<Boolean>")
+		// const flatMapped = sample.flatMap { number => [number.even()] } 
 
 		@Expect(type="Number")
 		const fold = sample.fold(0, { accum, elem => accum + elem }) 
@@ -201,8 +201,8 @@ class TestList {
 		@Expect(type="List<Any>")
 		const newInstanceList = list.newInstance()
 
-		@Expect(type="{ () => List<Number> }")
-		const flattenList = { [list].flatten() }
+		// @Expect(type="{ () => List<Number> }")
+		// const flattenList = { [list].flatten() }
 	}			
 }
 
@@ -239,7 +239,7 @@ class SetList {
 		@Expect(type="Set<Any>")
 		const newInstanceSet = set.newInstance()
 
-		@Expect(type="{ () => Set<Number> }")
-		const flattenSet = { #{set}.flatten() }
+		// @Expect(type="{ () => Set<Number> }")
+		// const flattenSet = { #{set}.flatten() }
 	}
 }

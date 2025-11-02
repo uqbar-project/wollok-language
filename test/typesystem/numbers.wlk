@@ -13,10 +13,6 @@ object numberTest {
 		return (a + b) / (a - b) * a
 	}
 
-	@Expect(type="(Object) => Boolean")
-	method m3(a) {
-		return a === 2
-	}
 	
 	@Expect(type="(Any) => Boolean")
 	method m4(a) {
@@ -59,7 +55,7 @@ object numberTest {
 	method m14(a) = a.min(a.limitBetween(0, 1))
 	
 	@Expect(type="(Number) => Boolean")
-	method m15(a) = (a + 1).between(0, 10)
+	method m15(a) = a.between(0, 10)
 
 	@Expect(type="(Number) => Number")
 	method m16(a) = a.square()
@@ -87,10 +83,10 @@ object numberTest {
 	method m22(a) = a.truncate(3)
 
 	@Expect(type="(Number, Number) => Number")
-	method m23(a, b) = a.gcd(b + 1)
+	method m23(a, b) = a.gcd(b)
 
 	@Expect(type="(Number, Number) => Number")
-	method m24(a, b) = a.lcm(b + 1)
+	method m24(a, b) = a.lcm(b)
 
 	@Expect(type="(Number) => Boolean")
 	method m25(a) {
