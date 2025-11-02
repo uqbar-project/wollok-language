@@ -113,6 +113,8 @@ object game {
    */  
   @Type(name="Void") 
   method whenKeyPressedDo(@Type(name="String") event, @Type(name="{ () => Void }") action) { 
+    self.checkNotNull(event, "whenKeyPressedDo")
+    self.checkNotNull(action, "whenKeyPressedDo")
     io.addEventHandler(['keypress', event], action)
   }
 
