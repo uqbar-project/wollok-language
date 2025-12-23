@@ -1,0 +1,14 @@
+program p {	
+	@Expect(type="Any")
+	var comparable = null
+	
+	if (comparable == @Expect(type="Any") null) {
+		comparable = @Expect(type="Any") null
+	}
+	
+	@Expect(type="Number")
+	var num1 = 1
+	
+	num1 = @Expect(type="Number") null
+}
+

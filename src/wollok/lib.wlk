@@ -5,18 +5,22 @@
 object console {
 
   /** Prints a String with end-of-line character */
+  @Type(name="Void") 
   method println(obj) native
   
   /** Reads a line from input stream */
+  @Type(name="String") 
   method readLine() native
   
   /** Reads an int character from input stream */
+  @Type(name="Number") 
   method readInt() native
   
   /** Returns the system's representation of a new line:
    * - \n in Unix systems
    * - \r\n in Windows systems
    */
+   @Type(name="String") 
   method newline() native
 }
 
@@ -46,7 +50,8 @@ object assert {
    *    assert.that(7.even())   ==> throws an exception "Value was not true"
    *    assert.that(8.even())   ==> ok, nothing happens  
    */
-  method that(value) {
+  @Type(name="Void")
+  method that(@Type(name="Boolean") value) {
     self.checkNotNull(value, "that")
     if (!value) throw new AssertionException(message = "Value was not true")
   }
@@ -55,7 +60,8 @@ object assert {
    * Tests whether value is false. Otherwise throws an exception. 
    * @see assert#that(value) 
    */
-  method notThat(value) {
+  @Type(name="Void")
+  method notThat(@Type(name="Boolean") value) {
     self.checkNotNull(value, "notThat")
     if (value) throw new AssertionException(message = "Value was not false")
   }
@@ -68,7 +74,8 @@ object assert {
    *     assert.equals(10.0, 100.div(10)) ==> ok, nothing happens
    *     assert.equals(10.01, 100.div(10)) ==> throws an exception 
    */
-  method equals(expected, actual) {
+  @Type(variable="Value", name="Void")
+  method equals(@Type(name="Value") expected, @Type(name="Value") actual) {
     if (expected != actual) throw new AssertionException(message = "Expected <" + expected.printString() + "> but found <" + actual.printString() + ">")
   }
   
@@ -80,14 +87,16 @@ object assert {
    *     assert.notEquals(10, value * 3) ==> ok, nothing happens
    *     assert.notEquals(10, value)     ==> throws an exception
    */
-  method notEquals(expected, actual) {
+  @Type(variable="Value", name="Void")
+  method notEquals(@Type(name="Value") expected, @Type(name="Value") actual) {
     if (expected == actual) throw new AssertionException(message = "Expected to be different, but <" + expected.printString() + "> and <" + actual.printString() + "> match")
   }
   
   /**
    * Tests that a block does not throw any kind of exception. Block expects no parameters.
    */
-  method doesNotThrowException(block) {
+  @Type(name="Void")
+  method doesNotThrowException(@Type(name="{ () => Any }") block) {
     try {
       block.apply()
     } catch e {
@@ -105,7 +114,8 @@ object assert {
    *    assert.throwsException({ "hola".length() }) 
    *         ==> throws an exception "Block should have failed"
    */
-  method throwsException(block) {
+  @Type(name="Void")
+  method throwsException(@Type(name="{ () => Any }") block) {
     self.checkNotNull(block, "throwsException")
     var failed = false
     try {
@@ -133,7 +143,8 @@ object assert {
    *            { => throw new BusinessException(message = "hola") } 
    *            => Doesn't work. Messages matches but they are instances of different exceptions.
    */   
-  method throwsExceptionLike(exceptionExpected, block) {
+  @Type(name="Void")
+  method throwsExceptionLike(@Type(name="Exception") exceptionExpected, @Type(name="{ () => Any }") block) {
     self.checkNotNull(exceptionExpected, "throwsExceptionLike")
     self.checkNotNull(block, "throwsExceptionLike")
     try 
@@ -160,7 +171,8 @@ object assert {
    *    assert.throwsExceptionWithMessage("chau",{ => throw new BusinessException(message = "hola") } 
    *           => Doesn't work. Both are instances of BusinessException but their messages differ.
    */   
-  method throwsExceptionWithMessage(errorMessage, block) {
+  @Type(name="Void")
+  method throwsExceptionWithMessage(@Type(name="String") errorMessage, @Type(name="{ () => Any }") block) {
     self.checkNotNull(errorMessage, "throwsExceptionWithMessage")
     self.checkNotNull(block, "throwsExceptionWithMessage")
     try 
@@ -187,7 +199,8 @@ object assert {
    *    assert.throwsExceptionWithType(new OtherException(message = "hola"),{ => throw new BusinessException(message = "hola") } 
    *          => Doesn't work. Exception classes differ although they contain the same message.
    */     
-  method throwsExceptionWithType(exceptionExpected, block) {
+  @Type(name="Void")
+  method throwsExceptionWithType(@Type(name="Exception") exceptionExpected, @Type(name="{ () => Any }") block) {
     self.checkNotNull(exceptionExpected, "throwsExceptionWithType")
     self.checkNotNull(block, "throwsExceptionWithType")
     try 
@@ -207,16 +220,17 @@ object assert {
    * returning the result.
    *
    * Examples:
-   *    assert.throwsExceptionByComparing({ => throw new BusinessException(message = "hola"), { ex => "hola" == ex.message()}} 
+   *    assert.throwsExceptionByComparing({ => throw new BusinessException(message = "hola") }, { ex => "hola" == ex.message() }) 
    *          => Works!.
    *
-   *    assert.throwsExceptionByComparing({ => throw new BusinessException(message = "hola"), { ex => new BusinessException(message = "lele").className() == ex.className()} } 
+   *    assert.throwsExceptionByComparing({ => throw new BusinessException(message = "hola") }, { ex => new BusinessException(message = "lele").className() == ex.className() }) 
    *          => Works again!
    *
-   *    assert.throwsExceptionByComparing({ => throw new BusinessException(message = "hola"), { ex => "chau!" == ex.message()} } 
+   *    assert.throwsExceptionByComparing({ => throw new BusinessException(message = "hola") }, { ex => "chau!" == ex.message() }) 
    *          => Doesn't work. The block evaluation resolves to a false value.
    */    
-  method throwsExceptionByComparing(block, comparison){
+  @Type(name="Void")
+  method throwsExceptionByComparing(@Type(name="{ () => Any }") block, @Type(name="{ (Exception) => Boolean }") comparison){
     self.checkNotNull(block, "throwsExceptionByComparing")
     self.checkNotNull(comparison, "throwsExceptionByComparing")
     var continue = false
@@ -239,7 +253,8 @@ object assert {
    * Throws an exception with a custom message. 
    * Useful when you reach code that should not be reached.
    */
-  method fail(message) {
+  @Type(name="Void")
+  method fail(@Type(name="String") message) {
     self.checkNotNull(message, "fail")
     throw new AssertionException(message = message)
   }
@@ -256,10 +271,12 @@ object assert {
 class StringPrinter {
   var buffer = ""
   
+  @Type(name="Void") 
   method println(obj) {
     const objAsString = if (obj === null) "null" else obj.toString()
     buffer += objAsString + console.newline()
   }
   
+  @Type(name="String") 
   method getBuffer() = buffer
 }  

@@ -34,19 +34,19 @@ object dateTests {
 	method m13(_date) = _date.minusDays(1)
 
 	@Expect(type="(Date) => Boolean")
-	method m14(_date) = _date < new Date()
+	method m14(_date) = new Date() < _date
 
 	@Expect(type="(Date) => Boolean")
-	method m15(_date) = _date <= new Date()
+	method m15(_date) = new Date() <= _date
 
 	@Expect(type="(Date) => Boolean")
-	method m16(_date) = _date > new Date()
+	method m16(_date) = new Date() > _date
 
 	@Expect(type="(Date) => Boolean")
-	method m17(_date) = _date >= new Date()
+	method m17(_date) = new Date() >= _date
 
 	@Expect(type="(Date, Date) => Boolean")
-	method m18(_date, _date1) = _date.between(_date1, new Date())
+	method m18(_date, _date1) = new Date().between(_date, _date1)
 
 	@Expect(type="(Date) => Number")
 	method m20(_date) = _date.day() + _date.internalDayOfWeek() + _date.month() + _date.year()

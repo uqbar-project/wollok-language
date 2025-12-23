@@ -1,6 +1,6 @@
 class Ave {
 	@Expect(type="String")
-	var nombre
+	var property nombre
 	var energia = 100
 	
 	@Expect(type="(Number) => Void")
@@ -32,8 +32,8 @@ class GolondrinaMentirosa inherits Golondrina {
 }
 
 class EntrenadorChanta inherits EntrenadorDeGolondrinas {
-	@Expect(type="(Golondrina) => Void")
-	override method alimentar(ave) { 
+	@Expect(type="(Ave) => Void")
+	override method alimentar(_ave) { 
 		super(new GolondrinaMentirosa(nombre = "Claudia", energia = 1))
 	}
 	
@@ -52,12 +52,12 @@ class EntrenadorChanta inherits EntrenadorDeGolondrinas {
 }
 
 class EntrenadorDeGolondrinas inherits EntrenadorDeAves {
-	@Expect(type="(Golondrina) => Void")
-	override method alimentar(ave) { 
+	@Expect(type="(Ave) => Void")
+	override method alimentar(_ave) { 
 		super(new Golondrina(nombre = "Edmundo"))
 	}
 	
-	@Expect(type="(Golondrina) => Void	")
+	@Expect(type="(Golondrina) => Void")
 	method hacerQueVuele(golondrina) {
 		golondrina.vola()
 	} 
@@ -84,7 +84,7 @@ class EntrenadorDeAves {
 	method alimentarFavorita() { ave.come(1) }
 }
 
-object wollok {
+object escuela {
 	method entrenadorDeAves() = new EntrenadorDeAves(ave = new Ave(nombre = "Pedro"))
 	method entrenadorDeGolondrinas() = new EntrenadorDeGolondrinas(ave = new Golondrina(nombre = "Pedro"))
 }

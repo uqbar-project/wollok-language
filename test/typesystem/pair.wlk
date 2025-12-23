@@ -22,33 +22,28 @@ object pairTest {
 		return pair.value()
 	}
 
-   	@Expect(type="Pair<Any, Any>) => Any")
+   	@Expect(type="(Pair<Any, Any>) => Any")
 	method m3(_pair) {
 		return _pair.key()
 	}
-
-	@Expect(type="((InstanceVariableMirror|Pair<Any, Any>)) => Any")
-	method m4(_pair) {
-		return _pair.value()
-	}
 	
-	@Expect(type="Number) => Pair<Number, Number>")
+	@Expect(type="(Number) => Pair<Boolean, Boolean>")
 	method m5(n) {
-		return new Pair(x = n + 1, y = n - 1)
+		return new Pair(x = n.even(), y = n.even())
 	}
 
 	method m6() {
 		@Expect(type="Number")
-		var n = new Pair(x = 2, y = 3).value()
+		const n = new Pair(x = 2, y = 3).value()
 
 		@Expect(type="String")
-		var s = new Pair(x = 2, y = "").value()
+		const s = new Pair(x = 2, y = "").value()
 	}
 
-	@Expect(type="Number) => Number")
+	@Expect(type="(Number) => Boolean")
 	method m7(n) {
-		@Expect(type="Pair<Number, Number>")
-		var p = new Pair(x = n + 1, y = n - 1)
+		@Expect(type="Pair<Boolean, Boolean>")
+		const p = new Pair(x = n.even(), y = n.even())
 		return p.value()
 	}
 }

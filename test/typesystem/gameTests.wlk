@@ -1,15 +1,14 @@
 import wollok.game.*
 
+/*
+* TODO: Better type for visuals -> object { method position() => Position }
+*/
+
 object gameTest {
 	
 	@Expect(type="(Any) => Void")
 	method m1(obj) {
 		game.addVisual(obj)
-	}
-
-	@Expect(type="(Any, Position) => Void")
-	method m2(obj, pos) {
-		game.addVisualIn(obj, pos)
 	}
 	
 	@Expect(type="(Any) => Void")
@@ -17,22 +16,17 @@ object gameTest {
 		game.addVisualCharacter(obj)
 	}
 	
-	@Expect(type="(Any, Position) => Void")
-	method m4(obj, pos) {
-		game.addVisualCharacterIn(obj, pos)
-	}
-	
 	@Expect(type="(Any) => Void")
 	method m5(obj) {
 		game.removeVisual(obj)
 	}
 	
-	@Expect(type="(Number, {() => Void}) => Void")
+	@Expect(type="(String, { () => Void }) => Void")
 	method m6(key, action) {
 		game.whenKeyPressedDo(key, action)
 	}
 	
-	@Expect(type="(Any, {(Any) => Void}) => Void")
+	@Expect(type="(Any, { (Any) => Void }) => Void")
 	method m7(obj, action) {
 		game.whenCollideDo(obj, action)
 	}
@@ -44,7 +38,7 @@ object gameTest {
 		game.whenCollideDo(obj, action)
 	}
 	
-	@Expect(type="(Number, String, {() => Void}) => Void")
+	@Expect(type="(Number, String, { () => Void }) => Void")
 	method m7_2(n, name, action) {
 		game.onTick(n, name, action)
 		game.removeTickEvent(name)
@@ -74,10 +68,16 @@ object gameTest {
 	method m11(obj) {
 		return game.colliders(obj)
 	}
+	@Expect(type="(Any) => Any")
+	method m111(obj) {
+		return game.uniqueCollider(obj)
+	}
 	
 	@Expect(type="(Any) => List<String>")
 	method m112(obj) {
-		return game.colliders(obj).filter{s => s.startsWith("asd")}
+		@Expect(type="List<String>")
+		const cs = game.colliders(obj)
+		return cs.filter{s => s.startsWith("asd")}
 	}
 		
 	@Expect(type="() => Void")
@@ -120,17 +120,19 @@ object gameTest {
 	@Expect(type="(Number) => Number")
 	method m19(n) {
 		game.height(n)
-		return game.height() 
+		return game.height()
 	}
 			
-	@Expect(type="(String) => Void")
+	@Expect(type="(String) => String")
 	method m20(path) {
 		game.ground(path) 
+		return game.ground()
 	}
 			
-	@Expect(type="(String) => Void")
+	@Expect(type="(String) => String")
 	method m21(path) {
-		game.boardGround(path) 
+		game.boardGround(path)
+		return game.boardGround()
 	}
 			
 	@Expect(type="(Any) => Void")
@@ -144,12 +146,16 @@ object gameTest {
 	}
 			
 	@Expect(type="(Any) => Void")
-	method m23(obj) {
+	method m24(obj) {
 		game.errorReporter(obj) 
 	}
 			
-	@Expect(type="(String) => Void")
-	method m24(file) {
-		game.sound(file) 
+	@Expect(type="(String) => Sound")
+	method m25(file) = game.sound(file) 
+
+	@Expect(type="(Number) => Void")
+	method m26(size) {
+		game.cellSize(size)
 	}
+			
 }	

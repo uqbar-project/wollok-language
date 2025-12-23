@@ -8,11 +8,9 @@ class Direccion {
 	const calle = "Medrano"
 	const numero = 951
 
-	// Esto garantiza los tipos de calle y número
 	method tipar() = calle.charAt(numero)
 }
 
-// Instanciación directa usando variables de superclase
 class DireccionRemota inherits Direccion {
 	const ciudad = new Ciudad(km = 0)
 	
@@ -32,12 +30,15 @@ class Point {
 	const  x
 	const  y
 	
+	@Expect(type="() => Number")
 	method tipar() = x / y
 }
 
 class Point3D inherits Point {
+	@Expect(type="Number")
 	const z = 0
 	
+	@Expect(type="() => Number")
 	override method tipar() = super() + z
 }
 
@@ -62,15 +63,10 @@ class TestConstructors {
 	method directInstantiationWithInheritance(c, n, i) {
 		return new DireccionRemota(calle = c, numero = n, ciudad = i)
 	}
-}
-
-class MultipleConstructors {
-	@Expect(type="() => Point")
-	method noParameters() = new Point()
-	
 	@Expect(type="(Number, Number) => Point")
-	method withParameters(x, y) = new Point(x = x, y = y)
+	method sameParameters(x, y) = new Point(x = x, y = y)
 
 	@Expect(type="(Number, Number) => Point3D")
 	method inherited(x, y) = new Point3D(x = x, y = y)
+
 }

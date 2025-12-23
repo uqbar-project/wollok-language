@@ -5,7 +5,7 @@ object keysTest {
 	@Expect(type="() => Key")
 	method m1() = keyboard.any()
 
-	@Expect(type="({() => Void}) => Void")
+	@Expect(type="({ () => Void }) => Void")
 	method m2(action) {
 		keyboard.any().onPressDo(action)
 	}

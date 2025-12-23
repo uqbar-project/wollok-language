@@ -1,9 +1,13 @@
 class InstanceVariableMirror {
+  @Type(name="Object")
   const target
+
+  @Type(name="String")
   const property name
   
   method value() = new ObjectMirror(target = target).resolve(name)
   
+  @Type(name="String")
   method valueToString() {
     const value = self.value()
     return if (value == null) "null" else value.printString()
@@ -23,16 +27,18 @@ class ObjectMirror {
   /*
    * Accesses a variable by name, in a reflexive way.
    */
-  method resolve(attributeName) native
+  method resolve(@Type(name="String") attributeName) native
 
   /**
    * Retrieves a specific variable for target object. Expects a name
    */
-  method instanceVariableFor(name) native
+  @Type(name="InstanceVariableMirror")
+  method instanceVariableFor(@Type(name="String") name) native
 
   /**
    * Answers a list of instance variables for target object
    */
+  @Type(name="List<InstanceVariableMirror>")
   method instanceVariables() native
     
 }

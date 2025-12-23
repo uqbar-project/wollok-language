@@ -12,7 +12,7 @@ class C {
 	const property algo
 	
 	// TOIMPLEMENT
-	// @Expect(type="{  }")
+	// @Expect(type="object { }")
 	const property obj = object { }
 
 	@Expect(type="Any")

@@ -7,17 +7,21 @@
  */
 class Exception {
   /** specified detail message. */
+  @Type(name="String") 
   const property message = null
 
   /** specified cause */
+  @Type(name="Exception") 
   const property cause = null
 
   override method initialize() native
 
   /** Prints this exception and its backtrace to the console */
+  @Type(name="Void") 
   method printStackTrace() { self.printStackTrace(console) }
 
   /** Prints this exception and its backtrace as a string value */
+  @Type(name="String") 
   method getStackTraceAsString() {
     const printer = new StringPrinter()
     self.printStackTrace(printer)
@@ -28,10 +32,12 @@ class Exception {
    * @private
    * Prints this exception and its backtrace to the specified printer
    */
-  method printStackTrace(printer) { self.printStackTraceWithPrefix("", printer) }
+  @Type(name="Void") 
+  method printStackTrace(@Type(name="(console | StringPrinter)") printer) { self.printStackTraceWithPrefix("", printer) }
 
   /** @private */
-  method printStackTraceWithPrefix(prefix, printer) {
+  @Type(name="Void") 
+  method printStackTraceWithPrefix(@Type(name="String") prefix, @Type(name="(console | StringPrinter)") printer) {
     printer.println(prefix + self.className() + (if (message != null) (": " + message.toString()) else ""))
 
     // TODO: eventually we will need a stringbuffer or something to avoid memory consumption
@@ -44,16 +50,19 @@ class Exception {
   }
 
   /** @private */
-  method createStackTraceElement(contextDescription, location) = new StackTraceElement(contextDescription = contextDescription, location = location)
+  @Type(name="StackTraceElement") 
+  method createStackTraceElement(@Type(name="String") contextDescription, @Type(name="String") location) = new StackTraceElement(contextDescription = contextDescription, location = location)
 
   /** Provides programmatic access to the stack trace information
    * printed by printStackTrace() with full path files for linking
    */
+  @Type(name="List<String>") 
   method getFullStackTrace() native
 
   /** Provides programmatic access to the stack trace information
    * printed by printStackTrace().
    */
+  @Type(name="List<String>") 
   method getStackTrace() native
 
   /** Overrides the behavior to compare exceptions */
@@ -95,7 +104,9 @@ class MessageNotUnderstoodException inherits Exception {}
  * of a method where a message was sent
  */
 class StackTraceElement {
+  @Type(name="String") 
   const property contextDescription
+  @Type(name="String") 
   const property location
 }
 
@@ -111,12 +122,17 @@ class StackTraceElement {
  */
 class Object {
 
+  /**
+   * This method is called when any object is instanciated
+   */
+  @Type(name="Void")
   method initialize() { }
 
   /**
    * Answers object identity of a Wollok object, represented by
    * a unique number in Wollok environment
    */
+  @Type(name="String")
   method identity() native
 
   /** Object description in english/spanish/... (depending on i18n configuration)
@@ -127,12 +143,14 @@ class Object {
    *
    * @private
    */
+  @Type(name="String")
   method kindName() native
 
   /**
    * Full name of Wollok object class
    * @private
    */
+  @Type(name="String")
   method className() native
 
   /**
@@ -153,9 +171,11 @@ class Object {
    *
    * The default behavior compares them in terms of identity (===)
    */
+  @Type(name="Boolean")
   method ==(other) = self === other
 
   /** Tells whether self object is not equal to the given one */
+  @Type(name="Boolean")
   method !=(other) = ! (self == other)
 
   /**
@@ -163,29 +183,34 @@ class Object {
    * It does it by comparing their identities.
    * So self basically relies on the wollok.lang.Integer equality (which is native)
    */
+  @Type(name="Boolean")
   method ===(other) = self.identity() == other.identity()
 
   /**
    * Tells whether self object is not identical (the same) to the given one.
    * @See === message.
    */
+  @Type(name="Boolean")
   method !==(other) = ! (self === other)
 
   /**
    * o1.equals(o2) is a synonym for o1 == o2
    */
+  @Type(name="Boolean")
   method equals(other) = self == other
 
   /**
    * Generates a Pair key-value association. @see Pair.
    */
-  method ->(other) {
+  @Type(variable="Other", name="Pair<Self,Other>")
+  method ->(@Type(name="Other") other) {
     return new Pair(x = self, y = other)
   }
 
   /**
    * String representation of Wollok object
    */
+  @Type(name="String") 
   method toString() {
     return self.kindName()
   }
@@ -193,6 +218,7 @@ class Object {
   /**
    * Shows a short, internal representation
    */
+  @Type(name="String")
   method shortDescription() = self.toString()
 
   /**
@@ -200,10 +226,14 @@ class Object {
    * By default, same as toString but can be overridden
    * like in String
    */
+  @Type(name="String")
   method printString() = self.toString()
 
-  /** @private */
-  method messageNotUnderstood(messageName, parameters) {
+  /** 
+   * Throws MessageNotUnderstoodException using self as target object
+   * @private 
+   */
+  method messageNotUnderstood(@Type(name="String") messageName, @Type(name="List<Object>") parameters) {
     const target = if (messageName != "toString")
           self.toString()
          else
@@ -213,34 +243,39 @@ class Object {
   }
 
   /**
-   * @private
-   *
-   * internal method: generates a does not understand message
+   * Generates a does not understand message
    * parametersSize must be an integer value
+   * @private
    */
-  method generateDoesNotUnderstandMessage(target, messageName, parametersSize) native
+  @Type(name="String")
+  method generateDoesNotUnderstandMessage(@Type(name="String") target, @Type(name="String") messageName, @Type(name="Number") parametersSize) native
 
-  /** Builds an exception with a message */
-  method error(aMessage) {
+  /** Throws a DomainException with a message */
+  method error(@Type(name="String") aMessage) {
     throw new DomainException(message = aMessage, source = self)
   }
 
   /** @private */
-  method checkNotNull(value, message) native
+  @Type(name="Void")
+  method checkNotNull(value, @Type(name="String") message) native
 }
 
 /** Representation for methods that only have side effects */
 object void { }
 
 /**
- * Representation of a Key/Value Association.
- * It is also useful if you want to model a Point.
+ * Representation of a Key -> Value Association.
  */
+@Type(variables="Key,Value")
 class Pair {
+  @Type(name="Key")
   const property x
+  @Type(name="Value")
   const property y
 
+  @Type(name="Key")
   method key() = x
+  @Type(name="Value")
   method value() = y
 
   /**
@@ -280,7 +315,8 @@ class Collection {
    *       [].max({ e => e.length() })
    *            => Throws error, list must not be empty
    */
-  method max(closure) {
+  @Type(name="Element")
+  method max(@Type(name="{ (Element) => (Date | Number | String) }") closure) {
     self.checkNotNull(closure, "max")
     return self.maxIfEmpty(closure, { throw new ElementNotFoundException(message = "collection is empty") })
   }
@@ -294,6 +330,7 @@ class Collection {
    *       [11, 1, 4, 8, 3, 15, 6].max() =>  Answers 15
    *       [].max()                      =>  Throws error, list must not be empty
    */
+  @Type(name="Element")
   method max() = self.max({it => it})
 
   /**
@@ -312,7 +349,8 @@ class Collection {
    *       [].maxIfEmpty({ e => e.length() }, { "default" })
    *            => Answers "default"
    */
-  method maxIfEmpty(toComparableClosure, emptyCaseClosure) {
+  @Type(name="Element")
+  method maxIfEmpty(@Type(name="{ (Element) => (Date | Number | String) }") toComparableClosure, @Type(name="{ () => Element }") emptyCaseClosure) {
     self.checkNotNull(toComparableClosure, "maxIfEmpty")
     self.checkNotNull(emptyCaseClosure, "maxIfEmpty")
     return self.absolute(toComparableClosure, { a, b => a > b }, emptyCaseClosure)
@@ -329,7 +367,8 @@ class Collection {
    *       [11, 1, 4, 8, 3, 15, 6].maxIfEmpty({ 99 }) =>  Answers 15
    *       [].maxIfEmpty({ 99 })                      =>  Answers 99
    */
-  method maxIfEmpty(emptyCaseClosure) = self.maxIfEmpty({it => it}, emptyCaseClosure)
+  @Type(name="Element")
+  method maxIfEmpty(@Type(name="{ () => Element }") emptyCaseClosure) = self.maxIfEmpty({it => it}, emptyCaseClosure)
 
   /**
    * Answers the element that is considered to be/have the minimum value.
@@ -344,7 +383,8 @@ class Collection {
    *       [].min({ e => e.length() })
    *             => Throws error, list must not be empty
    */
-  method min(closure) {
+  @Type(name="Element")
+  method min(@Type(name="{ (Element) => (Date | Number | String) }") closure) {
     self.checkNotNull(closure, "min")
     return self.absolute(closure, { a, b => a < b }, { throw new ElementNotFoundException(message = "collection is empty") })
   }
@@ -358,6 +398,7 @@ class Collection {
    *       [11, 1, 4, 8, 3, 15, 6].min()  => Answers 1
    *       [].min()                       => Throws error, list must not be empty
    */
+  @Type(name="Element")
   method min() = self.min({it => it})
 
   /**
@@ -376,7 +417,8 @@ class Collection {
    *       [].minIfEmpty({ e => e.length() }, { "default" })
    *             => Answers "default"
    */
-  method minIfEmpty(toComparableClosure, emptyCaseClosure) {
+  @Type(name="Element")
+  method minIfEmpty(@Type(name="{ (Element) => (Date | Number | String) }") toComparableClosure, @Type(name="{ () => Element }") emptyCaseClosure) {
     self.checkNotNull(toComparableClosure, "minIfEmpty")
     self.checkNotNull(emptyCaseClosure, "minIfEmpty")
     return self.absolute(toComparableClosure, { a, b => a < b }, emptyCaseClosure)
@@ -393,13 +435,15 @@ class Collection {
    *       [11, 1, 4, 8, 3, 15, 6].minIfEmpty({ 99 })  => Answers 1
    *       [].minIfEmpty({ 99 })                       => Answers 99
    */
-  method minIfEmpty(emptyCaseClosure) {
+  @Type(name="Element")
+  method minIfEmpty(@Type(name="{ () => Element }") emptyCaseClosure) {
     self.checkNotNull(emptyCaseClosure, "minIfEmpty")
     return self.minIfEmpty({it => it}, emptyCaseClosure)
   }
 
   /** @private */
-  method absolute(closure, criteria, emptyCaseClosure) {
+  @Type(name="Element")
+  method absolute(@Type(name="{ (Element) => (Date | Number | String) }") closure, @Type(name="{ ((Date | Number | String), (Date | Number | String)) => Boolean }") criteria, @Type(name="{ () => Element }") emptyCaseClosure) {
     self.checkNotNull(closure, "absolute")
     self.checkNotNull(criteria, "absolute")
     self.checkNotNull(emptyCaseClosure, "absolute")
@@ -430,6 +474,7 @@ class Collection {
    *       [].uniqueElement()     => Throws error, list must not be empty
    *       [1, 2].uniqueElement() => Throws error, list must have one element
    */
+  @Type(name="Element")
   method uniqueElement() {
     self.validateNotEmpty("uniqueElement")
     const size = self.size()
@@ -448,7 +493,8 @@ class Collection {
    *    [1, 2] + #{3}  => supports concatenation between lists and sets, answers [1, 2, 3]
    *    #{} + []       => Answers #{}
    */
-  method +(elements) {
+  @Type(name="Self")
+  method +(@Type(name="Collection<Element>") elements) {
     const newCol = self.copy()
     newCol.addAll(elements)
     return newCol
@@ -462,7 +508,8 @@ class Collection {
    *    const list = []
    *    list.addAll(#{2, 4})  => list == [2, 4], always pointing to a list
    */
-  method addAll(elements) {
+  @Type(name="Void")
+  method addAll(@Type(name="Collection<Element>") elements) {
     self.checkNotNull(elements, "addAll")
     elements.forEach { element => self.add(element) }
   }
@@ -475,7 +522,8 @@ class Collection {
    *    const list = [1, 6, 5]
    *    list.removeAll([6]) => list == [1, 5]
    */
-  method removeAll(elements) {
+  @Type(name="Void")
+  method removeAll(@Type(name="Collection<Element>") elements) {
     self.checkNotNull(elements, "removeAll")
     elements.forEach { element => self.remove(element) }
   }
@@ -489,7 +537,8 @@ class Collection {
   *    const list = [1, 6, 5]
   *    list.removeAllSuchThat { e => e.even() } => list == [1, 5]
   */
-  method removeAllSuchThat(closure) {
+  @Type(name="Void")
+  method removeAllSuchThat(@Type(name="{ (Element) => Boolean }") closure) {
     self.checkNotNull(closure, "removeAllSuchThat")
     self.removeAll( self.filter(closure) )
   }
@@ -501,13 +550,15 @@ class Collection {
    *    [1, 6, 5].isEmpty() => Answers false
    *    [].isEmpty()        => Answers true
    */
+  @Type(name="Boolean")
   method isEmpty() = self.size() == 0
 
   /**
    * @private
    * Throws error if self collection is empty
    */
-  method validateNotEmpty(operation) {
+  @Type(name="Void")
+  method validateNotEmpty(@Type(name="String") operation) {
     if (self.isEmpty())
       throw new Exception(message = "Illegal operation '" + operation + "' on empty collection")
   }
@@ -521,7 +572,8 @@ class Collection {
    * Example:
    *      plants.forEach { plant => plant.takeSomeWater() }
    */
-  method forEach(closure) {
+  @Type(name="Void")
+  method forEach(@Type(name="{ (Element) => Void }") closure) {
     self.checkNotNull(closure, "forEach")
     self.fold(null, { seed, element =>
       closure.apply(element)
@@ -541,7 +593,8 @@ class Collection {
    *      [1, 3, 5].all { number => number.odd() }    => Answers true
    *      [].all { number => number.odd() }           => Answers true
    */
-  method all(predicate) {
+  @Type(name="Boolean")
+  method all(@Type(name="{ (Element) => Boolean }") predicate) {
     self.checkNotNull(predicate, "all")
     return self.fold(true, { seed, element => 
       if (!seed) 
@@ -563,7 +616,8 @@ class Collection {
    *      [1, 2, 3].any { number => number.even() }   ==> Answers true
    *      [].any { number => number.even() }          ==> Answers false
    */
-  method any(predicate) {
+  @Type(name="Boolean")
+  method any(@Type(name="{ (Element) => Boolean }") predicate) {
     self.checkNotNull(predicate, "any")
     return self.fold(false, { seed, element => 
       if (seed)
@@ -588,7 +642,8 @@ class Collection {
    *      #{1, 3}.find { number => number.even() }     => Throws ElementNotFoundException
    *      #{}.find { number => number.even() }         => Throws ElementNotFoundException
    */
-  method find(predicate) {
+  @Type(name="Element")
+  method find(@Type(name="{ (Element) => Boolean }") predicate) {
     self.checkNotNull(predicate, "find")
     return self.findOrElse(predicate, {
       throw new ElementNotFoundException(message = "there is no element that satisfies the predicate")
@@ -608,7 +663,8 @@ class Collection {
    *      [1, 3, 5].findOrDefault({ number => number.even() }, 0)  => Answers 0
    *      [].findOrDefault({ number => number.even() }, 0)         => Answers 0
    */
-  method findOrDefault(predicate, value) =  self.findOrElse(predicate, { value })
+  @Type(name="Element")
+  method findOrDefault(@Type(name="{ (Element) => Boolean }") predicate, @Type(name="Element") value) =  self.findOrElse(predicate, { value })
 
   /**
    * Answers the element of self collection that satisfies a given condition,
@@ -624,7 +680,8 @@ class Collection {
    *      [1, 3, 5].findOrElse({ number => number.even() }, { 6.max(4) }) => Answers 6
    *      [].findOrElse({ number => number.even() }, { false })           => Answers false
    */
-  method findOrElse(predicate, continuation) native
+  @Type(name="Element")
+  method findOrElse(@Type(name="{ (Element) => Boolean }") predicate, @Type(name="{ () => Element }") continuation) native
 
   /**
    * Counts all elements of self collection that satisfies a given condition
@@ -637,7 +694,8 @@ class Collection {
    *      #{1, 2, 3, 4, 5}.count { number => number.odd() }  => Answers 3
    *      #{}.count { number => number.odd() }               => Answers 0
    */
-  method count(predicate) {
+  @Type(name="Number")
+  method count(@Type(name="{ (Element) => Boolean }") predicate) {
     self.checkNotNull(predicate, "count")
     return self.fold(0, { total, element =>
       if (predicate.apply(element)) total+1 else total
@@ -652,7 +710,8 @@ class Collection {
    *      [1, 8, 4, 1].occurrencesOf(1)  => Answers 2
    *      [].occurrencesOf(2)            => Answers 0
    */
-  method occurrencesOf(element) = self.count({it => it == element})
+  @Type(name="Number")
+  method occurrencesOf(@Type(name="Element") element) = self.count({it => it == element})
 
   /**
    * Collects the sum of each value for all elements.
@@ -667,7 +726,8 @@ class Collection {
    *      const totalNumberOfFlowers = plants.sum{ plant => plant.numberOfFlowers() }
    *      [].sum { employee => employee.salary() }   => Answers 0
    */
-  method sum(closure) {
+  @Type(name="Number")
+  method sum(@Type(name="{ (Element) => Number }") closure) {
     self.checkNotNull(closure, "sum")
     return self.fold(0, { total, element => 
       total + closure.apply(element)
@@ -682,6 +742,7 @@ class Collection {
    *      [1, 2, 3, 4, 5].sum()  => Answers 15
    *      [].sum()               => Answers 0
    */
+  @Type(name="Number")
   method sum() = self.sum( {it => it} )
   
   /**
@@ -693,10 +754,11 @@ class Collection {
    * @returns a number
    *
    * Example:
-*      const averageNumberOfFlowers = plants.average{ plant => plant.numberOfFlowers() }
+   *   const averageNumberOfFlowers = plants.average{ plant => plant.numberOfFlowers() }
    *   [].average { employee => employee.salary() }         => throws an error
    */
-  method average(closure) {
+  @Type(name="Number")
+  method average(@Type(name="{ (Element) => Number }") closure) {
     if (self.size() == 0)
       throw new Exception(message = "You cannot calculate the average of an empty list")
     return self.sum(closure) / self.size()
@@ -710,6 +772,7 @@ class Collection {
    *      [1, 2, 3, 4, 5].average() => Answers 3
    *      [].average()              => throws an error
    */
+  @Type(name="Number")
   method average() = self.average( {it => it} )
 
   /**
@@ -724,8 +787,8 @@ class Collection {
    *      [1, 2, 3].map { number => number.odd() }  => Answers [true, false, true]
    *      [].map { number => number.odd() }         => Answers []
    */
-  @Type(variable="Mapped", name="List<Mapped>")
-  method map(@Type(name="{ (Element) => Mapped }") closure) {
+  @Type(variable="Map", name="List<Map>")
+  method map(@Type(name="{ (Element) => Map }") closure) {
     self.checkNotNull(closure, "map")
     return self.fold([], { newCollection, element =>
       newCollection.add(closure.apply(element))
@@ -759,7 +822,8 @@ class Collection {
    *       => Answers ["c", "cobol", "pascal", "java", "perl"]
    *
    */
-  method flatMap(closure) {
+  @Type(variable="Map", name="List<Map>")  
+  method flatMap(@Type(name="{ (Element) => Collection<Map> }") closure) {
     self.checkNotNull(closure, "flatMap")
     return self.fold([], { flattenedList, element =>
       flattenedList.addAll(closure.apply(element))
@@ -779,7 +843,9 @@ class Collection {
    *      [1, 2, 3].filter { number => number.even() }          => Answers [2]
    *      #{}.filter { number => number.even() }                => Answers #{}
    */
-  method filter(closure) {
+  // @Type(name="Self<Element>") 
+  @Type(name="Self") 
+  method filter(@Type(name="{ (Element) => Boolean }") closure) {
     self.checkNotNull(closure, "filter")
     return self.fold(self.newInstance(), { newCollection, element =>
       if (closure.apply(element)) {
@@ -796,7 +862,8 @@ class Collection {
    *      [].contains(3)        => Answers false
    *      [1, 2, 3].contains(2) => Answers true
    */
-  method contains(element) = self.any {one => element == one }
+  @Type(name="Boolean")
+  method contains(@Type(name="Element") element) = self.any {one => element == one }
 
   /**
    * Flattens a collection of collections. 
@@ -829,9 +896,11 @@ class Collection {
   }
 
   /** @private */
+  @Type(name="String")
   method toStringPrefix()
 
   /** @private */
+  @Type(name="String")
   method toStringSuffix()
 
   /**
@@ -842,6 +911,7 @@ class Collection {
   }
 
   /** Converts a collection to a list */
+  @Type(name="List<Element>")
   method asList()
 
   /** Converts a collection to a set (removing duplicates if necessary)
@@ -856,6 +926,7 @@ class Collection {
    *
    * @see Set
    */
+  @Type(name="Set<Element>")
   method asSet()
 
   /**
@@ -867,6 +938,7 @@ class Collection {
    * Example:
    *      const usersCopy = users.copy()
    */
+  @Type(name="Self")
   method copy() {
     const copy = self.newInstance()
     copy.addAll(self)
@@ -885,7 +957,8 @@ class Collection {
    *      [1, 5, 9, 2, 9].copyWithout(9) => Answers [1, 5, 2]
    *
    */
-  method copyWithout(elementToRemove) {
+  @Type(name="Self")
+  method copyWithout(@Type(name="Element") elementToRemove) {
     return self.filter{ element => element != elementToRemove }
   }
 
@@ -898,7 +971,8 @@ class Collection {
    *      [1, 5, 9, 2, 4].copyWith(9) => Answers [1, 5, 2, 4, 9]
    *
    */
-  method copyWith(elementToAdd) {
+  @Type(name="Self")
+  method copyWith(@Type(name="Element") elementToAdd) {
     const copy = self.copy()
     copy.add(elementToAdd)
     return copy
@@ -920,7 +994,8 @@ class Collection {
    *      [].sortedBy { a, b => a > b }              => Answers []
    *
    */
-  method sortedBy(closure) {
+  @Type(name="List<Element>")
+  method sortedBy(@Type(name="{ (Element, Element) => Boolean }") closure) {
     const copy = self.copy().asList()
     copy.sortBy(closure)
     return copy
@@ -939,17 +1014,20 @@ class Collection {
   /**
   * @see subclasses implementations
   */
+  @Type(name="Element")
   method anyOne() = throw new Exception(message = "Should be implemented by the subclasses")
 
   /**
   * @see subclasses implementations
   */
-  method add(element) = throw new Exception(message = "Should be implemented by the subclasses")
+  @Type(name="Void")
+  method add(@Type(name="Element") element) = throw new Exception(message = "Should be implemented by the subclasses")
 
   /**
   * @see subclasses implementations
   */
-  method remove(element) = throw new Exception(message = "Should be implemented by the subclasses")
+  @Type(name="Void")
+  method remove(@Type(name="Element") element) = throw new Exception(message = "Should be implemented by the subclasses")
 
   /**
   * @see subclasses implementations
@@ -959,6 +1037,7 @@ class Collection {
   /**
    * @see subclasses implementations
    */
+  @Type(name="Number")
   method size() = throw new Exception(message = "Should be implemented by the subclasses")
 
   /**
@@ -966,6 +1045,7 @@ class Collection {
    *
    * @see subclasses implementations
    */
+  @Type(name="Void")
   method clear()
 
   /**
@@ -975,7 +1055,8 @@ class Collection {
    * Example:
    *      ["hola", "como", "estas"].join(" ") ==> Answers "hola como estas"
    */
-  method join(separator) {
+  @Type(name="String")
+  method join(@Type(name="String") separator) {
     if (self.isEmpty()) return ""
     const newList = self.asList()
     return newList.subList(1).fold(newList.first().toString(), { string, element => string + separator + element.toString() })
@@ -988,6 +1069,7 @@ class Collection {
    * Example:
    *      ["hola", "como", "estas"].join()    ==> Answers "hola,como,estas"
    */
+  @Type(name="String")
   method join() = self.join(",")
 
 }
@@ -1020,6 +1102,7 @@ object collection {
 class Set inherits Collection {
 
   /** @private */
+  @Type(name="Set<Any>")
   override method newInstance() = #{}
 
   /** @private */
@@ -1078,7 +1161,8 @@ class Set inherits Collection {
    *
    * @returns a Set
    */
-  method union(another) = self + another
+  @Type(name="Set<Element>")
+  method union(@Type(name="Collection<Element>") another) = self + another
 
   /**
    * Answers a new Set with the elements of self that exist in another collection
@@ -1089,7 +1173,8 @@ class Set inherits Collection {
    *
    * @returns a Set
    */
-  method intersection(another) =
+  @Type(name="Set<Element>")
+  method intersection(@Type(name="Collection<Element>") another) =
     self.filter({it => another.contains(it)})
 
   /**
@@ -1101,7 +1186,8 @@ class Set inherits Collection {
    *
    * @returns a Set
    */
-  method difference(another) =
+  @Type(name="Set<Element>")
+  method difference(@Type(name="Collection<Element>") another) =
     self.filter({it => !another.contains(it)})
 
   /**
@@ -1133,6 +1219,7 @@ class Set inherits Collection {
    *
    * @see Collection#filter(closure)
    */
+  // @Type(name="Set<Element>") 
   override method filter(closure) native
 
 
@@ -1172,7 +1259,8 @@ class Set inherits Collection {
   override method add(@Type(name="Element")element) native
 
   /** @private */
-  method unsafeAdd(element) native
+  @Type(name="Void")
+  method unsafeAdd(@Type(name="Element") element) native
 
   /**
    * Removes the specified element from this set if it is present.
@@ -1272,9 +1360,11 @@ class List inherits Collection {
    *     [1, 2, 3].get(3) => Throws error, index exceeds list size
    *     [5, 2, 7].get(0) => Answers 5
    */
-  method get(index) native
+  @Type(name="Element")
+  method get(@Type(name="Number") index) native
 
   /** Creates a new list */
+  @Type(name="List<Any>")
   override method newInstance() = []
 
   /**
@@ -1284,6 +1374,7 @@ class List inherits Collection {
    *    #[1, 2, 3].anyOne() => Answers 3, for example
    *    #[].anyOne()        => Throws error, list must not be empty
    */
+  @Type(name="Element")
   override method anyOne() {
     self.validateNotEmpty("anyOne")
     return self.get(0.randomUpTo(self.size()).truncate(0))
@@ -1304,6 +1395,7 @@ class List inherits Collection {
   /**
    * Synonym for first method
    */
+  @Type(name="Element")
   method head() {
     self.validateNotEmpty("head")
     return self.get(0)
@@ -1318,6 +1410,7 @@ class List inherits Collection {
    *    [1, 2, 3, 4].last()  => Answers 4
    *    [].last()            => Throws error, list must not be empty
    */
+  @Type(name="Element")
   method last() {
     self.validateNotEmpty("last")
     return self.get(self.size() - 1)
@@ -1366,7 +1459,8 @@ class List inherits Collection {
    *    [1, 5, 3, 2, 7, 9].subList(4) => Answers [7, 9]
    *    [].subList(1)                 => Answers []
    */
-  method subList(start) {
+  @Type(name="List<Element>")
+  method subList(@Type(name="Number") start) {
     if (self.isEmpty()) return []
     if (start >= self.size()) return []
     return self.subList(start, self.size() - 1)
@@ -1383,7 +1477,8 @@ class List inherits Collection {
    *    [1, 5, 3, 2, 7, 9].subList(4, 6) => Answers [7, 9]
    *    [].subList(1, 2)                 => Answers []
    */
-  method subList(start, end) {
+  @Type(name="List<Element>")
+  method subList(@Type(name="Number") start, @Type(name="Number") end) {
     self.checkNotNull(start, "subList")
     self.checkNotNull(end, "subList")
     if (self.isEmpty() || start >= self.size())
@@ -1408,7 +1503,8 @@ class List inherits Collection {
    *
    * @see List#sortedBy
    */
-  method sortBy(closure) native
+  @Type(name="Void")
+  method sortBy(@Type(name="{ (Element, Element) => Boolean }") closure) native
 
   /**
    * Takes first n elements of a list.
@@ -1419,7 +1515,8 @@ class List inherits Collection {
    *    [1,9,2,3].take(-2) ==> Answers []
    *    [].take(2)         ==> Answers []
    */
-  method take(n) {
+  @Type(name="List<Element>")
+  method take(@Type(name="Number") n) {
     self.checkNotNull(n, "take")
     return if (n <= 0) self.newInstance() else self.subList(0, n - 1)
   }
@@ -1434,7 +1531,8 @@ class List inherits Collection {
    *     [1, 9, 2, 3].drop(-2) ==> Answers [1, 9, 2, 3]
    *     [].drop(2)            ==> Answers []
    */
-  method drop(n) {
+  @Type(name="List<Element>")
+  method drop(@Type(name="Number") n) {
     self.checkNotNull(n, "drop")
     return if (n >= self.size()) self.newInstance() else self.subList(n, self.size() - 1)
   }
@@ -1450,6 +1548,7 @@ class List inherits Collection {
    *    [].reverse()            ==> Answers []
    *
    */
+  @Type(name="List<Element>")
   method reverse() = self.subList(self.size() - 1, 0)
 
   /**
@@ -1464,6 +1563,7 @@ class List inherits Collection {
    *
    * @see Collection#filter(closure)
    */
+  // @Type(name="List<Element>") 
   override method filter(closure) native
 
   /**
@@ -1529,7 +1629,7 @@ class List inherits Collection {
    *     list.add(2)   => list = [3, 2, 2]
    */
   @Type(name="Void")
-  override method add(@Type(name="Element")element) native
+  override method add(@Type(name="Element") element) native
 
   /**
    * Removes an element in this list, if it is present.
@@ -1597,6 +1697,7 @@ class List inherits Collection {
    * [1, 3, 1, 5, 1, 3, 2, 5].withoutDuplicates() => Answers [1, 3, 5, 2]
    * [].withoutDuplicates()                       => Answers []
    */
+  @Type(name="List<Element>")
   method withoutDuplicates() native
 
   /**
@@ -1607,6 +1708,7 @@ class List inherits Collection {
   *     const list = [1, 2 ,3]
   *     list.randomize()     => list = [2, 1, 3]
   */
+  @Type(name="Void")
   method randomize() {
     self.sortBy{_,__ => [true,false].anyOne()
     }
@@ -1620,6 +1722,7 @@ class List inherits Collection {
   *     [1, 2, 3, 4].randomized() => Answers [2, 3, 1, 4]
   *     [1, 2, 3, 4].randomized() => Answers [2, 1 ,4 ,3]
   */
+  @Type(name="List<Element>")
   method randomized() {
     const copy = self.copy().asList()
     copy.randomize()
@@ -1629,9 +1732,10 @@ class List inherits Collection {
 }
 
 /**
- * Represents a set of key -> values
+ * Represents a set of key -> value
  *
  */
+@Type(variables="Key,Value")
 class Dictionary {
 
   override method initialize() native
@@ -1647,7 +1751,8 @@ class Dictionary {
    *     phones.put("4004-4004", rolo)
    *         => phones == a Dictionary ["4004-4004" -> rolo]
    */
-  method put(_key, _value) native
+  @Type(name="Void") 
+  method put(@Type(name="Key") _key, @Type(name="Value") _value) native
 
   /**
    * Answers the value to which the specified key is mapped,
@@ -1657,7 +1762,8 @@ class Dictionary {
    *     phones.basicGet("4004-4004")  => Answers rolo
    *     phones.basicGet("4004-4005")  => Answers null
    */
-  method basicGet(_key) native
+  @Type(name="Value") 
+  method basicGet(@Type(name="Key") _key) native
 
   /**
    * Answers the value to which the specified key is mapped,
@@ -1667,7 +1773,8 @@ class Dictionary {
    *     phones.getOrElse("4004-4004", { 0 })  => Answers rolo
    *     phones.getOrElse("4004-4005", { 0 })  => Answers 0
    */
-  method getOrElse(_key, _closure) {
+  @Type(name="Value") 
+  method getOrElse(@Type(name="Key") _key, @Type(name="{ () => Value }") _closure) {
     const value = self.basicGet(_key)
     if (value == null)
       return _closure.apply()
@@ -1683,7 +1790,8 @@ class Dictionary {
    *     phones.get("4004-4004")  => Answers rolo
    *     phones.get("4004-4005")  => Throws ElementNotFoundException
    */
-  method get(_key) = self.getOrElse(_key,{ => throw new ElementNotFoundException(message = "there is no element associated with key " + _key) })
+  @Type(name="Value") 
+  method get(@Type(name="Key") _key) = self.getOrElse(_key,{ => throw new ElementNotFoundException(message = "there is no element associated with key " + _key) })
 
   /**
    * Answers the number of key-value mappings in this Dictionary.
@@ -1692,6 +1800,7 @@ class Dictionary {
    *     phones.size()           => Answers 1
    *     new Dictionary().size() => Answers 0
    */
+  @Type(name="Number") 
   method size() = self.values().size()
 
   /**
@@ -1701,6 +1810,7 @@ class Dictionary {
    *     phones.isEmpty()           => Answers false
    *     new Dictionary().isEmpty() => Answers true
    */
+  @Type(name="Boolean") 
   method isEmpty() = self.size() == 0
 
   /**
@@ -1711,7 +1821,8 @@ class Dictionary {
    *     phones.containsKey("4004-4005")  => Answers false
    *     new Dictionary().containsKey(1)  => Answers false
    */
-  method containsKey(_key) = self.keys().contains(_key)
+  @Type(name="Boolean") 
+  method containsKey(@Type(name="Key") _key) = self.keys().contains(_key)
 
   /**
    * Answers whether if this Dictionary maps one or more keys to the specified value.
@@ -1724,7 +1835,8 @@ class Dictionary {
    *     numbers.containsValue(5)          => Answers false
    *     new Dictionary().containsValue(3) => Answers false
    */
-  method containsValue(_value) = self.values().contains(_value)
+  @Type(name="Boolean") 
+  method containsValue(@Type(name="Value") _value) = self.values().contains(_value)
 
   /**
    * Removes the mapping for a key from this Dictionary if it is present.
@@ -1738,7 +1850,8 @@ class Dictionary {
    *     numbers.remove("one")   => numbers is a dictionary ("two" -> 2)
    *     numbers.remove("three") => nothing happens
    */
-  method remove(_key) native
+  @Type(name="Void") 
+  method remove(@Type(name="Key") _key) native
 
   /**
    * Answers a list of the keys contained in this Dictionary.
@@ -1749,6 +1862,7 @@ class Dictionary {
    *     numbers.put("two", 2)
    *     numbers.keys()   => ["one", "two"]
    */
+  @Type(name="List<Key>") 
   method keys() native
 
   /**
@@ -1760,6 +1874,7 @@ class Dictionary {
    *     numbers.put("two", 2)
    *     numbers.values()   => [1, 2]
    */
+  @Type(name="List<Value>") 
   method values() native
 
   /**
@@ -1773,7 +1888,8 @@ class Dictionary {
    *     mapaTelefonos.forEach({ k, v => result += k.size() + v.size() })
    *
    */
-  method forEach(closure) native
+  @Type(name="Void") 
+  method forEach(@Type(name="{ (Key, Value) => Void }") closure) native
 
   /**
    * Removes all of the mappings from this Dictionary.
@@ -1785,6 +1901,7 @@ class Dictionary {
    *     numbers.put("two", 2)
    *     numbers.clear()  => phones == empty dictionary
    */
+  @Type(name="Void") 
   method clear() native
 
   /**
@@ -1841,6 +1958,7 @@ class Number {
    * Otherwise, if it is a decimal, defined coercing algorithm is applied
    * (see definition of class Number)
    */
+  @Type(name="Number")
   method coerceToInteger() native
 
   /**
@@ -1849,6 +1967,7 @@ class Number {
    *
    * Applies coercing strategy to integer. And throws exception if it is negative.
    */
+  @Type(name="Number")
   method coerceToPositiveInteger() native
 
   /**
@@ -1873,7 +1992,8 @@ class Number {
    *    15.div(5)     ==> Answers 3
    *    8.2.div(3.3)  ==> Answers 2
    */
-  method div(other) {
+  @Type(name="Number")
+  method div(@Type(name="Number") other) {
     self.checkNotNull(other, "div")
     return (self / other).truncate(0)
   }
@@ -1885,12 +2005,14 @@ class Number {
    *     3.2 ** 2 ==> Answers 10.24
    *     3 ** 2   ==> Answers 9
    */
-  method **(other) native
+  @Type(name="Number")
+  method **(@Type(name="Number") other) native
 
   /**
    * Answers remainder of division between self and other
    */
-  method %(other) native
+  @Type(name="Number")
+  method %(@Type(name="Number") other) native
 
   /** String representation of self number */
   override method toString() native
@@ -1901,16 +2023,21 @@ class Number {
    * Example:
    *     1..4       Answers ==> a new Range object from 1 to 4
    */
-  method ..(end) {
+  @Type(name="Range")
+  method ..(@Type(name="Number") end) {
     self.checkNotNull(end, "..")
     return new Range(start = self, end = end)
   }
 
-  method >(other) native
-  method <(other) native
+  @Type(name="Boolean")
+  method >(@Type(name="Number") other) native
+  @Type(name="Boolean")
+  method <(@Type(name="Number") other) native
 
-  method >=(other) = self > other || self == other
-  method <=(other) = self < other || self == other
+  @Type(name="Boolean")
+  method >=(@Type(name="Number") other) = self > other || self == other
+  @Type(name="Boolean")
+  method <=(@Type(name="Number") other) = self < other || self == other
 
   /**
    * Answers absolute value of self
@@ -1921,6 +2048,7 @@ class Number {
    *     2.7.abs()    ==> Answers 2.7
    *     (-3.2).abs() ==> Answers 3.2 (be careful with parentheses)
    */
+  @Type(name="Number")
   method abs() native
 
   /**
@@ -1932,6 +2060,7 @@ class Number {
    *     3.2.invert()    ==> -3.2
    *     (-2.4).invert() ==> 2.4 (be careful with parentheses)
    */
+  @Type(name="Number")
   method invert() native
 
   /**
@@ -1940,7 +2069,8 @@ class Number {
    * Example:
    *     5.max(8)    ==> Answers 8
    */
-  method max(other) {
+  @Type(name="Number")
+  method max(@Type(name="Number") other) {
     self.checkNotNull(other, "max")
     return if (self >= other) self else other
   }
@@ -1951,7 +2081,8 @@ class Number {
     * Example:
     *     5.min(8)    ==> Answers 5
     */
-  method min(other) {
+  @Type(name="Number")
+  method min(@Type(name="Number") other) {
     self.checkNotNull(other, "min")
     return if (self <= other) self else other
   }
@@ -1967,7 +2098,8 @@ class Number {
    * 4.limitBetween(1, 2)  ==> Answers 2, because 4 is not in range 1..2, but 2 is nearest value to 4
    *
    */
-  method limitBetween(limitA, limitB) {
+  @Type(name="Number")
+  method limitBetween(@Type(name="Number") limitA, @Type(name="Number") limitB) {
     self.checkNotNull(limitA, "limitBetween")
     self.checkNotNull(limitB, "limitBetween")
     return
@@ -1985,13 +2117,15 @@ class Number {
    *     6.between(4, 6) ==> Answers true
    *     3.between(4, 6) ==> Answers false
    */
-  method between(min, max) = (self >= min) && (self <= max)
+  @Type(name="Boolean")
+  method between(@Type(name="Number") min, @Type(name="Number") max) = (self >= min) && (self <= max)
 
   /** Answers squareRoot of self
    *
    * Example:
    *     9.squareRoot() => Answers 3
    */
+  @Type(name="Number")
   method squareRoot() = self ** 0.5
 
   /** Answers square of self
@@ -1999,6 +2133,7 @@ class Number {
    * Example:
    *     3.square() => Answers 9
    */
+  @Type(name="Number")
   method square() = self * self
 
   /**
@@ -2016,6 +2151,7 @@ class Number {
    *
    * Self must be an integer value
    */
+  @Type(name="Boolean")
   method odd() {
     if (!self.isInteger()) return false
     return !self.even()
@@ -2027,7 +2163,8 @@ class Number {
    *     5.rem(3)   ==> Answers 2
    *     5.5.rem(3) ==> Answers 2
    */
-  method rem(other) {
+  @Type(name="Number")
+  method rem(@Type(name="Number") other) {
     self.checkNotNull(other, "rem")
     return self % other
   }
@@ -2035,6 +2172,7 @@ class Number {
   /*
    * Self as String value. Equivalent: toString()
    */
+  @Type(name="String")
   method stringValue() = self.toString()
 
   /**
@@ -2047,7 +2185,8 @@ class Number {
    *     14.6165.roundUp(3)   ==> 14.617
    *     5.roundUp(3)         ==> 5
    */
-   method roundUp(_decimals) native
+  @Type(name="Number")
+  method roundUp(@Type(name="Number") _decimals) native
 
  /**
    * Rounds up self down to a certain amount of decimals.
@@ -2059,7 +2198,8 @@ class Number {
    *     14.6165.roundDown(3)   ==> 14.616
    *     5.roundDown(3)         ==> 5
    */
-   method roundDown(_decimals) native
+  @Type(name="Number")
+  method roundDown(_decimals) native
 
   /**
    * Truncates self up to a certain amount of decimals.
@@ -2071,12 +2211,14 @@ class Number {
    *     -14.6165.truncate(3) ==> -14.616
    *     5.truncate(3)        ==> 5
    */
-  method truncate(_decimals) native
+  @Type(name="Number")
+  method truncate(@Type(name="Number")_decimals) native
 
   /**
    * Answers a random number between self and max
    */
-  method randomUpTo(max) native
+  @Type(name="Number")
+  method randomUpTo(@Type(name="Number")max) native
 
   /**
    * Answers the next integer greater than self
@@ -2086,6 +2228,7 @@ class Number {
    *     (-13.224).roundUp() ==> -12
    *     15.942.roundUp()  ==> 16
    */
+  @Type(name="Number")
   method roundUp() = self.roundUp(0)
 
  /**
@@ -2096,11 +2239,13 @@ class Number {
    *     (-13.224).roundDown() ==> -14
    *     15.942.roundDown()  ==> 15
    */
+  @Type(name="Number")
   method roundDown() = self.roundDown(0)
 
   /**
    * Returns the value of a number rounded to the nearest integer.
   **/
+  @Type(name="Number")
   method round() native
 
   /** 
@@ -2112,7 +2257,8 @@ class Number {
    *     (-5).floor() ==> Answers -5
    *     (-5.5).floor() ==> Answers -6
   **/
-  method floor() = self.roundDown() //native
+  @Type(name="Number")
+  method floor() = self.roundDown()
 
   /**
    * Converts a decimal number into an integer truncating the decimal part to the same or grater value.
@@ -2123,6 +2269,7 @@ class Number {
    *     (-5).ceiling() ==> Answers -5
    *     (-5.5).ceiling() ==> Answers -5
   **/
+  @Type(name="Number")
   method ceil() = self.roundUp()
 
   /**
@@ -2133,7 +2280,8 @@ class Number {
    *     8.gcd(12) ==> Answers 4
    *     5.gcd(10) ==> Answers 5
    */
-  method gcd(other) native
+  @Type(name="Number")
+  method gcd(@Type(name="Number") other) native
 
   /**
    * least common multiple.
@@ -2143,7 +2291,8 @@ class Number {
    *     3.lcm(4)  ==> Answers 12
    *     6.lcm(12) ==> Answers 12
    */
-  method lcm(other) {
+  @Type(name="Number")
+  method lcm(@Type(name="Number") other) {
     self.checkNotNull(other, "lcm")
     const mcd = self.gcd(other)
     return self * (other / mcd)
@@ -2157,6 +2306,7 @@ class Number {
    *     6.00012.digits() ==> Answers 6
    *     -100.digits()    ==> Answers -3
    */
+  @Type(name="Number")
   method digits() {
     var digits = self.toString().size()
     if (self < 0) {
@@ -2180,6 +2330,7 @@ class Number {
    *     (2.0001).isInteger() ==> Answers false if rounding strategy is set to 5 decimal places (default)
    *     (2.0001).isInteger() ==> Answers true if rounding strategy is set to 3 decimal places
    */
+  @Type(name="Boolean")
   method isInteger() native
 
   /**
@@ -2187,6 +2338,7 @@ class Number {
    * like 2, 3, 5, 7, 11 ...
    * Self must be an integer positive value
    */
+  @Type(name="Boolean")
   method isPrime() {
     const intValue = self.coerceToInteger()
     if (intValue == 1) return false
@@ -2207,7 +2359,8 @@ class Number {
    *       3
    *       4
    */
-  method times(action) {
+  @Type(name="Void")
+  method times(@Type(name="{ (Number) => Void }") action) {
     self.checkNotNull(action, "times")
     const intValue = self.coerceToInteger()
     if (intValue < 0) self.error("times requires a positive integer number")
@@ -2215,6 +2368,7 @@ class Number {
   }
 
   /** Allows users to define a positive number with 1 or +1 */
+  @Type(name="Number")
   method plus() = self
 }
 
@@ -2227,6 +2381,7 @@ class Number {
  */
 class String {
   /** Answers the number of elements */
+  @Type(name="Number")
   method length() native
 
   /**
@@ -2235,7 +2390,8 @@ class String {
    * at index 0, the next at index 1, and so on, as for array indexing.
    * Parameter index must be a positive integer value.
    */
-  method charAt(index) {
+  @Type(name="String")
+  method charAt(@Type(name="Number") index) {
     self.checkNotNull(index, "charAt")
     if (!index.isInteger()) throw new DomainException(message = "charAt expects an integer instead of " + index)
     return self.substring(index, index + 1)
@@ -2246,14 +2402,16 @@ class String {
    * Example:
    *     "cares" + "s" => Answers "caress"
    */
-  method +(other) = self.concat(other.toString())
+  @Type(name="String")
+  method +(@Type(name="String") other) = self.concat(other.toString())
 
   /**
    * Concatenates the specified string to the end of this string. Same as +.
    * Example:
    *     "cares".concat("s") => Answers "caress"
    */
-  method concat(other) native
+  @Type(name="String")
+  method concat(@Type(name="String") other) native
 
   /**
    * Tests if this string starts with the specified prefix.
@@ -2263,14 +2421,16 @@ class String {
    *     "mother".startsWith("moth")  ==> Answers true
    *     "mother".startsWith("Moth")  ==> Answers false
    */
-  method startsWith(prefix) native
+  @Type(name="Boolean")
+  method startsWith(@Type(name="String") prefix) native
 
   /**
    * Tests if this string ends with the specified suffix.
    * It is case sensitive.
    * @see startsWith
    */
-  method endsWith(suffix) native
+  @Type(name="Boolean")
+  method endsWith(@Type(name="String") suffix) native
 
   /**
    * Answers the index within this string of the first occurrence
@@ -2281,7 +2441,8 @@ class String {
    *     "pototo".indexOf("o")         ==> Answers 1
    *     "unpredictable".indexOf("o")  ==> Answers -1
    */
-  method indexOf(other) native
+  @Type(name="Number")
+  method indexOf(@Type(name="String") other) native
 
   /**
    * Answers the index within this string of the last
@@ -2292,7 +2453,8 @@ class String {
    *     "pototo".lastIndexOf("o")         ==> Answers 5
    *     "unpredictable".lastIndexOf("o")  ==> Answers -1
    */
-  method lastIndexOf(other) native
+  @Type(name="Number")
+  method lastIndexOf(@Type(name="String") other) native
 
   /**
    * Converts all of the characters in this String to lower case
@@ -2301,6 +2463,7 @@ class String {
    *     "Fer".toLowerCase()  ==> Answers "fer"
    *     "".toLowerCase()     ==> Answers ""
    */
+  @Type(name="String")
   method toLowerCase() native
 
   /**
@@ -2310,6 +2473,7 @@ class String {
    *     "Fer".toUpperCase()  ==> Answers "FER"
    *     "".toUpperCase()     ==> Answers ""
    */
+  @Type(name="String")
   method toUpperCase() native
 
   /**
@@ -2319,6 +2483,7 @@ class String {
    * Example:
    *     "   emptySpace  ".trim()  ==> "emptySpace"
    */
+  @Type(name="String")
   method trim() native
 
   /**
@@ -2328,6 +2493,7 @@ class String {
    * Example:
    *     "hola".reverse()  ==> "aloh"
    */
+  @Type(name="String")
   method reverse() native
 
   /**
@@ -2339,7 +2505,8 @@ class String {
    *     "word".takeLeft(-1) ==> Throws error
    *     "".takeLeft(2)      ==> Answers ""
    */
-  method takeLeft(length) = self.take(length)
+  @Type(name="String")
+  method takeLeft(@Type(name="Number") length) = self.take(length)
 
   /**
    * Takes last n characters of this string.
@@ -2351,17 +2518,22 @@ class String {
    *     "word".takeRight(-1) ==> Throws error
    *     "".takeRight(2)      ==> Answers ""
    */
-  method takeRight(_length) {
+  @Type(name="String")
+  method takeRight(@Type(name="Number") _length) {
     const length = _length.coerceToPositiveInteger().min(self.size())
     return self.drop(self.size() - length)
   }
 
-  method <(aString) native
-  method <=(aString) {
+  @Type(name="Boolean")
+  method <(@Type(name="String") aString) native
+  @Type(name="Boolean")
+  method <=(@Type(name="String") aString) {
     return self == aString || self < aString
   }
-  method >(aString) native
-  method >=(aString) {
+  @Type(name="Boolean")
+  method >(@Type(name="String") aString) native
+  @Type(name="Boolean")
+  method >=(@Type(name="String") aString) {
     return self == aString || self > aString
   }
 
@@ -2373,9 +2545,11 @@ class String {
    *     "unusual".contains("usual")  ==> Answers true
    *     "become".contains("CO")      ==> Answers false
    */
-  method contains(element) native
+  @Type(name="Boolean")
+  method contains(@Type(name="String") element) native
 
   /** Answers whether this string has no characters */
+  @Type(name="Boolean")
   method isEmpty() = self.size() == 0
 
   /**
@@ -2384,7 +2558,8 @@ class String {
    * Example:
    *    "WoRD".equalsIgnoreCase("Word")  ==> Answers true
    */
-  method equalsIgnoreCase(aString) {
+  @Type(name="Boolean")
+  method equalsIgnoreCase(@Type(name="String") aString) {
     self.checkNotNull(aString, "equalsIgnoreCase")
     return self.toUpperCase() == aString.toUpperCase()
   }
@@ -2398,7 +2573,8 @@ class String {
    *     "substitute".substring(6)  ==> Answers "tute", second "t" is in position 6
    *     "effect".substring(0)      ==> Answers "effect", has no effect at all
    */
-  method substring(index) native
+  @Type(name="String") 
+  method substring(@Type(name="Number") index) native
 
   /**
    * Answers a substring of this string beginning
@@ -2410,7 +2586,8 @@ class String {
    *     "walking".substring(0, 5)   ==> Answers "walki"
    *     "walking".substring(0, 45)  ==> throws an out of range exception
    */
-  method substring(startIndex, endIndex) native
+  @Type(name="String")
+  method substring(@Type(name="Number") startIndex, @Type(name="Number") endIndex) native
 
   /**
    * Splits this string around matches of the given string.
@@ -2434,7 +2611,8 @@ class String {
    *     "aaaa".split("aa")
    *          ==> Answers ["", "", ""]
    */
-  method split(expression) {
+  @Type(name="List<String>")
+  method split(@Type(name="String") expression) {
     self.checkNotNull(expression, "split")
     var text = self
     const result = []
@@ -2466,7 +2644,8 @@ class String {
    *     "stupid is what stupid does".replace("stupid", "genius")
    *           ==> Answers "genius is what genius does"
    */
-  method replace(expression, replacement) native
+  @Type(name="String")
+  method replace(@Type(name="String") expression, @Type(name="String") replacement) native
 
   /** This object (which is already a string!) is itself returned */
   override method toString() native
@@ -2485,6 +2664,7 @@ class String {
   override method ==(other) native
 
   /** A synonym for length */
+  @Type(name="Number")
   method size() = self.length()
 
   /**
@@ -2497,7 +2677,8 @@ class String {
    *     "lowercase".take(-1) ==> Throws error
    *     "".take(2)           ==> Answers ""
    */
-  method take(n) {
+  @Type(name="String")
+  method take(@Type(name="Number") n) {
     self.checkNotNull(n, "take")
     return self.substring(0, n.min(self.size()))
   }
@@ -2513,7 +2694,8 @@ class String {
    *      "caption".drop(-1)   ==> Throws error
    *      "".drop(2)           ==> Answers ""
    */
-  method drop(n) {
+  @Type(name="String")
+  method drop(@Type(name="Number") n) {
     self.checkNotNull(n, "drop")
     return self.substring(n.min(self.size()), self.size())
   }
@@ -2527,6 +2709,7 @@ class String {
    *
    *      "".words() ==> Answers []
    */
+  @Type(name="List<String>")
   method words() = self.split(" ")
 
   /**
@@ -2536,6 +2719,7 @@ class String {
    * Example:
    *      "javier fernandes".capitalize() ==> Answers "Javier Fernandes"
    */
+  @Type(name="String")
   method capitalize() {
     const capitalizedPhrase = self.words().fold("", { words, word => words + word.take(1).toUpperCase() + word.drop(1).toLowerCase() + " " })
     return capitalizedPhrase.take(capitalizedPhrase.size() - 1)
@@ -2555,19 +2739,23 @@ class Boolean {
    * Answers the result of applying the logical AND operator
    * to the specified boolean operands self and other
    */
-  method and(other) native
+  @Type(name="Boolean") 
+  method and(@Type(name="Boolean") other) native
 
   /** A synonym for and operation */
-  method &&(other) native
+  @Type(name="Boolean") 
+  method &&(@Type(name="Boolean") other) native
 
   /**
    * Answers the result of applying the logical OR operator
    * to the specified boolean operands self and other
    */
-  method or(other) native
+  @Type(name="Boolean") 
+  method or(@Type(name="Boolean") other) native
 
   /** A synonym for or operation */
-  method ||(other) native
+  @Type(name="Boolean") 
+  method ||(@Type(name="Boolean") other) native
 
   /** String representation of this boolean value. */
   override method toString() native
@@ -2581,6 +2769,7 @@ class Boolean {
   override method ==(other) native
 
   /** NOT logical operation */
+  @Type(name="Boolean")
   method negate() native
 }
 
@@ -2594,8 +2783,24 @@ class Boolean {
  * @since 1.3
  */
 class Range {
+  /**
+   * The start of the range. It is inclusive.
+   * If start = 1, end = 8, Range will represent [1, 2, 3, 4, 5, 6, 7, 8]
+   */
+  @Type(name="Number")
   var start
+  /**
+   * The end of the range. It is inclusive.
+   * If start = 1, end = 8, Range will represent [1, 2, 3, 4, 5, 6, 7, 8]
+   */
+  @Type(name="Number")
   var end
+  /**
+   * The step of the range. It is optional.
+   * If start = 1, end = 8, step = 3, Range will represent [1, 4, 7]
+   * If step is not specified, it defaults to 1 if start < end or -1 if start > end
+   */
+  @Type(name="Number")
   var property step = null
 
   /**
@@ -2628,17 +2833,20 @@ class Range {
   /**
    * Getter for start attribute
    */
+  @Type(name="Number")
   method start() = start
 
   /**
    * Getter for end attribute
    */
+  @Type(name="Number")
   method end() = end
 
   /**
    * Setter for step attribute.
    */
-  method step(_step) {
+  @Type(name="Void")
+  method step(@Type(name="Number") _step) {
     self.checkNotNull(_step, "step")
     step = _step.coerceToInteger()
   }
@@ -2650,7 +2858,8 @@ class Range {
    *     new Range(start = 1, end = 3).forEach { value => console.println(value) }
    *         => prints 1, 2, 3
    */
-  method forEach(closure) native
+  @Type(name="Void") 
+  method forEach(@Type(name="{ (Number) => Void }") closure) native
 
   /**
    * Answers a new collection that contains the result of
@@ -2664,7 +2873,8 @@ class Range {
    * Example:
    *      (1..10).map({ n => n * 2}) ==> Answers [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
    */
-  method map(closure) = self.asList().map(closure)
+  @Type(variable="Map", name="List<Map>")
+  method map(@Type(name="{ (Number) => Map }") closure) = self.asList().map(closure)
 
   /**
    * Map + flatten operation
@@ -2674,9 +2884,11 @@ class Range {
    * Example:
    *      (1..4).flatMap({ n => 1 .. n }) ==> Answers [1, 1, 2, 1, 2, 3, 1, 2, 3, 4]
    */
-  method flatMap(closure) = self.asList().flatMap(closure)
+  @Type(variable="Map", name="List<Map>")
+  method flatMap(@Type(name="{ (Number) => Collection<Map> }") closure) = self.asList().flatMap(closure)
 
   /** @private */
+  @Type(name="List<Number>")
   method asList() {
     const list = []
     self.forEach { element => list.add(element) }
@@ -2687,6 +2899,7 @@ class Range {
    * Answers whether this range contains no elements
    * @see Collection#isEmpty()
    */
+  @Type(name="Boolean")
   method isEmpty() = self.size() == 0
 
   /**
@@ -2698,7 +2911,8 @@ class Range {
    *
    * @see List#fold(seed, foldClosure)
    */
-  method fold(seed, foldClosure) = self.asList().fold(seed, foldClosure)
+  @Type(variable="Folded", name="Folded")
+  method fold(@Type(name="Folded") seed, @Type(name="{ (Folded, Number) => Folded }") foldClosure) = self.asList().fold(seed, foldClosure)
 
   /**
    * Answers the number of elements
@@ -2707,6 +2921,7 @@ class Range {
    *     new Range(start = 0, end = 2).size()  ==> Answers 3
    *     new Range(start = -2, end = 2).size() ==> Answers 5
    */
+  @Type(name="Number")
   method size()  {
       const base = (end - start) / step
       return if (base >= 0) base.truncate(0) + 1 else 0
@@ -2723,7 +2938,8 @@ class Range {
    *
    * @see List#any(closure)
    */
-  method any(closure) = self.asList().any(closure)
+  @Type(name="Boolean")
+  method any(@Type(name="{ (Number) => Boolean }") closure) = self.asList().any(closure)
 
   /**
    * Answers whether all the elements of range satisfy a given
@@ -2737,7 +2953,8 @@ class Range {
    *
    * @see List#all(closure)
    */
-  method all(closure) = self.asList().all(closure)
+  @Type(name="Boolean")
+  method all(@Type(name="{ (Number) => Boolean }") closure) = self.asList().all(closure)
 
   /**
    * Answers a new list with the elements meeting
@@ -2749,7 +2966,8 @@ class Range {
    *
    * @see List#filter(closure)
    */
-  method filter(closure) = self.asList().filter(closure)
+  @Type(name="List<Number>") 
+  method filter(@Type(name="{ (Number) => Boolean }") closure) = self.asList().filter(closure)
 
   /**
    * Answers the element that represents the minimum value in the range.
@@ -2760,6 +2978,7 @@ class Range {
    *
    * @see List#min()
    */
+  @Type(name="Number")
   method min() = self.asList().min()
 
   /**
@@ -2771,6 +2990,7 @@ class Range {
    *
    * @see List#max()
    */
+  @Type(name="Number")
   method max() = self.asList().max()
 
   /**
@@ -2779,6 +2999,7 @@ class Range {
    * Example:
    *     new Range(start = 1, end = 3).anyOne() ==> Answers 1 or 2 or 3
    */
+  @Type(name="Number")
   method anyOne() native
 
   /**
@@ -2788,7 +3009,8 @@ class Range {
    *     new Range(start = 2, end = 5).contains(4) ==> Answers true
    *     (new Range(start = 2, end = 5)).contains(0) ==> Answers false
    */
-  method contains(element) = self.asList().contains(element)
+  @Type(name="Boolean")
+  method contains(@Type(name="Number") element) = self.asList().contains(element)
 
   /**
    * Sums all elements in the collection.
@@ -2799,6 +3021,7 @@ class Range {
    *
    * @see List#sum()
    */
+  @Type(name="Number")
   method sum() = self.asList().sum()
 
   /**
@@ -2807,7 +3030,8 @@ class Range {
    * Example:
    *     (1..9).sum({ i => if (i.even()) i else 0 }) ==> Answers 20
    */
-  method sum(closure) = self.asList().sum(closure)
+  @Type(name="Number")
+  method sum(@Type(name="{ (Number) => Number }") closure) = self.asList().sum(closure)
 
   /**
    * Counts how many elements match the boolean closure
@@ -2815,7 +3039,8 @@ class Range {
    * Example:
    *     (1..9).count({ i => i.even() }) ==> Answers 4 (2, 4, 6 and 8 are even)
    */
-  method count(closure) = self.asList().count(closure)
+  @Type(name="Number")
+  method count(@Type(name="{ (Number) => Boolean }") closure) = self.asList().count(closure)
 
   /**
    * Answers the number of the range that satisfies a given condition.
@@ -2827,7 +3052,8 @@ class Range {
    *
    * @see List#find(closure)
    */
-  method find(closure) = self.asList().find(closure)
+  @Type(name="Number")
+  method find(@Type(name="{ (Number) => Boolean }") closure) = self.asList().find(closure)
 
   /**
    * Finds the first number matching the boolean closure,
@@ -2839,7 +3065,8 @@ class Range {
    *
    * @see List#findOrElse(predicate, continuation)
    */
-  method findOrElse(closure, continuation) = self.asList().findOrElse(closure, continuation)
+  @Type(name="Number")
+  method findOrElse(@Type(name="{ (Number) => Boolean }") closure, @Type(name="{ () => Number }") continuation) = self.asList().findOrElse(closure, continuation)
 
   /**
    * Answers the number of the range that satisfies a given condition,
@@ -2851,7 +3078,8 @@ class Range {
    *
    * @see List#findOrDefault(predicate, value)
    */
-  method findOrDefault(predicate, value) = self.asList().findOrDefault(predicate, value)
+  @Type(name="Number")
+  method findOrDefault(@Type(name="{ (Number) => Boolean }") predicate, @Type(name="Number") value) = self.asList().findOrDefault(predicate, value)
 
   /**
    * Answers a new List that contains the elements of self collection
@@ -2866,7 +3094,8 @@ class Range {
    *
    * @see List#sortBy
    */
-  method sortedBy(closure) = self.asList().sortedBy(closure)
+  @Type(name="List<Number>")
+  method sortedBy(@Type(name="{ (Number, Number) => Boolean }") closure) = self.asList().sortedBy(closure)
 
   /** String representation of this range object */
   override method toString() {
@@ -2933,8 +3162,11 @@ object calendar {
  */
 class Date {
 
+  @Type(name="Number") 
   const property day = calendar.today().day()
+  @Type(name="Number") 
   const property month = calendar.today().month()
+  @Type(name="Number") 
   const property year = calendar.today().year()
 
   /** String representation of a date */
@@ -2955,7 +3187,8 @@ class Date {
    *     new Date(day = 12, month = 5, year = 2018).plusDays(-1)
    *        ==> Answers 11/5/2018, a day back
    */
-  method plusDays(_days) native
+  @Type(name="Date") 
+  method plusDays(@Type(name="Number") _days) native
 
   /**
    * Answers a copy of this Date with the specified number of months added.
@@ -2969,7 +3202,8 @@ class Date {
    *     new Date(day = 12, month = 5, year = 2018).plusMonths(-1)
    *        ==> Answers 12/4/2018, a month back
    */
-  method plusMonths(_months) native
+  @Type(name="Date") 
+  method plusMonths(@Type(name="Number") _months) native
 
   /**
    * Answers a copy of this Date with the specified number of years added.
@@ -2983,7 +3217,8 @@ class Date {
    *     new Date(day = 12, month = 5, year = 2018).plusYears(-1)
    *        ==> Answers 12/5/2017, a year back
    */
-  method plusYears(_years) native
+  @Type(name="Date") 
+  method plusYears(@Type(name="Number") _years) native
 
   /**
    * Checks if the year is a leap year, like 2000, 2004, 2008...
@@ -2991,6 +3226,7 @@ class Date {
    * Example:
    *     new Date(day = 12, month = 5, year = 2018).isLeapYear() ==> Answers false
    */
+  @Type(name="Boolean") 
   method isLeapYear() native
 
   /** Answers the day of the week of the Date with a string representation.
@@ -2999,6 +3235,7 @@ class Date {
    * Example:
    *     new Date(day = 24, month = 2, year = 2018).dayOfWeek() ==> Answers "saturday"
    */
+  @Type(name="String") 
   method dayOfWeek() = calendar.daysOfWeek().get(self.internalDayOfWeek() - 1)
 
   /** Answers the day of week of the Date, where
@@ -3011,6 +3248,7 @@ class Date {
    * Example:
    *     new Date(day = 24, month = 2, year = 2018).internalDayOfWeek() ==> Answers 6 (SATURDAY)
    */
+  @Type(name="Number") 
   method internalDayOfWeek() native
 
   /**
@@ -3020,7 +3258,8 @@ class Date {
    *     new Date().plusDays(4) - new Date() ==> Answers 4
    *     new Date() - new Date().plusDays(2) ==> Answers -2
    */
-  method -(_aDate) native
+  @Type(name="Number") 
+  method -(@Type(name="Date") _aDate) native
 
   /**
    * Answers a copy of this date with the specified number of days subtracted.
@@ -3035,7 +3274,8 @@ class Date {
    *     new Date(day = 1, month = 1, year = 2009).minusDays(-1)
    *          ==> Answers 2/1/2009, a day forward
    */
-  method minusDays(_days) native
+  @Type(name="Date") 
+  method minusDays(@Type(name="Number") _days) native
 
   /**
    * Answers a copy of this date with the specified number of months subtracted.
@@ -3049,7 +3289,8 @@ class Date {
    *     new Date(day = 1, month = 1, year = 2009).minusMonths(-1)
    *             ==> Answers 1/2/2009, a month forward
    */
-  method minusMonths(_months) native
+  @Type(name="Date") 
+  method minusMonths(@Type(name="Number") _months) native
 
   /**
    * Answers a copy of this date with the specified number of years subtracted.
@@ -3063,12 +3304,17 @@ class Date {
    *     new Date(day = 1, month = 1, year = 2009).minusYears(-1)
    *             ==> Answers 1/1/2010, a year forward
    */
-  method minusYears(_years) native
+  @Type(name="Date") 
+  method minusYears(@Type(name="Number") _years) native
 
-  method <(_aDate) native
-  method >(_aDate) native
-  method <=(_aDate) = self == _aDate || self < _aDate
-  method >=(_aDate) = self == _aDate || self > _aDate
+  @Type(name="Boolean") 
+  method <(@Type(name="Date") _aDate) native
+  @Type(name="Boolean") 
+  method >(@Type(name="Date") _aDate) native
+  @Type(name="Boolean") 
+  method <=(@Type(name="Date") _aDate) = self == _aDate || self < _aDate
+  @Type(name="Boolean") 
+  method >=(@Type(name="Date") _aDate) = self == _aDate || self > _aDate
 
   /**
    * Answers whether self is between two dates (both inclusive comparison)
@@ -3077,7 +3323,8 @@ class Date {
    *     new Date(day = 2, month = 4, year = 2018).between(new Date(day = 1, month = 4, year = 2018), new Date(day = 2, month = 4, year = 2018))
    *         ==> Answers true
    */
-  method between(_startDate, _endDate) = (self >= _startDate) && (self <= _endDate)
+  @Type(name="Boolean") 
+  method between(@Type(name="Date") _startDate, @Type(name="Date") _endDate) = (self >= _startDate) && (self <= _endDate)
 
   /**
    * Shows a short, internal representation of a date
@@ -3095,6 +3342,7 @@ class Date {
    *     new Date(day = 13, month = 7, year = 2020).isWorkDay()
    *         ==> Answers true
    */
+  @Type(name="Boolean") 
   method isWorkDay() = self.internalDayOfWeek() < 6
 
   /**
@@ -3103,8 +3351,8 @@ class Date {
    *     new Date(day = 13, month = 7, year = 2020).isWorkDay()
    *         ==> Answers true
    */
+  @Type(name="Boolean") 
   method isWeekendDay() = self.internalDayOfWeek() >= 6
-
 
 }
 
