@@ -5,8 +5,12 @@ The objective of this file is to document the changes to the Wollok language def
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Since 3.4.0 version, the Wollok language adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). 
 
-## v3.4.0
 
+## v3.4.1
+- Types on lang by @PalumboN in #257
+- More tests for `shouldUseConditionalExpression` validation by @dperalta86 in #263
+
+## v3.4.0
 - 🐛 Bug fixes for roundDown, roundUp, truncate by @isaiaslafon
 - 🎮 Wollok Game: moved boardGround, title, ground & cellSize to language, changed exception message size validation, tests refactor and added cellSize tests by @isaiaslafon
 - 🧪 Regression tests for override should match, should return a value on all flows & should not define unused variables by @fdodino
