@@ -32,6 +32,14 @@ describe 'events' {
     keyboard.a().onPressDo(closureMock)
     assert.that(io.eventHandlersFor(event).contains(closureMock))
   }
+
+  test 'cleanKeyPress should remove all event handlers associated with key' {
+    const event = ["keypress", "KeyA"]
+    keyboard.a().onPressDo(closureMock)
+    assert.that(io.eventHandlersFor(event).contains(closureMock))
+    keyboard.a().clean()
+    assert.notThat(io.eventHandlersFor(event).contains(closureMock))
+  }
   
   test 'clear should clear event handlers' {
     const event = ["keypress"]
