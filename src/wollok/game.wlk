@@ -119,6 +119,16 @@ object game {
   }
 
   /**
+   * Removes all blocks associated to a specific key
+   * @see keyboard.onPressDo()
+   */
+  @Type(name="Void")
+  method cleanKeyPress(@Type(name="String") event) { 
+    self.checkNotNull(event, "cleanKeyPress")
+    io.removeEventHandler(['keypress', event])
+  }
+
+  /**
    * Adds a block that will be executed while the given object collides with other. 
    * Two objects collide when are in the same position.
    *
@@ -771,6 +781,20 @@ class Key {
   @Type(name="Void") 
   method onPressDo(@Type(name="{ () => Void }") action) {
     keyCodes.forEach{ key => game.whenKeyPressedDo(key, action) }
+  }
+
+  /**
+   * Removes all blocks associated with self.
+   *
+   * Example:
+   *     keyboard.i().onPressDo { game.say(pepita, "hola!") } 
+   *         => when user hits "i" key, pepita will say "hola!"
+   *     keyboard.i().clean()
+   *         => when user hits "i" key, pepita won't do anything
+   */
+  @Type(name="Void")
+  method clean() {
+    keyCodes.forEach{ key => game.cleanKeyPress(key) }
   }
 }
 
