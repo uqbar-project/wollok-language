@@ -157,5 +157,9 @@ object gameTest {
 	method m26(size) {
 		game.cellSize(size)
 	}
-			
+
+	@Expect(type="(String, { () => Void }) => Void")
+	method m27(key, action) {
+		game.whenKeyReleasedDo(key, action)
+	}
 }	

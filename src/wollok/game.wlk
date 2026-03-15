@@ -111,11 +111,18 @@ object game {
    * Adds a block that will be executed each time a specific key is pressed
    * @see keyboard.onPressDo()
    */  
-  @Type(name="Void") 
-  method whenKeyPressedDo(@Type(name="String") event, @Type(name="{ () => Void }") action) { 
+  @Type(name="Void")
+  method whenKeyPressedDo(@Type(name="String") event, @Type(name="{ () => Void }") action) {
     self.checkNotNull(event, "whenKeyPressedDo")
     self.checkNotNull(action, "whenKeyPressedDo")
     io.addEventHandler(['keypress', event], action)
+  }
+
+  @Type(name="Void")
+  method whenKeyReleasedDo(@Type(name="String") event, @Type(name="{ () => Void }") action) {
+    self.checkNotNull(event, "whenKeyReleasedDo")
+    self.checkNotNull(action, "whenKeyReleasedDo")
+    io.addEventHandler(['keyrelease', event], action)
   }
 
   /**
@@ -771,6 +778,20 @@ class Key {
   @Type(name="Void") 
   method onPressDo(@Type(name="{ () => Void }") action) {
     keyCodes.forEach{ key => game.whenKeyPressedDo(key, action) }
+  }
+
+  @Type(name="Void")
+  method whilePressedDo(@Type(name="{ () => Void }") action, @Type(name="Number") milliseconds) {
+    keyCodes.forEach{ key =>
+      const tickName = "whilePressed_" + key
+      game.whenKeyPressedDo(key, {
+        action.apply()
+        game.onTick(milliseconds, tickName, action)
+      })
+      game.whenKeyReleasedDo(key, {
+        game.removeTickEvent(tickName)
+      })
+    }
   }
 }
 
