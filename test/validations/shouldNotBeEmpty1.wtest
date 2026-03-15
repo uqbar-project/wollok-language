@@ -19,9 +19,16 @@ object objectWithEmptyMethod {
 
   }
 
-  method methodWithEmptyTryCatch() {
+  method methodWithEmptyTry() {
     try @Expect(code="shouldNotBeEmpty", level="warning") {
-    } catch e @Expect(code="shouldNotBeEmpty", level="warning") {
+    } catch e {
+      console.println(e)
+    }
+  }
+    method methodWithEmptyCatch() {
+    try {
+      console.println(1)
+    } catch e @NotExpect(code="shouldNotBeEmpty") {
     }
   }
 }
