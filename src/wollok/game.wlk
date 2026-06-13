@@ -370,18 +370,6 @@ object game {
   method boardGround(@Type(name="String") file) {
     boardGround = file
   }
-
-  /**
-   * Attributes will not show when user mouse over a visual component.
-   */
-  @Type(name="Void") 
-  method hideAttributes(visual) native
-  
-  /**
-   * Attributes will appear again when user mouse over a visual component.
-   */
-  @Type(name="Void") 
-  method showAttributes(visual) native
        
   /**
    * Returns a sound object. Audio file must be a .mp3, .ogg or .wav file.
