@@ -76,7 +76,7 @@ object assert {
    */
   @Type(variable="Value", name="Void")
   method equals(@Type(name="Value") expected, @Type(name="Value") actual) {
-    if (expected != actual) throw new AssertionException(message = "Expected <" + expected.printString() + "> but found <" + actual.printString() + ">")
+    if (expected != actual) throw new AssertionException(message = "Expected <" + expected.toString() + "> but found <" + actual.toString() + ">")
   }
   
   /** 

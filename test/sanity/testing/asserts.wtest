@@ -23,6 +23,10 @@ describe "assert tests" {
     assert.throwsException { => assert.equals(4, 5) }
   }
 
+  test "assert exception with message when equals should fail" {
+    assert.throwsExceptionWithMessage ("Expected <#{1}> but found <#{2}>",{assert.equals(#{1}, #{2})})
+  }
+
   test "assert different when equals should fail" {
     assert.throwsException { => assert.notEquals(4, 4) }
   }
