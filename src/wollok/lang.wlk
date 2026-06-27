@@ -2244,6 +2244,11 @@ class Number {
 
   /**
    * Returns the value of a number rounded to the nearest integer.
+   *
+   * Example:
+   *     13.224.round() ==> 13
+   *     (-13.224).round() ==> -13
+   *     15.942.round() ==> 16
   **/
   @Type(name="Number")
   method round() native
