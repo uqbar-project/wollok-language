@@ -136,16 +136,6 @@ object gameTest {
 	}
 			
 	@Expect(type="(Any) => Void")
-	method m22(obj) {
-		game.hideAttributes(obj) 
-	}
-			
-	@Expect(type="(Any) => Void")
-	method m23(obj) {
-		game.showAttributes(obj) 
-	}
-			
-	@Expect(type="(Any) => Void")
 	method m24(obj) {
 		game.errorReporter(obj) 
 	}
