@@ -109,15 +109,26 @@ object game {
 
   /**
    * Adds a block that will be executed each time a specific key is pressed
-   * @see keyboard.onPressDo()
+   * @see Key.onPressDo()
    */  
-  @Type(name="Void") 
-  method whenKeyPressedDo(@Type(name="String") event, @Type(name="{ () => Void }") action) { 
+  @Type(name="Void")
+  method whenKeyPressedDo(@Type(name="String") event, @Type(name="{ () => Void }") action) {
     self.checkNotNull(event, "whenKeyPressedDo")
     self.checkNotNull(action, "whenKeyPressedDo")
     io.addEventHandler(['keypress', event], action)
   }
 
+  /**
+   * Adds a block that will be executed each time a specific key is released
+   * @see Key.onReleaseDo()
+   */  
+  @Type(name="Void")
+  method whenKeyReleasedDo(@Type(name="String") event, @Type(name="{ () => Void }") action) {
+    self.checkNotNull(event, "whenKeyReleasedDo")
+    self.checkNotNull(action, "whenKeyReleasedDo")
+    io.addEventHandler(['keyrelease', event], action)
+  }
+  
   /**
    * Removes all blocks associated to a specific key
    * @see keyboard.onPressDo()
@@ -771,6 +782,34 @@ class Key {
     keyCodes.forEach{ key => game.whenKeyPressedDo(key, action) }
   }
 
+  /**
+   * Adds a block that will be executed always self is released.
+   *
+   * Example:
+   *     keyboard.i().onReleaseDo { game.say(pepita, "chau!") } 
+   *         => when user release "i" key, pepita will say "chau!"
+   */  
+  @Type(name="Void") 
+  method onReleaseDo(@Type(name="{ () => Void }") action) {
+    keyCodes.forEach{ key => game.whenKeyReleasedDo(key, action) }
+  }
+
+  /**
+   * Adds a block that will be executed each milliseconds since self is pressed until self is released.
+   *
+   * Example:
+   *     keyboard.a().whilePressedDo({ pepita.moveLeft() }, 100)
+   *         => while the user is pressing "a" key, pepita will move to the left
+   */  
+  @Type(name="Void")
+  method whilePressedDo(@Type(name="{ () => Void }") action, @Type(name="Number") milliseconds) {
+    keyCodes.forEach{ key =>
+      const tick = game.tick(milliseconds, action, true)
+      game.whenKeyPressedDo(key, { tick.start() })
+      game.whenKeyReleasedDo(key, { tick.stop() })
+    }
+  }
+  
   /**
    * Removes all blocks associated with self.
    *

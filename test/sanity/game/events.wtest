@@ -19,14 +19,9 @@ class Visual {
 
 object visual inherits Visual { }
 
-describe 'events' {
 
-
-  override method initialize() {
-    game.addVisual(visual)
-  }
-
-
+describe 'Key events' {
+  
   test 'whenKeyPressedDo should add event handler' {
     const event = ["keypress", "KeyA"]
     keyboard.a().onPressDo(closureMock)
@@ -41,20 +36,48 @@ describe 'events' {
     assert.notThat(io.eventHandlersFor(event).contains(closureMock))
   }
   
+  test 'whenKeyReleasedDo should add event handler' {
+    const event = ["keyrelease", "KeyA"]
+    keyboard.a().onReleaseDo(closureMock)
+    assert.that(io.eventHandlersFor(event).contains(closureMock))
+  }
+  
+  test 'whilePressedDo should execute handler between press and release' {
+    const press = ["keypress", "KeyA"]
+    const release = ["keyrelease", "KeyA"]
+    keyboard.a().whilePressedDo(closureMock, 2)
+    io.flushEvents(0) // NO
+    io.flushEvents(1) // NO
+    io.queueEvent(press)
+    io.flushEvents(2) // Yes
+    io.flushEvents(3) // Yes
+    io.queueEvent(release)
+    io.flushEvents(4) // NO
+    io.flushEvents(5) // NO
+    assert.equals(2, closureMock.calledCount())
+  }
+
   test 'clear should clear event handlers' {
     const event = ["keypress"]
     game.whenKeyPressedDo(event, closureMock)
     game.clear()
     assert.notThat(io.eventHandlersFor(event).contains(closureMock))
   }
+}
 
-  test 'whenCollideDo never called' {
+describe 'whenCollideDo' {
+
+  override method initialize() {
+    game.addVisual(visual)
+  }
+
+  test 'never called' {
     game.whenCollideDo(visual, closureMock)
     io.flushEvents(0)
     assert.notThat(closureMock.called())
   }
 
-  test 'whenCollideDo once called' {
+  test 'once called' {
     game.whenCollideDo(visual, closureMock)
     game.addVisual(new Visual())
     io.flushEvents(0)
@@ -62,21 +85,28 @@ describe 'events' {
   }
 
 
-  test 'whenCollideDo many times called' {
+  test 'many times called' {
     game.whenCollideDo(visual, closureMock)
     game.addVisual(new Visual())
     io.flushEvents(0)
     io.flushEvents(1)
     assert.equals(2, closureMock.calledCount()) 
   }
+}
 
-  test 'onCollideDo never called' {
+describe 'onCollideDo' {
+
+  override method initialize() {
+    game.addVisual(visual)
+  }
+
+  test 'never called' {
     game.onCollideDo(visual, closureMock)
     io.flushEvents(0)
     assert.notThat(closureMock.called())
   }
 
-  test 'onCollideDo once called' {
+  test 'once called' {
     game.onCollideDo(visual, closureMock)
     game.addVisual(new Visual())
     io.flushEvents(0)
@@ -85,7 +115,7 @@ describe 'events' {
     assert.equals(1, closureMock.calledCount())  
   }
   
-  test 'onCollideDo once called when a user error occurs' {
+  test 'once called when a user error occurs' {
     game.onCollideDo(visual, closureErrorMock)
     game.addVisual(new Visual())
     io.flushEvents(0)
@@ -95,7 +125,7 @@ describe 'events' {
   }
 
 
-  test 'onCollideDo only once called in same collision' {
+  test 'only once called in same collision' {
     game.onCollideDo(visual, closureMock)
     game.addVisual(new Visual())
     io.flushEvents(0)
@@ -103,7 +133,7 @@ describe 'events' {
     assert.equals(1, closureMock.calledCount())  
   }
 
-  test 'onCollideDo many times called in many collisions' {
+  test 'many times called in many collisions' {
     game.onCollideDo(visual, closureMock)
     const collider = new Visual()
     game.addVisual(collider)
@@ -115,7 +145,7 @@ describe 'events' {
     assert.equals(2, closureMock.calledCount())  
   }
 
-  test 'onCollideDo many times called in many collisions when a user error occurs' {
+  test 'many times called in many collisions when a user error occurs' {
     game.onCollideDo(visual, closureErrorMock)
     const collider = new Visual()
     game.addVisual(collider)
@@ -128,22 +158,24 @@ describe 'events' {
   }
 
 
-  test 'onCollideDo never called when visual is not in the game' {
+  test 'never called when visual is not in the game' {
     game.onCollideDo(visual, closureMock)
     game.addVisual(new Visual())
     game.removeVisual(visual)
     io.flushEvents(0)
     assert.notThat(closureMock.called())
   }
+}
 
+describe 'onTick' {
 
-  test 'onTick never called' {
+  test 'never called' {
     game.onTick(1000, "", closureMock)
     io.flushEvents(999)
     assert.notThat(closureMock.called())
   }
 
-  test 'onTick once called' {
+  test 'once called' {
     game.onTick(1000, "", closureMock)
     io.flushEvents(500)
     assert.notThat(closureMock.called())
@@ -151,7 +183,7 @@ describe 'events' {
     assert.that(closureMock.called())
   }
 
-  test 'onTick many times called' {
+  test 'many times called' {
     game.onTick(1000, "", closureMock)
     io.flushEvents(1000)
     io.flushEvents(1500)
@@ -159,7 +191,7 @@ describe 'events' {
     assert.equals(2, closureMock.calledCount())
   }
 
-  test 'onTick many times called when a user error occurs' {
+  test 'many times called when a user error occurs' {
     game.onTick(1000, "", closureErrorMock)
     io.flushEvents(1000)
     io.flushEvents(1500)
@@ -167,7 +199,7 @@ describe 'events' {
     assert.equals(2, closureErrorMock.calledCount())
   }
 
-  test 'onTick gets executed as many times as expected' {
+  test 'gets executed as many times as expected' {
     game.onTick(100, "", closureMock)
     io.flushEvents(200)
     assert.equals(1, closureMock.calledCount())
@@ -183,31 +215,34 @@ describe 'events' {
     io.flushEvents(1000)
     assert.notThat(closureMock.called())
   }
+}
 
-  test 'Tick class instantiation itself does not start a tickEvent' {
+describe 'Tick objects' {
+
+  test 'instantiation itself does not start a tickEvent' {
     const newTickObject = new Tick(interval = 1000, action = closureMock)
     assert.notThat(newTickObject.isRunning())
   }
 
-  test 'tickEvent executes action when started if inmediate set to true' {
+  test 'executes action when started if inmediate set to true' {
     const newTickObject = new Tick(interval = 1000, inmediate = true, action = closureMock)
     newTickObject.start()
     assert.that(closureMock.called())
   }
 
-  test 'tickEvent executes action when started if inmediate set to true when a user error occurs' {
+  test 'executes action when started if inmediate set to true when a user error occurs' {
     const newTickObject = new Tick(interval = 1000, inmediate = true, action = closureErrorMock)
     newTickObject.start()
     assert.that(closureErrorMock.called())
   }
 
-  test 'tickEvent does not execute action when started if not specified' {
+  test 'does not execute action when started if not specified' {
     const newTickObject = new Tick(interval = 1000, action = closureMock)
     newTickObject.start()
     assert.notThat(closureMock.called())
   }
 
-  test 'Tick.isRunning responds to the correct tickEvent' {
+  test 'isRunning responds to the correct tickEvent' {
     const newTickObject = new Tick(interval = 1000, action = closureMock)
     const anotherTickObject = new Tick(interval = 1000, action = closureMock)
     anotherTickObject.start()
@@ -217,13 +252,13 @@ describe 'events' {
     assert.that(newTickObject.isRunning())
   }
   
-  test 'Tick class instance can start a tickEvent correctly' {
+  test 'can start a tickEvent correctly' {
     const newTickObject = new Tick(interval = 1000, action = closureMock)
     newTickObject.start()
     assert.that(newTickObject.isRunning())
   }
   
-  test 'Tick class instance can stop a tickEvent correctly' {
+  test 'can stop a tickEvent correctly' {
     const newTickObject = new Tick(interval = 1000, action = closureMock)
     newTickObject.start()
     assert.that(newTickObject.isRunning())
@@ -287,31 +322,33 @@ describe 'events' {
     assert.doesNotThrowException({=>newTickObject.interval(800)})
     assert.doesNotThrowException({=>newTickObject.stop()})
   }
+}
 
-  test 'schedule once called' {
+describe 'schedule' {
+
+  test 'once called' {
     game.schedule(1000, closureMock)
     io.flushEvents(1000)
     assert.that(closureMock.called())
   }
 
-  test 'schedule only once called' {
+  test 'only once called' {
     game.schedule(1000, closureMock)
     io.flushEvents(1000)
     io.flushEvents(2000)
     assert.equals(1, closureMock.calledCount())
   }
 
-  test 'schedule only once called when a user error occurs' {
+  test 'only once called when a user error occurs' {
     game.schedule(1000, closureErrorMock)
     io.flushEvents(1000)
     io.flushEvents(2000)
     assert.equals(1, closureErrorMock.calledCount())
   }
 
-  test 'schedule on 0 ms should not throws exception' {
+  test 'on 0 ms should not throws exception' {
     io.exceptionHandler(closureErrorMock)
     game.schedule(0, closureMock)
-    io.flushEvents(0)
+    assert.doesNotThrowException{ io.flushEvents(0) }
   }
-  
 }

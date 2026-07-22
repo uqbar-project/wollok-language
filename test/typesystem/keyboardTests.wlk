@@ -12,4 +12,9 @@ object keysTest {
 	
 	@Expect(type="(Number) => Key")
 	method m3(n) = keyboard.num(n)
+
+	@Expect(type="({ () => Void }, Number) => Void")
+	method m4(action, ms) {
+		keyboard.any().whilePressedDo(action, ms)
+	}
 }
