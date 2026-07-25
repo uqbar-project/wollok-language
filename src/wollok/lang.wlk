@@ -3373,9 +3373,7 @@ object io {
   const property eventHandlers = new Dictionary()
   const property timeHandlers = new Dictionary()
   const property collitionHandlers = new Dictionary()
-  const property clickHandlers = new Dictionary()
   var property eventQueue = []
-  var property clickQueue = []
   var property currentTime = 0
   var property exceptionHandler = { e => }
   var property domainExceptionHandler = { e => }
@@ -3383,15 +3381,8 @@ object io {
   /**
   * Adds given event to the eventQueue.
   */
-  method queueEvent(event) {
+  method queueEvent(event...) {
     eventQueue.add(event)
-  }
-
-  /**
-  * Adds given event to the clickQueue.
-  */
-  method clickEvent(name, coordinate) {
-    clickQueue.add([name, coordinate])
   }
 
   /**
@@ -3472,37 +3463,12 @@ object io {
 
 
   /**
-  *  Returns a list of callbacks for the given event.
-  *  If the given event is not in the clickHandlers, it is added.
-  */
-  method clickHandlersFor(event) {
-    if (!clickHandlers.containsKey(event)) clickHandlers.put(event, [])
-    return clickHandlers.get(event)
-  }
-
-  /**
-  * Adds given callback to the given click event.
-  */
-  method addClickHandler(event, callback) {
-    self.clickHandlersFor(event).add(callback)
-  }
-
-  /*
-  * Removes given event from the ClickHandlers.
-  */
-  method removeClickHandler(event) {
-    clickHandlers.remove(event)
-  }
-
-
-  /**
   * Removes all events from handlers.
   */
   method clear() {
     eventHandlers.clear()
     timeHandlers.clear()
     collitionHandlers.clear()
-    clickHandlers.clear()
   }
 
   /**
@@ -3515,14 +3481,8 @@ object io {
     eventQueue = []
     currentEvents.forEach{ event =>
       eventHandlers.getOrElse(event, { [] }).forEach{ callback => self.runHandler(callback) }
+      eventHandlers.getOrElse(event.first(), { [] }).forEach{ callback => self.runHandler({ callback.apply(event.last()) }) }
     }
-
-    const currentClicks = clickQueue.copy()
-    clickQueue = []
-    currentClicks.forEach{ event =>
-      clickHandlers.getOrElse(event.first(), { [] }).forEach{ callback => self.runHandler({ callback.apply(event.last()) }) }
-    }
-
 
     timeHandlers.forEach{ _, handlers => 
       handlers.forEach{ callback => self.runHandler({ callback.apply(time) }) }

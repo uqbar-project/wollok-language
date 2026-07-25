@@ -121,13 +121,13 @@ object game {
   @Type(name="Void")
   method onClickDo(@Type(name="{ (Position) => Void }") action) {
     self.checkNotNull(action, "onClickDo")
-    io.addClickHandler('mouseClicked', action)
+    io.addEventHandler('mouseClicked', action)
   }
 
   @Type(name="Void")
   method onDoubleClickDo(@Type(name="{ (Position) => Void }") action) {
     self.checkNotNull(action, "onDoubleClickDo")
-    io.addClickHandler('doubleClicked', action)
+    io.addEventHandler('doubleClicked', action)
   }
 
   /**
