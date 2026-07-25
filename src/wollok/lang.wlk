@@ -3373,7 +3373,7 @@ object io {
   const property eventHandlers = new Dictionary()
   const property timeHandlers = new Dictionary()
   const property collitionHandlers = new Dictionary()
-  const property clickHandlers = []
+  const property clickHandlers = new Dictionary()
   var property eventQueue = []
   var property clickQueue = []
   var property currentTime = 0
@@ -3388,10 +3388,10 @@ object io {
   }
 
   /**
-  * Adds given coordinate to the clickQueue.
+  * Adds given event to the clickQueue.
   */
-  method clickEvent(coordinate) {
-    clickQueue.add(coordinate)
+  method clickEvent(name, coordinate) {
+    clickQueue.add([name, coordinate])
   }
 
   /**
@@ -3463,18 +3463,35 @@ object io {
     self.collitionHandlersFor(event).add(callback)
   }
 
-  /**
-  * Adds a handler for click events.
-  */
-  method addClickHandler(callback) {
-    clickHandlers.add(callback)
-  }
-
   /*
   * Removes given event from the collitionHandlers.
   */
   method removeCollitionHandler(event) {
     collitionHandlers.remove(event)
+  }
+
+
+  /**
+  *  Returns a list of callbacks for the given event.
+  *  If the given event is not in the clickHandlers, it is added.
+  */
+  method clickHandlersFor(event) {
+    if (!clickHandlers.containsKey(event)) clickHandlers.put(event, [])
+    return clickHandlers.get(event)
+  }
+
+  /**
+  * Adds given callback to the given click event.
+  */
+  method addClickHandler(event, callback) {
+    self.clickHandlersFor(event).add(callback)
+  }
+
+  /*
+  * Removes given event from the ClickHandlers.
+  */
+  method removeClickHandler(event) {
+    clickHandlers.remove(event)
   }
 
 
@@ -3502,8 +3519,8 @@ object io {
 
     const currentClicks = clickQueue.copy()
     clickQueue = []
-    currentClicks.forEach{ coordinate =>
-      clickHandlers.forEach{ callback => self.runHandler({ callback.apply(coordinate) }) }
+    currentClicks.forEach{ event =>
+      clickHandlers.getOrElse(event.first(), { [] }).forEach{ callback => self.runHandler({ callback.apply(event.last()) }) }
     }
 
 
