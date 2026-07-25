@@ -3373,7 +3373,9 @@ object io {
   const property eventHandlers = new Dictionary()
   const property timeHandlers = new Dictionary()
   const property collitionHandlers = new Dictionary()
+  const property clickHandlers = []
   var property eventQueue = []
+  var property clickQueue = []
   var property currentTime = 0
   var property exceptionHandler = { e => }
   var property domainExceptionHandler = { e => }
@@ -3383,6 +3385,13 @@ object io {
   */
   method queueEvent(event) {
     eventQueue.add(event)
+  }
+
+  /**
+  * Adds given coordinate to the clickQueue.
+  */
+  method clickEvent(coordinate) {
+    clickQueue.add(coordinate)
   }
 
   /**
@@ -3454,6 +3463,13 @@ object io {
     self.collitionHandlersFor(event).add(callback)
   }
 
+  /**
+  * Adds a handler for click events.
+  */
+  method addClickHandler(callback) {
+    clickHandlers.add(callback)
+  }
+
   /*
   * Removes given event from the collitionHandlers.
   */
@@ -3469,6 +3485,7 @@ object io {
     eventHandlers.clear()
     timeHandlers.clear()
     collitionHandlers.clear()
+    clickHandlers.clear()
   }
 
   /**
@@ -3483,6 +3500,13 @@ object io {
       eventHandlers.getOrElse(event, { [] }).forEach{ callback => self.runHandler(callback) }
     }
 
+    const currentClicks = clickQueue.copy()
+    clickQueue = []
+    currentClicks.forEach{ coordinate =>
+      clickHandlers.forEach{ callback => self.runHandler({ callback.apply(coordinate) }) }
+    }
+
+
     timeHandlers.forEach{ _, handlers => 
       handlers.forEach{ callback => self.runHandler({ callback.apply(time) }) }
     }
@@ -3494,14 +3518,13 @@ object io {
     currentTime = time
   }
 
-
   /**
   * Runs the given callback.
   */
   method runHandler(callback) {
     try {
       callback.apply()
-    } catch e: DomainException{
+    } catch e: DomainException {
       domainExceptionHandler.apply(e)
     } catch e {
       exceptionHandler.apply(e)

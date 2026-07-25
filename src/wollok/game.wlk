@@ -118,6 +118,12 @@ object game {
     io.addEventHandler(['keypress', event], action)
   }
 
+  @Type(name="Void")
+  method onClickDo(@Type(name="{ (Position) => Void }") action) {
+    self.checkNotNull(action, "onClickDo")
+    io.addClickHandler(action)
+  }
+
   /**
    * Adds a block that will be executed each time a specific key is released
    * @see Key.onReleaseDo()

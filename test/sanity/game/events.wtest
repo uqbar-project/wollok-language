@@ -352,3 +352,13 @@ describe 'schedule' {
     assert.doesNotThrowException{ io.flushEvents(0) }
   }
 }
+
+describe 'Click events' {
+
+  test 'on click' {
+    game.onClickDo(closureMock)
+    io.clickEvent(game.origin())
+    io.flushEvents(0)
+    assert.that(closureMock.called())
+  }
+}
