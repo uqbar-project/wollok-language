@@ -355,21 +355,21 @@ describe 'Click events' {
 
   test 'on click' {
     game.onClickDo(closureMock)
-    io.queueEvent('mouseClicked', game.origin())
+    io.queueEvent('mouseclick', game.origin())
     io.flushEvents(0)
     assert.that(closureMock.called())
   }
 
   test 'on double click' {
     game.onDoubleClickDo(closureMock)
-    io.queueEvent('doubleClicked', game.origin())
+    io.queueEvent('doubleclick', game.origin())
     io.flushEvents(0)
     assert.that(closureMock.called())
   }
 
   test 'other event' {
     game.onClickDo(closureMock)
-    io.queueEvent('doubleClicked', game.origin())
+    io.queueEvent('doubleclick', game.origin())
     io.flushEvents(0)
     assert.notThat(closureMock.called())
   }
