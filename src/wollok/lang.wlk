@@ -2225,7 +2225,7 @@ class Number {
    *
    * Example:
    *     13.224.roundUp()  ==> 14
-   *     (-13.224).roundUp() ==> -12
+   *     (-13.224).roundUp() ==> -13
    *     15.942.roundUp()  ==> 16
    */
   @Type(name="Number")
