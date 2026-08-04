@@ -258,7 +258,7 @@ describe "Game" {
     const character = new Visual()
     game.addVisualCharacter(character)
     // Simulate
-    io.queueEvent(["keypress", "ArrowUp"])
+    io.queueEvent("keypress", "ArrowUp")
     game.flushEvents(0)
     
     assert.equals(game.at(0, 1), character.position())
@@ -268,7 +268,7 @@ describe "Game" {
     const character = new Visual(position = game.at(0,1))
     game.addVisualCharacter(character)
     // Simulate
-    io.queueEvent(["keypress", "ArrowDown"])
+    io.queueEvent("keypress", "ArrowDown")
     game.flushEvents(0)
     
     assert.equals(game.at(0, 0), character.position())
@@ -278,7 +278,7 @@ describe "Game" {
     const character = new Visual()
     game.addVisualCharacter(character)
     // Simulate
-    io.queueEvent(["keypress", "ArrowRight"])
+    io.queueEvent("keypress", "ArrowRight")
     game.flushEvents(0)
     
     assert.equals(game.at(1, 0), character.position())
@@ -288,7 +288,7 @@ describe "Game" {
     const character = new Visual(position = game.at(1,0))
     game.addVisualCharacter(character)
     // Simulate
-    io.queueEvent(["keypress", "ArrowLeft"])
+    io.queueEvent("keypress", "ArrowLeft")
     game.flushEvents(0)
     
     assert.equals(game.at(0, 0), character.position())
@@ -298,7 +298,7 @@ describe "Game" {
     const character = new Visual()
     game.addVisualCharacter(character)
     // Simulate
-    io.queueEvent(["keypress", "ArrowDown"])
+    io.queueEvent("keypress", "ArrowDown")
     game.flushEvents(0)
     
     assert.equals(game.at(0, 0), character.position())
@@ -309,7 +309,7 @@ describe "Game" {
    const character = new Visual(position = topPosition))
     game.addVisualCharacter(character)
     // Simulate
-    io.queueEvent(["keypress", "ArrowUp"])
+    io.queueEvent("keypress", "ArrowUp")
     game.flushEvents(0)
     
     assert.equals(topPosition, character.position())
@@ -319,7 +319,7 @@ describe "Game" {
     const character = new Visual()
     game.addVisualCharacter(character)
     // Simulate
-    io.queueEvent(["keypress", "ArrowLeft"])
+    io.queueEvent("keypress", "ArrowLeft")
     game.flushEvents(0)
     
     assert.equals(game.at(0, 0), character.position())
@@ -330,7 +330,7 @@ describe "Game" {
     const character = new Visual(position = rightLimitPosition))
     game.addVisualCharacter(character)
     // Simulate
-    io.queueEvent(["keypress", "ArrowRight"])
+    io.queueEvent("keypress", "ArrowRight")
     game.flushEvents(0)
     
     assert.equals(rightLimitPosition, character.position())

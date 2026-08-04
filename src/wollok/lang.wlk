@@ -3381,7 +3381,7 @@ object io {
   /**
   * Adds given event to the eventQueue.
   */
-  method queueEvent(event) {
+  method queueEvent(event...) {
     eventQueue.add(event)
   }
 
@@ -3481,6 +3481,7 @@ object io {
     eventQueue = []
     currentEvents.forEach{ event =>
       eventHandlers.getOrElse(event, { [] }).forEach{ callback => self.runHandler(callback) }
+      eventHandlers.getOrElse(event.first(), { [] }).forEach{ callback => self.runHandler({ callback.apply(event.last()) }) }
     }
 
     timeHandlers.forEach{ _, handlers => 
@@ -3494,14 +3495,13 @@ object io {
     currentTime = time
   }
 
-
   /**
   * Runs the given callback.
   */
   method runHandler(callback) {
     try {
       callback.apply()
-    } catch e: DomainException{
+    } catch e: DomainException {
       domainExceptionHandler.apply(e)
     } catch e {
       exceptionHandler.apply(e)

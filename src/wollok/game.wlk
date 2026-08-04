@@ -118,6 +118,18 @@ object game {
     io.addEventHandler(['keypress', event], action)
   }
 
+  @Type(name="Void")
+  method onClickDo(@Type(name="{ (Position) => Void }") action) {
+    self.checkNotNull(action, "onClickDo")
+    io.addEventHandler('mouseclick', action)
+  }
+
+  @Type(name="Void")
+  method onDoubleClickDo(@Type(name="{ (Position) => Void }") action) {
+    self.checkNotNull(action, "onDoubleClickDo")
+    io.addEventHandler('doubleclick', action)
+  }
+
   /**
    * Adds a block that will be executed each time a specific key is released
    * @see Key.onReleaseDo()

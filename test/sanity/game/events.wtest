@@ -43,22 +43,20 @@ describe 'Key events' {
   }
   
   test 'whilePressedDo should execute handler between press and release' {
-    const press = ["keypress", "KeyA"]
-    const release = ["keyrelease", "KeyA"]
     keyboard.a().whilePressedDo(closureMock, 2)
     io.flushEvents(0) // NO
     io.flushEvents(1) // NO
-    io.queueEvent(press)
+    io.queueEvent("keypress", "KeyA")
     io.flushEvents(2) // Yes
     io.flushEvents(3) // Yes
-    io.queueEvent(release)
+    io.queueEvent("keyrelease", "KeyA")
     io.flushEvents(4) // NO
     io.flushEvents(5) // NO
     assert.equals(2, closureMock.calledCount())
   }
 
   test 'clear should clear event handlers' {
-    const event = ["keypress"]
+    const event = "keypress"
     game.whenKeyPressedDo(event, closureMock)
     game.clear()
     assert.notThat(io.eventHandlersFor(event).contains(closureMock))
@@ -350,5 +348,29 @@ describe 'schedule' {
     io.exceptionHandler(closureErrorMock)
     game.schedule(0, closureMock)
     assert.doesNotThrowException{ io.flushEvents(0) }
+  }
+}
+
+describe 'Click events' {
+
+  test 'on click' {
+    game.onClickDo(closureMock)
+    io.queueEvent('mouseclick', game.origin())
+    io.flushEvents(0)
+    assert.that(closureMock.called())
+  }
+
+  test 'on double click' {
+    game.onDoubleClickDo(closureMock)
+    io.queueEvent('doubleclick', game.origin())
+    io.flushEvents(0)
+    assert.that(closureMock.called())
+  }
+
+  test 'other event' {
+    game.onClickDo(closureMock)
+    io.queueEvent('doubleclick', game.origin())
+    io.flushEvents(0)
+    assert.notThat(closureMock.called())
   }
 }
