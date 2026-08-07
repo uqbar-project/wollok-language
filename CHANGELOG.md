@@ -5,6 +5,17 @@ The objective of this file is to document the changes to the Wollok language def
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Since 3.4.0 version, the Wollok language adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html). 
 
+## v4.0.0
+- New Wollok Game features
+  - Support `whilePressedDo` for keys by @tfloxolodeiro in #264
+  - Support click events by @PalumboN in #273
+  - Clear key actions by @T-J-Antonio in #265
+  - Remove show and hide attributes by @Raul-Sanc in #269
+- Allow empty Catch in validator @nooiise in #266
+- Fix assertion message for colecctions by @santycristaldo14 in #270
+- WollokDoc
+  - Added examples for `round()` by @LuisCaballero01 in #271
+  - Fix negative `roundUp()` example by @lntutor in #274
 
 ## v3.4.1
 - Types on lang by @PalumboN in #257
