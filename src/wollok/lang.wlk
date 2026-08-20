@@ -2269,10 +2269,10 @@ class Number {
    * Converts a decimal number into an integer truncating the decimal part to the same or grater value.
    *
    * Example:
-   *     5.5.ceiling() ==> Answers 6
-   *     5.ceiling() ==> Answers 5
-   *     (-5).ceiling() ==> Answers -5
-   *     (-5.5).ceiling() ==> Answers -5
+   *     5.5.ceil() ==> Answers 6
+   *     5.ceil() ==> Answers 5
+   *     (-5).ceil() ==> Answers -5
+   *     (-5.5).ceil() ==> Answers -5
   **/
   @Type(name="Number")
   method ceil() = self.roundUp()
