@@ -178,12 +178,12 @@ object game {
    */  
   @Type(name="Void") 
   method onCollideDo(visual, @Type(name="{ (Any) => Void }") action) {
-		var lastColliders = []
+    var lastColliders = []
     io.addCollitionHandler(visual.identity(), {  => 
-			const colliders = self.colliders(visual)
-			colliders.forEach({ it => if (self.hasVisual(visual) and !lastColliders.contains(it)) io.runHandler{action.apply(it)} })
-			lastColliders = colliders
-		})
+      const colliders = self.colliders(visual)
+      colliders.forEach({ it => if (self.hasVisual(visual) and !lastColliders.contains(it)) io.runHandler{action.apply(it)} })
+      lastColliders = colliders
+    })
   }
   
   /**
@@ -261,6 +261,7 @@ object game {
   @Type(name="Void") 
   method clear() { 
     visuals.clear()
+    animator.clear()   // CHANGED: also forget the registered animations
     io.clear() 
   }
 
@@ -342,7 +343,7 @@ object game {
    */ 
   @Type(name="Position")
   method center() = if (running) new Position(x = self.xCenter(), y = self.yCenter())  else new CenterOffset()
-	
+  
   /**
    * Sets board width (in cells).
    */ 
@@ -410,6 +411,30 @@ object game {
     return new Tick(interval = interval, action =  action, inmediate = execInmediately)
   }
 
+  /**
+   * Returns an animation that changes the image of target on every frame.
+   * Target must have "var property image".
+   *
+   * Example:
+   *     const walk = game.animation(pepita, ["pepita1.png", "pepita2.png"])
+   *     walk.frameDuration(100)
+   *     walk.shouldLoop(true)
+   *     walk.play()
+   */
+  @Type(name="Animation")
+  method animation(target, frames) = new Animation(target = target, frames = frames)
+
+  /**
+   * NEW
+   * Same as animation(target, frames), building the frames as path + n + ".png".
+   *
+   * Example:
+   *     game.animation(pepita, "pepita_walk_", 4)
+   *       => pepita_walk_1.png, pepita_walk_2.png, pepita_walk_3.png, pepita_walk_4.png
+   */
+  @Type(name="Animation")
+  method animation(target, path, count) = self.animation(target, animator.sequence(path, count))
+
   /** 	
    * @private	
    */	
@@ -422,16 +447,16 @@ object game {
 }
 
 class AbstractPosition {
-	
+  
   @Type(name="Number")
   method x()
-	
+  
   @Type(name="Number")
   method y()
   
   @Type(name="Self")
   method createPosition(@Type(name="Number") x, @Type(name="Number") y)
-	
+  
   /**
    * Returns a new Position n steps right from this one.
    */    
@@ -479,7 +504,7 @@ class AbstractPosition {
    */
   @Type(name="Self")
   method round() = self.createPosition(self.x().round(), self.y().round())
-	
+  
   /**
    * Returns the distance between given position and self.
    */  
@@ -523,7 +548,7 @@ class Position inherits AbstractPosition {
 }
 
 class MutablePosition inherits AbstractPosition {
-	
+  
   var property x = 0
   var property y = 0
   
@@ -531,22 +556,22 @@ class MutablePosition inherits AbstractPosition {
   
   @Type(name="Void")
   method goRight(n){
-  	x += n
+    x += n
   }
   
   @Type(name="Void")
   method goLeft(n){
-  	x -= n
+    x -= n
   }
   
   @Type(name="Void")
   method goUp(n){
-  	y += n
+    y += n
   }
   
   @Type(name="Void")
   method goDown(n){
-  	y -= n
+    y -= n
   }
   
 }
@@ -838,8 +863,8 @@ class Key {
 }
 
 /** Wollok Game Sound object */
-class Sound {	
-  const property file	
+class Sound {  
+  const property file  
 
   override method initialize() {
     super()
@@ -847,73 +872,73 @@ class Sound {
     self.shouldLoop(false)
   }
 
-  /**	
-   * Plays the file's sound. 	
-   * A sound can only be played once.	
-   */	
+  /**  
+   * Plays the file's sound.   
+   * A sound can only be played once.  
+   */  
   @Type(name="Void")
   method play() native
 
-	/**	
-   * Answers whether the sound has been played or not.	
-   */	
+  /**  
+   * Answers whether the sound has been played or not.  
+   */  
   @Type(name="Boolean")
-	method played() native
+  method played() native
 
-	/** 	
-   * Stops playing the sound and disposes resources.	
-   */	
+  /**   
+   * Stops playing the sound and disposes resources.  
+   */  
   @Type(name="Void")
   method stop() native
 
-  /** 	
+  /**   
    * Pauses the sound.
    * Throws error if the sound is already paused or if the sound hasn't been played yet.
-   */	
+   */  
   @Type(name="Void")
   method pause() native
 
-  /** 	
-   * Resumes playing the sound. 	
+  /**   
+   * Resumes playing the sound.   
    * Throws error if the sound is not paused.
-   */	
+   */  
   @Type(name="Void")
   method resume() native
 
-  /** 	
+  /**   
    * Answers whether the sound is paused or not.
-   */	
+   */  
   @Type(name="Boolean")
   method paused() native
 
   /**
    * Changes absolute volume, values must be between 0 and 1.
    *
-   * Examples	
-   *		mySound.volume(0)  => The sound is now muted.
-   *		mySound.volume(0.5)  => New volume is half of the original sound's volume
-   *		mySound.volume(mySound.volume()*0.5) => New volume is half of the current volume
-   */	
+   * Examples  
+   *    mySound.volume(0)  => The sound is now muted.
+   *    mySound.volume(0.5)  => New volume is half of the original sound's volume
+   *    mySound.volume(mySound.volume()*0.5) => New volume is half of the current volume
+   */  
   @Type(name="Void")
   method volume(newVolume) native
 
   /**
    * Answers the volume of the sound.
-   */	
+   */  
   @Type(name="Number")
   method volume() native
 
-  /**	
-   * Sets whether the sound should loop or not.	
-   */	
+  /**  
+   * Sets whether the sound should loop or not.  
+   */  
   @Type(name="Void")
-  method shouldLoop(looping) native	
+  method shouldLoop(looping) native  
 
-  /** 	
-   * Answers whether the sound is set to loop or not. 	
-   */	
+  /**   
+   * Answers whether the sound is set to loop or not.   
+   */  
   @Type(name="Boolean")
-  method shouldLoop() native	
+  method shouldLoop() native  
 
 }
 
@@ -991,3 +1016,168 @@ class Tick {
   }
 }
 
+/**
+ * NEW
+ * Wollok Game Animation object.
+ *
+ * Changes the image of a target on every frame, using a Tick.
+ * The target must have "var property image".
+ * Playing an animation on a target stops any other animation running on that same target.
+ *
+ * Examples:
+ *     const walk = game.animation(player, "player_walk_", 4)
+ *     walk.frameDuration(100)
+ *     walk.shouldLoop(true)
+ *     walk.play()
+ *
+ *     const open = game.animation(door, ["door_1.png", "door_2.png", "door_3.png"])
+ *     open.reverse(true)
+ *     open.onFinish({ console.println("door closed") })
+ *     open.play()
+ */
+class Animation {
+  /** Object whose image is changed on each frame (needs "var property image") */
+  const property target
+
+  /** List of image files */
+  @Type(name="List<String>")
+  const property frames
+
+  /** If true, the animation restarts when it ends */
+  var property shouldLoop = false
+
+  /** If true, frames are played backwards */
+  var property reverse = false
+
+  /** Block executed when a non-looping animation ends (not executed by stop()) */
+  var property onFinish = {}
+
+  var frameDuration = 100
+  var index = 0
+  var paused = false
+  var tick = null
+
+  /**
+   * Starts from the first frame (the last one if reverse is true).
+   * Stops any other animation running on the same target.
+   */
+  @Type(name="Void")
+  method play() {
+    if (frames.isEmpty())
+      throw new DomainException(message = "An animation needs at least one frame")
+
+    animator.start(self)
+    tick = game.tick(frameDuration, { self.advance() }, false)
+    index = self.firstIndex()
+    paused = false
+    self.show()
+    tick.start()
+  }
+
+  /** Pauses the animation. Does nothing if it is not running. */
+  @Type(name="Void")
+  method pause() {
+    if (self.isRunning()) {
+      tick.stop()
+      paused = true
+    }
+  }
+
+  /** Resumes a paused animation. Does nothing if it is not paused. */
+  @Type(name="Void")
+  method resume() {
+    if (paused) {
+      paused = false
+      tick.start()
+    }
+  }
+
+  /**
+   * Stops the animation. The target keeps the image of the current frame.
+   * onFinish is NOT executed.
+   */
+  @Type(name="Void")
+  method stop() {
+    paused = false
+    if (tick != null) tick.stop()
+    animator.remove(self)
+  }
+
+  /** Answers whether the animation has been played (running or paused). */
+  @Type(name="Boolean")
+  method played() = self.isRunning() or paused
+
+  /** Answers whether the animation is paused. */
+  @Type(name="Boolean")
+  method paused() = paused
+
+  /** Milliseconds per frame. Takes effect the next time play() is called. */
+  @Type(name="Number")
+  method frameDuration() = frameDuration
+
+  @Type(name="Void")
+  method frameDuration(milliseconds) {
+    if (milliseconds <= 0)
+      throw new DomainException(message = "frameDuration must be greater than 0")
+    frameDuration = milliseconds
+  }
+
+  /** @private */
+  method isRunning() = tick != null and tick.isRunning()
+
+  /** @private */
+  method advance() {
+    if (self.isLastFrame())
+      self.endOfCycle()
+    else {
+      index = if (reverse) index - 1 else index + 1
+      self.show()
+    }
+  }
+
+  /** @private */
+  method endOfCycle() {
+    if (shouldLoop) {
+      index = self.firstIndex()
+      self.show()
+    } else {
+      self.stop()
+      onFinish.apply()
+    }
+  }
+
+  /** @private */
+  method firstIndex() = if (reverse) frames.size() - 1 else 0
+
+  /** @private */
+  method isLastFrame() = if (reverse) index <= 0 else index >= frames.size() - 1
+
+  /** @private */
+  method show() {
+    target.image(frames.get(index))
+  }
+}
+
+/**
+ * NEW
+ * @private
+ * Keeps track of the running animations (one per target at a time).
+ */
+object animator {
+  const active = []
+
+  method sequence(path, count) = (1..count).map({ n => path + n + ".png" })
+
+  method start(animation) {
+    active.filter({ a => a.target() == animation.target() }).forEach({ a => a.stop() })
+    active.add(animation)
+  }
+
+  method remove(animation) {
+    active.remove(animation)
+  }
+
+  method clear() {
+    active.clear()
+  }
+}

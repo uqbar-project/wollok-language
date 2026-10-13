@@ -20,7 +20,7 @@ object console {
    * - \n in Unix systems
    * - \r\n in Windows systems
    */
-   @Type(name="String") 
+  @Type(name="String") 
   method newline() native
 }
 
