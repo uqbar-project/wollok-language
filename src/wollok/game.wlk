@@ -196,9 +196,8 @@ object game {
    */
   @Type(name="Void") 
   method onTick(@Type(name="Number") milliseconds, @Type(name="String") name, @Type(name="{ () => Void }") action) {
-    var times = 0
-    const initTime = io.currentTime()
-    io.addTimeHandler(name, { time => if (milliseconds == 0 or (time - initTime).div(milliseconds) > times) { io.runHandler(action); times+=1 } })
+    var nextTime = io.currentTime() + milliseconds
+    io.addTimeHandler(name, { time => if (time >= nextTime) { io.runHandler(action); nextTime += milliseconds } })
   }
   
   /**
