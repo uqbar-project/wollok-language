@@ -151,6 +151,24 @@ object game {
     io.removeEventHandler(['keypress', event])
   }
 
+    /**
+   * Removes all blocks associated to a specific click action
+   * @see game.onClickDo()
+   */
+  @Type(name="Void")
+  method cleanClickPress() { 
+    io.removeEventHandler('mouseclick')
+  }
+
+  /**
+   * Removes all blocks associated to a specific double-click action
+   * @see game.onDoubleClickDo()
+   */
+  @Type(name="Void")
+  method cleanDoubleClickPress() { 
+    io.removeEventHandler('doubleclick')
+  }
+
   /**
    * Adds a block that will be executed while the given object collides with other. 
    * Two objects collide when are in the same position.
@@ -184,6 +202,16 @@ object game {
 			colliders.forEach({ it => if (self.hasVisual(visual) and !lastColliders.contains(it)) io.runHandler{action.apply(it)} })
 			lastColliders = colliders
 		})
+  }
+
+    /**
+   * Removes all blocks associated to a specific collide action from certain object
+   * @see game.onCollideDo()
+   * @see game.whenCollideDo()
+   */
+  @Type(name="Void")
+  method cleanCollideAction(visual) { 
+    io.removeCollitionHandler(visual.identity())
   }
   
   /**

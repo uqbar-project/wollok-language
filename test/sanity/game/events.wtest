@@ -90,6 +90,15 @@ describe 'whenCollideDo' {
     io.flushEvents(1)
     assert.equals(2, closureMock.calledCount()) 
   }
+
+  test 'clean collision event does not trigger it' {
+    game.whenCollideDo(visual, closureMock)
+    game.addVisual(new Visual())
+    io.flushEvents(0)
+    game.cleanCollideAction(visual)
+    io.flushEvents(1)
+    assert.equals(1, closureMock.calledCount())  
+  }
 }
 
 describe 'onCollideDo' {
@@ -162,6 +171,19 @@ describe 'onCollideDo' {
     game.removeVisual(visual)
     io.flushEvents(0)
     assert.notThat(closureMock.called())
+  }
+
+  test 'clean collision event does not trigger it' {
+    const collider = new Visual()
+    game.onCollideDo(collider, closureMock)
+    game.addVisual(collider)
+    io.flushEvents(0) // First collision
+    collider.position(game.at(1, 1))
+    io.flushEvents(1) // No collision, different positions
+    game.cleanCollideAction(collider) // removes event
+    collider.position(game.origin())
+    io.flushEvents(2) // Second collision, should not happen
+    assert.equals(1, closureMock.calledCount())   
   }
 }
 
@@ -372,5 +394,21 @@ describe 'Click events' {
     io.queueEvent('doubleclick', game.origin())
     io.flushEvents(0)
     assert.notThat(closureMock.called())
+  }
+
+  test 'cleanClickPress should remove all event handlers associated with click' {
+    const event = "mouseclick"
+    game.onClickDo(closureMock)
+    assert.that(io.eventHandlersFor(event).contains(closureMock))
+    game.cleanClickPress()
+    assert.notThat(io.eventHandlersFor(event).contains(closureMock))
+  }
+
+  test 'cleanDoubleClickPress should remove all event handlers associated with double click' {
+    const event = "doubleclick"
+    game.onDoubleClickDo(closureMock)
+    assert.that(io.eventHandlersFor(event).contains(closureMock))
+    game.cleanDoubleClickPress()
+    assert.notThat(io.eventHandlersFor(event).contains(closureMock))
   }
 }
