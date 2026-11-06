@@ -405,9 +405,9 @@ object game {
    * The interval is in milliseconds and action is a block without params.
   */
   @Type(name="Tick")
-  method tick(interval, action, execInmediately) {
+  method tick(interval, action, execImmediately) {
     if (interval < 1) { self.error("Interval must be higher than zero.") }
-    return new Tick(interval = interval, action =  action, inmediate = execInmediately)
+    return new Tick(interval = interval, action =  action, immediate = execImmediately)
   }
 
   /** 	
@@ -941,7 +941,7 @@ class Tick {
    *  as the loop starts, or it will wait to the first time interval.
   **/
   @Type(name="Boolean")
-  const property inmediate = false 
+  const property immediate = false 
 
   /**
    * Starts looping the action passed in to the tick
@@ -950,7 +950,7 @@ class Tick {
   @Type(name="Void")
   method start() {
     if (self.isRunning()) {game.error("This tick is already started.")}
-    if (inmediate) {io.runHandler(action)}
+    if (immediate) {io.runHandler(action)}
     game.onTick(interval, name, action)
   }
 
