@@ -222,14 +222,14 @@ describe 'Tick objects' {
     assert.notThat(newTickObject.isRunning())
   }
 
-  test 'executes action when started if inmediate set to true' {
-    const newTickObject = new Tick(interval = 1000, inmediate = true, action = closureMock)
+  test 'executes action when started if immediate set to true' {
+    const newTickObject = new Tick(interval = 1000, immediate = true, action = closureMock)
     newTickObject.start()
     assert.that(closureMock.called())
   }
 
-  test 'executes action when started if inmediate set to true when a user error occurs' {
-    const newTickObject = new Tick(interval = 1000, inmediate = true, action = closureErrorMock)
+  test 'executes action when started if immediate set to true when a user error occurs' {
+    const newTickObject = new Tick(interval = 1000, immediate = true, action = closureErrorMock)
     newTickObject.start()
     assert.that(closureErrorMock.called())
   }

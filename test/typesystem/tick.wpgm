@@ -26,7 +26,7 @@ program tickTest {
 
 	@Expect(type="{ () => Boolean }")
 	const m5 = {
-		tick.inmediate()
+		tick.immediate()
 	}
 
 	@Expect(type="{ () => Boolean }")
